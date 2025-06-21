@@ -17,9 +17,9 @@
             <thead class="table-light">
                 <tr>
                     <th class="text-center" style="width:4%">#</th>
-                    <th>Employee Name</th>
-                    <th>Section Adviser</th>
-                    <th>Specialization</th>
+                    <th>Class Room No</th>
+                    <th>Section Name</th>
+                    <th>Student No</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Action</th>
                 </tr>
@@ -43,23 +43,23 @@
                     <div class="modal-body">
                         <input type="hidden" id="editId">
                         <div class="mb-2">
-                            <label class="form-label">Teacher Name</label>
+                            <label class="form-label">Class Room No</label>
                             <input type="text" class="form-control" id="editName" required>
                         </div>
                         <div class="mb-2">
-                            <label class="form-label">Section Adviser</label>
-                            <input type="text" class="form-control" id="editSection" required>
+                            <label class="form-label">Section Name</label>
+                            <input type="text" class="form-control" id="editPurpose" required>
                         </div>
                         <div class="mb-2">
-                            <label class="form-label">Specialization</label>
-                            <input type="text" class="form-control" id="editSpecial" required>
+                            <label class="form-label">Student No</label>
+                            <input type="number" class="form-control" id="editDays" required>
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Status</label>
                             <select class="form-select" id="editStatus">
-                                <option>Pending</option>
-                                <option>Approved</option>
-                                <option>Denied</option>
+                                <option>Vacant</option>
+                                <option>Open</option>
+                                <option>Close</option>
                             </select>
                         </div>
                     </div>
@@ -74,11 +74,11 @@
 
     <script>
         const sampleData = [
-            { id: 1, name: "Juan Dela Cruz", section: "Grade 3", specialize: "Teacher I", status: "Approved" },
-            { id: 2, name: "Maria Santos", section: "Grade 6", specialize: "Teacher II", status: "Pending" },
-            { id: 3, name: "Pedro Reyes", section: "Grade 4", specialize: "Teacher I", status: "Denied" },
-            { id: 4, name: "Ana Lim", section: "Grade 3", specialize: "Teacher III", status: "Approved" },
-            { id: 5, name: "Carlos Rivera", section: "Grade 2", specialize: "Student Teacher ", status: "Pending" }
+            { id: 1, name: "Room 1", purpose: "Jupiter", days: "50", status: "Close" },
+            { id: 2, name: "Room 2", purpose: "Mars", days: "34", status: "Open" },
+            { id: 3, name: "Room 3", purpose: "Venus", days: "40", status: "Vacant" },
+            { id: 4, name: "Room 4", purpose: "Saturn", days: "50", status: "Close" },
+            { id: 5, name: "Room 5", purpose: "Uranus", days: "43", status: "Vacant" }
         ];
 
         let dataTable;
@@ -107,8 +107,8 @@
                 let tr = $('<tr></tr>');
                 tr.append(`<td class="text-center">${i++}</td>`);
                 tr.append(`<td > ${emp.name}</td>`);
-                tr.append(`<td >${emp.section}</td>`);
-                tr.append(`<td >${emp.specialize}</td>`);
+                tr.append(`<td >${emp.purpose}</td>`);
+                tr.append(`<td >${emp.days}</td>`);
                 tr.append(`<td class="text-center">${emp.status}</td>`);
                 tr.append(`<td class="text-center">
                 <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}"><i class="fa fa-edit"></i></button>
@@ -150,8 +150,8 @@
                 if (record) {
                     $('#editId').val(record.id);
                     $('#editName').val(record.name);
-                    $('#editSection').val(record.section);
-                    $('#editSpecial').val(record.specialize);
+                    $('#editPurpose').val(record.purpose);
+                    $('#editDays').val(record.days);
                     $('#editStatus').val(record.status);
                     new bootstrap.Modal(document.getElementById('editModal')).show();
                 }
@@ -164,8 +164,8 @@
             const index = sampleData.findIndex(e => e.id === id);
             if (index !== -1) {
                 sampleData[index].name = $('#editName').val();
-                sampleData[index].section = $('#editSection').val();
-                sampleData[index].specialize = $('#editSpecial').val();
+                sampleData[index].purpose = $('#editPurpose').val();
+                sampleData[index].days = $('#editDays').val();
                 sampleData[index].status = $('#editStatus').val();
                 renderTable();
                 showToast("Record updated successfully!", "success");

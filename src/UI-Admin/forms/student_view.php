@@ -17,9 +17,10 @@
             <thead class="table-light">
                 <tr>
                     <th class="text-center" style="width:4%">#</th>
-                    <th>Employee Name</th>
-                    <th>Section Adviser</th>
-                    <th>Specialization</th>
+                    <th>Learner Name</th>
+                    <th>Section</th>
+                    <th>Academic Excellence</th>
+                    <th>Marking Performance</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Action</th>
                 </tr>
@@ -43,23 +44,27 @@
                     <div class="modal-body">
                         <input type="hidden" id="editId">
                         <div class="mb-2">
-                            <label class="form-label">Teacher Name</label>
+                            <label class="form-label">Learner Name</label>
                             <input type="text" class="form-control" id="editName" required>
                         </div>
                         <div class="mb-2">
-                            <label class="form-label">Section Adviser</label>
+                            <label class="form-label">Section</label>
                             <input type="text" class="form-control" id="editSection" required>
                         </div>
                         <div class="mb-2">
-                            <label class="form-label">Specialization</label>
-                            <input type="text" class="form-control" id="editSpecial" required>
+                            <label class="form-label">Academic Excellence</label>
+                            <input type="text" class="form-control" id="editAcad" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Marking Comment</label>
+                            <input type="text" class="form-control" id="editMark" required>
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Status</label>
                             <select class="form-select" id="editStatus">
+                                <option>Enrolled</option>
                                 <option>Pending</option>
-                                <option>Approved</option>
-                                <option>Denied</option>
+                                <option>Verifying</option>
                             </select>
                         </div>
                     </div>
@@ -74,11 +79,11 @@
 
     <script>
         const sampleData = [
-            { id: 1, name: "Juan Dela Cruz", section: "Grade 3", specialize: "Teacher I", status: "Approved" },
-            { id: 2, name: "Maria Santos", section: "Grade 6", specialize: "Teacher II", status: "Pending" },
-            { id: 3, name: "Pedro Reyes", section: "Grade 4", specialize: "Teacher I", status: "Denied" },
-            { id: 4, name: "Ana Lim", section: "Grade 3", specialize: "Teacher III", status: "Approved" },
-            { id: 5, name: "Carlos Rivera", section: "Grade 2", specialize: "Student Teacher ", status: "Pending" }
+            { id: 1, name: "Juan Dela Cruz", section: "Grade 3", performance: "with Honor", mark: "Very Talkative child", status: "Enrolled" },
+            { id: 2, name: "Maria Santos", section: "Grade 6", performance: "with Honor", mark: "Abnormal child", status: "Pending" },
+            { id: 3, name: "Pedro Reyes", section: "Grade 4", performance: "with Honor", mark: "Perfect child", status: "Enrolled" },
+            { id: 4, name: "Ana Lim", section: "Grade 3", performance: "with Honor", mark: "Kindly child", status: "Verifying" },
+            { id: 5, name: "Carlos Rivera", section: "Grade 2", performance: "Very Good ", mark: "Friendly child", status: "Enrolled" }
         ];
 
         let dataTable;
@@ -108,7 +113,8 @@
                 tr.append(`<td class="text-center">${i++}</td>`);
                 tr.append(`<td > ${emp.name}</td>`);
                 tr.append(`<td >${emp.section}</td>`);
-                tr.append(`<td >${emp.specialize}</td>`);
+                tr.append(`<td >${emp.performance}</td>`);
+                tr.append(`<td >${emp.mark}</td>`);
                 tr.append(`<td class="text-center">${emp.status}</td>`);
                 tr.append(`<td class="text-center">
                 <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}"><i class="fa fa-edit"></i></button>
@@ -151,7 +157,8 @@
                     $('#editId').val(record.id);
                     $('#editName').val(record.name);
                     $('#editSection').val(record.section);
-                    $('#editSpecial').val(record.specialize);
+                    $('#editAcad').val(record.performance);
+                    $('#editMark').val(record.mark);
                     $('#editStatus').val(record.status);
                     new bootstrap.Modal(document.getElementById('editModal')).show();
                 }
@@ -165,7 +172,8 @@
             if (index !== -1) {
                 sampleData[index].name = $('#editName').val();
                 sampleData[index].section = $('#editSection').val();
-                sampleData[index].specialize = $('#editSpecial').val();
+                sampleData[index].performance = $('#editAcad').val();
+                sampleData[index].mark = $('#editMark').val();
                 sampleData[index].status = $('#editStatus').val();
                 renderTable();
                 showToast("Record updated successfully!", "success");

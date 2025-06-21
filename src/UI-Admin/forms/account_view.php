@@ -48,11 +48,11 @@
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Section Adviser</label>
-                            <input type="text" class="form-control" id="editSection" required>
+                            <input type="text" class="form-control" id="editPurpose" required>
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Specialization</label>
-                            <input type="text" class="form-control" id="editSpecial" required>
+                            <input type="number" class="form-control" id="editDays" required>
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Status</label>
@@ -74,11 +74,11 @@
 
     <script>
         const sampleData = [
-            { id: 1, name: "Juan Dela Cruz", section: "Grade 3", specialize: "Teacher I", status: "Approved" },
-            { id: 2, name: "Maria Santos", section: "Grade 6", specialize: "Teacher II", status: "Pending" },
-            { id: 3, name: "Pedro Reyes", section: "Grade 4", specialize: "Teacher I", status: "Denied" },
-            { id: 4, name: "Ana Lim", section: "Grade 3", specialize: "Teacher III", status: "Approved" },
-            { id: 5, name: "Carlos Rivera", section: "Grade 2", specialize: "Student Teacher ", status: "Pending" }
+            { id: 1, name: "Juan Dela Cruz", purpose: "Grade 3", days: "Teacher I", status: "Approved" },
+            { id: 2, name: "Maria Santos", purpose: "Grade 6", days: "Teacher II", status: "Pending" },
+            { id: 3, name: "Pedro Reyes", purpose: "Grade 4", days: "Teacher I", status: "Denied" },
+            { id: 4, name: "Ana Lim", purpose: "Grade 3", days: "Teacher III", status: "Approved" },
+            { id: 5, name: "Carlos Rivera", purpose: "Grade 2", days: "Student Teacher ", status: "Pending" }
         ];
 
         let dataTable;
@@ -107,13 +107,13 @@
                 let tr = $('<tr></tr>');
                 tr.append(`<td class="text-center">${i++}</td>`);
                 tr.append(`<td > ${emp.name}</td>`);
-                tr.append(`<td >${emp.section}</td>`);
-                tr.append(`<td >${emp.specialize}</td>`);
+                tr.append(`<td >${emp.purpose}</td>`);
+                tr.append(`<td >${emp.days}</td>`);
                 tr.append(`<td class="text-center">${emp.status}</td>`);
                 tr.append(`<td class="text-center">
                 <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}"><i class="fa fa-edit"></i></button>
-                <button class="btn btn-sm btn-success trashBtn" data-id="${emp.id}"><i class="fa fa-trash"></i></button>
-                <button class="btn btn-sm btn-success viewBtn" data-id="${emp.id}"><i class="fa fa-eye"></i></button>
+                <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}"><i class="fa fa-trash"></i></button>
+                <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}"><i class="fa fa-eye"></i></button>
                 </td>`);
                 tbody.append(tr);
             });
@@ -150,8 +150,8 @@
                 if (record) {
                     $('#editId').val(record.id);
                     $('#editName').val(record.name);
-                    $('#editSection').val(record.section);
-                    $('#editSpecial').val(record.specialize);
+                    $('#editPurpose').val(record.purpose);
+                    $('#editDays').val(record.days);
                     $('#editStatus').val(record.status);
                     new bootstrap.Modal(document.getElementById('editModal')).show();
                 }
@@ -164,8 +164,8 @@
             const index = sampleData.findIndex(e => e.id === id);
             if (index !== -1) {
                 sampleData[index].name = $('#editName').val();
-                sampleData[index].section = $('#editSection').val();
-                sampleData[index].specialize = $('#editSpecial').val();
+                sampleData[index].purpose = $('#editPurpose').val();
+                sampleData[index].days = $('#editDays').val();
                 sampleData[index].status = $('#editStatus').val();
                 renderTable();
                 showToast("Record updated successfully!", "success");
