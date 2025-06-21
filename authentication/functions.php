@@ -1,21 +1,22 @@
 <?php
-include 'config.php';
-function initInstaller()
+//include('D:/XAMP/htdocs/Github/FinalZPCO/authentication/class/config.php');
+include "config.php";
+
+/* function initInstaller()
 {
-    global $pdo;
+    $pdo = db_connect();
 
     try {
-        $stmt = $pdo->prepare("SELECT * FROM admin WHERE user_role = ?");
-        $stmt->execute(['user_role']);
+        $stmt = $pdo->prepare("SELECT * FROM admin WHERE user_role = :user_role");
+        $stmt->execute(['user_role' => 'admin']);
         $admins = $stmt->fetch();
 
         $currentUrl = $_SERVER['REQUEST_URI'];
-        $installerPath = '/src';
+        $installerPath = "installation";
 
-        
         if (empty($admins)) {
             if ($currentUrl !== $installerPath) {
-                header("Location: " . base_url() . "src/main.php");
+                header("Location: " . base_url() . "installation/");
                 exit;
             }
         } else {
@@ -30,12 +31,46 @@ function initInstaller()
     }
 
     $pdo = null;
+} */
+
+function initInstaller()
+{
+    $pdo = db_connect();
+
+    try {
+        // Check if admin exists
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM admin WHERE user_role = :user_role");
+        $stmt->execute(['user_role' => 'admin']);
+        $adminCount = $stmt->fetchColumn();
+
+        // Get clean current path
+        $currentPath = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+        $installerPath = 'installation';
+        $srcPath = 'src';
+
+        if ($adminCount > 0) {
+            if (strpos($currentPath, $installerPath) === 0) {
+                header("Location: " . base_url() . "src/");
+                exit;
+            }
+        } else {
+            if (strpos($currentPath, $installerPath) !== 0) {
+                header("Location: " . base_url() . "installation/");
+                exit;
+            }
+        }
+
+    } catch (PDOException $e) {
+        die("Installer check failed: " . $e->getMessage());
+    }
+    $pdo = null;
 }
+
 
 
 function base_url()
 {
-    global $pdo;
+    $pdo = db_connect();
 
 
     if (isset($_SERVER['HTTPS'])) {
@@ -52,7 +87,7 @@ function base_url()
     if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
         return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/github/MariaSys/';
     }
-    return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/';
+    return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/github';
 
 }
 
@@ -70,15 +105,12 @@ function render_styles()
 {
 
     $styles = [
-       /*  base_url() . 'assets/css/all.min.css',
+        base_url() . 'assets/css/all.min.css',
         base_url() . 'assets/css/custom-bs.min.css',
         base_url() . 'assets/css/main.css',
         base_url() . 'assets/css/icons.min.css',
         base_url() . 'assets/css/morris.css',
-        base_url() . 'assets/css/dataTables.dataTables.min.css', 
-        base_url() . 'assets/css/UI/Ui.css',
-        base_url() . 'assets/css/UI/Nav.css'
-        */
+        base_url() . 'assets/css/dataTables.dataTables.min.css',
     ];
 
     foreach ($styles as $style) {
@@ -128,7 +160,7 @@ function render_json()
 function get_option($key)
 {
     try {
-        global $pdo;
+        $pdo = db_connect();
 
         $stmt = $pdo->prepare("SELECT system_title, system_description FROM system ");
         $stmt->execute();

@@ -1,5 +1,7 @@
-<!-- <?php include '../header.php';?>
- -->
+<?php include '../header.php';
+initInstaller();
+?>
+
 <h2 class="text-center mt-5">
     <a href="index.php" class="text-decoration-none text-dark"><?php echo get_option('system_title'); ?></a>
     <span class="text-muted">|</span>

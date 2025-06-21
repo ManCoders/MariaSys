@@ -1,20 +1,23 @@
 <?php
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'elementaryDB';
 
-try {
-    $pdo = new PDO("mysql:host=$host;charset=utf8mb4", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+function db_connect()
+{
+    $host = 'localhost';
+    $username = 'root';
+    $password = '';
+    $database = 'elementaryDB';
 
-    $pdo->exec("CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
+    try {
+        $pdo = new PDO("mysql:host=$host;charset=utf8mb4", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $pdo = new PDO("mysql:host=$host;dbname=$database;charset=utf8mb4", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->exec("CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
 
-    $tableQueries = [
-        "CREATE TABLE IF NOT EXISTS teacher (
+        $pdo = new PDO("mysql:host=$host;dbname=$database;charset=utf8mb4", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $tableQueries = [
+            "CREATE TABLE IF NOT EXISTS teacher (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 firstname VARCHAR(50) NOT NULL,
                 middlename VARCHAR(50) NOT NULL,
@@ -38,7 +41,7 @@ try {
                 profile_picture VARCHAR(255) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
-        "CREATE TABLE IF NOT EXISTS parent (
+            "CREATE TABLE IF NOT EXISTS parent (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 firstname VARCHAR(50) NOT NULL,
                 middlename VARCHAR(50) NOT NULL,
@@ -61,7 +64,7 @@ try {
                 profile_picture VARCHAR(255) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
-        "CREATE TABLE IF NOT EXISTS admin (
+            "CREATE TABLE IF NOT EXISTS admin (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 firstname VARCHAR(50) NOT NULL,
                 middlename VARCHAR(50) NOT NULL,
@@ -84,22 +87,22 @@ try {
                 profile_picture VARCHAR(255) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
-        "CREATE TABLE IF NOT EXISTS system (
+            "CREATE TABLE IF NOT EXISTS system (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 system_title VARCHAR(50) NOT NULL,
                 system_description VARCHAR(255) NOT NULL,
                 system_logo VARCHAR(20) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )"
-    ];
+        ];
 
-    foreach ($tableQueries as $sql) {
-        $pdo->exec($sql);
+        foreach ($tableQueries as $sql) {
+            $pdo->exec($sql);
+        }
+
+        return $pdo;
+
+    } catch (PDOException $e) {
+        die("Database error: " . $e->getMessage());
     }
-
-    return $pdo;
-
-} catch (PDOException $e) {
-    die("Database error: " . $e->getMessage());
 }
-

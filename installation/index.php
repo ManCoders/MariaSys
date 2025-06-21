@@ -10,7 +10,8 @@ include "../header.php";
                     <form id="install-form">
                         <div class="mb-1">
                             <div class="card-header text-center">
-                                <h2><?php echo "Installation"; ?></h2>
+                                <h2><?php echo "Installation "; ?></h2>
+                                
                             </div>
                             <?php ?>
                             <div class="custom-file mx-auto">

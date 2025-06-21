@@ -1,6 +1,6 @@
 <?php 
 include "authentication/functions.php";
-initInstaller();
+
 
 ?>
 <!DOCTYPE html>
