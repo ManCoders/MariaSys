@@ -1,6 +1,6 @@
 <?php 
 include "../header.php";
-include "../authentication/functions.php";
+/* include "../authentication/functions.php"; */
 ?>
 <main id="main" class="installer-page d-flex flex-column justify-content-center align-items-center mt-5">
     <div class="container">

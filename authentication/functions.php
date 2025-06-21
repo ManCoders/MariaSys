@@ -10,12 +10,12 @@ function initInstaller()
         $admins = $stmt->fetch();
 
         $currentUrl = $_SERVER['REQUEST_URI'];
-        $installerPath = '/installation';
+        $installerPath = '/src';
 
         
         if (empty($admins)) {
             if ($currentUrl !== $installerPath) {
-                header("Location: " . base_url() . "installation/");
+                header("Location: " . base_url() . "src/main.php");
                 exit;
             }
         } else {
