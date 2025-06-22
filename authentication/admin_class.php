@@ -16,7 +16,7 @@ class Action
 
     function __destruct()
     {
-        $this->db = null; // Proper way to close PDO
+        $this->db = null; 
     }
 
 
@@ -84,7 +84,7 @@ class Action
                     return json_encode([
                         'status' => 1,
                         'message' => 'Login successful.',
-                        'redirect_url' => 'src/IT/index.php'
+                        'redirect_url' => 'src/UI-Admin/main.php'
                     ]);
                 } else {
                     return json_encode(['status' => 2, 'message' => 'Invalid username or password.']);
@@ -122,7 +122,7 @@ class Action
                 return json_encode([
                     'status' => 1,
                     'message' => 'Login successful.',
-                    'redirect_url' => 'src/admin/index.php'
+                    'redirect_url' => 'src/UI-Teacher/Main.php'
                 ]);
                 } else {
                     return json_encode(['status' => 2, 'message' => 'Invalid username or password.']);
@@ -156,7 +156,7 @@ class Action
                 return json_encode([
                     'status' => 1,
                     'message' => 'Login successful.',
-                    'redirect_url' => 'src/employee/index.php'
+                    'redirect_url' => 'src/UI-Parent/Main.php'
                 ]);
                 } else {
                     return json_encode(['status' => 2, 'message' => 'Invalid username or password.']);

@@ -1,7 +1,4 @@
-<?php 
-include "../header.php";
-/* include "../authentication/functions.php"; */
-?>
+<?php include '../header.php'; ?>
 <main id="main" class="installer-page d-flex flex-column justify-content-center align-items-center mt-5">
     <div class="container">
         <div class="row justify-content-center">

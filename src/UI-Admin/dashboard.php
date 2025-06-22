@@ -55,30 +55,30 @@
 <script>
   $('#teacher_id').click(function () {
     /* console.log("teacher_btn"); */
-    uni_modal('Teacher Management', './UI-admin/forms/teacher_view.php', 'large');
+    uni_modal('Teacher Management', './forms/teacher_view.php', 'large');
   });
 
   $('#student_id').click(function () {
     /* console.log("teacher_btn"); */
-    uni_modal('Student Management', './UI-admin/forms/student_view.php', 'large');
+    uni_modal('Student Management', './forms/student_view.php', 'large');
   });
 
   $('#class_id').click(function () {
     /* console.log("teacher_btn"); */
-    uni_modal('Classroom Management', './UI-admin/forms/class_view.php', 'large');
+    uni_modal('Classroom Management', './forms/class_view.php', 'large');
   });
 
   $('#report_id').click(function () {
     /* console.log("teacher_btn"); */
-    uni_modal('Report Management', './UI-admin/forms/report_view.php', 'large');
+    uni_modal('Report Management', './forms/report_view.php', 'large');
   });
 
   $('#setting_id').click(function () {
     /* console.log("teacher_btn"); */
-    uni_modal('Setting Configuration', './UI-admin/forms/setting_view.php', 'large');
+    uni_modal('Setting Configuration', './forms/setting_view.php', 'large');
   });
   $('#account_id').click(function () {
     /* console.log("teacher_btn"); */
-    uni_modal('Setting Configuration', './UI-admin/forms/account_view.php', 'large');
+    uni_modal('Setting Configuration', './forms/account_view.php', 'large');
   });
 </script>

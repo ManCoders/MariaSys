@@ -1,5 +1,5 @@
 <?php include '../header.php';
-initInstaller();
+initInstaller()
 ?>
 
 <h2 class="text-center mt-5">

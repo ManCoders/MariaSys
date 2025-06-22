@@ -40,13 +40,12 @@ function initInstaller()
     try {
         // Check if admin exists
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM admin WHERE user_role = :user_role");
-        $stmt->execute(['user_role' => 'admin']);
+        $stmt->execute(['user_role' => 'administrator']);
         $adminCount = $stmt->fetchColumn();
 
         // Get clean current path
         $currentPath = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-        $installerPath = 'installation';
-        $srcPath = 'src';
+        $installerPath = '/installation';
 
         if ($adminCount > 0) {
             if (strpos($currentPath, $installerPath) === 0) {
@@ -110,7 +109,7 @@ function render_styles()
         base_url() . 'assets/css/main.css',
         base_url() . 'assets/css/icons.min.css',
         base_url() . 'assets/css/morris.css',
-        base_url() . 'assets/css/dataTables.dataTables.min.css',
+        base_url() . 'assets/css/dataTables.dataTables.min.css'
     ];
 
     foreach ($styles as $style) {

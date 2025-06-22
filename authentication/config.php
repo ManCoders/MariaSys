@@ -106,3 +106,5 @@ function db_connect()
         die("Database error: " . $e->getMessage());
     }
 }
+
+$pdo = db_connect();

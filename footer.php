@@ -1,1 +1,3 @@
-<?php render_scripts();?>
+
+<?php
+render_scripts();?>

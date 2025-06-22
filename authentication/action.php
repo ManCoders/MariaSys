@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 /* header('x-powered-by : PHP/8.0.30'); */
 $action = isset($_GET['action']) ? htmlspecialchars($_GET['action']) : '';
 
-include './admin_class.php';
+include 'admin_class.php';
 
 $crud = new Action();
 
