@@ -15,23 +15,23 @@
             <a href="index.php?page=home" class="nav-item nav-home">
                 <span class=""><i class=""></i></span> Dashboard
             </a>
-            <a href="index.php?page=contents/teacher" class="nav-item nav-teacher">
-                <span class=""><i class=""></i></span> Teacher Management
+            <a href="index.php?page=contents/view" class="nav-item nav-view">
+                <span class=""><i class=""></i></span> Views class
             </a>
-            <a href="index.php?page=contents/student" class="nav-item nav-student">
-                <span class=""><i class=""></i></span> Students Management
+            <a href="index.php?page=contents/attendance" class="nav-item nav-attendance">
+                <span class=""><i class=""></i></span> Takes attendance
             </a>
-            <a href="index.php?page=contents/classroom" class="nav-item nav-classroom">
-                <span class=""><i class=""></i></span> ClassRoom
+            <a href="index.php?page=contents/health" class="nav-item nav-health">
+                <span class=""><i class=""></i></span>  Medical health
             </a>
-            <a href="index.php?page=contents/Subject" class="nav-item nav-Subject">
-                <span class=""><i class=""></i></span> Subjects
+            <a href="index.php?page=contents/enrolled" class="nav-item nav-enrolled">
+                <span class=""><i class=""></i></span> Enrolled student
             </a>
-            <a href="index.php?page=contents/record" class="nav-item nav-record">
-                <span class=""><i class=""></i></span> Record Documents
+            <a href="index.php?page=contents/generate" class="nav-item nav-generate">
+                <span class=""><i class=""></i></span> Generate Data
             </a>
             <a href="index.php?page=contents/setting" class="nav-item nav-setting">
-                <span class=""><i class=""></i></span> System Settings
+                <span class=""><i class=""></i></span> Account Settings
             </a>
         </div>
     </div>

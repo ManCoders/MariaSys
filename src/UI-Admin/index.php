@@ -10,8 +10,13 @@
     
     <div class="d-flex d-justify-between">
         <?php include 'nav-sidebar.php'; ?>
-        <?php include 'content.php'; ?>
+        <div class="mx-2 w-100 " >
+            <?php include 'content.php'; ?>
+        </div>
     </div>
     <?php include '../../footer.php'?>
+    
 </body>
 </html>
+
+    

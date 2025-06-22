@@ -15,23 +15,14 @@
             <a href="index.php?page=home" class="nav-item nav-home">
                 <span class=""><i class=""></i></span> Dashboard
             </a>
-            <a href="index.php?page=contents/teacher" class="nav-item nav-teacher">
-                <span class=""><i class=""></i></span> Teacher Management
+            <a href="index.php?page=contents/enrollment" class="nav-item nav-enrollment">
+                <span class=""><i class=""></i></span> Enrollment
             </a>
             <a href="index.php?page=contents/student" class="nav-item nav-student">
-                <span class=""><i class=""></i></span> Students Management
-            </a>
-            <a href="index.php?page=contents/classroom" class="nav-item nav-classroom">
-                <span class=""><i class=""></i></span> ClassRoom
-            </a>
-            <a href="index.php?page=contents/Subject" class="nav-item nav-Subject">
-                <span class=""><i class=""></i></span> Subjects
-            </a>
-            <a href="index.php?page=contents/record" class="nav-item nav-record">
-                <span class=""><i class=""></i></span> Record Documents
+                <span class=""><i class=""></i></span> Students View
             </a>
             <a href="index.php?page=contents/setting" class="nav-item nav-setting">
-                <span class=""><i class=""></i></span> System Settings
+                <span class=""><i class=""></i></span> Account Settings
             </a>
         </div>
     </div>
