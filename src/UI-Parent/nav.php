@@ -68,6 +68,6 @@
     <li><a href="#">📆 Attendance</a></li>
     <li><a href="#">📢 Announcements</a></li> -->
     <li><a href="#">😒Profiles</a></li>
-    <li><a href="logout.php" class="logout">🚪 Logout</a></li>
+    <li><a id="logout" class="logout" style="cursor: pointer; ">🚪 Logout</a></li>
   </ul>
 </nav>

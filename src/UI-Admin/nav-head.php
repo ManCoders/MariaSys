@@ -63,6 +63,6 @@
   </div>
   <ul class="nav-menu">
     <li><a href="#">😒Profiles</a></li>
-    <li><a href="" class="logout">🚪 Logout</a></li>
+    <li><a id="logout" class="logout" style="cursor: pointer; ">🚪 Logout</a></li>
   </ul>
 </nav>
