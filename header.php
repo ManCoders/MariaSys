@@ -12,5 +12,6 @@ include 'authentication/functions.php';
     <script>
         var base_url = '<?php echo base_url() ?>';
     </script>
+    <?php render_scripts() ?>
 </head>
     <body class="bg-light-300">

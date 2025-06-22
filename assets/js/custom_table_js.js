@@ -1,7 +1,7 @@
 var tablesDT;
 document.addEventListener("DOMContentLoaded", function () {
     if (tablesDT === undefined) {
-        tablesDT = new DataTable('#tables', {
+        tablesDT = new DataTable('#table', {
             responsive: true,
             autoWidth: false,
             pageLength: 5,
