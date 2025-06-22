@@ -25,7 +25,7 @@ initInstaller()
                             </div>
                             <div class="mb-3">
                                 <input type="password" class="form-control" name="password" placeholder="Password: "
-                                    required>
+                                    >
                             </div>
                             <div class="mb-3 text-center">
                                 <input type="submit" value="Login" class="btn btn-primary"></input>

@@ -62,12 +62,7 @@
     <strong>Sta.Maria Elementary School</strong>
   </div>
   <ul class="nav-menu">
-    <!--     <li><a href="admin-dashboard.php">🏠 Dashboard</a></li>
-    <li><a href="#">🧑‍🏫 Teachers</a></li>
-    <li><a href="#">🧑‍🎓 Students</a></li>
-    <li><a href="#">🏫 Classes</a></li>
-    <li><a href="#">📢 Announcements</a></li> -->
     <li><a href="#">😒Profiles</a></li>
-    <li><a href="logout.php" class="logout">🚪 Logout</a></li>
+    <li><a href="" class="logout">🚪 Logout</a></li>
   </ul>
 </nav>

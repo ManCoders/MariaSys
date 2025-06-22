@@ -69,7 +69,7 @@ class Action
             $stmt->execute([$username]);
             $admin = $stmt->fetch();
 
-            if ($admin && $admin['user_role'] === 'administrator') {
+            if ($admin && $admin['user_role'] === 'admin') {
                 if (password_verify($password, $admin['password'])) {
                     $_SESSION['adminData'] = [
                         'firstname' => $admin['firstname'],
@@ -91,11 +91,11 @@ class Action
                 }
             }
 
-            $stmt = $this->db->prepare("SELECT * FROM regular WHERE username = ?");
+            $stmt = $this->db->prepare("SELECT * FROM teacher WHERE username = ?");
             $stmt->execute([$username]);
             $user = $stmt->fetch();
 
-            if ($user && $user['user_role'] === '1') {
+            if ($user && $user['user_role'] === 'teacher') {
                 if (password_verify($password, $user['password'])) {
                 $_SESSION['userData'] = [
                     'firstname' => $user['firstname'],
@@ -122,14 +122,14 @@ class Action
                 return json_encode([
                     'status' => 1,
                     'message' => 'Login successful.',
-                    'redirect_url' => 'src/UI-Teacher/Main.php'
+                    'redirect_url' => 'src/UI-Teacher/index.php'
                 ]);
                 } else {
                     return json_encode(['status' => 2, 'message' => 'Invalid username or password.']);
                 }
             }
 
-            if ($user && $user['user_role'] === '2') {
+            if ($user && $user['user_role'] === 'parent') {
                 if (password_verify($password, $user['password'])) {
                 $_SESSION['userData'] = [
                     'firstname' => $user['firstname'],
@@ -156,7 +156,7 @@ class Action
                 return json_encode([
                     'status' => 1,
                     'message' => 'Login successful.',
-                    'redirect_url' => 'src/UI-Parent/Main.php'
+                    'redirect_url' => 'src/UI-Parent/index.php'
                 ]);
                 } else {
                     return json_encode(['status' => 2, 'message' => 'Invalid username or password.']);

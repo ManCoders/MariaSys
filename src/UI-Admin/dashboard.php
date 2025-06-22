@@ -1,4 +1,4 @@
-<?php include "nav.php"; ?>
+<?php include "nav-head.php"; ?>
 
 
 <main class="dashboard-container">

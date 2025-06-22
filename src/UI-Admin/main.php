@@ -53,7 +53,7 @@
 </head>
 
 <body>
-
+<?php include "sidebar.php" ?>
     <!-- ✅ Toast Notification -->
     <div class="toast align-items-center text-white bg-success position-fixed top-0 end-0 m-3" id="alert_toast"
         role="alert" aria-live="assertive" aria-atomic="true">

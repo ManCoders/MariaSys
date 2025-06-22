@@ -40,7 +40,7 @@ function initInstaller()
     try {
         // Check if admin exists
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM admin WHERE user_role = :user_role");
-        $stmt->execute(['user_role' => 'administrator']);
+        $stmt->execute(['user_role' => 'admin']);
         $adminCount = $stmt->fetchColumn();
 
         // Get clean current path
