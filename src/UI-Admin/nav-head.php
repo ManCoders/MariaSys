@@ -57,12 +57,13 @@
     }
   }
 </style>
-<nav class="navbar">
-  <div class="nav-brand">
+<nav class="navbar bg-white text-block mb-2">
+  <div class="nav ">
     <strong>Sta.Maria Elementary School</strong>
   </div>
-  <ul class="nav-menu">
-    <li><a href="#">😒Profiles</a></li>
-    <li><a id="logout" class="logout" style="cursor: pointer; ">🚪 Logout</a></li>
+  <ul class="nav-menu ">
+    <li><a href="#" class="logout">Profiles</a></li>
+    <li><a id="logout" class="logout" style="cursor: pointer; ">Logout</a></li>
   </ul>
 </nav>
+

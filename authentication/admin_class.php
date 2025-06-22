@@ -84,7 +84,7 @@ class Action
                     return json_encode([
                         'status' => 1,
                         'message' => 'Login successful.',
-                        'redirect_url' => 'src/UI-Admin/main.php'
+                        'redirect_url' => 'src/UI-Admin/index.php'
                     ]);
                 } else {
                     return json_encode(['status' => 2, 'message' => 'Invalid username or password.']);

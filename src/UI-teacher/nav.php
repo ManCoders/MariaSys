@@ -67,6 +67,6 @@
     <li><a href="/students.php">🧑‍🎓 Students</a></li>
     <li><a href="/schedule.php">🗓️ Schedule</a></li> -->
     <li><a href="#">😒Profiles</a></li>
-    <li><a href="../../authentication/action.php?action=logout" class="logout">🚪 Logout</a></li>
+    <li><a href="../../authentication/action.php?action=logout" id="logout" class="logout">🚪 Logout</a></li>
   </ul>
 </nav>

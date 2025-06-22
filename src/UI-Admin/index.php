@@ -5,7 +5,13 @@
     <title>Document</title>
 </head>
 <body>
+    <?php include "../../header.php"; ?>
     <?php include 'nav-head.php'; ?>
-    <?php include 'sidebar.php'; ?>
+    
+    <div class="d-flex d-justify-between">
+        <?php include 'nav-sidebar.php'; ?>
+        <?php include 'content.php'; ?>
+    </div>
+    <?php include '../../footer.php'?>
 </body>
 </html>

@@ -1,5 +1,4 @@
 <?php
-//include('D:/XAMP/htdocs/Github/FinalZPCO/authentication/class/config.php');
 include "config.php";
 
 /* function initInstaller()
