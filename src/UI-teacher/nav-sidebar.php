@@ -25,7 +25,7 @@
                 <span class=""><i class=""></i></span>  Medical health
             </a>
             <a href="index.php?page=contents/enrolled" class="nav-item nav-enrolled">
-                <span class=""><i class=""></i></span> Enrolled student
+                <span class=""><i class=""></i></span> Enrollment process
             </a>
             <a href="index.php?page=contents/generate" class="nav-item nav-generate">
                 <span class=""><i class=""></i></span> Generate Data

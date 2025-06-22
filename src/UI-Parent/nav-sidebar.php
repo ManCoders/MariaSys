@@ -21,6 +21,9 @@
             <a href="index.php?page=contents/student" class="nav-item nav-student">
                 <span class=""><i class=""></i></span> Students View
             </a>
+            <a href="index.php?page=contents/feedback" class="nav-item nav-feedback">
+                <span class=""><i class=""></i></span> Feedback
+            </a>
             <a href="index.php?page=contents/setting" class="nav-item nav-setting">
                 <span class=""><i class=""></i></span> Account Settings
             </a>
