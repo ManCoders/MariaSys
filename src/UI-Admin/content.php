@@ -1,6 +1,6 @@
 <div class="bg-white dashboard">
-    <?php  ?>
-      <main id="view-panel">
+   
+    <main id="">
     <?php $page = isset($_GET['page']) ? $_GET['page'] : 'home'; ?>
     <?php include $page . '.php' ?>
   </main>

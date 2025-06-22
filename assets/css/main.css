@@ -126,10 +126,8 @@ label {
         background-color: #fff;
     }
 
-    .sidebar-list a:hover,
-    #sidebarToggleLeft {
-        background-color: var(--bs-secondary);
-        color: #fff;
+    .sub-section{
+      overflow-y: scroll;
     }
 
     .sidebar-list a.active {

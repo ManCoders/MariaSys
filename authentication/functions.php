@@ -145,8 +145,7 @@ function render_json()
         base_url() . 'assets/js/raphael.min.js',
         base_url() . 'assets/js/morris.min.js',
         base_url() . 'assets/js/jquery-3.7.1.min.js',
-        base_url() . 'assets/js/dataTables.min.js',
-        base_url() . 'assets/js/custom_table_js.js'
+        base_url() . 'assets/js/dataTables.min.js'
     ];
 
     foreach ($scripts as $script) {

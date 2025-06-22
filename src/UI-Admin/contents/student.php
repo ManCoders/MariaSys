@@ -1,8 +1,8 @@
 <section class="p-2">
-    <div class="card">
+    <div class="">
         <div class="d-flex justify-content-between align-items-center mb-0">
             <div>
-                <h4 class="">Learner Registration</h4>
+                <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Learner Registration</h4>
                 <span>Manage and process student registration application</span>
             </div>
             <button class="btn btn-success btn-sm" id="addNewBtn">

@@ -5543,9 +5543,7 @@ fieldset:disabled .btn {
 .card {
     word-wrap: break-word;
     background-clip: border-box;
-    background-color: #fff;
     border: 0 solid rgba(0, 0, 0, .125);
-    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     min-width: 0;

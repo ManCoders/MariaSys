@@ -1,5 +1,4 @@
 
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
     <style>
         
         .dashboard-admin {
@@ -112,7 +111,7 @@
 <div class="dashboard-admin">
     <header>
         <h3>Admin Dashboard</h3>
-        <p>Welcome to Sta. Maria Central School - ESLAPMS</p>
+        <p>Welcome to Sta. Maria Central School - SY:2025-2026</p>
     </header>
 
     <section class="stats-admin">

@@ -15,6 +15,13 @@
             <a href="index.php?page=home" class="nav-item nav-home">
                 <span class=""><i class=""></i></span> Dashboard
             </a>
+            
+            <a href="index.php?page=contents/student" class="nav-item nav-student">
+                <span class=""><i class=""></i></span> Students
+            </a>
+            <a href="index.php?page=contents/parent" class="nav-item nav-Parent">
+                <span class=""><i class=""></i></span> Parents
+            </a>
             <a href="index.php?page=contents/view" class="nav-item nav-view">
                 <span class=""><i class=""></i></span> Views class
             </a>
@@ -23,6 +30,9 @@
             </a>
             <a href="index.php?page=contents/health" class="nav-item nav-health">
                 <span class=""><i class=""></i></span>  Medical health
+            </a>
+            <a href="index.php?page=contents/schedule" class="nav-item nav-schedule">
+                <span class=""><i class=""></i></span>  My schedule
             </a>
             <a href="index.php?page=contents/enrolled" class="nav-item nav-enrolled">
                 <span class=""><i class=""></i></span> Enrollment process
