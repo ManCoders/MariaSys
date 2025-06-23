@@ -278,10 +278,10 @@
             tr.append(`<td>${emp.type}</td>`);
             tr.append(`<td class="text-center">${emp.status}</td>`);
             tr.append(`
-                <td class="text-center">
-                <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}" data-section="${sectionId}"><i class="fa fa-check"></i></button>
-                <button class="btn btn-sm btn-danger trashBtn"><i class="fa fa-x"></i></button>
-                <button class="btn btn-sm btn-primary viewBtn"><i class="fa fa-info"></i></button>
+                <td class="text-center w-10">
+                <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}" data-section="${sectionId}"><i class=""></i>P</button>
+                <button class="btn btn-sm btn-danger trashBtn"><i class=""></i>A</button>
+                <button class="btn btn-sm btn-primary viewBtn"><i class=""></i>L</button>
                 </td>`);
             tbody.append(tr);
         });

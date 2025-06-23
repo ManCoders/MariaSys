@@ -115,40 +115,86 @@
     </header>
 
     <section class="stats-admin">
-        <div class="card-admin"><i class="fa fa-users"></i> 249 <span>Total Students</span></div>
-        <div class="card-admin"><i class="fa fa-chalkboard-teacher"></i> 15 <span>Total Teachers</span></div>
-        <div class="card-admin"><i class="fa fa-calendar-check"></i> 498 <span>Attendance Today</span></div>
-        <div class="card-admin"><i class="fa fa-user-friends"></i> 402 <span>Total Parents</span></div>
+        <div class="card-admin"><i class="fa fa-users"></i><span id="totalStudents">0</span><span>Total Students</span></div>
+        <div class="card-admin"><i class="fa fa-chalkboard-teacher"></i><span id="totalTeachers">0</span><span>Total Teachers</span></div>
+        <div class="card-admin"><i class="fa fa-calendar-check"></i><span id="attendanceToday">0</span><span>Attendance Today</span></div>
+        <div class="card-admin"><i class="fa fa-user-friends"></i><span id="totalParents">0</span><span>Total Parents</span></div>
+    </section>
+    <section class="attendance-overview">
+        <h4>Today's Attendance Overview</h4>
+        <div class="overview-grid">
+            <div>Present<br><strong id="presentToday">0</strong></div>
+            <div>Absent<br><strong id="absentToday">0</strong></div>
+            <div>Attendance Rate<br><strong id="attendanceRate">0%</strong></div>
+
+        </div>
     </section>
 
     <section class="quick-actions">
         <h4>Quick Actions</h4>
         <div class="action-grid">
-            <div class="action"><i class="fa fa-user-graduate"></i><p>Students</p></div>
-            <div class="action"><i class="fa fa-user-tie"></i><p>Teachers</p></div>
-            <div class="action"><i class="fa fa-calendar-alt"></i><p>Attendance</p></div>
-            <div class="action"><i class="fa fa-notes-medical"></i><p>Health Records</p></div>
-            <div class="action"><i class="fa fa-chart-line"></i><p>Reports</p></div>
-            <div class="action"><i class="fa fa-users"></i><p>Parents</p></div>
+            <div class="action" id="student"><i class="fa fa-user-graduate"></i><p>Students</p></div>
+            <div class="action" id="teacher"><i class="fa fa-user-tie"></i><p>Teachers</p></div>
+            <div class="action" id="parent"><i class="fa fa-users"></i><p>Parents</p></div>
+            <div class="action" id="classroom"><i class="fa fa-school"></i><p>Classroom</p></div>
+            <div class="action" id="subject"><i class="fa fa-notes-medical"></i><p>Subjects</p></div>
+            <div class="action" id="record"><i class="fa fa-chart-line"></i><p>Documents</p></div>
+            
         </div>
     </section>
-
-    <section class="attendance-overview">
-        <h4>Today's Attendance Overview</h4>
-        <div class="overview-grid">
-            <div>Present<br><strong>498</strong></div>
-            <div>Absent<br><strong>25</strong></div>
-            <div>Attendance Rate<br><strong>95.2%</strong></div>
-        </div>
-    </section>
-
-    <!-- <section class="recent-activities">
-        <h2>Recent Activities</h2>
-        <ul>
-            <li><strong>New Student Enrolled</strong><br>John Doe enrolled in Grade 3-A <span>10 minutes ago</span></li>
-            <li><strong>Attendance Updated</strong><br>Teacher Maria updated attendance for Grade 5-B <span>25 minutes ago</span></li>
-            <li><strong>Health Records Updated</strong><br>Medical records updated for 15 students in Grade 2 <span>1 hour ago</span></li>
-            <li><strong>System Maintenance</strong><br><span>2 hours ago</span></li>
-        </ul>
-    </section> -->
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#student').click(function () {
+            location.href = "index.php?page=contents/student";
+        });
+
+        $('#parent').click(function () {
+            location.href = "index.php?page=contents/parents";
+        });
+
+        $('#classroom').click(function () {
+            location.href = "index.php?page=contents/classroom";
+        });
+
+        $('#record').click(function () {
+            location.href = "index.php?page=contents/record";
+        });
+
+        $('#subject').click(function () {
+            location.href = "index.php?page=contents/subject";
+        });
+
+        $('#teacher').click(function () {
+            location.href = "index.php?page=contents/teacher";
+        });
+    });
+</script>
+
+<script>
+    // Sample Data
+    const dashboardData = {
+        totalStudents: 249,
+        totalTeachers: 15,
+        totalParents: 402,
+        attendanceToday: 498,
+        presentToday: 498,
+        absentToday: 25
+    };
+
+    function updateDashboard() {
+        document.getElementById("totalStudents").textContent = dashboardData.totalStudents;
+        document.getElementById("totalTeachers").textContent = dashboardData.totalTeachers;
+        document.getElementById("attendanceToday").textContent = dashboardData.attendanceToday;
+        document.getElementById("totalParents").textContent = dashboardData.totalParents;
+
+        document.getElementById("presentToday").textContent = dashboardData.presentToday;
+        document.getElementById("absentToday").textContent = dashboardData.absentToday;
+
+        const rate = ((dashboardData.presentToday / (dashboardData.presentToday + dashboardData.absentToday)) * 100).toFixed(1);
+        document.getElementById("attendanceRate").textContent = `${rate}%`;
+    }
+
+    document.addEventListener("DOMContentLoaded", updateDashboard);
+</script>
