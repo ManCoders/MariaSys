@@ -263,7 +263,7 @@ class Action
         $status = strtoupper(htmlspecialchars($_POST['status'] ?? ''));
 
         try {
-            $stmt1 = $this->db->prepare("INSERT INTO regular (firstname, middlename, lastname, email, suffix,  username, password, user_role, employeeid, cpno, position, department, rating, province, city, barangay, birth, gender, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt1 = $this->db->prepare("INSERT INTO parent (firstname, middlename, lastname, email, suffix,  username, password, user_role, employeeid, cpno, position, department, rating, province, city, barangay, birth, gender, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $adminInsert = $stmt1->execute([$firstname, $middlename, $lastname, $email, $suffix, $username, $hashPassword, $user_role, $employeeId, $contacts, $position, $department, $rating, $province, $city, $barangay, $birth, $gender, $status]);
 
             if ($adminInsert) {

@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body">
 
-                        <form id="register-form" method="post">
+                        <form class="card-body" id="register-form" method="post">
                             <!-- Step 1 -->
                             <div class="tab mb-3"> Account Type:
                                 <select class="form-control " name="user_role" required>
