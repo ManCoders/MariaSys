@@ -33,7 +33,7 @@
 </style>
 
 <section class="stats-admin p-3">
-    <div class="card-admin"><i class="fa fa-users"></i> 29 <span>Total Students</span></div>
+    <div class="card-admin"><i class="fa fa-users"></i> 29 <span>Total Parents</span></div>
     <div class="card-admin"><i class="fa fa-check"></i> 20 <span>Present today</span></div>
     <div class="card-admin"><i class="fa fa-x"></i> 9 <span>Absence Today</span></div>
     <div class="card-admin">70% <span>Attendance Rate</span></div>
@@ -69,20 +69,20 @@
                                 <div class="">
                                     <div class="d-flex justify-content-between align-items-center mb-0">
                                         <div>
-                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Section
+                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Parent
                                                 Management</h5>
-                                            <span>Manage and process student registration application</span>
+                                            <span>Manage and process Parent application</span>
                                         </div>
                                         <button class="btn btn-success btn-sm" id="addNewBtn" data-section="1">
-                                            <i class="fa fa-plus"></i> Add New Learner
+                                            <i class="fa fa-plus"></i> Add New Parent
                                         </button>
                                     </div>
                                     <table class="table table-bordered table-hover mb-0" id="student-tbl-1">
                                         <thead class="table-light text-dark">
                                             <tr>
                                                 <th class="text-center" style="width:4%">#</th>
-                                                <th>Learner Name</th>
-                                                <th>Grade Level</th>
+                                                <th>Parent Name</th>
+                                                <th>Student LRN:</th>
                                                 <th>Date Submitted</th>
                                                 <th>Contact Number</th>
                                                 <th>Type</th>
@@ -121,7 +121,7 @@
                                             <tr>
                                                 <th class="text-center" style="width:4%">#</th>
                                                 <th>Learner Name</th>
-                                                <th>Grade Level</th>
+                                                <th>Student LRN:</th>
                                                 <th>Date Submitted</th>
                                                 <th>Contact Number</th>
                                                 <th>Type</th>
@@ -160,7 +160,7 @@
                                             <tr>
                                                 <th class="text-center" style="width:4%">#</th>
                                                 <th>Learner Name</th>
-                                                <th>Grade Level</th>
+                                                <th>Student LRN:</th>
                                                 <th>Date Submitted</th>
                                                 <th>Contact Number</th>
                                                 <th>Type</th>
@@ -200,7 +200,7 @@
                         <input type="text" class="form-control" id="editName" required>
                     </div>
                     <div class="mb-2">
-                        <label class="form-label">Grade Level</label>
+                        <label class="form-label">Student LRN:</label>
                         <input type="text" class="form-control" id="editGrade" required>
                     </div>
                     <div class="mb-2">
