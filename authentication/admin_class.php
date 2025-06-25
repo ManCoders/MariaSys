@@ -234,40 +234,62 @@ class Action
     //ERROR PA //fix na
     function registration_form()
     {
-        $user_role = strtoupper(htmlspecialchars($_POST['user_role'] ?? ''));
-        $firstname = strtoupper(htmlspecialchars($_POST['FirstName'] ?? ''));
-        $middlename = strtoupper(htmlspecialchars($_POST['MiddleName'] ?? ''));
-        $lastname = strtoupper(htmlspecialchars($_POST['LastName'] ?? ''));
-        $suffix = strtoupper(htmlspecialchars($_POST['Suffix'] ?? ''));
+        $user_role   = strtoupper(htmlspecialchars($_POST['user_role'] ?? ''));
+    $firstname   = strtoupper(htmlspecialchars($_POST['FirstName'] ?? ''));
+    $middlename  = strtoupper(htmlspecialchars($_POST['MiddleName'] ?? ''));
+    $lastname    = strtoupper(htmlspecialchars($_POST['LastName'] ?? ''));
+    $suffix      = strtoupper(htmlspecialchars($_POST['Suffix'] ?? ''));
 
-        $employeeId = strtoupper(htmlspecialchars($_POST['employeeid'] ?? ''));
-        $email = strtoupper(htmlspecialchars($_POST['email'] ?? ''));
-        $contacts = strtoupper(htmlspecialchars($_POST['cpnumber'] ?? ''));
+    $email       = strtolower(trim($_POST['email'] ?? '')); // Email is usually lowercase
+    $cpno        = htmlspecialchars($_POST['cpnumber'] ?? ''); // cellphone number (contact number)
+    
+    $username    = strtolower(trim($_POST['username'] ?? ''));
+    $password    = $_POST['password'] ?? '';
+    $hashPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $username = strtoupper(htmlspecialchars($_POST['username'] ?? ''));
-        $password = strtoupper(htmlspecialchars($_POST['password'] ?? ''));
+    // These fields must exist in the HTML form
+    $occupation   = strtoupper(htmlspecialchars($_POST['occupation'] ?? ''));
+    $partnerName  = strtoupper(htmlspecialchars($_POST['partnerName'] ?? ''));
+    $salary       = strtoupper(htmlspecialchars($_POST['salary'] ?? ''));
 
+    $province   = strtoupper(htmlspecialchars($_POST['province'] ?? ''));
+    $city       = strtoupper(htmlspecialchars($_POST['city'] ?? ''));
+    $barangay   = strtoupper(htmlspecialchars($_POST['barangay'] ?? ''));
 
-        $hashPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $position = strtoupper(htmlspecialchars($_POST['position'] ?? ''));
-        $department = strtoupper(htmlspecialchars($_POST['department'] ?? ''));
-        $rating = strtoupper(htmlspecialchars($_POST['rating'] ?? ''));
-
-        $province = strtoupper(htmlspecialchars($_POST['province'] ?? ''));
-        $city = strtoupper(htmlspecialchars($_POST['city'] ?? ''));
-        $barangay = strtoupper(htmlspecialchars($_POST['barangay'] ?? ''));
-
-        $birth = strtoupper(htmlspecialchars($_POST['dateofbirth'] ?? ''));
-        $gender = strtoupper(htmlspecialchars($_POST['gender'] ?? ''));
-        $status = strtoupper(htmlspecialchars($_POST['status'] ?? ''));
+    $birth      = htmlspecialchars($_POST['dateofbirth'] ?? '');
+    $gender     = strtoupper(htmlspecialchars($_POST['gender'] ?? ''));
+    $status     = strtoupper(htmlspecialchars($_POST['status'] ?? ''));
 
         try {
-            $stmt1 = $this->db->prepare("INSERT INTO parent (firstname, middlename, lastname, email, suffix,  username, password, user_role, employeeid, cpno, position, department, rating, province, city, barangay, birth, gender, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $adminInsert = $stmt1->execute([$firstname, $middlename, $lastname, $email, $suffix, $username, $hashPassword, $user_role, $employeeId, $contacts, $position, $department, $rating, $province, $city, $barangay, $birth, $gender, $status]);
+            $stmt1 = $this->db->prepare("
+            INSERT INTO parent 
+            (firstname, middlename, lastname, email, suffix, username, password, user_role, cpno, occupation, partnerName, salary, province, city, barangay, birth, gender, status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+
+        $adminInsert = $stmt1->execute([
+            $firstname,     // 1
+            $middlename,    // 2
+            $lastname,      // 3
+            $email,         // 4
+            $suffix,        // 5
+            $username,      // 6
+            $hashPassword,  // 7
+            $user_role,     // 8
+            $cpno,          // 9
+            $occupation,    // 10
+            $partnerName,   // 11
+            $salary,        // 12
+            $province,      // 13
+            $city,          // 14
+            $barangay,      // 15
+            $birth,         // 16
+            $gender,        // 17
+            $status         // 18
+        ]);
 
             if ($adminInsert) {
-                return json_encode(['status' => 1, 'message' => 'Registration successfully.']);
+                return json_encode(['status' => 1, 'message' => 'Registration successfully.','redirect_url' => 'src/UI-Parent/index.php']);
             } else {
                 return json_encode(['status' => 2, 'message' => 'Registration Failed.']);
             }

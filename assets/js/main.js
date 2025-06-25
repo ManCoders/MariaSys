@@ -197,7 +197,8 @@ $(document).ready(function () {
               timer: 3000,
               showConfirmButton: false,
             }).then(() => {
-              window.location.href = base_url + "src/";
+              window.location.href =
+                base_url + response.redirect_url || base_url + "src/";
             });
             $this.removeClass("processing");
           } else {

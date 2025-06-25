@@ -21,63 +21,73 @@
                             <div class="tab mb-3"> Account Type:
                                 <select class="form-control " name="user_role" required>
                                     <option value="" disabled selected>Account Type:</option>
-                                    <option value="1">Admin staff</option>
-                                    <option value="2">Employee</option>
+                                    <option value="1">Teachers</option>
+                                    <option value="2">Parents</option>
                                 </select>
                                 <div class="invalid-feedback"></div>
                             </div>
 
                             <!-- Step 2 -->
                             <div class="tab mb-3"> Complete Name:
-                                <input type="text" class="form-control mb-2" name="LastName" placeholder="Last Name" required>
+                                <input type="text" class="form-control mb-2" name="LastName" placeholder="Last Name"
+                                    required>
                                 <div class="invalid-feedback"></div>
-                                <input type="text" class="form-control mb-2" name="FirstName" placeholder="First Name" required>
+                                <input type="text" class="form-control mb-2" name="FirstName" placeholder="First Name"
+                                    required>
                                 <div class="invalid-feedback"></div>
-                                <input type="text" class="form-control mb-2" name="MiddleName" placeholder="Middle Name" required>
+                                <input type="text" class="form-control mb-2" name="MiddleName" placeholder="Middle Name"
+                                    required>
                                 <div class="invalid-feedback"></div>
-                                <input type="text" class="form-control mb-2" name="Suffix" placeholder="Suffix (e.g. Jr., Sr.)">
+                                <input type="text" class="form-control mb-2" name="Suffix"
+                                    placeholder="Suffix (e.g. Jr., Sr.)">
                                 <div class="invalid-feedback"></div>
                             </div>
 
                             <!-- Step 3 -->
                             <div class="tab mb-3"> Contact Information:
-                                <input type="text" class="form-control mb-2" name="employeeid" placeholder="Employee ID" required>
+                                <input type="text" class="form-control mb-2" name="employeeid" placeholder="Employee ID"
+                                    required>
                                 <div class="invalid-feedback"></div>
-                                <input type="email" class="form-control mb-2" name="email" placeholder="Email Address" required>
+                                <input type="email" class="form-control mb-2" name="email" placeholder="Email Address"
+                                    required>
                                 <div class="invalid-feedback"></div>
-                                <input type="text" class="form-control mb-2" name="cpnumber" placeholder="Contact Number" required>
+                                <input type="text" class="form-control mb-2" name="cpnumber"
+                                    placeholder="Contact Number" required>
                                 <div class="invalid-feedback"></div>
                             </div>
 
                             <!-- Step 4 -->
                             <div class="tab mb-3"> Account Information:
-                                <input type="text" class="form-control mb-2" name="username" placeholder="Username" required>
+                                <input type="text" class="form-control mb-2" name="username" placeholder="Username"
+                                    required>
                                 <div class="invalid-feedback"></div>
-                                <input type="password" class="form-control mb-2" name="password" placeholder="Password" required>
+                                <input type="password" class="form-control mb-2" name="password" placeholder="Password"
+                                    required>
                                 <div class="invalid-feedback"></div>
-                                <input type="password" class="form-control mb-2" name="cpassword" placeholder="Confirm Password" required>
+                                <input type="password" class="form-control mb-2" name="cpassword"
+                                    placeholder="Confirm Password" required>
                                 <div class="invalid-feedback"></div>
                             </div>
 
                             <!-- Step 5 -->
                             <div class="tab mb-3"> Employee Type:
                                 <select class="form-control mb-2" name="position" required>
-                                    <option value=""  selected>Position:</option>
+                                    <option value="" selected>Position:</option>
                                     <option value="1">Doctor</option>
                                     <option value="2">Nurse</option>
                                     <option value="3">Utility</option>
                                 </select>
-                                
+
                                 <div class="invalid-feedback"></div>
                                 <select class="form-control mb-2" name="department" required>
-                                    <option value=""  selected>Department:</option>
+                                    <option value="" selected>Department:</option>
                                     <option value="1">HR</option>
                                     <option value="2">Finances</option>
                                     <option value="3">School</option>
                                 </select>
                                 <div class="invalid-feedback"></div>
                                 <select class="form-control" name="rating" required>
-                                    <option value=""  selected>Rating:</option>
+                                    <option value="" selected>Rating:</option>
                                     <option value="Monthly">Monthly</option>
                                     <option value="Daily">Daily</option>
                                     <option value="Hourly">Hourly</option>
@@ -87,11 +97,13 @@
 
                             <!-- Step 6 -->
                             <div class="tab mb-3"> Local Address:
-                                <input type="text" class="form-control mb-2" name="province" placeholder="Province" required>
+                                <input type="text" class="form-control mb-2" name="province" placeholder="Province"
+                                    required>
                                 <div class="invalid-feedback"></div>
                                 <input type="text" class="form-control mb-2" name="city" placeholder="City" required>
                                 <div class="invalid-feedback"></div>
-                                <input type="text" class="form-control mb-2" name="barangay" placeholder="Barangay" required>
+                                <input type="text" class="form-control mb-2" name="barangay" placeholder="Barangay"
+                                    required>
                                 <div class="invalid-feedback"></div>
                             </div>
 
@@ -119,7 +131,8 @@
                             <!-- Navigation -->
                             <div style="text-align:center;margin-top:40px;">
                                 <span class="step"></span><span class="step"></span><span class="step"></span>
-                                <span class="step"></span><span class="step"></span><span class="step"></span><span class="step"></span>
+                                <span class="step"></span><span class="step"></span><span class="step"></span><span
+                                    class="step"></span>
                             </div>
 
                             <div style="overflow:auto;">
@@ -161,25 +174,25 @@
                                 showTab(currentTab);
                             }
 
-                
 
-/*                             function validateForm() {
-                                let x = document.getElementsByClassName("tab");
-                                let y = x[currentTab].querySelectorAll("input, select");
-                                let valid = true;
-                                for (let i = 0; i < y.length; i++) {
-                                    if (y[i].value === "") {
-                                        y[i].classList.add("invalid");
-                                        valid = false;
-                                    } else {
-                                        y[i].classList.remove("invalid");
-                                    }
-                                }
-                                if (valid) {
-                                    document.getElementsByClassName("step")[currentTab].classList.add("finish");
-                                }
-                                return valid;
-                            } */
+
+                            /*                             function validateForm() {
+                                                            let x = document.getElementsByClassName("tab");
+                                                            let y = x[currentTab].querySelectorAll("input, select");
+                                                            let valid = true;
+                                                            for (let i = 0; i < y.length; i++) {
+                                                                if (y[i].value === "") {
+                                                                    y[i].classList.add("invalid");
+                                                                    valid = false;
+                                                                } else {
+                                                                    y[i].classList.remove("invalid");
+                                                                }
+                                                            }
+                                                            if (valid) {
+                                                                document.getElementsByClassName("step")[currentTab].classList.add("finish");
+                                                            }
+                                                            return valid;
+                                                        } */
 
                             /* Update here nei */
                             function validateFormStep(tabIndex) {
@@ -207,7 +220,7 @@
                             }
 
 
-                             function validateField(field) {
+                            function validateField(field) {
                                 const value = field.value.trim();
                                 const feedback = field.nextElementSibling;
                                 let isValid = true;
@@ -215,7 +228,7 @@
                                 let errorMessage = "";
 
                                 switch (field.name) {
-                                    
+
                                     case "password":
                                         isValid = value.length >= 8;
                                         errorMessage = "Password must be at least 8 characters.";
@@ -299,7 +312,7 @@
                                         isValid = /^[A-Za-z0-9_]+$/.test(value);
                                         errorMessage = "Username can only contain letters, numbers, and underscores.";
                                         break;
-                                  
+
                                     default:
                                         isValid = value !== "";
                                         errorMessage = "This field cannot be empty.";
