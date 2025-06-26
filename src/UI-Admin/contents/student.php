@@ -110,8 +110,8 @@
             tr.append(`
                 <td class="text-center">
                 <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}"><i class="fa fa-edit"></i></button>
-                <button class="btn btn-sm btn-danger trashBtn"><i class="fa fa-trash"></i></button>
-                <button class="btn btn-sm btn-primary viewBtn"><i class="fa fa-eye"></i></button>
+                <button class="btn btn-sm btn-danger trashBtn" data-id="${emp.id}"><i class="fa fa-trash"></i></button>
+                <button class="btn btn-sm btn-primary viewBtn" data-id="${emp.id}" ><i class="fa fa-eye"></i></button>
                 </td>`);
             tbody.append(tr);
         });
@@ -155,6 +155,15 @@
                 $('#editType').val(record.type);
                 $('#editStatus').val(record.status);
                 new bootstrap.Modal(document.getElementById('editModal')).show();
+            }
+        });
+
+        $('.viewBtn').click(function () {
+            const id = $(this).data('id');
+            const record = sampleData.find(e => e.id === id);
+            if (record) {
+                sessionStorage.setItem('learner_id', JSON.stringify(record));
+                location.href = 'index.php?page=contents/student/student_view';
             }
         });
 

@@ -18,7 +18,7 @@
             <a href="index.php?page=contents/teacher" class="nav-item nav-teacher">
                 <span class=""><i class=""></i></span> Teachers Management
             </a>
-            <a href="index.php?page=contents/student" class="nav-item nav-student">
+            <a href="index.php?page=contents/student" class="nav-item nav-student nav-student_view">
                 <span class=""><i class=""></i></span> Students Management
             </a>
             <a href="index.php?page=contents/parents" class="nav-item nav-parents">
