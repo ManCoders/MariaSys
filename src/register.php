@@ -21,8 +21,8 @@
                             <div class="tab mb-3"> Account Type:
                                 <select class="form-control " name="user_role" required>
                                     <option value="" disabled selected>Account Type:</option>
-                                    <option value="1">Teachers</option>
-                                    <option value="2">Parents</option>
+                                    <option value="teacher">Teachers</option>
+                                    <option value="parent">Parents</option>
                                 </select>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -45,7 +45,7 @@
 
                             <!-- Step 3 -->
                             <div class="tab mb-3"> Contact Information:
-                                <input type="text" class="form-control mb-2" name="employeeid" placeholder="Employee ID"
+                                <input type="text" class="form-control mb-2" name="reference_id" placeholder="Reference ID"
                                     required>
                                 <div class="invalid-feedback"></div>
                                 <input type="email" class="form-control mb-2" name="email" placeholder="Email Address"
@@ -70,7 +70,7 @@
                             </div>
 
                             <!-- Step 5 -->
-                            <div class="tab mb-3"> Employee Type:
+                            <!-- <div class="tab mb-3"> Employee Type:
                                 <select class="form-control mb-2" name="position" required>
                                     <option value="" selected>Position:</option>
                                     <option value="1">Doctor</option>
@@ -93,7 +93,7 @@
                                     <option value="Hourly">Hourly</option>
                                 </select>
                                 <div class="invalid-feedback"></div>
-                            </div>
+                            </div> -->
 
                             <!-- Step 6 -->
                             <div class="tab mb-3"> Local Address:
@@ -250,9 +250,9 @@
                                         isValid = value !== "";
                                         errorMessage = "Please select an account type.";
                                         break;
-                                    case "employeeid":
+                                    case "reference_id":
                                         isValid = /^[A-Za-z0-9]+$/.test(value);
-                                        errorMessage = "Employee ID can only contain letters and numbers.";
+                                        errorMessage = "Reference ID can only contain letters and numbers from admission office.";
                                         break;
                                     case "province":
                                         isValid = /^[A-Za-z\s]+$/.test(value);

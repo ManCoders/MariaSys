@@ -80,12 +80,14 @@ function db_connect()
                 lastname VARCHAR(50) NOT NULL,
                 suffix VARCHAR(5) NOT NULL,
                 cpno VARCHAR(15) NOT NULL,
+                reference_id VARCHAR(50) NOT NULL,
                 position VARCHAR(10) NOT NULL,
                 department VARCHAR(10) NOT NULL,
                 rating VARCHAR(10) NOT NULL,
                 province VARCHAR(50) NOT NULL,
                 city VARCHAR(50) NOT NULL,
                 barangay VARCHAR(50) NOT NULL,
+                occupation VARCHAR(100) NOT NULL,
                 birth VARCHAR(10) NOT NULL,
                 gender VARCHAR(10) NOT NULL,
                 status VARCHAR(10) NOT NULL,
@@ -111,6 +113,7 @@ function db_connect()
             $pdo->exec($sql);
         }
 
+        /* Don't Touch it here it's a Dafault data*/
         $count = $pdo->query("SELECT COUNT(*) FROM admin")->fetchColumn();
         if ($count == 0) {
             $stmt = $pdo->prepare("INSERT INTO admin (
@@ -143,14 +146,14 @@ function db_connect()
 
         $count = $pdo->query("SELECT COUNT(*) FROM parent")->fetchColumn();
         if ($count == 0) {
-            $stmt = $pdo->prepare("INSERT INTO teacher (
-                firstname, middlename, lastname, suffix, employeeid, cpno, position, department, rating,
+            $stmt = $pdo->prepare("INSERT INTO parent (
+                firstname, middlename, lastname, suffix, cpno, position, department, rating,
                 province, city, barangay, birth, gender, status,
                 email, username, password, user_role, profile_picture
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([
-                'Maria', 'Luz', 'Reyes', '', 'TCH2023001', '09181234567', 'parent', 'Math', 'B+',
+                'Maria', 'Luz', 'Reyes', 'jr', '09181234567', 'parent', 'Math', 'B+',
                 'Laguna', 'Calamba', 'Barangay Uno', '1985-05-12', 'Female', 'Active',
                 'parent@school.edu.ph', 'parent', password_hash('parent123', PASSWORD_BCRYPT), 'parent', 'default.png'
             ]);

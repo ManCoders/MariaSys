@@ -3,7 +3,7 @@ session_start();
 class Action
 {
     private $db;
-    
+
     public function __construct()
     {
 
@@ -16,7 +16,7 @@ class Action
 
     function __destruct()
     {
-        $this->db = null; 
+        $this->db = null;
     }
 
 
@@ -64,9 +64,9 @@ class Action
         }
 
         try {
-            // Check admin table
-            $stmt = $this->db->prepare("SELECT * FROM admin WHERE username = ?");
-            $stmt->execute([$username]);
+            // ==== Admin Login ====
+            $stmt = $this->db->prepare("SELECT * FROM admin WHERE username = ? OR email = ?");
+            $stmt->execute([$username, $username]);
             $admin = $stmt->fetch();
 
             if ($admin && $admin['user_role'] === 'admin') {
@@ -87,88 +87,103 @@ class Action
                         'redirect_url' => 'src/UI-Admin/index.php'
                     ]);
                 } else {
-                    return json_encode(['status' => 2, 'message' => 'Invalid username or password.']);
+                    return json_encode(['status' => 2, 'message' => 'Incorrect password.']);
                 }
             }
 
-            $stmt = $this->db->prepare("SELECT * FROM teacher WHERE username = ?");
-            $stmt->execute([$username]);
-            $user = $stmt->fetch();
+            // ==== Teacher Login ====
+            $stmt = $this->db->prepare("SELECT * FROM teacher WHERE username = ? OR email = ?");
+            $stmt->execute([$username, $username]);
+            $teacher = $stmt->fetch();
 
-            if ($user && $user['user_role'] === 'teacher') {
-                if (password_verify($password, $user['password'])) {
-                $_SESSION['userData'] = [
-                    'firstname' => $user['firstname'],
-                    'middlename' => $user['middlename'],
-                    'lastname' => $user['lastname'],
-                    'suffix' => $user['suffix'],
-                    'employeeid' => $user['employeeid'],
-                    'email' => $user['email'],
-                    'cpno' => $user['cpno'],
-                    'position' => $user['position'],
-                    'department' => $user['department'],
-                    'rating' => $user['rating'],
-                    'province' => $user['province'],
-                    'city' => $user['city'],
-                    'barangay' => $user['barangay'],
-                    'birth' => $user['birth'],
-                    'gender' => $user['gender'],
-                    'status' => $user['status'],
-                    'user_role' => $user['user_role'],
-                    'username' => $user['username'],
-                    'id' => $user['id'],
-                    'created_date' => $user['created_date']
-                ];
-                return json_encode([
-                    'status' => 1,
-                    'message' => 'Login successful.',
-                    'redirect_url' => 'src/UI-Teacher/index.php'
-                ]);
+            if ($teacher && $teacher['user_role'] === 'teacher') {
+                if (password_verify($password, $teacher['password'])) {
+                    $_SESSION['userData'] = [
+                        'firstname' => $teacher['firstname'],
+                        'middlename' => $teacher['middlename'],
+                        'lastname' => $teacher['lastname'],
+                        'suffix' => $teacher['suffix'],
+                        'employeeid' => $teacher['employeeid'],
+                        'email' => $teacher['email'],
+                        'cpno' => $teacher['cpno'],
+                        'position' => $teacher['position'],
+                        'department' => $teacher['department'],
+                        'rating' => $teacher['rating'],
+                        'province' => $teacher['province'],
+                        'city' => $teacher['city'],
+                        'barangay' => $teacher['barangay'],
+                        'birth' => $teacher['birth'],
+                        'gender' => $teacher['gender'],
+                        'status' => $teacher['status'],
+                        'user_role' => $teacher['user_role'],
+                        'username' => $teacher['username'],
+                        'id' => $teacher['id'],
+                        'created_date' => $teacher['created_date']
+                    ];
+                    return json_encode([
+                        'status' => 1,
+                        'message' => 'Login successful.',
+                        'redirect_url' => 'src/UI-Teacher/index.php'
+                    ]);
                 } else {
-                    return json_encode(['status' => 2, 'message' => 'Invalid username or password.']);
+                    return json_encode(['status' => 2, 'message' => 'Incorrect password.']);
                 }
             }
 
-            if ($user && $user['user_role'] === 'parent') {
-                if (password_verify($password, $user['password'])) {
-                $_SESSION['userData'] = [
-                    'firstname' => $user['firstname'],
-                    'middlename' => $user['middlename'],
-                    'lastname' => $user['lastname'],
-                    'suffix' => $user['suffix'],
-                    'employeeid' => $user['employeeid'],
-                    'email' => $user['email'],
-                    'cpno' => $user['cpno'],
-                    'position' => $user['position'],
-                    'department' => $user['department'],
-                    'rating' => $user['rating'],
-                    'province' => $user['province'],
-                    'city' => $user['city'],
-                    'barangay' => $user['barangay'],
-                    'birth' => $user['birth'],
-                    'gender' => $user['gender'],
-                    'status' => $user['status'],
-                    'user_role' => $user['user_role'],
-                    'username' => $user['username'],
-                    'id' => $user['id'],
-                    'created_date' => $user['created_date']
-                ];
-                return json_encode([
-                    'status' => 1,
-                    'message' => 'Login successful.',
-                    'redirect_url' => 'src/UI-Parent/index.php'
-                ]);
+            // ==== Parent Login ====
+            $stmt = $this->db->prepare("SELECT * FROM parent WHERE username = ? OR email = ?");
+            $stmt->execute([$username, $username]);
+            $parent = $stmt->fetch();
+
+            if ($parent && $parent['user_role'] === 'parent') {
+                if (password_verify($password, $parent['password'])) {
+                    $_SESSION['userData'] = [
+                        'firstname' => $parent['firstname'],
+                        'middlename' => $parent['middlename'],
+                        'lastname' => $parent['lastname'],
+                        'suffix' => $parent['suffix'],
+                        'email' => $parent['email'],
+                        'cpno' => $parent['cpno'],
+                        'reference_id' => $parent['reference_id'],
+                        'position' => $parent['position'],
+                        'department' => $parent['department'],
+                        'rating' => $parent['rating'],
+                        'province' => $parent['province'],
+                        'city' => $parent['city'],
+                        'barangay' => $parent['barangay'],
+                        'birth' => $parent['birth'],
+                        'gender' => $parent['gender'],
+                        'status' => $parent['status'],
+                        'user_role' => $parent['user_role'],
+                        'username' => $parent['username'],
+                        'profile_picture' => $parent['profile_picture'],
+                        'id' => $parent['id'],
+                        'created_date' => $parent['created_date']
+                    ];
+                    return json_encode([
+                        'status' => 1,
+                        'message' => 'Login successful.',
+                        'redirect_url' => 'src/UI-Parent/index.php'
+                    ]);
                 } else {
-                    return json_encode(['status' => 2, 'message' => 'Invalid username or password.']);
+                    return json_encode(['status' => 2, 'message' => 'Incorrect password.']);
                 }
             }
+
+            // ==== Not Found ====
+            return json_encode([
+                'status' => 3,
+                'message' => 'User not found. Please check your username/email.'
+            ]);
+
         } catch (Exception $e) {
             return json_encode([
                 'status' => 2,
-                'message' => 'An error occurred: ' . $e->getMessage()
+                'message' => 'System error occurred. Contact the administrator.'
             ]);
         }
     }
+
 
 
     function save_installation_data()
@@ -234,62 +249,56 @@ class Action
     //ERROR PA //fix na
     function registration_form()
     {
-        $user_role   = strtoupper(htmlspecialchars($_POST['user_role'] ?? ''));
-    $firstname   = strtoupper(htmlspecialchars($_POST['FirstName'] ?? ''));
-    $middlename  = strtoupper(htmlspecialchars($_POST['MiddleName'] ?? ''));
-    $lastname    = strtoupper(htmlspecialchars($_POST['LastName'] ?? ''));
-    $suffix      = strtoupper(htmlspecialchars($_POST['Suffix'] ?? ''));
+        $user_role = htmlspecialchars($_POST['user_role'] ?? '');
+        $firstname = strtoupper(htmlspecialchars($_POST['FirstName'] ?? ''));
+        $middlename = strtoupper(htmlspecialchars($_POST['MiddleName'] ?? ''));
+        $lastname = strtoupper(htmlspecialchars($_POST['LastName'] ?? ''));
+        $suffix = strtoupper(htmlspecialchars($_POST['Suffix'] ?? ''));
 
-    $email       = strtolower(trim($_POST['email'] ?? '')); // Email is usually lowercase
-    $cpno        = htmlspecialchars($_POST['cpnumber'] ?? ''); // cellphone number (contact number)
-    
-    $username    = strtolower(trim($_POST['username'] ?? ''));
-    $password    = $_POST['password'] ?? '';
-    $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+        $email = htmlspecialchars($_POST['email'] ?? ''); // Email is usually lowercase
+        $cpno = htmlspecialchars($_POST['cpnumber'] ?? ''); // cellphone number (contact number)
 
-    // These fields must exist in the HTML form
-    $occupation   = strtoupper(htmlspecialchars($_POST['occupation'] ?? ''));
-    $partnerName  = strtoupper(htmlspecialchars($_POST['partnerName'] ?? ''));
-    $salary       = strtoupper(htmlspecialchars($_POST['salary'] ?? ''));
+        $username = $_POST['username'] ?? '';
+        $password = $_POST['password'] ?? '';
+        $hashPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $province   = strtoupper(htmlspecialchars($_POST['province'] ?? ''));
-    $city       = strtoupper(htmlspecialchars($_POST['city'] ?? ''));
-    $barangay   = strtoupper(htmlspecialchars($_POST['barangay'] ?? ''));
+        // These fields must exist in the HTML form
 
-    $birth      = htmlspecialchars($_POST['dateofbirth'] ?? '');
-    $gender     = strtoupper(htmlspecialchars($_POST['gender'] ?? ''));
-    $status     = strtoupper(htmlspecialchars($_POST['status'] ?? ''));
+        $province = strtoupper(htmlspecialchars($_POST['province'] ?? ''));
+        $city = strtoupper(htmlspecialchars($_POST['city'] ?? ''));
+        $barangay = strtoupper(htmlspecialchars($_POST['barangay'] ?? ''));
+
+        $birth = htmlspecialchars($_POST['dateofbirth'] ?? '');
+        $gender = strtoupper(htmlspecialchars($_POST['gender'] ?? ''));
+        $status = strtoupper(htmlspecialchars($_POST['status'] ?? ''));
 
         try {
             $stmt1 = $this->db->prepare("
             INSERT INTO parent 
-            (firstname, middlename, lastname, email, suffix, username, password, user_role, cpno, occupation, partnerName, salary, province, city, barangay, birth, gender, status) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (firstname, middlename, lastname, email, suffix, username, password, user_role, cpno, province, city, barangay, birth, gender, status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)
         ");
 
-        $adminInsert = $stmt1->execute([
-            $firstname,     // 1
-            $middlename,    // 2
-            $lastname,      // 3
-            $email,         // 4
-            $suffix,        // 5
-            $username,      // 6
-            $hashPassword,  // 7
-            $user_role,     // 8
-            $cpno,          // 9
-            $occupation,    // 10
-            $partnerName,   // 11
-            $salary,        // 12
-            $province,      // 13
-            $city,          // 14
-            $barangay,      // 15
-            $birth,         // 16
-            $gender,        // 17
-            $status         // 18
-        ]);
+            $adminInsert = $stmt1->execute([
+                $firstname,     // 1
+                $middlename,    // 2
+                $lastname,      // 3
+                $email,         // 4
+                $suffix,        // 5
+                $username,      // 6
+                $hashPassword,  // 7
+                $user_role,     // 8
+                $cpno,          // 9
+                $province,      // 13
+                $city,          // 14
+                $barangay,      // 15
+                $birth,         // 16
+                $gender,        // 17
+                $status         // 18
+            ]);
 
             if ($adminInsert) {
-                return json_encode(['status' => 1, 'message' => 'Registration successfully.','redirect_url' => 'src/UI-Parent/index.php']);
+                return json_encode(['status' => 1, 'message' => 'Registration successfully.', 'redirect_url' => 'src/index.php']);
             } else {
                 return json_encode(['status' => 2, 'message' => 'Registration Failed.']);
             }
