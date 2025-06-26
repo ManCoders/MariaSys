@@ -55,48 +55,69 @@
     <section class="quick-actions">
         <h4>Quick Actions</h4>
         <div class="action-grid">
-            <div class="action" id="student"><i class="fa fa-folder-open"></i><p>SF1</p></div>
-            <div class="action" id="teacher"><i class="fa fa-folder-open"></i><p>SF2</p></div>
-            <div class="action" id="parent"><i class="fa fa-folder-open"></i><p>SF3</p></div>
-            <div class="action" id="classroom"><i class="fa fa-folder-open"></i><p>SF4</p></div>
-            <div class="action" id="subject"><i class="fa fa-folder-open"></i><p>SF5</p></div>
-            <div class="action" id="record"><i class="fa fa-folder-open"></i><p>SF6</p></div>
-            
+            <div class="action" id="SF1"><i class="fa fa-folder-open"></i><p>SF1</p></div>
+            <div class="action" id="SF2"><i class="fa fa-folder-open"></i><p>SF2</p></div>
+            <div class="action" id="SF3"><i class="fa fa-folder-open"></i><p>SF3</p></div>
+            <div class="action" id="SF4"><i class="fa fa-folder-open"></i><p>SF4</p></div>
+            <div class="action" id="SF5"><i class="fa fa-folder-open"></i><p>SF5</p><span style="font-size: .8rem;">Promotion and Learning achievement Report</span></div>
+            <div class="action" id="SF6"><i class="fa fa-folder-open"></i><p>SF6</p></div>
+            <div class="action" id="SF7"><i class="fa fa-folder-open"></i><p>SF7</p></div>
+            <div class="action" id="SF8"><i class="fa fa-folder-open"></i><p>SF8</p></div>
+            <div class="action" id="SF9"><i class="fa fa-folder-open"></i><p>SF9</p><span style="font-size: .8rem;">School Record Card</span></div>
+            <div class="action" id="SF10"><i class="fa fa-folder-open"></i><p>SF10</p><span style="font-size: .8rem;">Learners Permanent record</span></div>
+            <div class="action" id="SF11"><i class="fa fa-folder-open"></i><p>SF11</p></div>
+            <div class="action" id="SF12"><i class="fa fa-folder-open"></i><p>SF12</p></div>
         </div>
     </section>
+
+    
 </div>
 
 <script>
     $(document).ready(function () {
-        $('#student').click(function () {
-            //location.href = "index.php?page=contents/student";
-            alert("Exporting success!");
+        $('#SF1').click(function () {
+             location.href = "index.php?page=contents/sf/sf1";
         });
 
-        $('#parent').click(function () {
-            //location.href = "index.php?page=contents/parents";
-            alert("Exporting success!");
+        $('#SF2').click(function () {
+             location.href = "index.php?page=contents/sf/sf2";
         });
 
-        $('#classroom').click(function () {
-            //location.href = "index.php?page=contents/classroom";
-            alert("Exporting success!");
+        $('#SF3').click(function () {
+            location.href = "index.php?page=contents/sf/sf3";
         });
 
-        $('#record').click(function () {
-            //location.href = "index.php?page=contents/record";
-            alert("Exporting success!");
+        $('#SF4').click(function () {
+            location.href = "index.php?page=contents/sf/sf4";
         });
 
-        $('#subject').click(function () {
-            //location.href = "index.php?page=contents/subject";
-            alert("Exporting success!");
+        $('#SF5').click(function () {
+            location.href = "index.php?page=contents/sf/sf5";
+        });
+        $('#SF6').click(function () {
+            location.href = "index.php?page=contents/sf/sf6";
         });
 
-        $('#teacher').click(function () {
-            //location.href = "index.php?page=contents/teacher";
-            alert("Exporting success!");
+        $('#SF7').click(function () {
+             location.href = "index.php?page=contents/sf/sf7";
         });
+        $('#SF8').click(function () {
+            location.href = "index.php?page=contents/sf/sf8";
+        });
+        $('#SF9').click(function () {
+             location.href = "index.php?page=contents/sf/sf9";
+        });
+        $('#SF10').click(function () {
+            location.href = "index.php?page=contents/sf/sf10";
+            //alert("Exporting success!");
+        });
+        $('#SF11').click(function () {
+           location.href = "index.php?page=contents/sf/sf11";
+        });
+        $('#SF12').click(function () {
+            location.href = "index.php?page=contents/sf/sf12";
+        });
+
     });
 </script>
 

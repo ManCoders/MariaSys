@@ -99,6 +99,23 @@ function db_connect()
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
 
+            "CREATE TABLE IF NOT EXISTS learner (
+                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                firstname VARCHAR(50) NOT NULL,
+                middlename VARCHAR(50) NOT NULL,
+                lastname VARCHAR(50) NOT NULL,
+                suffix VARCHAR(5) NOT NULL,
+                learner_id INT(12) NOT NULL,
+                reference_id VARCHAR(50) NOT NULL,
+                relation_child VARCHAR(50) NOT NULL,
+                emer_contact VARCHAR(12) NOT NULL,
+                learner_notes VARCHAR(10) NOT NULL,
+                birth VARCHAR(10) NOT NULL,
+                gender VARCHAR(10) NOT NULL,
+                profile_picture VARCHAR(255) NOT NULL,
+                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )",
+
             // System Info Table
             "CREATE TABLE IF NOT EXISTS system (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
