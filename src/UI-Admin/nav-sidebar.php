@@ -24,10 +24,10 @@
             <a href="index.php?page=contents/parents" class="nav-item nav-parents">
                 <span class=""><i class=""></i></span> Parents Management
             </a>
-            <a href="index.php?page=contents/classroom" class="nav-item nav-classroom">
+            <a href="index.php?page=contents/classroom" class="nav-item nav-classroom nav-masterlist nav-class_content">
                 <span class=""><i class=""></i></span> ClassRoom
             </a>
-            <a href="index.php?page=contents/Subject" class="nav-item nav-Subject">
+            <a href="index.php?page=contents/Subject" class="nav-item nav-Subject nav-subject_content">
                 <span class=""><i class=""></i></span> Subjects
             </a>
             <a href="index.php?page=contents/record" class="nav-item nav-record">

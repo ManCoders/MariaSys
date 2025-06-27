@@ -18,7 +18,7 @@
             </a>
 
             <a href="index.php?page=contents/student" class="nav-item nav-student">
-                <span class=""><i class=""></i></span> Students
+                <span class=""><i class=""></i></span>My Students
             </a>
             <a href="index.php?page=contents/parent" class="nav-item nav-Parent">
                 <span class=""><i class=""></i></span> Parents

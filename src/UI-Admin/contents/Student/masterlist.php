@@ -92,7 +92,7 @@
                 <small class="text-muted">View your children's profiles, attendance, and health records</small>
             </div>
             <div>
-                <button class="btn btn-success btn-sm " id="backPreviewPage" type="button"><i class="fa fa-arrow-left"></i>Back</button>
+                <button class="btn btn-success btn-sm" id="backPreviewPage" type="button"><i class="fa fa-arrow-left"></i>Back</button>
             </div>
         </div>
 
@@ -595,8 +595,8 @@
 
     }
     $('#backPreviewPage').click(function () {
-        sessionStorage.removeItem('learner_id');
-        location.href = 'index.php?page=contents/student';
+        //sessionStorage.removeItem('learner_id');
+        location.href = 'index.php?page=contents/student/class_content';
     });
 
 

@@ -16,6 +16,7 @@
                     <th class="text-center" style="width:4%">#</th>
                     <th>Subject Code</th>
                     <th>Subject Name</th>
+                    <th  >Learner No</th>
                     <th>Grade Level</th>
                     <th>Units</th>
                     <th>Teacher Assigned</th>
@@ -78,9 +79,9 @@
 
 <script>
     const subjectData = [
-        { id: 1, code: "ENG101", name: "English Grammar", grade: "Grade 7", units: 3, teacher: "Mr. Cruz", status: "Active" },
-        { id: 2, code: "MATH201", name: "Algebra", grade: "Grade 8", units: 4, teacher: "Ms. Santos", status: "Inactive" },
-        { id: 3, code: "SCI102", name: "Earth Science", grade: "Grade 7", units: 2, teacher: "Mr. Tan", status: "Active" }
+        { id: 1, code: "ENG101", student:"38", name: "English Grammar", grade: "Grade 7", units: 3, teacher: "Mr. Cruz", status: "Active" },
+        { id: 2, code: "MATH201",student:"40", name: "Algebra", grade: "Grade 8", units: 4, teacher: "Ms. Santos", status: "Inactive" },
+        { id: 3, code: "SCI102",student:"42", name: "Earth Science", grade: "Grade 7", units: 2, teacher: "Mr. Tan", status: "Active" }
     ];
 
     let dataTable;
@@ -95,7 +96,8 @@
             tr.append(`<td class="text-center">${i++}</td>`);
             tr.append(`<td>${sub.code}</td>`);
             tr.append(`<td>${sub.name}</td>`);
-            tr.append(`<td>${sub.grade}</td>`);
+            tr.append(`<td class="text-center">${sub.student}</td>`);
+            tr.append(`<td class="text-center">${sub.grade}</td>`);
             tr.append(`<td>${sub.units}</td>`);
             tr.append(`<td>${sub.teacher}</td>`);
             tr.append(`<td class="text-center">${sub.status}</td>`);
@@ -103,6 +105,7 @@
                 <td class="text-center">
                     <button class="btn btn-sm btn-success editBtn" data-id="${sub.id}"><i class="fa fa-edit"></i></button>
                     <button class="btn btn-sm btn-danger deleteBtn" data-id="${sub.id}"><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-sm btn-secondary viewBtn" data-id="${sub.id}"><i class="fa fa-eye"></i></button>
                 </td>`);
             tbody.append(tr);
         });
@@ -141,6 +144,17 @@
                 }
             }
         });
+
+        $('.viewBtn').click(function (){
+            const id = $(this).data('id');
+            const record = subjectData.find(e => e.id===id);
+            if (record) {
+                sessionStorage.setItem('learner_id', JSON.stringify(record));
+                location.href = 'index.php?page=contents/student/subject_content';
+            }
+                
+
+        })
     }
 
     $('#addNewBtn').click(function () {
