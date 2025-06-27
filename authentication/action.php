@@ -38,4 +38,11 @@ if($action === 'register-form') {
 		echo $registration;
 	}
 }
+
+if($action === 'childForm') {
+	$registration = $crud->Enrollment();
+	if ($registration) {
+		echo $registration;
+	}
+}
 ?>

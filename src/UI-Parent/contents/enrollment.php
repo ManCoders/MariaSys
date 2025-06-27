@@ -7,47 +7,47 @@
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         border: 1px solid #ddd;
     }
-    
+
     .stats-card i {
         font-size: 24px;
         margin-bottom: 10px;
         color: #666;
     }
-    
+
     .stats-card h5 {
         margin: 5px 0;
         color: #333;
     }
-    
+
     .stats-card small {
         color: #777;
     }
-    
+
     .status-badge {
         padding: 4px 8px;
         border-radius: 4px;
         font-size: 12px;
         font-weight: 500;
     }
-    
+
     .status-approved {
         background-color: #e8f5e8;
         color: #2d5a2d;
         border: 1px solid #c3e6c3;
     }
-    
+
     .status-pending {
         background-color: #fff3cd;
         color: #664d03;
         border: 1px solid #ffda6a;
     }
-    
+
     .status-rejected {
         background-color: #f8d7da;
         color: #721c24;
         border: 1px solid #f5c6cb;
     }
-    
+
     .btn-action {
         padding: 4px 8px;
         margin: 0 2px;
@@ -57,22 +57,22 @@
         color: #666;
         transition: 0.2s;
     }
-    
+
     .btn-action:hover {
         background-color: #f8f9fa;
         border-color: #adb5bd;
     }
-    
+
     .btn-action.view {
         border-color: #b3d7ff;
         color: #0056b3;
     }
-    
+
     .btn-action.edit {
         border-color: #ffda6a;
         color: #664d03;
     }
-    
+
     .btn-action.delete {
         border-color: #f5c6cb;
         color: #721c24;
@@ -153,33 +153,61 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="childForm">
-                    <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                        <h5 class="modal-title" style="color: #555;">Link Child Account</h5>
+                    <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
+                        <h5 class="modal-title text-white">Link Child Account</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="childId">
-                        
+
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <!-- Row 2 -->
+                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Student LRN *</label>
-                                <input type="text" class="form-control" id="studentLRN" placeholder="Enter 12-digit LRN" required>
-                                <small class="text-muted">The official Learner Reference Number assigned to your child</small>
+                                <input type="text" class="form-control" id="studentLRN" placeholder="Enter 12-digit LRN"
+                                    >
+                                    <small class="text-muted">The official Learner Reference Number assigned to your
+                                    child</small>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Child's Full Name *</label>
-                                <input type="text" class="form-control" id="childName" placeholder="Last Name, First Name MI" required>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Nickname</label>
+                                <input type="text" class="form-control" id="nickname"
+                                    placeholder="Enter Nickname (Optional)">
+                            </div>
+                            
+                            
+
+                            <!-- Row 1 -->
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Family Name *</label>
+                                <input type="text" class="form-control" id="familyName" placeholder="Enter Family Name"
+                                    >
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Given Name *</label>
+                                <input type="text" class="form-control" id="givenName" placeholder="Enter Given Name"
+                                    >
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Middle Name *</label>
+                                <input type="text" class="form-control" id="middleName" placeholder="Enter Middle Name"
+                                    >
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Suffix</label>
+                                <input type="text" class="form-control" id="suffix" placeholder="e.g. Jr., Sr., III">
                             </div>
                         </div>
+
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Date of Birth *</label>
-                                <input type="date" class="form-control" id="childBirthdate" required>
+                                <input type="date" class="form-control" id="childBirthdate">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Relationship to Child *</label>
-                                <select class="form-control" id="relationship" required>
+                                <select class="form-control" id="relationship">
                                     <option value="">Select Relationship</option>
                                     <option value="Father">Father</option>
                                     <option value="Mother">Mother</option>
@@ -196,23 +224,27 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Verification Code</label>
-                                <input type="text" class="form-control" id="verificationCode" placeholder="Code from school">
+                                <input type="text" class="form-control" id="verificationCode"
+                                    placeholder="Code from school">
                                 <small class="text-muted">Optional: Verification code provided by the school</small>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Emergency Contact Number *</label>
-                                <input type="tel" class="form-control" id="emergencyContact" placeholder="09XXXXXXXXX" required>
+                                <input type="tel" class="form-control" id="emergencyContact" placeholder="09XXXXXXXXX">
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Additional Notes</label>
-                            <textarea class="form-control" id="notes" rows="3" placeholder="Any special instructions or information..."></textarea>
+                            <textarea class="form-control" id="notes" rows="3"
+                                placeholder="Any special instructions or information..."></textarea>
                         </div>
 
-                        <div class="alert alert-light" style="border: 1px solid #d1ecf1; background-color: #e8f4fd; color: #0c5460;">
+                        <div class="alert alert-light"
+                            style="border: 1px solid #d1ecf1; background-color: #e8f4fd; color: #0c5460;">
                             <i class="fa fa-info-circle me-2"></i>
-                            <strong>Note:</strong> Your enrollment request will be verified by the school administration. You will receive a notification once the verification is complete.
+                            <strong>Note:</strong> Your enrollment request will be verified by the school
+                            administration. You will receive a notification once the verification is complete.
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -293,7 +325,7 @@
         childrenData.forEach(child => {
             const statusBadge = getStatusBadge(child.status);
             const actions = getActionButtons(child);
-            
+
             const tr = $('<tr></tr>');
             tr.html(`
                 <td class="text-center">${i++}</td>
@@ -308,7 +340,7 @@
             tbody.append(tr);
         });
 
-        updateStatsCards();
+        //updateStatsCards();
     }
 
     function getStatusBadge(status) {
@@ -328,7 +360,7 @@
             <button class="btn-action edit" onclick="editChild(${child.id})" title="Edit">
                 <i class="fa fa-edit"></i>
             </button>
-            ${child.status === 'Pending' ? 
+            ${child.status === 'Pending' ?
                 `<button class="btn-action delete" onclick="cancelRequest(${child.id})" title="Cancel Request">
                     <i class="fa fa-times"></i>
                 </button>` : ''
@@ -350,10 +382,10 @@
 
     function formatDate(dateStr) {
         const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
         });
     }
 
@@ -413,60 +445,112 @@
             if (index > -1) {
                 childrenData.splice(index, 1);
                 renderChildrenTable();
-                showNotification('Enrollment request cancelled successfully', 'info');
+
             }
         }
     }
 
-    function showNotification(message, type = 'success') {
-        // You can implement a toast notification system here
-        alert(message);
-    }
-
     // Event Handlers
-    $(document).ready(function() {
+    $(document).ready(function () {
         renderChildrenTable();
 
-        $('#addChildBtn').click(function() {
+        $('#addChildBtn').click(function () {
             $('#childForm')[0].reset();
             $('#childId').val('');
             $('#childModal').modal('show');
         });
+        
 
-        $('#childForm').submit(function(e) {
+        $('#childForm').submit(function (e) {
             e.preventDefault();
-            
+
+            const $form = $(this); // properly reference this form
             const formData = {
                 id: $('#childId').val() || Date.now(),
-                name: $('#childName').val(),
+                nickname: $('#nickname').val(),
+                givenname: $('#givenname').val(),
+                middlename: $('#middlename').val(),
+                familyname: $('#familyname').val(),
+                suffix: $('#suffix').val(),
                 lrn: $('#studentLRN').val(),
-                grade: 'TBD', // Will be assigned by school
-                section: 'TBD', // Will be assigned by school
+                grade: 'TBD',
+                section: 'TBD',
                 dateEnrolled: new Date().toISOString().split('T')[0],
                 status: 'Pending',
                 relationship: $('#relationship').val(),
-                emergencyContact: $('#emergencyContact').val()
+                emergencyContact: $('#emergencyContact').val(),
+                birthdate: $('#childBirthdate').val(),
+                verificationCode: $('#verificationCode').val(),
+                notes: $('#notes').val()
             };
 
-            if ($('#childId').val()) {
-                // Update existing
-                const index = childrenData.findIndex(c => c.id == formData.id);
-                if (index > -1) {
-                    childrenData[index] = {...childrenData[index], ...formData};
-                    showNotification('Child information updated successfully');
-                }
-            } else {
-                // Add new
-                childrenData.push(formData);
-                showNotification('Enrollment request submitted successfully');
-            }
+            $.ajax({
+                url: base_url + "/authentication/action.php?action=childForm",
+                method: "POST",
+                data: formData,
+                dataType: "json",
+                beforeSend: function () {
+                    $(this).find("button[type='submit']").html("Submitting...");
+                },
+                success: function (response) {
+                    if (response.status == 1) {
+                        Swal.fire({
+                            title: "Success!",
+                            text: response.message,
+                            icon: "success",
+                            toast: true,
+                            position: "top-end",
+                            timer: 3000,
+                            showConfirmButton: false,
+                        }).then(() => {
+                            $('#childModal').modal('hide');
+                            $form[0].reset();
+                            renderChildrenTable();
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            text: response.message,
+                            icon: "error",
+                            toast: true,
+                            position: "top-end",
+                            timer: 3000,
+                            showConfirmButton: false,
+                        }).then(() => {
+                            $('#childModal').modal('hide');
+                            $form[0].reset();
+                            renderChildrenTable();
+                        });
 
-            renderChildrenTable();
-            $('#childModal').modal('hide');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX error:", textStatus, errorThrown);
+                    Swal.fire({
+                        title: "Technical Error",
+                        text: 'Please contact the administration!',
+                        icon: "error",
+                        toast: true,
+                        position: "top-end",
+                        timer: 2000,
+                        showConfirmButton: false,
+                    }).then(() => {
+                        $('#childModal').modal('hide');
+                        $form[0].reset();
+                        renderChildrenTable();
+                    });
+                },
+                complete: function () {
+                    $('#childModal').modal('hide');
+                    $form[0].reset();
+                    renderChildrenTable();
+                }
+            });
         });
 
+
         // LRN validation
-        $('#studentLRN').on('input', function() {
+        $('#studentLRN').on('input', function () {
             let value = $(this).val().replace(/\D/g, ''); // Remove non-digits
             if (value.length > 12) {
                 value = value.substring(0, 12);
@@ -475,7 +559,7 @@
         });
 
         // Phone number validation
-        $('#emergencyContact').on('input', function() {
+        $('#emergencyContact').on('input', function () {
             let value = $(this).val().replace(/\D/g, '');
             if (value.length > 11) {
                 value = value.substring(0, 11);

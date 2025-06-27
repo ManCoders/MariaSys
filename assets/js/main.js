@@ -104,7 +104,7 @@ $(document).ready(function () {
         },
       });
 
-      
+
     }
   });
 
@@ -253,16 +253,16 @@ $(document).ready(function () {
   });
 
   function showError(message) {
-        Swal.fire({
-          title: "Error",
-          text: message,
-          icon: "error",
-          toast: true,
-          position: "top-end",
-          timer: 3000,
-          showConfirmButton: false,
-        }).then(() => {
-          window.location.href = base_url;
-        });
-      }
+    Swal.fire({
+      title: "Error",
+      text: message,
+      icon: "error",
+      toast: true,
+      position: "top-end",
+      timer: 3000,
+      showConfirmButton: false,
+    }).then(() => {
+      window.location.href = base_url;
+    });
+  }
 });

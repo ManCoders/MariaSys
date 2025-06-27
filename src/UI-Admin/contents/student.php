@@ -26,12 +26,14 @@
         </table>
     </div>
 
+    <style>
 
+    </style>
     <!-- Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="editForm">
+    <div class="modal fade " id="childModal" tabindex="-1">
+        <div class="modal-dialog  modal-lg ">
+            <div class="modal-content ">
+                <!-- <form id="editForm">
                     <div class="modal-header bg-success text-white">
                         <h5 class="modal-title">Update Information</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -75,7 +77,100 @@
                         <button class="btn btn-success text-white" type="submit">Save Changes</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
+                </form> -->
+                <form id="childForm">
+                    <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
+                        <h5 class="modal-title text-white">Link Child Account</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="childId">
+
+                        <div class="row">
+                            <!-- Row 2 -->
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Student LRN *</label>
+                                <input type="text" class="form-control" id="studentLRN"
+                                    placeholder="Enter 12-digit LRN">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Nickname</label>
+                                <input type="text" class="form-control" id="nickname"
+                                    placeholder="Enter Nickname (Optional)">
+                            </div>
+
+
+
+                            <!-- Row 1 -->
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Family Name *</label>
+                                <input type="text" class="form-control" id="familyName" placeholder="Enter Family Name">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Given Name *</label>
+                                <input type="text" class="form-control" id="givenName" placeholder="Enter Given Name">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Middle Name *</label>
+                                <input type="text" class="form-control" id="middleName" placeholder="Enter Middle Name">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Suffix</label>
+                                <input type="text" class="form-control" id="suffix" placeholder="e.g. Jr., Sr., III">
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Date of Birth *</label>
+                                <input type="date" class="form-control" id="childBirthdate">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Relationship to Child *</label>
+                                <select class="form-control" id="relationship">
+                                    <option value="">Select Relationship</option>
+                                    <option value="Father">Father</option>
+                                    <option value="Mother">Mother</option>
+                                    <option value="Guardian">Guardian</option>
+                                    <option value="Grandmother">Grandmother</option>
+                                    <option value="Grandfather">Grandfather</option>
+                                    <option value="Aunt">Aunt</option>
+                                    <option value="Uncle">Uncle</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Verification Code</label>
+                                <input type="text" class="form-control" id="verificationCode"
+                                    placeholder="Code from school">
+                                <small class="text-muted">Optional: Verification code provided by the school</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Emergency Contact Number *</label>
+                                <input type="tel" class="form-control" id="emergencyContact" placeholder="09XXXXXXXXX">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Additional Notes</label>
+                            <textarea class="form-control" id="notes" rows="3"
+                                placeholder="Any special instructions or information..."></textarea>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success text-white" type="submit">
+                            <i class="fa fa-save me-1"></i>Submit Request
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -154,7 +249,7 @@
                 $('#editContact').val(record.contact);
                 $('#editType').val(record.type);
                 $('#editStatus').val(record.status);
-                new bootstrap.Modal(document.getElementById('editModal')).show();
+                new bootstrap.Modal(document.getElementById('childModal')).show();
             }
         });
 
@@ -167,7 +262,7 @@
             }
         });
 
-        $('#addNewBtn').click(function () {
+/*         $('#addNewBtn').click(function () {
             $('#editId').val('');
             $('#editName').val('');
             $('#editGrade').val('');
@@ -175,12 +270,12 @@
             $('#editContact').val('');
             $('#editType').val('New');
             $('#editStatus').val('Pending');
-            new bootstrap.Modal(document.getElementById('editModal')).show();
-        });
+            new bootstrap.Modal(document.getElementById('childModal')).show();
+        }); */
 
     }
 
-    $('#editForm').submit(function (e) {
+  /*   $('#editForm').submit(function (e) {
         e.preventDefault();
         const id = $('#editId').val();
         if (id) {
@@ -206,11 +301,101 @@
             });
         }
         renderTable();
-        bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
+        bootstrap.Modal.getInstance(document.getElementById('childModal')).hide();
     });
-
+ */
 
     $(document).ready(function () {
         renderTable();
+
+        $('#addNewBtn').click(function () {
+            $('#childForm')[0].reset();
+            $('#childId').val('');
+            $('#childModal').modal('show');
+        });
+        $('#childForm').submit(function (e) {
+            e.preventDefault();
+
+            const $form = $(this); // properly reference this form
+            const formData = {
+                id: $('#childId').val() || Date.now(),
+                name: $('#childName').val(),
+                lrn: $('#studentLRN').val(),
+                grade: 'TBD',
+                section: 'TBD',
+                dateEnrolled: new Date().toISOString().split('T')[0],
+                status: 'Pending',
+                relationship: $('#relationship').val(),
+                emergencyContact: $('#emergencyContact').val(),
+                birthdate: $('#childBirthdate').val(),
+                verificationCode: $('#verificationCode').val(),
+                notes: $('#notes').val()
+            };
+
+            $.ajax({
+                url: base_url + "/authentication/action.php?action=childForm",
+                method: "POST",
+                data: formData,
+                dataType: "json",
+                beforeSend: function () {
+                    $(this).find("button[type='submit']").html("Submitting...");
+                },
+                success: function (response) {
+                    if (response.status == 1) {
+                        Swal.fire({
+                            title: "Success!",
+                            text: response.message,
+                            icon: "success",
+                            toast: true,
+                            position: "top-end",
+                            timer: 3000,
+                            showConfirmButton: false,
+                        }).then(() => {
+                            $('#childModal').modal('hide');
+                            $form[0].reset();
+                            renderChildrenTable();
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            text: response.message,
+                            icon: "error",
+                            toast: true,
+                            position: "top-end",
+                            timer: 3000,
+                            showConfirmButton: false,
+                        }).then(() => {
+                            $('#childModal').modal('hide');
+                            $form[0].reset();
+                            renderChildrenTable();
+                        });
+
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX error:", textStatus, errorThrown);
+                    Swal.fire({
+                        title: "Technical Error",
+                        text: 'Please contact the administration!',
+                        icon: "error",
+                        toast: true,
+                        position: "top-end",
+                        timer: 2000,
+                        showConfirmButton: false,
+                    }).then(() => {
+                        $('#childModal').modal('hide');
+                        $form[0].reset();
+                        renderChildrenTable();
+                    });
+                },
+                complete: function () {
+                    $('#childModal').modal('hide');
+                    $form[0].reset();
+                    renderChildrenTable();
+                }
+            });
+        });
+
+
     });
 </script>

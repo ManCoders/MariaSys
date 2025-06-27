@@ -309,4 +309,50 @@ class Action
 
     }
 
+
+    function Enrollment()
+    {
+        //extract($_POST); // Extracts: name, lrn, grade, section, dateEnrolled, status, relationship, emergencyContact, birthdate, verificationCode, notes
+        
+       /*  try {
+            // Validate required fields (optional)
+            if (empty($name) || empty($lrn) || empty($birthdate) || empty($relationship) || empty($emergencyContact)) {
+                return json_encode(['status' => 0, 'message' => 'Missing required fields.']);
+            }
+
+            // Insert to MySQL
+            $stmt = $db->prepare("
+            INSERT INTO enrolled_children (
+                name, lrn, grade, section, date_enrolled,
+                status, relationship, emergency_contact,
+                birthdate, verification_code, notes
+            ) VALUES (
+                :name, :lrn, :grade, :section, :dateEnrolled,
+                :status, :relationship, :emergencyContact,
+                :birthdate, :verificationCode, :notes
+            )
+        ");
+
+            $stmt->execute([
+                ':name' => $name,
+                ':lrn' => $lrn,
+                ':grade' => $grade ?? 'TBD',
+                ':section' => $section ?? 'TBD',
+                ':dateEnrolled' => $dateEnrolled ?? date('Y-m-d'),
+                ':status' => $status ?? 'Pending',
+                ':relationship' => $relationship,
+                ':emergencyContact' => $emergencyContact,
+                ':birthdate' => $birthdate,
+                ':verificationCode' => $verificationCode ?? null,
+                ':notes' => $notes ?? null
+            ]);
+
+            return json_encode(['status' => 1, 'message' => 'Successfully Registered. Please wait for approval!']);
+        } catch (PDOException $e) {
+            return json_encode(['status' => 0, 'message' => 'Database error: ' . $e->getMessage()]);
+        } */
+
+        return json_encode(['status' => 1, 'message' => 'Successfully Registered. Please check the admin_class.php backend']);
+    }
+
 }
