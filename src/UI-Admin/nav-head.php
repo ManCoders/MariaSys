@@ -1,4 +1,19 @@
+<!-- <?php
+$adminData = $_SESSION['adminData'] ?? null;
+$adminName = $adminData ? $adminData['firstname'] . ' ' . $adminData['lastname'] : 'Admin';
+?> -->
+
 <style>
+  :root {
+    --primary-color: #2c3e50;
+    --primary-dark: #1a252f;
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --gray-border: #e9ecef;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+  }
+
   .navbar {
     background: var(--white);
     border-bottom: 1px solid var(--gray-border);
@@ -6,15 +21,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* position: sticky; */
+    position: sticky;
     top: 0;
     z-index: 1000;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
   }
 
   .nav-brand {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--primary-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-brand i {
+    color: var(--success-color);
   }
 
   .nav-menu {
@@ -23,20 +48,52 @@
     gap: 12px;
     margin: 0;
     padding: 0;
+    align-items: center;
+  }
+
+  .admin-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-dark);
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: var(--light-gray);
+  }
+
+  .admin-info:hover {
+    background: #e8f4f8;
+    transform: translateY(-1px);
   }
 
   .nav-menu li a {
     text-decoration: none;
     color: var(--primary-dark);
     background: var(--light-gray);
-    padding: 8px 14px;
-    border-radius: 10px;
+    padding: 8px 16px;
+    border-radius: 8px;
     font-size: 0.95rem;
-    transition: 0.2s ease-in-out;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
 
   .nav-menu li a:hover {
     background: #e8f5e9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .nav-menu li a.profile {
+    background: #e3f2fd;
+    color: #1976d2;
+  }
+
+  .nav-menu li a.profile:hover {
+    background: #bbdefb;
   }
 
   .nav-menu li a.logout {
@@ -46,24 +103,122 @@
 
   .nav-menu li a.logout:hover {
     background: #ffcdd2;
+    transform: translateY(-2px);
   }
 
-  /* Responsive menu tweak (optional collapse) */
-  @media (max-width: 600px) {
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--white);
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1001;
+    border: 1px solid var(--gray-border);
+  }
+
+  
+
+  .dropdown-content a {
+    color: var(--primary-dark);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: var(--light-gray);
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 8px 16px;
+    }
+
+    .nav-brand {
+      font-size: 1rem;
+    }
+
+    .nav-menu {
+      flex-direction: row;
+      gap: 8px;
+    }
+
+    .admin-info {
+      display: none;
+    }
+
+    .nav-menu li a {
+      padding: 6px 10px;
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
     .nav-menu {
       flex-direction: column;
-      gap: 8px;
-      align-items: flex-start;
+      gap: 4px;
+      align-items: flex-end;
     }
   }
 </style>
-<nav class="navbar bg-white text-block mb-2">
-  <div class="nav ">
-    <strong>Sta.Maria Elementary School</strong>
+
+<nav class="navbar mx-2">
+  <div class="nav-brand">
+    <i class="fas fa-graduation-cap"></i>
+    <strong>Sta. Maria Elementary School - Admin Panel</strong>
   </div>
-  <ul class="nav-menu ">
-    <li><a href="#" class="logout">Profiles</a></li>
-    <li><a id="logout" class="logout" style="cursor: pointer; ">Logout</a></li>
-  </ul>
+
+  <div class="d-flex align-items-center gap-3">
+    <!-- Admin Info Display -->
+    <div class="admin-info">
+      <i class="fas fa-user-shield"></i>
+      <span><?php echo htmlspecialchars($adminName); ?></span>
+    </div>
+
+    <!-- Navigation Menu -->
+    <ul class="nav-menu">
+      <li class="dropdown">
+        <a href="#" class="profile">
+          <i class="fas fa-user-cog"></i>
+          <span>Profile</span>
+        </a>
+        <div class="dropdown-content">
+          <a href="index.php?page=contents/setting">
+            <i class="fas fa-cog"></i> Settings
+          </a>
+          <a href="#">
+            <i class="fas fa-user-edit"></i> Edit Profile
+          </a>
+          <a href="#">
+            <i class="fas fa-key"></i> Change Password
+          </a>
+        </div>
+      </li>
+
+      <li>
+        <a id="logout" class="logout" style="cursor: pointer;">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>
 
+<script>
+  $(document).ready(function () {
+    $('html').css('scroll-behavior', 'smooth');
+  });
+</script>

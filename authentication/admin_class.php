@@ -309,50 +309,128 @@ class Action
 
     }
 
-
     function Enrollment()
     {
-        //extract($_POST); // Extracts: name, lrn, grade, section, dateEnrolled, status, relationship, emergencyContact, birthdate, verificationCode, notes
-        
-       /*  try {
-            // Validate required fields (optional)
-            if (empty($name) || empty($lrn) || empty($birthdate) || empty($relationship) || empty($emergencyContact)) {
-                return json_encode(['status' => 0, 'message' => 'Missing required fields.']);
+        extract($_POST); // ⚠️ Still recommended to use $_POST['key'] individually for clarity & safety
+
+        try {
+            if (
+                empty($lrn) || empty($family_name) || empty($given_name) ||
+                empty($middle_name) || empty($birthdate) ||
+                empty($relationship) || empty($emergency_contact)
+            ) {
+                return json_encode(['status' => 2, 'message' => 'Please fill in all required fields.']);
             }
 
-            // Insert to MySQL
-            $stmt = $db->prepare("
-            INSERT INTO enrolled_children (
-                name, lrn, grade, section, date_enrolled,
-                status, relationship, emergency_contact,
-                birthdate, verification_code, notes
+            if (!preg_match('/^\d{12}$/', $lrn)) {
+                return json_encode(['status' => 2, 'message' => 'Invalid LRN format. It should be 12 digits.']);
+            }
+
+            if (!preg_match('/^09\d{9}$/', $emergency_contact)) {
+                return json_encode(['status' => 2, 'message' => 'Invalid emergency contact number.']);
+            }
+
+            $check = $this->db->prepare("SELECT COUNT(*) FROM learners WHERE lrn = :lrn");
+            $check->execute([':lrn' => $lrn]);
+            if ($check->fetchColumn() > 0) {
+                return json_encode(['status' => 2, 'message' => 'This LRN is already registered.']);
+            }
+
+            $profilePicPath = null;
+            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+                $file = $_FILES['profile_picture'];
+                $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+
+                if (!in_array($ext, $allowed)) {
+                    return json_encode(['status' => 2, 'message' => 'Only JPG, PNG, and GIF files are allowed.']);
+                }
+
+                $uploadDir = __DIR__ . '/uploads/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                $newName = uniqid('profile_', false) . '.' . $ext;
+                $uploadPath = $uploadDir . $newName;
+
+                if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                    $profilePicPath = 'uploads/' . $newName;
+                } else {
+                    return json_encode(['status' => 2, 'message' => 'Failed to save uploaded profile picture.']);
+                }
+            }
+
+            $stmt = $this->db->prepare("
+            INSERT INTO learners (
+                lrn, nickname, family_name, given_name, middle_name, suffix,
+                birthdate, relationship, verification_code, emergency_contact, 
+                notes, gender, profile_picture, status
             ) VALUES (
-                :name, :lrn, :grade, :section, :dateEnrolled,
-                :status, :relationship, :emergencyContact,
-                :birthdate, :verificationCode, :notes
+                :lrn, :nickname, :family_name, :given_name, :middle_name, :suffix,
+                :birthdate, :relationship, :verification_code, :emergency_contact, 
+                :notes, :gender, :profile_picture, :status
             )
         ");
 
             $stmt->execute([
-                ':name' => $name,
                 ':lrn' => $lrn,
-                ':grade' => $grade ?? 'TBD',
-                ':section' => $section ?? 'TBD',
-                ':dateEnrolled' => $dateEnrolled ?? date('Y-m-d'),
-                ':status' => $status ?? 'Pending',
-                ':relationship' => $relationship,
-                ':emergencyContact' => $emergencyContact,
+                ':nickname' => $nickname ?? null,
+                ':family_name' => $family_name,
+                ':given_name' => $given_name,
+                ':middle_name' => $middle_name,
+                ':suffix' => $suffix ?? null,
                 ':birthdate' => $birthdate,
-                ':verificationCode' => $verificationCode ?? null,
-                ':notes' => $notes ?? null
+                ':relationship' => $relationship,
+                ':verification_code' => $verification_code ?? null,
+                ':emergency_contact' => $emergency_contact,
+                ':notes' => $notes ?? null,
+                ':gender' => $gender ?? null,
+                ':profile_picture' => $profilePicPath,
+                ':status' => $status
             ]);
 
-            return json_encode(['status' => 1, 'message' => 'Successfully Registered. Please wait for approval!']);
+            return json_encode(['status' => 1, 'message' => 'Successfully registered. Please wait for approval!']);
         } catch (PDOException $e) {
-            return json_encode(['status' => 0, 'message' => 'Database error: ' . $e->getMessage()]);
-        } */
-
-        return json_encode(['status' => 1, 'message' => 'Successfully Registered. Please check the admin_class.php backend']);
+            return json_encode(['status' => 0, 'message' => 'Database Error: ' . $e->getMessage()]);
+        }
     }
+
+
+    public function getLearner()
+{
+    try {
+        $stmt = $this->db->prepare("
+            SELECT *,
+                id, 
+                CONCAT(family_name, ', ', given_name, ' ', LEFT(middle_name, 1), '.') AS name, 
+                lrn, 
+                created_date AS date, 
+                emergency_contact AS contact, 
+                relationship, 
+                status 
+            FROM learners 
+            ORDER BY created_date DESC
+        ");
+
+        $stmt->execute();
+        $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode([
+            'status' => 1,
+            'data' => $learners
+        ]);
+    } catch (PDOException $e) {
+        http_response_code(500); // optional for error tracking
+        return json_encode([
+            'status' => 0,
+            'message' => 'Database error: ' . $e->getMessage()
+        ]);
+    }
+}
+
+
+
+
 
 }

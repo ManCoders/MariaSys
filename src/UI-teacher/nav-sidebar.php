@@ -7,10 +7,12 @@
 
     .sidebar-list a {
         font-weight: 500;
+        padding:.5rem;
+        border: 1px solid #ddd;
     }
 </style>
 
-<nav id="sidebar" style="border-radius:5px;">
+<nav id="sidebar" class="ms-2" style="border-radius:5px;">
     <div class="container-fluid b-1 " style="padding: 0px;">
         <div class="sidebar-list ">
             <a href="index.php?page=home" class="nav-item nav-home">

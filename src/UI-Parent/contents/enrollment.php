@@ -152,62 +152,63 @@
     <div class="modal fade" id="childModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="childForm">
+                <form id="childForm" enctype="multipart/form-data">
                     <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
                         <h5 class="modal-title text-white">Link Child Account</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="childId">
-
+                        <input type="hidden" name="child_id" id="childId">
+                        <input type="hidden" name="status" value="Pending" >
                         <div class="row">
                             <!-- Row 2 -->
-                             <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">Student LRN *</label>
-                                <input type="text" class="form-control" id="studentLRN" placeholder="Enter 12-digit LRN"
-                                    >
-                                    <small class="text-muted">The official Learner Reference Number assigned to your
+                                <input type="text" class="form-control" name="lrn" id="studentLRN" required
+                                    placeholder="Enter 12-digit LRN">
+                                <small class="text-muted">The official Learner Reference Number assigned to your
                                     child</small>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Nickname</label>
-                                <input type="text" class="form-control" id="nickname"
+                                <input type="text" class="form-control" id="nickname" name="nickname"
                                     placeholder="Enter Nickname (Optional)">
                             </div>
-                            
-                            
+
+
 
                             <!-- Row 1 -->
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Family Name *</label>
-                                <input type="text" class="form-control" id="familyName" placeholder="Enter Family Name"
-                                    >
+                                <input type="text" class="form-control" name="family_name" id="familyName" required
+                                    placeholder="Enter Family Name">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Given Name *</label>
-                                <input type="text" class="form-control" id="givenName" placeholder="Enter Given Name"
-                                    >
+                                <input type="text" class="form-control" name="given_name" id="givenName" required
+                                    placeholder="Enter Given Name">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Middle Name *</label>
-                                <input type="text" class="form-control" id="middleName" placeholder="Enter Middle Name"
-                                    >
+                                <input type="text" class="form-control" name="middle_name" id="middleName" required
+                                    placeholder="Enter Middle Name">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Suffix</label>
-                                <input type="text" class="form-control" id="suffix" placeholder="e.g. Jr., Sr., III">
+                                <input type="text" class="form-control" name="suffix" id="suffix"
+                                    placeholder="e.g. Jr., Sr., III">
                             </div>
                         </div>
 
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">Date of Birth *</label>
-                                <input type="date" class="form-control" id="childBirthdate">
+                                <input type="date" class="form-control" name="birthdate" id="childBirthdate" required>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">Relationship to Child *</label>
-                                <select class="form-control" id="relationship">
+                                <select class="form-control" name="relationship" id="relationship" required>
                                     <option value="">Select Relationship</option>
                                     <option value="Father">Father</option>
                                     <option value="Mother">Mother</option>
@@ -219,26 +220,53 @@
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Gender*</label>
+                                <select class="form-control" name="gender" id="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Verification Code</label>
-                                <input type="text" class="form-control" id="verificationCode"
-                                    placeholder="Code from school">
+                                <input type="text" class="form-control" required name="verification_code"
+                                    id="verificationCode" placeholder="Code from school">
                                 <small class="text-muted">Optional: Verification code provided by the school</small>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Emergency Contact Number *</label>
-                                <input type="tel" class="form-control" id="emergencyContact" placeholder="09XXXXXXXXX">
+                                <input type="tel" class="form-control" required name="emergency_contact"
+                                    id="emergencyContact" placeholder="09XXXXXXXXX">
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Additional Notes</label>
-                            <textarea class="form-control" id="notes" rows="3"
-                                placeholder="Any special instructions or information..."></textarea>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Profile Picture</label>
+                                <input type="file" class="form-control" id="profilePicInput" required
+                                    name="profile_picture" accept="image/*">
+                                <small class="text-muted">Upload a clear image (JPG, PNG)</small>
+                                <div class="mt-2 col-md-8">
+                                    <img id="profilePreview" src="../assets/image/users.png" alt="Profile Preview"
+                                        class="img-thumbnail" width="150">
+                                </div>
+
+
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Additional Notes</label>
+                                <textarea class="form-control" name="notes" id="notes" rows="3"
+                                    placeholder="Any special instructions or information..."></textarea>
+                            </div>
+
+
+
                         </div>
+
 
                         <div class="alert alert-light"
                             style="border: 1px solid #d1ecf1; background-color: #e8f4fd; color: #0c5460;">
@@ -459,76 +487,44 @@
             $('#childId').val('');
             $('#childModal').modal('show');
         });
-        
+
 
         $('#childForm').submit(function (e) {
             e.preventDefault();
 
-            const $form = $(this); // properly reference this form
-            const formData = {
-                id: $('#childId').val() || Date.now(),
-                nickname: $('#nickname').val(),
-                givenname: $('#givenname').val(),
-                middlename: $('#middlename').val(),
-                familyname: $('#familyname').val(),
-                suffix: $('#suffix').val(),
-                lrn: $('#studentLRN').val(),
-                grade: 'TBD',
-                section: 'TBD',
-                dateEnrolled: new Date().toISOString().split('T')[0],
-                status: 'Pending',
-                relationship: $('#relationship').val(),
-                emergencyContact: $('#emergencyContact').val(),
-                birthdate: $('#childBirthdate').val(),
-                verificationCode: $('#verificationCode').val(),
-                notes: $('#notes').val()
-            };
+            const $form = $(this);
+            const formData = new FormData(this); // Supports file + text data
 
             $.ajax({
                 url: base_url + "/authentication/action.php?action=childForm",
                 method: "POST",
                 data: formData,
+                processData: false, // Required for FormData
+                contentType: false, // Required for FormData
                 dataType: "json",
                 beforeSend: function () {
-                    $(this).find("button[type='submit']").html("Submitting...");
+                    $form.find("button[type='submit']").html("Submitting...");
                 },
                 success: function (response) {
-                    if (response.status == 1) {
-                        Swal.fire({
-                            title: "Success!",
-                            text: response.message,
-                            icon: "success",
-                            toast: true,
-                            position: "top-end",
-                            timer: 3000,
-                            showConfirmButton: false,
-                        }).then(() => {
-                            $('#childModal').modal('hide');
-                            $form[0].reset();
-                            renderChildrenTable();
-                        });
-                    } else {
-                        Swal.fire({
-                            title: "Error",
-                            text: response.message,
-                            icon: "error",
-                            toast: true,
-                            position: "top-end",
-                            timer: 3000,
-                            showConfirmButton: false,
-                        }).then(() => {
-                            $('#childModal').modal('hide');
-                            $form[0].reset();
-                            renderChildrenTable();
-                        });
-
-                    }
+                    Swal.fire({
+                        title: response.status === 1 ? "Success!" : "Error",
+                        text: response.message,
+                        icon: response.status === 1 ? "success" : "error",
+                        toast: true,
+                        position: "top-end",
+                        timer: 3000,
+                        showConfirmButton: false,
+                    }).then(() => {
+                        $('#childModal').modal('hide');
+                        $form[0].reset();
+                        renderChildrenTable();
+                    });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.error("AJAX error:", textStatus, errorThrown);
                     Swal.fire({
                         title: "Technical Error",
-                        text: 'Please contact the administration!',
+                        text: "Please contact the administration!",
                         icon: "error",
                         toast: true,
                         position: "top-end",
@@ -541,9 +537,7 @@
                     });
                 },
                 complete: function () {
-                    $('#childModal').modal('hide');
-                    $form[0].reset();
-                    renderChildrenTable();
+                    $form.find("button[type='submit']").html("Submit Request");
                 }
             });
         });
@@ -566,5 +560,29 @@
             }
             $(this).val(value);
         });
+
+        $('#verificationCode').on('input', function () {
+            let value = $(this).val().replace(/\D/g, '');
+            if (value.length > 8) {
+                value = value.substring(0, 8);
+            }
+            $(this).val(value);
+        });
     });
+    document.getElementById('profilePicInput').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        const preview = document.getElementById('profilePreview');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "../assets/image/users.png";
+        }
+    });
+
+
 </script>

@@ -19,9 +19,9 @@
         }
     </style>
 
-<section class="p-3 document-section">
+<section class="p-2 document-section">
     <div class="border-0 mb-3">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center mb-2">
             <div>
                 <h4 class="fw-bold text-dark mb-0"><i class="fa fa-folder-open text-primary me-2"></i>Document Management</h4>
                 <small class="text-muted">View and manage document hardcopies for reporting</small>

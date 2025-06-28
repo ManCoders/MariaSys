@@ -20,7 +20,6 @@
                     <th>Grade Level</th>
                     <th>Units</th>
                     <th>Teacher Assigned</th>
-                    <th class="text-center">Status</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
@@ -59,13 +58,7 @@
                             <label class="form-label">Teacher Assigned</label>
                             <input type="text" class="form-control" id="editTeacher" required>
                         </div>
-                        <div class="mb-2">
-                            <label class="form-label">Status</label>
-                            <select class="form-select" id="editStatus">
-                                <option>Active</option>
-                                <option>Inactive</option>
-                            </select>
-                        </div>
+                        
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-success text-white" type="submit">Save</button>
@@ -100,7 +93,6 @@
             tr.append(`<td class="text-center">${sub.grade}</td>`);
             tr.append(`<td>${sub.units}</td>`);
             tr.append(`<td>${sub.teacher}</td>`);
-            tr.append(`<td class="text-center">${sub.status}</td>`);
             tr.append(`
                 <td class="text-center">
                     <button class="btn btn-sm btn-success editBtn" data-id="${sub.id}"><i class="fa fa-edit"></i></button>

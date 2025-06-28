@@ -1,8 +1,8 @@
 <section class="p-2">
     <div>
-        <div class="card-body d-flex justify-content-between align-items-center mb-2">
+        <div class="d-flex justify-content-between align-items-center mb-0">
             <div>
-                <h4 class="mb-0"><i class="fa fa-folder-open text-primary me-2"></i>Parents Management</h4>
+                <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Parents Management</h4>
                 <small class="text-muted">Manage and process parents' applications and concerns</small>
             </div>
             <button class="btn btn-success btn-sm" id="addNewBtn">

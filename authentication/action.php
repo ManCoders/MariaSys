@@ -45,4 +45,12 @@ if($action === 'childForm') {
 		echo $registration;
 	}
 }
+
+
+if($action === 'getLearner'){
+	$learner = $crud->getLearner();
+	if ($learner) {
+		echo $learner;
+		}
+}
 ?>
