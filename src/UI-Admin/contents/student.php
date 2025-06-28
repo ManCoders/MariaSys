@@ -226,31 +226,7 @@
 
     let dataTable;
 
-
-
-    $('.editBtn').click(function () {
-        const id = $(this).data('id');
-        const record = sampleData.find(e => e.id === id);
-        if (record) {
-            $('#editId').val(record.id);
-            $('#editName').val(record.name);
-            $('#editGrade').val(record.grade);
-            $('#editDate').val(record.date);
-            $('#editContact').val(record.contact);
-            $('#editType').val(record.type);
-            $('#editStatus').val(record.status);
-            new bootstrap.Modal(document.getElementById('childModal')).show();
-        }
-    });
-
-    $('.viewBtn').click(function () {
-        const id = $(this).data('id');
-        const record = sampleData.find(e => e.id === id);
-        if (record) {
-            sessionStorage.setItem('learner_id', JSON.stringify(record));
-            location.href = 'index.php?page=contents/student/student_view';
-        }
-    });
+    /* 
 
     $('#addNewBtn').click(function () {
         $('#editId').val('');
@@ -262,7 +238,7 @@
         $('#editStatus').val('Pending');
         new bootstrap.Modal(document.getElementById('childModal')).show();
     });
-
+ */
 
 
     /*   $('#editForm').submit(function (e) {
@@ -295,63 +271,92 @@
       });
    */
 
-function renderTable() {
-    let tbody = $('#tb_data_body');
-    tbody.html('');
-    let i = 1;
+    function renderTable() {
+        let tbody = $('#tb_data_body');
+        tbody.html('');
+        let i = 1;
 
-    $.ajax({
-        url: base_url + "/authentication/action.php?action=getLearner",
-        method: 'GET',
-        dataType: 'json',
-        success: function (response) {
-            if (response.status === 1) {
-                const data = response.data;
+        $.ajax({
+            url: base_url + "/authentication/action.php?action=getLearner",
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 1) {
+                    const data = response.data;
 
-                data.forEach(emp => {
-                    let tr = $('<tr></tr>');
-                    tr.append(`<td class="text-center">${i++}</td>`);
-                    tr.append(`<td>${emp.name}</td>`);
-                    tr.append(`<td>${emp.lrn}</td>`);
-                    tr.append(`<td>${emp.date}</td>`);
-                    tr.append(`<td>${emp.contact}</td>`);
-                    tr.append(`<td>${emp.relationship}</td>`);
-                    tr.append(`<td class="text-center">${emp.status}</td>`);
-                    tr.append(`
+                    data.forEach(emp => {
+                        let tr = $('<tr></tr>');
+                        tr.append(`<td class="text-center">${i++}</td>`);
+                        tr.append(`<td>${emp.name}</td>`);
+                        tr.append(`<td>${emp.lrn}</td>`);
+                        tr.append(`<td>${emp.date}</td>`);
+                        tr.append(`<td>${emp.contact}</td>`);
+                        tr.append(`<td>${emp.relationship}</td>`);
+                        tr.append(`<td class="text-center">${emp.status}</td>`);
+                        tr.append(`
                         <td class="text-center">
                             <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}"><i class="fa fa-edit"></i></button>
                             <button class="btn btn-sm btn-danger trashBtn" data-id="${emp.id}"><i class="fa fa-trash"></i></button>
                             <button class="btn btn-sm btn-primary viewBtn" data-id="${emp.id}"><i class="fa fa-eye"></i></button>
                         </td>
                     `);
-                    tbody.append(tr);
-                });
+                        tbody.append(tr);
+                    });
 
-                if ($.fn.DataTable.isDataTable('#student-tbl')) {
-                    $('#student-tbl').DataTable().destroy();
+                    if ($.fn.DataTable.isDataTable('#student-tbl')) {
+                        $('#student-tbl').DataTable().destroy();
+                    }
+
+                    dataTable = $('#student-tbl').DataTable({
+                        pageLength: 5,
+                        lengthMenu: [5, 10, 25],
+                        columnDefs: [{ orderable: false, targets: 7 }]
+                    });
+
+                    $('.editBtn').off('click').on('click', function () {
+                        const id = $(this).data('id');
+                        alert('Edit clicked for ID: ' + id);
+                        // TODO: Populate and show modal for editing
+                    });
+
+                    $('.trashBtn').off('click').on('click', function () {
+                        const id = $(this).data('id');
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // TODO: Call backend to delete
+                                alert('Deleted ID: ' + id);
+                            }
+                        });
+                    });
+
+                    $('.viewBtn').off('click').on('click', function () {
+                        const id = $(this).data('id');
+                        sessionStorage.setItem('learner_id', id);
+                        location.href = 'index.php?page=contents/student/student_view';
+                    });
+
+                } else {
+                    Swal.fire("Error", response.message, "error");
                 }
-
-                dataTable = $('#student-tbl').DataTable({
-                    pageLength: 5,
-                    lengthMenu: [5, 10, 25],
-                    columnDefs: [{ orderable: false, targets: 7 }]
-                });
-
-            } else {
-                Swal.fire("Error", response.message, "error");
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", status, error);
+                Swal.fire("Error", "Unable to fetch data from server.", "error");
             }
-        },
-        error: function (xhr, status, error) {
-            console.error("AJAX error:", status, error);
-            Swal.fire("Error", "Unable to fetch data from server.", "error");
-        }
-    });
-}
-   /* setInterval(() => {
-    if (!$('#childModal').hasClass('show')) {
-        renderTable();
+        });
     }
-}, 1000); */
+
+
+
+
 
 
     $(document).ready(function () {

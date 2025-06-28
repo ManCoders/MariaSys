@@ -92,7 +92,8 @@
                 <small class="text-muted">View your children's profiles, attendance, and health records</small>
             </div>
             <div>
-                <button class="btn btn-success btn-sm " id="backPreviewPage" type="button"><i class="fa fa-arrow-left"></i>Back</button>
+                <button class="btn btn-success btn-sm " id="backPreviewPage" type="button"><i
+                        class="fa fa-arrow-left"></i>Back</button>
             </div>
         </div>
 
@@ -106,8 +107,8 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="mb-3">
-                                <img src="https://via.placeholder.com/120x120/6c757d/ffffff?text=Student"
-                                    alt="Student Photo" class="rounded-circle student-photo" width="120" height="120">
+                                <img src="../../authentication/uploads/profile_685fb073bd1a8.jpg" alt="Student Photo"
+                                    class="rounded-circle student-photo" width="120" height="120">
                             </div>
                             <h5 id="studentName" style="color: #333;">Student Name</h5>
                             <p class="text-muted mb-1" id="studentLRN">LRN: 000000000000</p>
@@ -127,7 +128,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 overflow-scroll">
-                                    <table class="table table-borderless info-table text-sm text-truncate text-nowrap overflow-hidden ">
+                                    <table
+                                        class="table table-borderless info-table text-sm text-truncate text-nowrap overflow-hidden ">
                                         <tr>
                                             <td><strong>Full Name:</strong></td>
                                             <td id="infoName">-</td>
@@ -153,8 +155,8 @@
                                             <td id="infoAddress">-</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Contact Number:</strong></td>
-                                            <td id="infoContact">-</td>
+                                            <td><strong>Emer-response name:</strong></td>
+                                            <td id="infoResponse">-</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Emergency Contact:</strong></td>
@@ -546,8 +548,8 @@
             reportedBy: "Ms. Garcia"
         }
     ];
-    
-    
+
+
     /* 
         function populateChildSelector() {
             const selector = $('#childSelector');
@@ -558,29 +560,67 @@
             });
         } */
     const data = sessionStorage.getItem('learner_id');
-    //sessionStorage.removeItem('learner_id');
+
 
 
     function displayStudentInfo(studentId) {
         const student = studentsData.find(s => s.id == studentId);
         if (!student) return;
 
+
+        $.ajax({
+            url: base_url + "/authentication/action.php?action=getLearner",
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 1) {
+                    const data = response.data;
+
+                    const studentId = sessionStorage.getItem('learner_id'); // or set manually
+
+                    data.forEach(emp => {
+                        if (emp.id == studentId) {
+                            // Set profile picture if available
+                            if (emp.profile_picture) {
+                                $('img[alt="Student Photo"]').attr('src', '../../authentication/' + emp.profile_picture);
+                            } else {
+                                $('img[alt="Student Photo"]').attr('src', '../../assets/image/users.png');
+                            }
+
+                            $('#studentName').text(emp.name);
+                            $('#studentLRN').text(`LRN: ${emp.lrn}`);
+                            $('#infoName').text(emp.name);
+                            $('#infoBirthdate').text(formatDate(emp.birthdate));
+                            $('#infoAge').text(calculateAge(emp.birthdate) + ' years old');
+                            $('#infoGender').text(emp.gender ?? 'N/A');
+                            $('#infoAddress').text(emp.address ?? 'Not Provided');
+                            $('#infoResponse').text(emp.relationship ?? 'Not Provided' );
+                            $('#infoEmergency').text(emp.contact ?? 'Not Available');
+                        }
+                    });
+
+
+                } else {
+                    Swal.fire("Error", response.message, "error");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", status, error);
+                Swal.fire("Error", "Unable to fetch data from server.", "error");
+            }
+        });
+
+
         // Update profile section
-        $('#studentName').text(student.name);
-        $('#studentLRN').text(`LRN: ${student.lrn}`);
+
         $('#studentGrade').text(`${student.grade} - ${student.section}`);
 
         // Update basic info
-        $('#infoName').text(student.name);
-        $('#infoBirthdate').text(formatDate(student.birthdate));
-        $('#infoAge').text(calculateAge(student.birthdate) + ' years old');
-        $('#infoGender').text(student.gender);
-        $('#infoAddress').text(student.address);
-        $('#infoContact').text(student.contact);
-        $('#infoEmergency').text(student.emergency);
+
+
 
         // Update photo
-        $('img[alt="Student Photo"]').attr('src', student.photo);
+
 
         // Populate tabs
         populateAttendanceTab();
@@ -595,7 +635,7 @@
 
     }
     $('#backPreviewPage').click(function () {
-        sessionStorage.removeItem('learner_id');
+        sessionStorage.clear();
         location.href = 'index.php?page=contents/student';
     });
 
@@ -730,8 +770,8 @@
 
         if (data) {
             const student = JSON.parse(data);
-            displayStudentInfo(student.id);
-            //alert(student.id)
+            displayStudentInfo(student);
+            /*  alert(student) */
         }
 
 
