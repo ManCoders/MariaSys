@@ -23,7 +23,7 @@ function db_connect()
         $tableQueries = [
             // Admin Table
             "CREATE TABLE IF NOT EXISTS admin (
-                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                admin_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 firstname VARCHAR(50) NOT NULL,
                 middlename VARCHAR(50) NOT NULL,
                 lastname VARCHAR(50) NOT NULL,
@@ -48,7 +48,7 @@ function db_connect()
 
             // Teacher Table
             "CREATE TABLE IF NOT EXISTS teacher (
-                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                teacher_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 firstname VARCHAR(50) NOT NULL,
                 middlename VARCHAR(50) NOT NULL,
                 lastname VARCHAR(50) NOT NULL,
@@ -74,7 +74,7 @@ function db_connect()
 
             // Parent Table
             "CREATE TABLE IF NOT EXISTS parent (
-                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                parent_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 firstname VARCHAR(50) NOT NULL,
                 middlename VARCHAR(50) NOT NULL,
                 lastname VARCHAR(50) NOT NULL,
@@ -83,6 +83,7 @@ function db_connect()
                 reference_id VARCHAR(50) NOT NULL,
                 position VARCHAR(10) NOT NULL,
                 department VARCHAR(10) NOT NULL,
+                relationship VARCHAR(30) NOT NULL,
                 rating VARCHAR(10) NOT NULL,
                 province VARCHAR(50) NOT NULL,
                 city VARCHAR(50) NOT NULL,
@@ -98,25 +99,78 @@ function db_connect()
                 profile_picture VARCHAR(255) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
-
             "CREATE TABLE IF NOT EXISTS learners (
+                learner_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                lrn BIGINT(12) NOT NULL UNIQUE,
+                family_name VARCHAR(100) NOT NULL,
+                given_name VARCHAR(100) NOT NULL,
+                middle_name VARCHAR(100),
+                nickname VARCHAR(50),
+                suffix VARCHAR(10),
+                birthdate DATE,
+                notes TEXT,
+                tongue VARCHAR(20),
+                verification_code VARCHAR(50),
+                birth_place VARCHAR(100),
+                gender VARCHAR(10),
+                profile_picture VARCHAR(255),
+                status VARCHAR(10),
+                grade_level_id INT(11),
+                parent_id INT(11),
+                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (parent_id) REFERENCES parent(parent_id) ON DELETE SET NULL
+            )",
+            "CREATE TABLE IF NOT EXISTS learner_addresses (
+                learner_address_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                learner_id INT(11) NOT NULL,
+                home_street VARCHAR(100),
+                barangay VARCHAR(50),
+                municipality VARCHAR(50),
+                province VARCHAR(50),
+                zipcode VARCHAR(10),
+                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE
+            )",
+            "CREATE TABLE IF NOT EXISTS learner_parents (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                nickname VARCHAR(20) NOT NULL,
-                given_name VARCHAR(50) NOT NULL,
-                middle_name VARCHAR(50) NOT NULL,
-                family_name VARCHAR(50) NOT NULL,
-                suffix VARCHAR(5) NOT NULL,
-                lrn INT(12) NOT NULL,
-                verification_code VARCHAR(50) NOT NULL,
-                relationship VARCHAR(50) NOT NULL,
-                emergency_contact VARCHAR(12) NOT NULL,
-                notes VARCHAR(10) NOT NULL,
-                birthdate VARCHAR(10) NOT NULL,
-                gender VARCHAR(10) NOT NULL,
-                profile_picture VARCHAR(255) NOT NULL,
-                status VARCHAR(10) NOT NULL,
-                created_date DATE DEFAULT (CURRENT_DATE)
+                learner_id INT(11) NOT NULL,
+                mother_lname VARCHAR(50),
+                mother_fname VARCHAR(50),
+                mother_mname VARCHAR(50),
+                mother_contact VARCHAR(15),
+                father_lname VARCHAR(50),
+                father_fname VARCHAR(50),
+                father_mname VARCHAR(50),
+                father_contact VARCHAR(15),
+                created_date DATE DEFAULT CURRENT_DATE,
+                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE
+            )",
 
+            "CREATE TABLE IF NOT EXISTS learner_guardians (
+                guardian_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                learner_id INT(11) NOT NULL,
+                guardian_lname VARCHAR(50),
+                guardian_fname VARCHAR(50),
+                guardian_mname VARCHAR(50),
+                guardian_contact VARCHAR(15),
+                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE
+            )",
+            "CREATE TABLE IF NOT EXISTS school_year (
+                school_year_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                school_year VARCHAR(10) NOT NULL,
+                created_date DATE DEFAULT (CURRENT_DATE)
+            )",
+            "CREATE TABLE IF NOT EXISTS grading_level (
+                grade_level_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                learner_id INT(11),
+                parent_id INT(11),
+                teacher_id INT(11),
+                school_year_id INT(11),
+                grade_level VARCHAR(10),
+                created_date DATE DEFAULT CURRENT_DATE,
+                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE,
+                FOREIGN KEY (parent_id) REFERENCES parent(parent_id) ON DELETE SET NULL,
+                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE SET NULL,
+                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE SET NULL
             )",
 
             // System Info Table
@@ -126,7 +180,7 @@ function db_connect()
                 system_description VARCHAR(255) NOT NULL,
                 system_logo VARCHAR(20) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-            )" 
+            )"
         ];
 
         foreach ($tableQueries as $sql) {
@@ -143,9 +197,25 @@ function db_connect()
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([
-                'Juan', 'Cruz', 'Dela', '', '09171234567', 'Principal', 'Admin', 'A+',
-                'Metro Manila', 'Manila', 'Sampaloc', '1970-01-01', 'Male', 'Active',
-                'admin@school.edu.ph', 'admin', password_hash('admin123', PASSWORD_BCRYPT), 'admin', 'default.png'
+                'Juan',
+                'Cruz',
+                'Dela',
+                '',
+                '09171234567',
+                'Principal',
+                'Admin',
+                'A+',
+                'Metro Manila',
+                'Manila',
+                'Sampaloc',
+                '1970-01-01',
+                'Male',
+                'Active',
+                'admin@school.edu.ph',
+                'admin',
+                password_hash('admin123', PASSWORD_BCRYPT),
+                'admin',
+                'default.png'
             ]);
         }
 
@@ -158,9 +228,26 @@ function db_connect()
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([
-                'Maria', 'Luz', 'Reyes', '', 'TCH2023001', '09181234567', 'Teacher', 'Math', 'B+',
-                'Laguna', 'Calamba', 'Barangay Uno', '1985-05-12', 'Female', 'Active',
-                'teacher@school.edu.ph', 'teacher', password_hash('teacher123', PASSWORD_BCRYPT), 'teacher', 'default.png'
+                'Maria',
+                'Luz',
+                'Reyes',
+                '',
+                'TCH2023001',
+                '09181234567',
+                'Teacher',
+                'Math',
+                'B+',
+                'Laguna',
+                'Calamba',
+                'Barangay Uno',
+                '1985-05-12',
+                'Female',
+                'Active',
+                'teacher@school.edu.ph',
+                'teacher',
+                password_hash('teacher123', PASSWORD_BCRYPT),
+                'teacher',
+                'default.png'
             ]);
         }
 
@@ -173,9 +260,25 @@ function db_connect()
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([
-                'Maria', 'Luz', 'Reyes', 'jr', '09181234567', 'parent', 'Math', 'B+',
-                'Laguna', 'Calamba', 'Barangay Uno', '1985-05-12', 'Female', 'Active',
-                'parent@school.edu.ph', 'parent', password_hash('parent123', PASSWORD_BCRYPT), 'parent', 'default.png'
+                'Maria',
+                'Luz',
+                'Reyes',
+                'jr',
+                '09181234567',
+                'parent',
+                'Math',
+                'B+',
+                'Laguna',
+                'Calamba',
+                'Barangay Uno',
+                '1985-05-12',
+                'Female',
+                'Active',
+                'parent@school.edu.ph',
+                'parent',
+                password_hash('parent123', PASSWORD_BCRYPT),
+                'parent',
+                'default.png'
             ]);
         }
         $count = $pdo->query("SELECT COUNT(*) FROM system")->fetchColumn();
@@ -184,11 +287,11 @@ function db_connect()
             $stmt->execute([
                 'Sta.Maria Elementary School',
                 'A modern web-based school portal for admin, teachers, and parents.',
-                'default.jpeg'  
+                'default.jpeg'
             ]);
         }
 
-        
+
 
         return $pdo;
 

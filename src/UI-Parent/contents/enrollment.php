@@ -77,6 +77,11 @@
         border-color: #f5c6cb;
         color: #721c24;
     }
+
+    .modal-lg {
+        max-width: 1200px;
+        width: 90%;
+    }
 </style>
 
 <section class="p-2">
@@ -159,41 +164,67 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="child_id" id="childId">
-                        <input type="hidden" name="status" value="Pending" >
+                        <input type="hidden" name="status" value="Pending">
+                        <input type="hidden" name="parent_id" id="parentId" value="1">
                         <div class="row">
-                            <!-- Row 2 -->
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Student LRN *</label>
+                            <p>LEARNER's PERSONAL INFORMATION</p>
+                            <!-- Row 1 -->
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Learner Reference No (LRN): *</label>
                                 <input type="text" class="form-control" name="lrn" id="studentLRN" required
                                     placeholder="Enter 12-digit LRN">
                                 <small class="text-muted">The official Learner Reference Number assigned to your
                                     child</small>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Nickname</label>
-                                <input type="text" class="form-control" id="nickname" name="nickname"
-                                    placeholder="Enter Nickname (Optional)">
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Verification Code</label>
+                                <input type="text" class="form-control" required name="verification_code"
+                                    id="verificationCode" placeholder="Code from school">
+                                <small class="text-muted">Optional: Verification code provided by the school
+                                    admin</small>
                             </div>
 
 
 
-                            <!-- Row 1 -->
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Grade level to Enroll *</label>
+                                <select class="form-control" name="grade_level_id" id="grade_level" required>
+                                    <option value="">Select Grade level</option>
+                                    <option value="1">Grade 1</option>
+                                    <option value="2">Grade 2</option>
+                                    <option value="3">Grade 3</option>
+                                    <option value="4">Grade 4</option>
+                                    <option value="5">Grade 5</option>
+                                    <option value="6">Grade 6</option>
+                                    <option value="1">Kinder Garden 1</option>
+                                    <option value="2">Kinder Garden 2</option>
+                                </select>
+                                <small class="text-muted">Select Incoming school grade</small>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Nickname</label>
+                                <input type="text" class="form-control" id="nickname" name="nickname"
+                                    placeholder="Enter Nickname (Optional)">
+                                <small class="text-muted">Optional: Name of the child at home</small>
+                            </div>
+
+                            <!-- Row 2 -->
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">Family Name *</label>
                                 <input type="text" class="form-control" name="family_name" id="familyName" required
                                     placeholder="Enter Family Name">
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">Given Name *</label>
                                 <input type="text" class="form-control" name="given_name" id="givenName" required
                                     placeholder="Enter Given Name">
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">Middle Name *</label>
                                 <input type="text" class="form-control" name="middle_name" id="middleName" required
                                     placeholder="Enter Middle Name">
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">Suffix</label>
                                 <input type="text" class="form-control" name="suffix" id="suffix"
                                     placeholder="e.g. Jr., Sr., III">
@@ -202,25 +233,17 @@
 
 
                         <div class="row">
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">Date of Birth *</label>
                                 <input type="date" class="form-control" name="birthdate" id="childBirthdate" required>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Relationship to Child *</label>
-                                <select class="form-control" name="relationship" id="relationship" required>
-                                    <option value="">Select Relationship</option>
-                                    <option value="Father">Father</option>
-                                    <option value="Mother">Mother</option>
-                                    <option value="Guardian">Guardian</option>
-                                    <option value="Grandmother">Grandmother</option>
-                                    <option value="Grandfather">Grandfather</option>
-                                    <option value="Aunt">Aunt</option>
-                                    <option value="Uncle">Uncle</option>
-                                    <option value="Other">Other</option>
-                                </select>
+
+                            <div class="col-md-3 mb-1">
+                                <label class="form-label">Place of Birth*</label>
+                                <input type="text" class="form-control" name="birth_place" id="birth_place"
+                                    placeholder="Enter Place of Birth">
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-2 mb-1">
                                 <label class="form-label">Gender*</label>
                                 <select class="form-control" name="gender" id="gender" required>
                                     <option value="">Select Gender</option>
@@ -228,25 +251,124 @@
                                     <option value="Female">Female</option>
                                 </select>
                             </div>
+                            <div class="col-md-2 mb-1">
+                                <label class="form-label">Mother Tongue*</label>
+                                <select class="form-control" name="tongue" id="tongue" required>
+                                    <option value="">Select Tongue</option>
+                                    <option value="English">English</option>
+                                    <option value="Bisaya">Bisaya</option>
+                                    <option value="Chavacano">Chavacano</option>
+                                    <option value="Muslim">Muslim</option>
+                                    <option value="Tagalog">Tagalog</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-1">
+                                <label class="form-label">Relationship of the child*</label>
+                                <select class="form-control" name="relationship" id="relationship" required>
+                                    <option value="">Select Relationship</option>
+                                    <option value="guardian">Guardian</option>
+                                    <option value="mother">Mother</option>
+                                    <option value="father">Father</option>
+                                </select>
+                            </div>
+                            <p>CURRENT ADDRESS </p>
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">Home No/Street Name*</label>
+                                <input type="text" class="form-control" name="home_street" id="home_street"
+                                    placeholder="Enter Home No/Street Name">
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">Barangay*</label>
+                                <input type="text" class="form-control" name="Barangay" id="Barangay"
+                                    placeholder="Enter Barangay">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Municipality/City*</label>
+                                <input type="text" class="form-control" name="Municipality" id="Municipality"
+                                    placeholder="Enter Municipality">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Province/Country*</label>
+                                <input type="text" class="form-control" name="Province" id="Province"
+                                    placeholder="Enter Province/Country">
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">Zip Code*</label>
+                                <input type="text" class="form-control" name="zipcode" id="zipcode"
+                                    placeholder="Enter zip code">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <p>PARENT's/GUARDIAN's INFORMATION</p>
+                            <small>Legal Guardian's Name</small>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" required name="guardian_lname"
+                                    id="guardian_lname" placeholder="Enter Complete Lastname">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">First Name *</label>
+                                <input type="text" class="form-control" required name="guardian_fname"
+                                    id="guardian_fname" placeholder="Enter Complete Firstname">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Middle Name *</label>
+                                <input type="text" class="form-control" required name="guardian_mname"
+                                    id="guardian_mname" placeholder="Enter Complete Middlename">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Contact Number *</label>
+                                <input type="text" class="form-control" required name="guardian_contact"
+                                    id="guardian_contact" placeholder="Enter Contact Number">
+                            </div>
+                            <small>Mother's Meiden Name</small>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" required name="mother_lname" id="mother_lname"
+                                    placeholder="Enter Complete Lastname">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">First Name *</label>
+                                <input type="text" class="form-control" required name="mother_fname" id="mother_fname"
+                                    placeholder="Enter Complete Firstname">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Middle Name *</label>
+                                <input type="text" class="form-control" required name="mother_mname" id="mother_mname"
+                                    placeholder="Enter Complete Middlename">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Contact Number *</label>
+                                <input type="text" class="form-control" required name="mother_contact"
+                                    id="mother_contact" placeholder="Enter Contact Number">
+                            </div>
+                            <small>Father's Name</small>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" required name="father_lname" id="father_lname"
+                                    placeholder="Enter Complete Lastname">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">First Name *</label>
+                                <input type="text" class="form-control" required name="father_fname" id="father_fname"
+                                    placeholder="Enter Complete Firstname">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Middle Name *</label>
+                                <input type="text" class="form-control" required name="father_mname" id="father_mname"
+                                    placeholder="Enter Complete Middlename">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Contact Number *</label>
+                                <input type="text" class="form-control" required name="father_contact"
+                                    id="father_contact" placeholder="Enter Contact Number">
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Verification Code</label>
-                                <input type="text" class="form-control" required name="verification_code"
-                                    id="verificationCode" placeholder="Code from school">
-                                <small class="text-muted">Optional: Verification code provided by the school</small>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Emergency Contact Number *</label>
-                                <input type="tel" class="form-control" required name="emergency_contact"
-                                    id="emergencyContact" placeholder="09XXXXXXXXX">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Profile Picture</label>
+                                <label class="form-label">Learner Profile Picture</label>
                                 <input type="file" class="form-control" id="profilePicInput" required
                                     name="profile_picture" accept="image/*">
                                 <small class="text-muted">Upload a clear image (JPG, PNG)</small>
@@ -480,7 +602,7 @@
 
     // Event Handlers
     $(document).ready(function () {
-        renderChildrenTable();
+        //renderChildrenTable();
 
         $('#addChildBtn').click(function () {
             $('#childForm')[0].reset();
@@ -492,6 +614,7 @@
         $('#childForm').submit(function (e) {
             e.preventDefault();
 
+            
             const $form = $(this);
             const formData = new FormData(this); // Supports file + text data
 
@@ -521,7 +644,7 @@
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    console.error("AJAX error:", textStatus, errorThrown);
+                    //console.error("AJAX error:", textStatus, errorThrown);
                     Swal.fire({
                         title: "Technical Error",
                         text: "Please contact the administration!",
@@ -545,30 +668,112 @@
 
         // LRN validation
         $('#studentLRN').on('input', function () {
-            let value = $(this).val().replace(/\D/g, ''); // Remove non-digits
-            if (value.length > 12) {
-                value = value.substring(0, 12);
-            }
+            let value = $(this).val().replace(/\D/g, '');
+            if (value.length > 12) value = value.substring(0, 12);
             $(this).val(value);
         });
 
-        // Phone number validation
-        $('#emergencyContact').on('input', function () {
+        $('#emergencyContact, #guardian_contact, #mother_contact, #father_contact').on('input', function () {
             let value = $(this).val().replace(/\D/g, '');
-            if (value.length > 11) {
-                value = value.substring(0, 11);
-            }
+            if (value.length > 11) value = value.substring(0, 11);
             $(this).val(value);
         });
 
         $('#verificationCode').on('input', function () {
             let value = $(this).val().replace(/\D/g, '');
-            if (value.length > 8) {
-                value = value.substring(0, 8);
-            }
+            if (value.length > 8) value = value.substring(0, 8);
             $(this).val(value);
         });
+
+        // Realtime validation on any change/input
+        $('#childForm input, #childForm select, #childForm textarea').on('input change blur', function () {
+            validateField($(this));
+        });
+
+        // Field validation logic
+        function validateField(field) {
+            const val = field.val().trim();
+            const name = field.attr('name');
+            const type = field.attr('type');
+            const isRequired = field.prop('required');
+
+            // Remove previous error message
+            field.removeClass('is-invalid');
+            field.next('.error-feedback').remove();
+
+            // Skip hidden fields
+            if (field.is(':hidden')) return true;
+
+            // LRN must be 12-digit number
+            if (name === 'lrn' && val && !/^\d{12}$/.test(val)) {
+                showError(field, "LRN must be exactly 12 digits.");
+                return false;
+            }
+
+            // Required fields check
+            if (isRequired && val === '') {
+                showError(field, "This field is required.");
+                return false;
+            }
+
+            // File validation
+            if (type === 'file' && isRequired && field.prop('files').length === 0) {
+                showError(field, "Please upload a file.");
+                return false;
+            }
+
+            return true;
+        }
+
+        function showError(field, message) {
+            field.addClass('is-invalid');
+            if (field.next('.error-feedback').length === 0) {
+                field.after(`<div class="error-feedback">${message}</div>`);
+            }
+        }
+
     });
+
+
+    /* $('#relationship').on('change', function () {
+        const selected = $(this).val();
+        if (!selected) return;
+
+        $.ajax({
+            url: base_url + "/authentication/action.php?action=getRelationship",
+            method: 'GET',
+            data: { type: selected },
+            dataType: 'json',
+            success: function (data) {
+                if (data.status === 'success') {
+                    const info = data.info;
+                    if (selected === 'guardian') {
+                        $('#guardian_lname').val(info.lname);
+                        $('#guardian_fname').val(info.fname);
+                        $('#guardian_mname').val(info.mname);
+                        $('#guardian_contact').val(info.contact);
+                    } else if (selected === 'mother') {
+                        $('#mother_lname').val(info.lname);
+                        $('#mother_fname').val(info.fname);
+                        $('#mother_mname').val(info.mname);
+                        $('#mother_contact').val(info.contact);
+                    } else if (selected === 'father') {
+                        $('#father_lname').val(info.lname);
+                        $('#father_fname').val(info.fname);
+                        $('#father_mname').val(info.mname);
+                        $('#father_contact').val(info.contact);
+                    }
+                } else {
+                    Swal.fire("No Data", data.message, "info");
+                }
+            },
+            error: function () {
+                Swal.fire("Error", "Failed to load relationship data", "error");
+            }
+        });
+    }); */
+
+
     document.getElementById('profilePicInput').addEventListener('change', function (e) {
         const file = e.target.files[0];
         const preview = document.getElementById('profilePreview');

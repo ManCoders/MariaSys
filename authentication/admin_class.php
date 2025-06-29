@@ -78,7 +78,7 @@ class Action
                         'email' => $admin['email'],
                         'user_role' => $admin['user_role'],
                         'username' => $admin['username'],
-                        'id' => $admin['id'],
+                        'admin_id' => $admin['admin_id'],
                         'created_date' => $admin['created_date']
                     ];
                     return json_encode([
@@ -117,7 +117,7 @@ class Action
                         'status' => $teacher['status'],
                         'user_role' => $teacher['user_role'],
                         'username' => $teacher['username'],
-                        'id' => $teacher['id'],
+                        'teacher_id' => $teacher['teacher_id'],
                         'created_date' => $teacher['created_date']
                     ];
                     return json_encode([
@@ -157,7 +157,7 @@ class Action
                         'user_role' => $parent['user_role'],
                         'username' => $parent['username'],
                         'profile_picture' => $parent['profile_picture'],
-                        'id' => $parent['id'],
+                        'parent_id' => $parent['parent_id'],
                         'created_date' => $parent['created_date']
                     ];
                     return json_encode([
@@ -257,7 +257,7 @@ class Action
 
         $email = htmlspecialchars($_POST['email'] ?? ''); // Email is usually lowercase
         $cpno = htmlspecialchars($_POST['cpnumber'] ?? ''); // cellphone number (contact number)
-
+        /*   = htmlspecialchars($_POST'] ?? ''); */
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
         $hashPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -273,7 +273,12 @@ class Action
         $status = strtoupper(htmlspecialchars($_POST['status'] ?? ''));
 
         try {
-            $stmt1 = $this->db->prepare("
+
+            $user_role == 'teacher' ? $stmt1 = $this->db->prepare("
+            INSERT INTO teacher 
+            (firstname, middlename, lastname, email, suffix, username, password, user_role, cpno, province, city, barangay, birth, gender, status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)
+        ") : $stmt1 = $this->db->prepare("
             INSERT INTO parent 
             (firstname, middlename, lastname, email, suffix, username, password, user_role, cpno, province, city, barangay, birth, gender, status) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)
@@ -294,7 +299,7 @@ class Action
                 $barangay,      // 15
                 $birth,         // 16
                 $gender,        // 17
-                $status         // 18
+                $status         // 18,
             ]);
 
             if ($adminInsert) {
@@ -314,11 +319,8 @@ class Action
         extract($_POST); // ⚠️ Still recommended to use $_POST['key'] individually for clarity & safety
 
         try {
-            if (
-                empty($lrn) || empty($family_name) || empty($given_name) ||
-                empty($middle_name) || empty($birthdate) ||
-                empty($relationship) || empty($emergency_contact)
-            ) {
+
+            if (empty($lrn) || empty($family_name) || empty($given_name) || empty($middle_name) || empty($birthdate) || empty($relationship)) {
                 return json_encode(['status' => 2, 'message' => 'Please fill in all required fields.']);
             }
 
@@ -326,9 +328,6 @@ class Action
                 return json_encode(['status' => 2, 'message' => 'Invalid LRN format. It should be 12 digits.']);
             }
 
-            if (!preg_match('/^09\d{9}$/', $emergency_contact)) {
-                return json_encode(['status' => 2, 'message' => 'Invalid emergency contact number.']);
-            }
 
             $check = $this->db->prepare("SELECT COUNT(*) FROM learners WHERE lrn = :lrn");
             $check->execute([':lrn' => $lrn]);
@@ -361,19 +360,18 @@ class Action
                 }
             }
 
-            $stmt = $this->db->prepare("
-            INSERT INTO learners (
-                lrn, nickname, family_name, given_name, middle_name, suffix,
-                birthdate, relationship, verification_code, emergency_contact, 
-                notes, gender, profile_picture, status
-            ) VALUES (
-                :lrn, :nickname, :family_name, :given_name, :middle_name, :suffix,
-                :birthdate, :relationship, :verification_code, :emergency_contact, 
-                :notes, :gender, :profile_picture, :status
-            )
-        ");
-
-            $stmt->execute([
+            // 1. INSERT learner main info
+            $stmt1 = $this->db->prepare("
+                INSERT INTO learners (
+                    lrn, nickname, family_name, given_name, middle_name, suffix,
+                    birthdate, verification_code, notes, gender, profile_picture, status, tongue, grade_level_id, parent_id
+                ) VALUES (
+                    :lrn, :nickname, :family_name, :given_name, :middle_name, :suffix,
+                    :birthdate, :verification_code, :notes, :gender, :profile_picture, :status, :tongue, :grade_level_id, :parent_id
+                )
+            ");
+            
+            $stmt1->execute([
                 ':lrn' => $lrn,
                 ':nickname' => $nickname ?? null,
                 ':family_name' => $family_name,
@@ -381,13 +379,74 @@ class Action
                 ':middle_name' => $middle_name,
                 ':suffix' => $suffix ?? null,
                 ':birthdate' => $birthdate,
-                ':relationship' => $relationship,
                 ':verification_code' => $verification_code ?? null,
-                ':emergency_contact' => $emergency_contact,
                 ':notes' => $notes ?? null,
                 ':gender' => $gender ?? null,
                 ':profile_picture' => $profilePicPath,
-                ':status' => $status
+                ':status' => $status,
+                ':tongue' => $tongue,
+                ':grade_level_id' => $grade_level_id,
+                ':parent_id' => $parent_id,
+            ]);
+
+            $learnerId = $this->db->lastInsertId();
+
+            // 2. INSERT learner address & enrollment
+            $stmt2 = $this->db->prepare("
+                INSERT INTO learner_addresses (
+                    learner_id, barangay, home_street, municipality, province, zipcode, birth_place
+                ) VALUES (
+                    :learner_id, :barangay, :home_street, :municipality, :province, :zipcode, :birth_place
+                )
+            ");
+            $stmt2->execute([
+                ':learner_id' => $learnerId,
+                ':barangay' => $barangay,
+                ':home_street' => $home_street,
+                ':municipality' => $municipality,
+                ':province' => $province,
+                ':zipcode' => $zipcode,
+                ':birth_place' => $birth_place
+            ]);
+
+            // 3. INSERT guardian info
+            $stmt3 = $this->db->prepare("
+                INSERT INTO learner_guardians (
+                    learner_id, lname, fname, mname, contact
+                ) VALUES (
+                    :learner_id, :lname, :fname, :mname, :contact
+                )
+            ");
+            $stmt3->execute([
+                ':learner_id' => $learnerId,
+                ':lname' => $guardian_lname,
+                ':fname' => $guardian_fname,
+                ':mname' => $guardian_mname,
+                ':contact' => $guardian_contact
+            ]);
+
+            // 4. INSERT parent info
+            $stmt4 = $this->db->prepare("
+                INSERT INTO learner_parents (
+                    learner_id,
+                    mother_lname, mother_fname, mother_mname, mother_contact,
+                    father_lname, father_fname, father_mname, father_contact
+                ) VALUES (
+                    :learner_id,
+                    :mother_lname, :mother_fname, :mother_mname, :mother_contact,
+                    :father_lname, :father_fname, :father_mname, :father_contact
+                )
+            ");
+            $stmt4->execute([
+                ':learner_id' => $learnerId,
+                ':mother_lname' => $mother_lname,
+                ':mother_fname' => $mother_fname,
+                ':mother_mname' => $mother_mname,
+                ':mother_contact' => $mother_contact,
+                ':father_lname' => $father_lname,
+                ':father_fname' => $father_fname,
+                ':father_mname' => $father_mname,
+                ':father_contact' => $father_contact
             ]);
 
             return json_encode(['status' => 1, 'message' => 'Successfully registered. Please wait for approval!']);
@@ -397,39 +456,70 @@ class Action
     }
 
 
+
     public function getLearner()
-{
-    try {
-        $stmt = $this->db->prepare("
+    {
+        try {
+            $stmt = $this->db->prepare("
             SELECT *,
                 id, 
                 CONCAT(family_name, ', ', given_name, ' ', LEFT(middle_name, 1), '.') AS name, 
                 lrn, 
                 created_date AS date, 
-                emergency_contact AS contact, 
+                mother_contact AS contact, 
                 relationship, 
                 status 
             FROM learners 
             ORDER BY created_date DESC
         ");
 
-        $stmt->execute();
-        $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return json_encode([
-            'status' => 1,
-            'data' => $learners
-        ]);
-    } catch (PDOException $e) {
-        http_response_code(500); // optional for error tracking
-        return json_encode([
-            'status' => 0,
-            'message' => 'Database error: ' . $e->getMessage()
-        ]);
+            return json_encode([
+                'status' => 1,
+                'data' => $learners
+            ]);
+        } catch (PDOException $e) {
+            http_response_code(500); // optional for error tracking
+            return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
     }
-}
+    /* 
+        public function getLearnerById($id)
+        {
+            try {
+                $stmt = $this->db->prepare(" SELECT * FROM learners WHERE id = $id");
+                $stmt->execute();
+                $learner = $stmt->fetch(PDO::FETCH_ASSOC);
+                return json_encode([
+                    'status' => 1,
+                    'data' => $learner
+                ]);
+
+            } catch (PDOException $e) {
+                http_response_code(500); // optional for error tracking
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Database error: ' . $e->getMessage()
+                ]);
+            }
+        }
 
 
+        public function getRelationship()
+        {
+            try {
+
+                $stmt = $this->db->prepare("SELECT DISTINCT relationship FROM learners");
+
+            }
+
+
+        } */
 
 
 

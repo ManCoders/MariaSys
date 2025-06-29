@@ -436,62 +436,6 @@
 </section>
 
 <script>
-    // Sample data from myssql
-    const studentsData = [
-        {
-            id: 1,
-            name: "Juan Dela Cruz",
-            lrn: "123456789012",
-            grade: "Grade 5",
-            section: "Section A",
-            birthdate: "2014-03-15",
-            gender: "Female",
-            address: "123 Main St, Polomolok, South Cotabato",
-            contact: "09123456789",
-            emergency: "09987654321",
-            photo: "https://via.placeholder.com/120x120/6c757d/ffffff?text=MS"
-        },
-        {
-            id: 2,
-            name: "Maria Santos",
-            lrn: "123456789012",
-            grade: "Grade 5",
-            section: "Section A",
-            birthdate: "2014-03-15",
-            gender: "Female",
-            address: "123 Main St, Polomolok, South Cotabato",
-            contact: "09123456789",
-            emergency: "09987654321",
-            photo: "https://via.placeholder.com/120x120/6c757d/ffffff?text=MS"
-        },
-        {
-            id: 3,
-            name: "Pedro Reyes",
-            lrn: "123456789013",
-            grade: "Grade 3",
-            section: "Section B",
-            birthdate: "2016-08-22",
-            gender: "Male",
-            address: "123 Main St, Polomolok, South Cotabato",
-            contact: "09123456789",
-            emergency: "09987654321",
-            photo: "https://via.placeholder.com/120x120/6c757d/ffffff?text=JS"
-        },
-        {
-            id: 2,
-            name: "Juan Dela cruz",
-            lrn: "123456789013",
-            grade: "Grade 3",
-            section: "Section B",
-            birthdate: "2016-08-22",
-            gender: "Male",
-            address: "123 Main St, Polomolok, South Cotabato",
-            contact: "09123456789",
-            emergency: "09987654321",
-            photo: "https://via.placeholder.com/120x120/6c757d/ffffff?text=JS"
-        }
-    ];
-
     const attendanceData = [
         { date: "2024-11-25", status: "Present", timeIn: "7:30 AM", timeOut: "4:00 PM", remarks: "" },
         { date: "2024-11-24", status: "Present", timeIn: "7:35 AM", timeOut: "4:00 PM", remarks: "Late arrival" },
@@ -550,22 +494,13 @@
     ];
 
 
-    /* 
-        function populateChildSelector() {
-            const selector = $('#childSelector');
-            selector.html('<option value="">Select a child</option>');
-            
-            studentsData.forEach(student => {
-                selector.append(`<option value="${student.id}">${student.name} (${student.grade})</option>`);
-            });
-        } */
     const data = sessionStorage.getItem('learner_id');
 
 
 
-    function displayStudentInfo(studentId) {
-        const student = studentsData.find(s => s.id == studentId);
-        if (!student) return;
+    function displayStudentInfo() {
+        const student = data;   
+        //if (!student) return;
 
 
         $.ajax({
@@ -574,13 +509,10 @@
             dataType: 'json',
             success: function (response) {
                 if (response.status === 1) {
-                    const data = response.data;
+                    const datas = response.data;
 
-                    const studentId = sessionStorage.getItem('learner_id'); // or set manually
-
-                    data.forEach(emp => {
-                        if (emp.id == studentId) {
-                            // Set profile picture if available
+                    datas.forEach(emp => {
+                        if (emp.id == data) {
                             if (emp.profile_picture) {
                                 $('img[alt="Student Photo"]').attr('src', '../../authentication/' + emp.profile_picture);
                             } else {
@@ -613,7 +545,7 @@
 
         // Update profile section
 
-        $('#studentGrade').text(`${student.grade} - ${student.section}`);
+        //$('#studentGrade').text(`${student.grade} - ${student.section}`);
 
         // Update basic info
 
@@ -634,8 +566,12 @@
 
 
     }
+    
+    
+    
     $('#backPreviewPage').click(function () {
         sessionStorage.clear();
+        sessionStorage.removeItem('learner_id');
         location.href = 'index.php?page=contents/student';
     });
 
@@ -763,17 +699,9 @@
             `);
         });
     }
-
-    // Event handlers
+    
+    
     $(document).ready(function () {
-        //populateChildSelector();
-
-        if (data) {
-            const student = JSON.parse(data);
-            displayStudentInfo(student);
-            /*  alert(student) */
-        }
-
-
+        displayStudentInfo();
     });
 </script>
