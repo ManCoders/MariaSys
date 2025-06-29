@@ -130,11 +130,9 @@
 
         <!-- Children List Table -->
         <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-            <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                <h6 class="mb-0" style="color: #555;">My Children</h6>
-            </div>
+ 
             <div class="card-body">
-                <table class="table table-bordered table-hover mb-0" id="children-tbl">
+                <!-- <table class="table table-bordered table-hover mb-0" id="children-tbl">
                     <thead class="table-light text-dark">
                         <tr>
                             <th class="text-center" style="width:5%">#</th>
@@ -148,6 +146,21 @@
                         </tr>
                     </thead>
                     <tbody id="children-data-body"></tbody>
+                </table> -->
+                <table class="table table-bordered table-hover mb-0" id="student-tbl">
+                    <thead class="table-light text-dark">
+                        <tr>
+                            <th class="text-center" style="width:4%">#</th>
+                            <th>Learner Name</th>
+                            <th>Student LRN</th>
+                            <th>Date Submitted</th>
+                            <th>Grade Level</th>
+                            <th>School Year</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tb_data_body"></tbody>
                 </table>
             </div>
         </div>
@@ -166,22 +179,14 @@
                         <input type="hidden" name="child_id" id="childId">
                         <input type="hidden" name="status" value="Pending">
                         <input type="hidden" name="parent_id" id="parentId" value="1">
-                        <div class="row">
+                        <div class="row text-center d-flex justify-content-center">
                             <p>LEARNER's PERSONAL INFORMATION</p>
-                            <!-- Row 1 -->
                             <div class="col-md-3 mb-3">
                                 <label class="form-label">Learner Reference No (LRN): *</label>
                                 <input type="text" class="form-control" name="lrn" id="studentLRN" required
                                     placeholder="Enter 12-digit LRN">
                                 <small class="text-muted">The official Learner Reference Number assigned to your
                                     child</small>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Verification Code</label>
-                                <input type="text" class="form-control" required name="verification_code"
-                                    id="verificationCode" placeholder="Code from school">
-                                <small class="text-muted">Optional: Verification code provided by the school
-                                    admin</small>
                             </div>
 
 
@@ -202,13 +207,16 @@
                                 <small class="text-muted">Select Incoming school grade</small>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label class="form-label">Nickname</label>
-                                <input type="text" class="form-control" id="nickname" name="nickname"
-                                    placeholder="Enter Nickname (Optional)">
-                                <small class="text-muted">Optional: Name of the child at home</small>
+                                <label class="form-label">School Year</label>
+                                <select class="form-control" name="school_year_id" id="school_year_id" required>
+                                    <option value="">Select School Year</option>
+                                    <option value="2024-2025" selected>2024-2025</option>
+                                </select>
+
                             </div>
 
-                            <!-- Row 2 -->
+                        </div>
+                        <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label class="form-label">Family Name *</label>
                                 <input type="text" class="form-control" name="family_name" id="familyName" required
@@ -232,7 +240,7 @@
                         </div>
 
 
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-md-3 mb-3">
                                 <label class="form-label">Date of Birth *</label>
                                 <input type="date" class="form-control" name="birthdate" id="childBirthdate" required>
@@ -263,146 +271,55 @@
                                 </select>
                             </div>
                             <div class="col-md-2 mb-1">
-                                <label class="form-label">Relationship of the child*</label>
-                                <select class="form-control" name="relationship" id="relationship" required>
-                                    <option value="">Select Relationship</option>
-                                    <option value="guardian">Guardian</option>
-                                    <option value="mother">Mother</option>
-                                    <option value="father">Father</option>
+                                <label class="form-label">Religious *</label>
+                                <select class="form-control" name="religious" id="religious" required>
+                                    <option value="">Select Religion</option>
+                                    <option value="Roman Catholic">Roman Catholic</option>
+                                    <option value="Islam (Muslim)">Islam (Muslim)</option>
+                                    <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+                                    <option value="Evangelical Christianity">Evangelical Christianity</option>
+                                    <option value="Seventh-day Adventist">Seventh-day Adventist</option>
+                                    <option value="Jehovah’s Witnesses">Jehovah’s Witnesses</option>
+                                    <option value="Born Again Christian">Born Again Christian</option>
+                                    <option value="Buddhism">Buddhism</option>
                                 </select>
-                            </div>
-                            <p>CURRENT ADDRESS </p>
-                            <div class="col-md-2 mb-3">
-                                <label class="form-label">Home No/Street Name*</label>
-                                <input type="text" class="form-control" name="home_street" id="home_street"
-                                    placeholder="Enter Home No/Street Name">
-                            </div>
-                            <div class="col-md-2 mb-3">
-                                <label class="form-label">Barangay*</label>
-                                <input type="text" class="form-control" name="Barangay" id="Barangay"
-                                    placeholder="Enter Barangay">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Municipality/City*</label>
-                                <input type="text" class="form-control" name="Municipality" id="Municipality"
-                                    placeholder="Enter Municipality">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Province/Country*</label>
-                                <input type="text" class="form-control" name="Province" id="Province"
-                                    placeholder="Enter Province/Country">
-                            </div>
-                            <div class="col-md-2 mb-3">
-                                <label class="form-label">Zip Code*</label>
-                                <input type="text" class="form-control" name="zipcode" id="zipcode"
-                                    placeholder="Enter zip code">
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <p>PARENT's/GUARDIAN's INFORMATION</p>
-                            <small>Legal Guardian's Name</small>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Last Name *</label>
-                                <input type="text" class="form-control" required name="guardian_lname"
-                                    id="guardian_lname" placeholder="Enter Complete Lastname">
                             </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">First Name *</label>
-                                <input type="text" class="form-control" required name="guardian_fname"
-                                    id="guardian_fname" placeholder="Enter Complete Firstname">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Middle Name *</label>
-                                <input type="text" class="form-control" required name="guardian_mname"
-                                    id="guardian_mname" placeholder="Enter Complete Middlename">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Contact Number *</label>
-                                <input type="text" class="form-control" required name="guardian_contact"
-                                    id="guardian_contact" placeholder="Enter Contact Number">
-                            </div>
-                            <small>Mother's Meiden Name</small>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Last Name *</label>
-                                <input type="text" class="form-control" required name="mother_lname" id="mother_lname"
-                                    placeholder="Enter Complete Lastname">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">First Name *</label>
-                                <input type="text" class="form-control" required name="mother_fname" id="mother_fname"
-                                    placeholder="Enter Complete Firstname">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Middle Name *</label>
-                                <input type="text" class="form-control" required name="mother_mname" id="mother_mname"
-                                    placeholder="Enter Complete Middlename">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Contact Number *</label>
-                                <input type="text" class="form-control" required name="mother_contact"
-                                    id="mother_contact" placeholder="Enter Contact Number">
-                            </div>
-                            <small>Father's Name</small>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Last Name *</label>
-                                <input type="text" class="form-control" required name="father_lname" id="father_lname"
-                                    placeholder="Enter Complete Lastname">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">First Name *</label>
-                                <input type="text" class="form-control" required name="father_fname" id="father_fname"
-                                    placeholder="Enter Complete Firstname">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Middle Name *</label>
-                                <input type="text" class="form-control" required name="father_mname" id="father_mname"
-                                    placeholder="Enter Complete Middlename">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label class="form-label">Contact Number *</label>
-                                <input type="text" class="form-control" required name="father_contact"
-                                    id="father_contact" placeholder="Enter Contact Number">
-                            </div>
-                        </div>
+                            <div class="row text-center d-flex justify-content-between">
+                                <div class="mb-3 col-md-8">
+                                    <label class="form-label">Additional Notes</label>
+                                    <textarea class="form-control" name="notes" id="notes" rows="8"
+                                        placeholder="Any special instructions or information..."></textarea>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="mt-2">
+                                        <img id="profilePreview" src="../assets/image/users.png" alt="Profile Preview"
+                                            class="img-thumbnail" width="200">
+                                    </div>
+                                    <input type="file" class="form-control" id="profilePicInput" required
+                                        name="profile_picture" accept="image/*">
+                                    <small class="text-muted">Upload a clear image (JPG, PNG)</small>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Learner Profile Picture</label>
-                                <input type="file" class="form-control" id="profilePicInput" required
-                                    name="profile_picture" accept="image/*">
-                                <small class="text-muted">Upload a clear image (JPG, PNG)</small>
-                                <div class="mt-2 col-md-8">
-                                    <img id="profilePreview" src="../assets/image/users.png" alt="Profile Preview"
-                                        class="img-thumbnail" width="150">
                                 </div>
 
 
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label">Additional Notes</label>
-                                <textarea class="form-control" name="notes" id="notes" rows="3"
-                                    placeholder="Any special instructions or information..."></textarea>
+
+
+
+                            <div class="alert alert-light"
+                                style="border: 1px solid #d1ecf1; background-color: #e8f4fd; color: #0c5460;">
+                                <i class="fa fa-info-circle me-2"></i>
+                                <strong>Note:</strong> Your enrollment request will be verified by the school
+                                administration. You will receive a notification once the verification is complete.
                             </div>
-
-
-
                         </div>
-
-
-                        <div class="alert alert-light"
-                            style="border: 1px solid #d1ecf1; background-color: #e8f4fd; color: #0c5460;">
-                            <i class="fa fa-info-circle me-2"></i>
-                            <strong>Note:</strong> Your enrollment request will be verified by the school
-                            administration. You will receive a notification once the verification is complete.
+                        <div class="modal-footer">
+                            <button class="btn btn-success text-white" type="submit">
+                                <i class="fa fa-save me-1"></i>Submit Request
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success text-white" type="submit">
-                            <i class="fa fa-save me-1"></i>Submit Request
-                        </button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    </div>
                 </form>
             </div>
         </div>
@@ -467,30 +384,87 @@
 
     let dataTable;
 
-    function renderChildrenTable() {
-        const tbody = $('#children-data-body');
+    function renderTable() {
+        let tbody = $('#tb_data_body');
         tbody.html('');
         let i = 1;
 
-        childrenData.forEach(child => {
-            const statusBadge = getStatusBadge(child.status);
-            const actions = getActionButtons(child);
+        $.ajax({
+            url: base_url + "/authentication/action.php?action=getLearner",
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 1) {
+                    const data = response.data;
 
-            const tr = $('<tr></tr>');
-            tr.html(`
-                <td class="text-center">${i++}</td>
-                <td><strong>${child.name}</strong></td>
-                <td><code style="background-color: #f8f9fa; padding: 2px 4px; border-radius: 3px;">${child.lrn}</code></td>
-                <td>${child.grade}</td>
-                <td>${child.section}</td>
-                <td>${formatDate(child.dateEnrolled)}</td>
-                <td class="text-center">${statusBadge}</td>
-                <td class="text-center">${actions}</td>
-            `);
-            tbody.append(tr);
+                    data.forEach(emp => {
+                        let tr = $('<tr></tr>');
+                        tr.append(`<td class="text-center">${i++}</td>`);
+                        tr.append(`<td>${emp.name}</td>`);
+                        tr.append(`<td>${emp.lrn}</td>`);
+                        tr.append(`<td>${emp.date}</td>`);
+                        tr.append(`<td>${emp.parent_contact}</td>`);
+                        tr.append(`<td>${emp.school_year_id}</td>`);
+                        tr.append(`<td class="text-center">${emp.learner_status}</td>`);
+                        tr.append(`
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-success editBtn" data-id="${emp.learner_id}"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger trashBtn" data-id="${emp.learner_id}"><i class="fa fa-trash"></i></button>
+                            <button class="btn btn-sm btn-primary viewBtn" data-id="${emp.learner_id}"><i class="fa fa-eye"></i></button>
+                        </td>
+                    `);
+                        tbody.append(tr);
+                    });
+
+                    if ($.fn.DataTable.isDataTable('#student-tbl')) {
+                        $('#student-tbl').DataTable().destroy();
+                    }
+
+                    dataTable = $('#student-tbl').DataTable({
+                        pageLength: 5,
+                        lengthMenu: [5, 10, 25],
+                        columnDefs: [{ orderable: false, targets: 7 }]
+                    });
+
+                    $('.editBtn').off('click').on('click', function () {
+                        const id = $(this).data('id');
+                        alert('Edit clicked for ID: ' + id);
+                        // TODO: Populate and show modal for editing
+                    });
+
+                    $('.trashBtn').off('click').on('click', function () {
+                        const id = $(this).data('id');
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // TODO: Call backend to delete
+                                alert('Deleted ID: ' + id);
+                            }
+                        });
+                    });
+
+                    $('.viewBtn').off('click').on('click', function () {
+                        const id = $(this).data('id');
+                        sessionStorage.setItem('learner_id', id);
+                        location.href = 'index.php?page=contents/student/student_view';
+                    });
+
+                } else {
+                    Swal.fire("Error", response.message, "error");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", status, error);
+                Swal.fire("Error", "Unable to fetch data from server.", "error");
+            }
         });
-
-        //updateStatsCards();
     }
 
     function getStatusBadge(status) {
@@ -602,7 +576,8 @@
 
     // Event Handlers
     $(document).ready(function () {
-        //renderChildrenTable();
+
+        renderTable();
 
         $('#addChildBtn').click(function () {
             $('#childForm')[0].reset();
@@ -614,7 +589,7 @@
         $('#childForm').submit(function (e) {
             e.preventDefault();
 
-            
+
             const $form = $(this);
             const formData = new FormData(this); // Supports file + text data
 
@@ -640,7 +615,9 @@
                     }).then(() => {
                         $('#childModal').modal('hide');
                         $form[0].reset();
+                        location.href = base_url + "/src/UI-Parent/index.php?page=contents/enrollment";
                         renderChildrenTable();
+
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -673,17 +650,6 @@
             $(this).val(value);
         });
 
-        $('#emergencyContact, #guardian_contact, #mother_contact, #father_contact').on('input', function () {
-            let value = $(this).val().replace(/\D/g, '');
-            if (value.length > 11) value = value.substring(0, 11);
-            $(this).val(value);
-        });
-
-        $('#verificationCode').on('input', function () {
-            let value = $(this).val().replace(/\D/g, '');
-            if (value.length > 8) value = value.substring(0, 8);
-            $(this).val(value);
-        });
 
         // Realtime validation on any change/input
         $('#childForm input, #childForm select, #childForm textarea').on('input change blur', function () {

@@ -16,9 +16,9 @@ if ($action === 'save_installation_data') {
 }
 
 if ($action === 'login') {
-	
+
 	$login = $crud->login();
-	
+
 	if ($login) {
 		echo $login;
 	}
@@ -32,14 +32,14 @@ if ($action === 'logout') {
 	}
 }
 
-if($action === 'register-form') {
+if ($action === 'register-form') {
 	$registration = $crud->registration_form();
 	if ($registration) {
 		echo $registration;
 	}
 }
 
-if($action === 'childForm') {
+if ($action === 'childForm') {
 	$registration = $crud->Enrollment();
 	if ($registration) {
 		echo $registration;
@@ -47,10 +47,10 @@ if($action === 'childForm') {
 }
 
 
-if($action === 'getLearner'){
+if ($action === 'getLearner') {
 	$learner = $crud->getLearner();
 	if ($learner) {
 		echo $learner;
-		}
+	}
 }
 ?>

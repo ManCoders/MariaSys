@@ -107,7 +107,7 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="mb-3">
-                                <img src="../../authentication/uploads/profile_685fb073bd1a8.jpg" alt="Student Photo"
+                                <img src="../../assets/image/users.png" alt="Student Photo"
                                     class="rounded-circle student-photo" width="120" height="120">
                             </div>
                             <h5 id="studentName" style="color: #333;">Student Name</h5>
@@ -127,9 +127,8 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6 overflow-scroll">
-                                    <table
-                                        class="table table-borderless info-table text-sm text-truncate text-nowrap overflow-hidden ">
+                                <div class="col-md-6 overflow-scroll mb-3">
+                                    <table class="table table-borderless info-table text-sm text-truncate text-nowrap overflow-hidden ">
                                         <tr>
                                             <td><strong>Full Name:</strong></td>
                                             <td id="infoName">-</td>
@@ -146,28 +145,45 @@
                                             <td><strong>Gender:</strong></td>
                                             <td id="infoGender">-</td>
                                         </tr>
+                                        <tr>
+                                            <td><strong>Father Complete Name:</strong></td>
+                                            <td id="fathername">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Contact No:</strong></td>
+                                            <td id="fathercontact">-</td>
+                                        </tr>
                                     </table>
                                 </div>
-                                <div class="col-md-6  overflow-scroll ">
+                                <div class="col-md-6  overflow-scroll mb-3">
                                     <table class="table table-borderless info-table text-sm ">
                                         <tr>
-                                            <td><strong>Address:</strong></td>
+                                            <td><strong>Place of Birth:</strong></td>
                                             <td id="infoAddress">-</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Emer-response name:</strong></td>
+                                            <td><strong>Enroll by:</strong></td>
                                             <td id="infoResponse">-</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Emergency Contact:</strong></td>
+                                            <td><strong>Enroll Contact:</strong></td>
                                             <td id="infoEmergency">-</td>
                                         </tr>
                                         <tr>
                                             <td><strong>School Year:</strong></td>
                                             <td id="infoSchoolYear">2024-2025</td>
                                         </tr>
+                                        <tr>
+                                            <td><strong>Mother Complete Name:</strong></td>
+                                            <td id="mothername">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Contact No:</strong></td>
+                                            <td id="mothercontact">-</td>
+                                        </tr>
                                     </table>
                                 </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -494,12 +510,12 @@
     ];
 
 
-    const data = sessionStorage.getItem('learner_id');
+    
 
-
-
+     const data = sessionStorage.getItem('learner_id');
     function displayStudentInfo() {
-        const student = data;   
+       
+ 
         //if (!student) return;
 
 
@@ -512,11 +528,11 @@
                     const datas = response.data;
 
                     datas.forEach(emp => {
-                        if (emp.id == data) {
-                            if (emp.profile_picture) {
-                                $('img[alt="Student Photo"]').attr('src', '../../authentication/' + emp.profile_picture);
+                        if (emp.learner_id == data) {
+                            if (emp.learner_picture) {
+                                $('img[alt="Student Photo"]').attr('src', '../../authentication/'+ emp.learner_picture);
                             } else {
-                                $('img[alt="Student Photo"]').attr('src', '../../assets/image/users.png');
+                                $('img[alt="Student Photo"]').attr('src', '../../assets/image/users.jpg');
                             }
 
                             $('#studentName').text(emp.name);
@@ -525,9 +541,14 @@
                             $('#infoBirthdate').text(formatDate(emp.birthdate));
                             $('#infoAge').text(calculateAge(emp.birthdate) + ' years old');
                             $('#infoGender').text(emp.gender ?? 'N/A');
-                            $('#infoAddress').text(emp.address ?? 'Not Provided');
-                            $('#infoResponse').text(emp.relationship ?? 'Not Provided' );
-                            $('#infoEmergency').text(emp.contact ?? 'Not Available');
+                            $('#infoAddress').text(emp.birth_place ?? 'Not Provided');
+                            $('#infoResponse').text(emp.parent_name ?? 'Not Provided' );
+                            $('#infoEmergency').text(emp.parent_contact ?? 'Not Available');
+                            $('#studentStatus').text(emp.learner_status) ?? 'Not Available';
+                            $('#mothername').text(emp.mother_lname + ', ' + emp.mother_fname + ' ' + emp.mother_mname) ;
+                            $('#fathername').text(emp.father_lname + ', '+ emp.father_fname + ' ' + emp.father_mname);
+                            $('#fathercontact').text(emp.father_contact);
+                            $('#mothercontact').text(emp.mother_contact);
                         }
                     });
 

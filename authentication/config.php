@@ -42,7 +42,7 @@ function db_connect()
                 username VARCHAR(50) NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 user_role VARCHAR(20) NOT NULL,
-                profile_picture VARCHAR(255) NOT NULL,
+                admin_picture VARCHAR(255) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
 
@@ -68,7 +68,7 @@ function db_connect()
                 username VARCHAR(50) NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 user_role VARCHAR(20) NOT NULL,
-                profile_picture VARCHAR(255) NOT NULL,
+                teacher_picture VARCHAR(255) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
 
@@ -96,7 +96,7 @@ function db_connect()
                 username VARCHAR(50) NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 user_role VARCHAR(20) NOT NULL,
-                profile_picture VARCHAR(255) NOT NULL,
+                parent_picture VARCHAR(255) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
             "CREATE TABLE IF NOT EXISTS learners (
@@ -110,70 +110,38 @@ function db_connect()
                 birthdate DATE,
                 notes TEXT,
                 tongue VARCHAR(20),
-                verification_code VARCHAR(50),
                 birth_place VARCHAR(100),
                 gender VARCHAR(10),
-                profile_picture VARCHAR(255),
-                status VARCHAR(10),
-                grade_level_id INT(11),
-                parent_id INT(11),
-                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (parent_id) REFERENCES parent(parent_id) ON DELETE SET NULL
-            )",
-            "CREATE TABLE IF NOT EXISTS learner_addresses (
-                learner_address_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                learner_id INT(11) NOT NULL,
-                home_street VARCHAR(100),
-                barangay VARCHAR(50),
-                municipality VARCHAR(50),
-                province VARCHAR(50),
-                zipcode VARCHAR(10),
-                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE
-            )",
-            "CREATE TABLE IF NOT EXISTS learner_parents (
-                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                learner_id INT(11) NOT NULL,
-                mother_lname VARCHAR(50),
-                mother_fname VARCHAR(50),
-                mother_mname VARCHAR(50),
-                mother_contact VARCHAR(15),
-                father_lname VARCHAR(50),
-                father_fname VARCHAR(50),
-                father_mname VARCHAR(50),
-                father_contact VARCHAR(15),
+                learner_picture VARCHAR(255),
+                learner_status VARCHAR(10),
+                religious VARCHAR(50),
+                home_street VARCHAR(100) NOT NULL,
+                barangay VARCHAR(50) NOT NULL,
+                municipality VARCHAR(50) NOT NULL,
+                province VARCHAR(50) NOT NULL,
+                zipcode VARCHAR(10) NOT NULL,
                 created_date DATE DEFAULT CURRENT_DATE,
-                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE
-            )",
+                mother_lname VARCHAR(50) NOT NULL,
+                mother_fname VARCHAR(50) NOT NULL,
+                mother_mname VARCHAR(50) NOT NULL,
+                mother_contact VARCHAR(15) NOT NULL,
+                father_lname VARCHAR(50) NOT NULL ,
+                father_fname VARCHAR(50) NOT NULL ,
+                father_mname VARCHAR(50) NOT NULL ,
+                father_contact VARCHAR(15) NOT NULL ,
 
-            "CREATE TABLE IF NOT EXISTS learner_guardians (
-                guardian_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                learner_id INT(11) NOT NULL,
-                guardian_lname VARCHAR(50),
-                guardian_fname VARCHAR(50),
-                guardian_mname VARCHAR(50),
-                guardian_contact VARCHAR(15),
-                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE
-            )",
-            "CREATE TABLE IF NOT EXISTS school_year (
-                school_year_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                school_year VARCHAR(10) NOT NULL,
-                created_date DATE DEFAULT (CURRENT_DATE)
-            )",
-            "CREATE TABLE IF NOT EXISTS grading_level (
-                grade_level_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                learner_id INT(11),
+                guardian_lname VARCHAR(50) NOT NULL ,
+                guardian_fname VARCHAR(50) NOT NULL ,
+                guardian_mname VARCHAR(50) NOT NULL ,
+                guardian_contact VARCHAR(15) NOT NULL ,
+
+                grade_level_id INT(11),
+                school_year_id INT(11),
                 parent_id INT(11),
                 teacher_id INT(11),
-                school_year_id INT(11),
-                grade_level VARCHAR(10),
-                created_date DATE DEFAULT CURRENT_DATE,
-                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE,
-                FOREIGN KEY (parent_id) REFERENCES parent(parent_id) ON DELETE SET NULL,
-                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE SET NULL,
-                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE SET NULL
-            )",
-
-            // System Info Table
+                attendance_id INT(11)
+                
+            )", 
             "CREATE TABLE IF NOT EXISTS system (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 system_title VARCHAR(50) NOT NULL,
@@ -181,6 +149,7 @@ function db_connect()
                 system_logo VARCHAR(20) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )"
+
         ];
 
         foreach ($tableQueries as $sql) {
@@ -193,7 +162,7 @@ function db_connect()
             $stmt = $pdo->prepare("INSERT INTO admin (
                 firstname, middlename, lastname, suffix, cpno, position, department, rating,
                 province, city, barangay, birth, gender, status,
-                email, username, password, user_role, profile_picture
+                email, username, password, user_role, admin_picture
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([
@@ -224,7 +193,7 @@ function db_connect()
             $stmt = $pdo->prepare("INSERT INTO teacher (
                 firstname, middlename, lastname, suffix, employeeid, cpno, position, department, rating,
                 province, city, barangay, birth, gender, status,
-                email, username, password, user_role, profile_picture
+                email, username, password, user_role, teacher_picture
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([
@@ -256,7 +225,7 @@ function db_connect()
             $stmt = $pdo->prepare("INSERT INTO parent (
                 firstname, middlename, lastname, suffix, cpno, position, department, rating,
                 province, city, barangay, birth, gender, status,
-                email, username, password, user_role, profile_picture
+                email, username, password, user_role, parent_picture
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([

@@ -320,7 +320,7 @@ class Action
 
         try {
 
-            if (empty($lrn) || empty($family_name) || empty($given_name) || empty($middle_name) || empty($birthdate) || empty($relationship)) {
+            if (empty($lrn) || empty($family_name) || empty($given_name) || empty($middle_name) || empty($birthdate) || empty($religious)) {
                 return json_encode(['status' => 2, 'message' => 'Please fill in all required fields.']);
             }
 
@@ -364,12 +364,13 @@ class Action
             $stmt1 = $this->db->prepare("
                 INSERT INTO learners (
                     lrn, nickname, family_name, given_name, middle_name, suffix,
-                    birthdate, verification_code, notes, gender, profile_picture, status, tongue, grade_level_id, parent_id
+                    birthdate, notes, gender, learner_picture, learner_status, tongue, grade_level_id, parent_id, birth_place, school_year_id, religious
                 ) VALUES (
                     :lrn, :nickname, :family_name, :given_name, :middle_name, :suffix,
-                    :birthdate, :verification_code, :notes, :gender, :profile_picture, :status, :tongue, :grade_level_id, :parent_id
+                    :birthdate, :notes, :gender, :profile_picture, :status, :tongue, :grade_level_id, :parent_id, :birth_place, :school_year_id, 
+                    :religious
                 )
-            ");
+            "); 
             
             $stmt1->execute([
                 ':lrn' => $lrn,
@@ -379,7 +380,6 @@ class Action
                 ':middle_name' => $middle_name,
                 ':suffix' => $suffix ?? null,
                 ':birthdate' => $birthdate,
-                ':verification_code' => $verification_code ?? null,
                 ':notes' => $notes ?? null,
                 ':gender' => $gender ?? null,
                 ':profile_picture' => $profilePicPath,
@@ -387,12 +387,13 @@ class Action
                 ':tongue' => $tongue,
                 ':grade_level_id' => $grade_level_id,
                 ':parent_id' => $parent_id,
+                ':birth_place' => $birth_place,
+                ':school_year_id' => $school_year_id,
+                ':religious' => $religious
             ]);
 
-            $learnerId = $this->db->lastInsertId();
-
             // 2. INSERT learner address & enrollment
-            $stmt2 = $this->db->prepare("
+            /* $stmt2 = $this->db->prepare("
                 INSERT INTO learner_addresses (
                     learner_id, barangay, home_street, municipality, province, zipcode, birth_place
                 ) VALUES (
@@ -447,7 +448,7 @@ class Action
                 ':father_fname' => $father_fname,
                 ':father_mname' => $father_mname,
                 ':father_contact' => $father_contact
-            ]);
+            ]); */
 
             return json_encode(['status' => 1, 'message' => 'Successfully registered. Please wait for approval!']);
         } catch (PDOException $e) {
@@ -458,36 +459,36 @@ class Action
 
 
     public function getLearner()
-    {
-        try {
-            $stmt = $this->db->prepare("
-            SELECT *,
-                id, 
-                CONCAT(family_name, ', ', given_name, ' ', LEFT(middle_name, 1), '.') AS name, 
-                lrn, 
-                created_date AS date, 
-                mother_contact AS contact, 
-                relationship, 
-                status 
-            FROM learners 
-            ORDER BY created_date DESC
+{
+    try {
+        $stmt = $this->db->prepare("
+            SELECT 
+                learners.*,
+                CONCAT(learners.family_name, ', ', learners.given_name, ' ', LEFT(learners.middle_name, 1), '.') AS name,
+                learners.created_date AS date,
+                p.cpno AS parent_contact,
+                CONCAT(p.lastname, ', ', p.firstname, ' ', LEFT(p.middlename, 1), '.') AS parent_name
+            FROM learners
+            INNER JOIN parent p ON learners.parent_id = p.parent_id
+            ORDER BY learners.created_date DESC
         ");
 
-            $stmt->execute();
-            $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return json_encode([
-                'status' => 1,
-                'data' => $learners
-            ]);
-        } catch (PDOException $e) {
-            http_response_code(500); // optional for error tracking
-            return json_encode([
-                'status' => 0,
-                'message' => 'Database error: ' . $e->getMessage()
-            ]);
-        }
+        return json_encode([
+            'status' => 1,
+            'data' => $learners
+        ]);
+    } catch (PDOException $e) {
+        http_response_code(500);
+        return json_encode([
+            'status' => 0,
+            'message' => 'Database error: ' . $e->getMessage()
+        ]);
     }
+}
+
     /* 
         public function getLearnerById($id)
         {
