@@ -15,7 +15,7 @@
 </style>
 
 <nav id="sidebar" class="ms-2" style="border-radius:5px;">
-    <div class="" style="width: 240px; border-radius: 5px; background-color: #f8f9fa;">
+    <div class=" w-" style="width: 240px; border-radius: 5px; background-color: #f8f9fa;">
         <div class="sidebar-list">
             <a href="index.php?page=home" class="nav-item nav-home">
                 <span class=""><i class=""></i></span> Dashboard

@@ -24,7 +24,7 @@
     }
 
     .status-badge {
-        padding: 4px 6px;
+        padding: 4px 8px;
         border-radius: 4px;
         font-size: 12px;
         font-weight: 500;
@@ -58,16 +58,29 @@
         transition: 0.2s;
     }
 
+    .btn-action:hover {
+        background-color: #f8f9fa;
+        border-color: #adb5bd;
+    }
+
+    .btn-action.view {
+        border-color: #b3d7ff;
+        color: #0056b3;
+    }
+
+    .btn-action.edit {
+        border-color: #ffda6a;
+        color: #664d03;
+    }
+
+    .btn-action.delete {
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
 
     .modal-lg {
         max-width: 1200px;
         width: 90%;
-    }
-    .name-cell {
-        max-width: 150px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
 </style>
 <?php
@@ -363,7 +376,7 @@ if ($qry && $qry->rowCount() > 0) {
                     data.forEach(emp => {
                         let tr = $('<tr></tr>');
                         tr.append(`<td class="text-center">${i++}</td>`);
-                        tr.append(`<td class="name-cell">${emp.name}</td>`);
+                        tr.append(`<td>${emp.name}</td>`);
                         tr.append(`<td>${emp.lrn}</td>`);
                         tr.append(`<td>${emp.date}</td>`);
                         tr.append(`<td>${emp.parent_contact}</td>`);
