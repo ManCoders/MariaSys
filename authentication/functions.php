@@ -85,9 +85,9 @@ function base_url()
     );
 
     if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
-        return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/MariaSys/';
+        return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/github/MariaSys/';
     }
-    return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/';
+    return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/github';
 
 }
 
