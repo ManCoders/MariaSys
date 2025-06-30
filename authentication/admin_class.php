@@ -463,14 +463,9 @@ class Action
 
         try {
 
-            if (empty($employee_id) || empty($family_name) || empty($given_name) || empty($middle_name) || empty($birthdate) || empty($religious)) {
+            if (empty($employee_id) || empty($family_name) || empty($contact) || empty($given_name) || empty($middle_name) || empty($birthdate) || empty($religious)) {
                 return json_encode(['status' => 2, 'message' => 'Please fill in all required fields.']);
             }
-
-            if (!preg_match('/^\d{6}$/', $employee_id)) {
-                return json_encode(['status' => 2, 'message' => 'Invalid LRN format. It should be 12 digits.']);
-            }
-
 
             $check = $this->db->prepare("SELECT COUNT(*) FROM teacher WHERE employeeid = :lrn");
             $check->execute([':lrn' => $employee_id]);
@@ -482,7 +477,7 @@ class Action
             if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
                 $file = $_FILES['profile_picture'];
                 $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-                $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+                $allowed = ['jpg', 'jpeg', 'png'];
 
                 if (!in_array($ext, $allowed)) {
                     return json_encode(['status' => 2, 'message' => 'Only JPG, PNG, and GIF files are allowed.']);
@@ -506,12 +501,12 @@ class Action
             // 1. INSERT learner main info
             $stmt1 = $this->db->prepare("
                 INSERT INTO teacher (
-                    employee_id, lastname, firstname, middlename, suffix,
-                    birthdate, notes, gender, teacher_picture, teacher_status, tongue, grade_level_id, parent_id, birth_place, school_year_id, religious
+                    employeeid, lastname, firstname, middlename, suffix,
+                    birth, notes, gender, teacher_picture, teacher_status, tongue, grade_level_id, birth_place, school_year_id, religious, cpno
                 ) VALUES (
                     :employee_id, :family_name, :given_name, :middle_name, :suffix,
-                    :birthdate, :notes, :gender, :profile_picture, :status, :tongue, :grade_level_id, :parent_id, :birth_place, :school_year_id, 
-                    :religious
+                    :birthdate, :notes, :gender, :profile_picture, :status, :tongue, :grade_level_id, :birth_place, :school_year_id, 
+                    :religious, :contact
                 )
             ");
 
@@ -528,10 +523,10 @@ class Action
                 ':status' => $status,
                 ':tongue' => $tongue,
                 ':grade_level_id' => $grade_level_id,
-                ':parent_id' => $parent_id,
                 ':birth_place' => $birth_place,
                 ':school_year_id' => $school_year_id,
-                ':religious' => $religious
+                ':religious' => $religious,
+                ':contact' => $contact
             ]);
 
             
@@ -563,6 +558,33 @@ class Action
             return json_encode([
                 'status' => 1,
                 'data' => $learners
+            ]);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    function getTeacher()
+    {
+        try {
+            $stmt = $this->db->prepare("
+            SELECT 
+                *,
+                CONCAT(lastname, ', ', firstname, ' ', LEFT(middlename, 1), '.') AS teacher_name
+            FROM teacher
+            ORDER BY teacher.created_date ASC
+        ");
+
+            $stmt->execute();
+            $teacher = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return json_encode([
+                'status' => 1,
+                'data' => $teacher
             ]);
         } catch (PDOException $e) {
             http_response_code(500);

@@ -21,21 +21,20 @@
                 <tr>
                     <th class="text-center" style="width:4%">#</th>
                     <th>Teacher Name</th>
-                    <th>Grade Level</th>
+                    <th>Grade/Section</th>
                     <th>Date Submitted</th>
                     <th>Contact Number</th>
-                    <th>Type</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
-            <tbody id="sample-data-body"></tbody>
+            <tbody id="tb_data_body"></tbody>
         </table>
     </div>
 
 
     <!-- Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal fade" id="childModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="childForm" enctype="multipart/form-data">
@@ -44,8 +43,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="child_id" id="childId">
-                        <input type="hidden" name="status" value="Pending">
+                        <input type="hidden" name="status" value="Approved">
                         <div class="row text-center d-flex justify-content-center">
                             <p>TEACHER's PERSONAL INFORMATION</p>
                             <div class="col-md-3 mb-3">
@@ -54,21 +52,24 @@
                                     placeholder="Enter 6-digit Employee #">
                                 <small class="text-muted">The official Employee Number from school</small>
                             </div>
-
-
-
                             <div class="col-md-3 mb-3">
-                                <label class="form-label"> Section Adviser *</label>
-                                <select class="form-control" name="section_id" id="section_id" required>
+                                <label class="form-label">Grade level to Enroll *</label>
+                                <select class="form-control" name="grade_level_id" id="grade_level" required>
                                     <option value="">Select Grade level</option>
-                                    <option value="1">Grade 1</option>
-                                    <option value="2">Grade 2</option>
-                                    <option value="3">Grade 3</option>
-                                    <option value="4">Grade 4</option>
-                                    <option value="5">Grade 5</option>
-                                    <option value="6">Grade 6</option>
-                                    <option value="1">Kinder Garden 1</option>
-                                    <option value="2">Kinder Garden 2</option>
+                                    <?php
+                                    $qry = $pdo->query("SELECT * FROM grade_level ORDER BY grade_level_name ASC");
+                                    if ($qry && $qry->rowCount() > 0):
+                                        while ($row = $qry->fetch(PDO::FETCH_ASSOC)):
+                                            ?>
+                                            <option value="<?= htmlspecialchars($row['grade_level_id']) ?>">
+                                                <?= htmlspecialchars($row['grade_level_name']) ?>
+                                            </option>
+                                            <?php
+                                        endwhile;
+                                    else:
+                                        echo '<option disabled>No grade levels available</option>';
+                                    endif;
+                                    ?>
                                 </select>
                                 <small class="text-muted">Select Incoming school grade</small>
                             </div>
@@ -76,7 +77,20 @@
                                 <label class="form-label">School Year</label>
                                 <select class="form-control" name="school_year_id" id="school_year_id" required>
                                     <option value="">Select School Year</option>
-                                    <option value="2024-2025" selected>2024-2025</option>
+                                    <?php
+                                    $qry = $pdo->query("SELECT * FROM school_year");
+                                    if ($qry && $qry->rowCount() > 0):
+                                        while ($row = $qry->fetch(PDO::FETCH_ASSOC)):
+                                            ?>
+                                            <option selected value="<?= htmlspecialchars($row['school_year_id']) ?>">
+                                                <?= htmlspecialchars($row['school_year_name']) ?>
+                                            </option>
+                                            <?php
+                                        endwhile;
+                                    else:
+                                        echo '<option disabled>No grade levels available</option>';
+                                    endif;
+                                    ?>
                                 </select>
 
                             </div>
@@ -93,15 +107,24 @@
                                 <input type="text" class="form-control" name="given_name" id="givenName" required
                                     placeholder="Enter Given Name">
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-2 mb-3">
                                 <label class="form-label">Middle Name *</label>
                                 <input type="text" class="form-control" name="middle_name" id="middleName" required
                                     placeholder="Enter Middle Name">
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-1 mb-3">
                                 <label class="form-label">Suffix</label>
-                                <input type="text" class="form-control" name="suffix" id="suffix"
-                                    placeholder="e.g. Jr., Sr., III">
+                                <select class="form-control" name="suffix" id="suffix">
+                                    <option value="Jr">Jr</option>
+                                    <option value="Sr">Sr</option>
+                                    <option value="II">II</option>
+                                    <option value="III">III</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Contact no *</label>
+                                <input type="text" class="form-control" name="contact" id="contact" required
+                                    placeholder="Enter Contact NO">
                             </div>
                         </div>
 
@@ -193,72 +216,90 @@
 </section>
 
 <script>
-    const sampleData = [
-        { id: 1, name: "Juan Dela Cruz", grade: "Grade 3", date: "June 1, 2025", contact: "09123456789", type: "New", status: "Pending" },
-        { id: 2, name: "Maria Santos", grade: "Grade 6", date: "June 2, 2025", contact: "09234567890", type: "Transfer", status: "Approved" },
-        { id: 3, name: "Pedro Reyes", grade: "Grade 4", date: "June 3, 2025", contact: "09345678901", type: "Regular", status: "Declined" },
-        { id: 4, name: "Ana Lim", grade: "Grade 3", date: "June 4, 2025", contact: "09456789012", type: "New", status: "Pending" },
-        { id: 5, name: "Carlos Rivera", grade: "Grade 2", date: "June 5, 2025", contact: "09567890123", type: "Transfer", status: "Approved" }
-    ];
 
 
     let dataTable;
 
     function renderTable() {
-        let tbody = $('#sample-data-body');
+        let tbody = $('#tb_data_body');
         tbody.html('');
         let i = 1;
 
-        sampleData.forEach(emp => {
-            let tr = $('<tr></tr>');
-            tr.append(`<td class="text-center">${i++}</td>`);
-            tr.append(`<td>${emp.name}</td>`);
-            tr.append(`<td>${emp.grade}</td>`);
-            tr.append(`<td>${emp.date}</td>`);
-            tr.append(`<td>${emp.contact}</td>`);
-            tr.append(`<td>${emp.type}</td>`);
-            tr.append(`<td class="text-center">${emp.status}</td>`);
-            tr.append(`
-                <td class="text-center">
-                <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}"><i class="fa fa-edit"></i></button>
-                <button class="btn btn-sm btn-danger trashBtn"><i class="fa fa-trash"></i></button>
-                <button class="btn btn-sm btn-primary viewBtn"><i class="fa fa-eye"></i></button>
-                </td>`);
-            tbody.append(tr);
-        });
+        $.ajax({
+            url: base_url + "/authentication/action.php?action=getTeacher",
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 1) {
+                    const data = response.data;
 
-        if (dataTable) dataTable.destroy();
-        dataTable = $('#student-tbl').DataTable({
-            pageLength: 5,
-            lengthMenu: [5, 10, 25],
-            columnDefs: [
-                { orderable: false, targets: 7 }
-            ]
-        });
+                    data.forEach(emp => {
+                        let tr = $('<tr></tr>');
+                        tr.append(`<td class="text-center">${i++}</td>`);
+                        tr.append(`<td>${emp.teacher_name}</td>`);
+                        tr.append(`<td>${emp.employeeid}</td>`);
+                        tr.append(`<td>${emp.created_date}</td>`);
+                        tr.append(`<td>${emp.cpno}</td>`);
+                        tr.append(`<td class="text-center">${emp.teacher_status}</td>`);
+                        tr.append(`
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-success editBtn" data-id="${emp.teacher_id}"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger trashBtn" data-id="${emp.teacher_id}"><i class="fa fa-trash"></i></button>
+                            <button class="btn btn-sm btn-primary viewBtn" data-id="${emp.teacher_id}"><i class="fa fa-eye"></i></button>
+                        </td>
+                    `);
+                        tbody.append(tr);
+                    });
 
+                    if ($.fn.DataTable.isDataTable('#student-tbl')) {
+                        $('#student-tbl').DataTable().destroy();
+                    }
 
-        $('.editBtn').click(function () {
-            const id = $(this).data('id');
-            const record = sampleData.find(e => e.id === id);
-            if (record) {
-                $('#editId').val(record.id);
-                $('#editName').val(record.name);
-                $('#editGrade').val(record.grade);
-                $('#editDate').val(record.date);
-                $('#editContact').val(record.contact);
-                $('#editType').val(record.type);
-                $('#editStatus').val(record.status);
-                new bootstrap.Modal(document.getElementById('editModal')).show();
+                    dataTable = $('#student-tbl').DataTable({
+                        pageLength: 5,
+                        lengthMenu: [5, 10, 25],
+                        columnDefs: [{ orderable: false, targets: 6 }]
+                    });
+
+                    $('.editBtn').off('click').on('click', function () {
+                        const id = $(this).data('id');
+                        alert('Edit clicked for ID: ' + id);
+                        // TODO: Populate and show modal for editing
+                    });
+
+                    $('.trashBtn').off('click').on('click', function () {
+                        const id = $(this).data('id');
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // TODO: Call backend to delete
+                                alert('Deleted ID: ' + id);
+                            }
+                        });
+                    });
+
+                    $('.viewBtn').off('click').on('click', function () {
+                        const id = $(this).data('id');
+                        sessionStorage.setItem('teacher_id', id);
+                        location.href = 'index.php?page=contents/teacher/teacher_view';
+                    });
+
+                } else {
+                    Swal.fire("Error", response.message, "error");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", status, error);
+                Swal.fire("Error", "Unable to fetch data from server.", "error");
             }
         });
-
-        $('#addNewBtn').click(function () {
-            $('#childForm')[0].reset();
-            $('#profilePreview').attr('src', '../assets/image/users.png');
-            $('#editModal').modal('show');
-        });
-
-
 
     }
     $('#childForm').submit(function (e) {
@@ -321,6 +362,12 @@
 
     $(document).ready(function () {
         renderTable();
+
+        $('#addNewBtn').click(function () {
+            $('#childForm')[0].reset();
+            $('#childId').val('');
+            $('#childModal').modal('show');
+        });
 
         $('#employee_id').on('input', function () {
             let value = $(this).val().replace(/\D/g, '');

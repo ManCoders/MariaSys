@@ -184,11 +184,6 @@ if ($qry && $qry->rowCount() > 0) {
                                     child</small>
                             </div>
 
-
-
-                            <?php
-
-                            ?>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label">Grade level to Enroll *</label>
                                 <select class="form-control" name="grade_level_id" id="grade_level" required>

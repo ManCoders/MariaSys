@@ -54,6 +54,13 @@ if ($action === 'getLearner') {
 	}
 }
 
+if ($action === 'getTeacher') {
+	$learner = $crud->getTeacher();
+	if ($learner) {
+		echo $learner;
+	}
+}
+
 if ($action === 'NewTeacher') {
 	$learner = $crud->NewTeacher();
 	if ($learner) {

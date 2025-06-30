@@ -234,62 +234,7 @@
 </section>
 
 <script>
-    /* const sampleData = [
-        { id: 1, name: "Juan Dela Cruz", grade: "Grade 3", date: "June 1, 2025", contact: "09123456789", type: "New", status: "Pending" },
-        { id: 2, name: "Maria Santos", grade: "Grade 6", date: "June 2, 2025", contact: "09234567890", type: "Transfer", status: "Approved" },
-        { id: 3, name: "Pedro Reyes", grade: "Grade 4", date: "June 3, 2025", contact: "09345678901", type: "Regular", status: "Declined" },
-        { id: 4, name: "Ana Lim", grade: "Grade 3", date: "June 4, 2025", contact: "09456789012", type: "New", status: "Pending" },
-        { id: 5, name: "Carlos Rivera", grade: "Grade 2", date: "June 5, 2025", contact: "09567890123", type: "Transfer", status: "Approved" }
-    ]; */
-
-
     let dataTable;
-
-    /* 
-
-    $('#addNewBtn').click(function () {
-        $('#editId').val('');
-        $('#editName').val('');
-        $('#editGrade').val('');
-        $('#editDate').val('');
-        $('#editContact').val('');
-        $('#editType').val('New');
-        $('#editStatus').val('Pending');
-        new bootstrap.Modal(document.getElementById('childModal')).show();
-    });
- */
-
-
-    /*   $('#editForm').submit(function (e) {
-          e.preventDefault();
-          const id = $('#editId').val();
-          if (id) {
-              const index = sampleData.findIndex(e => e.id == id);
-              if (index !== -1) {
-                  sampleData[index].name = $('#editName').val();
-                  sampleData[index].grade = $('#editGrade').val();
-                  sampleData[index].date = $('#editDate').val();
-                  sampleData[index].contact = $('#editContact').val();
-                  sampleData[index].type = $('#editType').val();
-                  sampleData[index].status = $('#editStatus').val();
-              }
-          } else {
-              const newId = sampleData.length ? sampleData[sampleData.length - 1].id + 1 : 1;
-              sampleData.push({
-                  id: newId,
-                  name: $('#editName').val(),
-                  grade: $('#editGrade').val(),
-                  date: $('#editDate').val(),
-                  contact: $('#editContact').val(),
-                  type: $('#editType').val(),
-                  status: $('#editStatus').val()
-              });
-          }
-          renderTable();
-          bootstrap.Modal.getInstance(document.getElementById('childModal')).hide();
-      });
-   */
-
     function renderTable() {
         let tbody = $('#tb_data_body');
         tbody.html('');

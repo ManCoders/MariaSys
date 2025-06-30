@@ -59,6 +59,8 @@ function db_connect()
                 department VARCHAR(10) NOT NULL,
                 rating VARCHAR(10) NOT NULL,
                 province VARCHAR(50) NOT NULL,
+                notes VARCHAR(100) NOT NULL,
+                tongue VARCHAR(50) NOT NULL,
                 city VARCHAR(50) NOT NULL,
                 barangay VARCHAR(50) NOT NULL,
                 birth VARCHAR(10) NOT NULL,
@@ -69,6 +71,11 @@ function db_connect()
                 password VARCHAR(255) NOT NULL,
                 user_role VARCHAR(20) NOT NULL,
                 teacher_picture VARCHAR(255) NOT NULL,
+                birth_place VARCHAR(50) NOT NULL,
+                religious VARCHAR(50) NOT NULL,
+                grade_level_id INT(11),
+                school_year_id INT(11),
+
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
 
