@@ -83,12 +83,20 @@
         width: 90%;
     }
 </style>
+<?php
 
+/* $qry = $pdo->query("SELECT * FROM grade_level");
+
+if ($qry && $qry->rowCount() > 0) {
+    $meta = $qry->fetch(PDO::FETCH_ASSOC);
+} */
+
+?>
 <section class="p-2">
     <div>
         <div class="d-flex justify-content-between align-items-center mb-2">
             <div>
-                <h4 class="mb-0"><i class="fa fa-user-plus text-primary me-2"></i>Child Enrollment</h4>
+                <h4 class="mb-0"><i class="fa fa-user-plus text-primary me-2"></i>Child Enrollment </h4>
                 <small class="text-muted">Register and link your child to your parent account</small>
             </div>
             <button class="btn btn-success btn-sm" id="addChildBtn">
@@ -130,23 +138,9 @@
 
         <!-- Children List Table -->
         <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
- 
+
             <div class="card-body">
-                <!-- <table class="table table-bordered table-hover mb-0" id="children-tbl">
-                    <thead class="table-light text-dark">
-                        <tr>
-                            <th class="text-center" style="width:5%">#</th>
-                            <th>Child Name</th>
-                            <th>Student LRN</th>
-                            <th>Grade Level</th>
-                            <th>Section</th>
-                            <th>Date Enrolled</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="children-data-body"></tbody>
-                </table> -->
+
                 <table class="table table-bordered table-hover mb-0" id="student-tbl">
                     <thead class="table-light text-dark">
                         <tr>
@@ -178,7 +172,8 @@
                     <div class="modal-body">
                         <input type="hidden" name="child_id" id="childId">
                         <input type="hidden" name="status" value="Pending">
-                        <input type="hidden" name="parent_id" id="parentId" value="<?php echo $_SESSION['parent_id'] ? $_SESSION['parent_id'] : '1' ?>">
+                        <input type="hidden" name="parent_id" id="parentId"
+                            value="<?php echo isset($_SESSION['parentData']) ? $_SESSION['parentData']['parent_id'] : '1' ?>">
                         <div class="row text-center d-flex justify-content-center">
                             <p>LEARNER's PERSONAL INFORMATION</p>
                             <div class="col-md-3 mb-3">
@@ -191,26 +186,49 @@
 
 
 
+                            <?php
+
+                            ?>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label">Grade level to Enroll *</label>
                                 <select class="form-control" name="grade_level_id" id="grade_level" required>
                                     <option value="">Select Grade level</option>
-                                    <option value="1">Grade 1</option>
-                                    <option value="2">Grade 2</option>
-                                    <option value="3">Grade 3</option>
-                                    <option value="4">Grade 4</option>
-                                    <option value="5">Grade 5</option>
-                                    <option value="6">Grade 6</option>
-                                    <option value="1">Kinder Garden 1</option>
-                                    <option value="2">Kinder Garden 2</option>
+                                    <?php
+                                    $qry = $pdo->query("SELECT * FROM grade_level ORDER BY grade_level_name ASC");
+                                    if ($qry && $qry->rowCount() > 0):
+                                        while ($row = $qry->fetch(PDO::FETCH_ASSOC)):
+                                            ?>
+                                            <option value="<?= htmlspecialchars($row['grade_level_id']) ?>">
+                                                <?= htmlspecialchars($row['grade_level_name']) ?>
+                                            </option>
+                                            <?php
+                                        endwhile;
+                                    else:
+                                        echo '<option disabled>No grade levels available</option>';
+                                    endif;
+                                    ?>
                                 </select>
                                 <small class="text-muted">Select Incoming school grade</small>
                             </div>
+
                             <div class="col-md-3 mb-3">
                                 <label class="form-label">School Year</label>
                                 <select class="form-control" name="school_year_id" id="school_year_id" required>
                                     <option value="">Select School Year</option>
-                                    <option value="2024-2025" selected>2024-2025</option>
+                                    <?php
+                                    $qry = $pdo->query("SELECT * FROM school_year");
+                                    if ($qry && $qry->rowCount() > 0):
+                                        while ($row = $qry->fetch(PDO::FETCH_ASSOC)):
+                                            ?>
+                                            <option selected value="<?= htmlspecialchars($row['school_year_id']) ?>">
+                                                <?= htmlspecialchars($row['school_year_name']) ?>
+                                            </option>
+                                            <?php
+                                        endwhile;
+                                    else:
+                                        echo '<option disabled>No grade levels available</option>';
+                                    endif;
+                                    ?>
                                 </select>
 
                             </div>
@@ -346,42 +364,42 @@
 
 <script>
     // Sample data for demonstration
-   /*  const childrenData = [
-        {
-            id: 1,
-            name: "Maria Santos",
-            lrn: "123456789012",
-            grade: "Grade 5",
-            section: "Section A",
-            dateEnrolled: "2024-08-15",
-            status: "Approved",
-            relationship: "Mother",
-            emergencyContact: "09123456789"
-        },
-        {
-            id: 2,
-            name: "Juan Santos",
-            lrn: "123456789013",
-            grade: "Grade 3",
-            section: "Section B",
-            dateEnrolled: "2024-08-15",
-            status: "Approved",
-            relationship: "Mother",
-            emergencyContact: "09123456789"
-        },
-        {
-            id: 3,
-            name: "Ana Santos",
-            lrn: "123456789014",
-            grade: "Grade 1",
-            section: "Section C",
-            dateEnrolled: "2024-11-20",
-            status: "Pending",
-            relationship: "Mother",
-            emergencyContact: "09123456789"
-        }
-    ];
- */
+    /*  const childrenData = [
+         {
+             id: 1,
+             name: "Maria Santos",
+             lrn: "123456789012",
+             grade: "Grade 5",
+             section: "Section A",
+             dateEnrolled: "2024-08-15",
+             status: "Approved",
+             relationship: "Mother",
+             emergencyContact: "09123456789"
+         },
+         {
+             id: 2,
+             name: "Juan Santos",
+             lrn: "123456789013",
+             grade: "Grade 3",
+             section: "Section B",
+             dateEnrolled: "2024-08-15",
+             status: "Approved",
+             relationship: "Mother",
+             emergencyContact: "09123456789"
+         },
+         {
+             id: 3,
+             name: "Ana Santos",
+             lrn: "123456789014",
+             grade: "Grade 1",
+             section: "Section C",
+             dateEnrolled: "2024-11-20",
+             status: "Pending",
+             relationship: "Mother",
+             emergencyContact: "09123456789"
+         }
+     ];
+  */
     let dataTable;
 
     function renderTable() {
@@ -467,113 +485,113 @@
         });
     }
 
- /*    function getStatusBadge(status) {
-        const badges = {
-            'Approved': '<span class="status-badge status-approved">Approved</span>',
-            'Pending': '<span class="status-badge status-pending">Pending</span>',
-            'Rejected': '<span class="status-badge status-rejected">Rejected</span>'
-        };
-        return badges[status] || '<span class="status-badge">Unknown</span>';
-    }
-
-    function getActionButtons(child) {
-        return `
-            <button class="btn-action view" onclick="viewChild(${child.id})" title="View Details">
-                <i class="fa fa-eye"></i>
-            </button>
-            <button class="btn-action edit" onclick="editChild(${child.id})" title="Edit">
-                <i class="fa fa-edit"></i>
-            </button>
-            ${child.status === 'Pending' ?
-                `<button class="btn-action delete" onclick="cancelRequest(${child.id})" title="Cancel Request">
-                    <i class="fa fa-times"></i>
-                </button>` : ''
-            }
-        `;
-    }
-
-    function updateStatsCards() {
-        const total = childrenData.length;
-        const pending = childrenData.filter(c => c.status === 'Pending').length;
-        const approved = childrenData.filter(c => c.status === 'Approved').length;
-        const rejected = childrenData.filter(c => c.status === 'Rejected').length;
-
-        $('#totalChildren').text(total);
-        $('#pendingEnrollments').text(pending);
-        $('#approvedEnrollments').text(approved);
-        $('#rejectedEnrollments').text(rejected);
-    }
-
-    function formatDate(dateStr) {
-        const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    }
-
-    function viewChild(id) {
-        const child = childrenData.find(c => c.id === id);
-        if (child) {
-            const content = `
-                <div class="row">
-                    <div class="col-6"><strong>Name:</strong></div>
-                    <div class="col-6">${child.name}</div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6"><strong>LRN:</strong></div>
-                    <div class="col-6"><code style="background-color: #f8f9fa; padding: 2px 4px; border-radius: 3px;">${child.lrn}</code></div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6"><strong>Grade & Section:</strong></div>
-                    <div class="col-6">${child.grade} - ${child.section}</div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6"><strong>Relationship:</strong></div>
-                    <div class="col-6">${child.relationship}</div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6"><strong>Emergency Contact:</strong></div>
-                    <div class="col-6">${child.emergencyContact}</div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6"><strong>Date Enrolled:</strong></div>
-                    <div class="col-6">${formatDate(child.dateEnrolled)}</div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6"><strong>Status:</strong></div>
-                    <div class="col-6">${getStatusBadge(child.status)}</div>
-                </div>
-            `;
-            $('#childDetailsContent').html(content);
-            $('#viewChildModal').modal('show');
-        }
-    }
-
-    function editChild(id) {
-        const child = childrenData.find(c => c.id === id);
-        if (child) {
-            $('#childId').val(child.id);
-            $('#studentLRN').val(child.lrn);
-            $('#childName').val(child.name);
-            $('#relationship').val(child.relationship);
-            $('#emergencyContact').val(child.emergencyContact);
-            $('#childModal').modal('show');
-        }
-    }
-
-    function cancelRequest(id) {
-        if (confirm('Are you sure you want to cancel this enrollment request?')) {
-            const index = childrenData.findIndex(c => c.id === id);
-            if (index > -1) {
-                childrenData.splice(index, 1);
-                renderChildrenTable();
-
-            }
-        }
-    }
- */
+    /*    function getStatusBadge(status) {
+           const badges = {
+               'Approved': '<span class="status-badge status-approved">Approved</span>',
+               'Pending': '<span class="status-badge status-pending">Pending</span>',
+               'Rejected': '<span class="status-badge status-rejected">Rejected</span>'
+           };
+           return badges[status] || '<span class="status-badge">Unknown</span>';
+       }
+   
+       function getActionButtons(child) {
+           return `
+               <button class="btn-action view" onclick="viewChild(${child.id})" title="View Details">
+                   <i class="fa fa-eye"></i>
+               </button>
+               <button class="btn-action edit" onclick="editChild(${child.id})" title="Edit">
+                   <i class="fa fa-edit"></i>
+               </button>
+               ${child.status === 'Pending' ?
+                   `<button class="btn-action delete" onclick="cancelRequest(${child.id})" title="Cancel Request">
+                       <i class="fa fa-times"></i>
+                   </button>` : ''
+               }
+           `;
+       }
+   
+       function updateStatsCards() {
+           const total = childrenData.length;
+           const pending = childrenData.filter(c => c.status === 'Pending').length;
+           const approved = childrenData.filter(c => c.status === 'Approved').length;
+           const rejected = childrenData.filter(c => c.status === 'Rejected').length;
+   
+           $('#totalChildren').text(total);
+           $('#pendingEnrollments').text(pending);
+           $('#approvedEnrollments').text(approved);
+           $('#rejectedEnrollments').text(rejected);
+       }
+   
+       function formatDate(dateStr) {
+           const date = new Date(dateStr);
+           return date.toLocaleDateString('en-US', {
+               year: 'numeric',
+               month: 'short',
+               day: 'numeric'
+           });
+       }
+   
+       function viewChild(id) {
+           const child = childrenData.find(c => c.id === id);
+           if (child) {
+               const content = `
+                   <div class="row">
+                       <div class="col-6"><strong>Name:</strong></div>
+                       <div class="col-6">${child.name}</div>
+                   </div>
+                   <div class="row mt-2">
+                       <div class="col-6"><strong>LRN:</strong></div>
+                       <div class="col-6"><code style="background-color: #f8f9fa; padding: 2px 4px; border-radius: 3px;">${child.lrn}</code></div>
+                   </div>
+                   <div class="row mt-2">
+                       <div class="col-6"><strong>Grade & Section:</strong></div>
+                       <div class="col-6">${child.grade} - ${child.section}</div>
+                   </div>
+                   <div class="row mt-2">
+                       <div class="col-6"><strong>Relationship:</strong></div>
+                       <div class="col-6">${child.relationship}</div>
+                   </div>
+                   <div class="row mt-2">
+                       <div class="col-6"><strong>Emergency Contact:</strong></div>
+                       <div class="col-6">${child.emergencyContact}</div>
+                   </div>
+                   <div class="row mt-2">
+                       <div class="col-6"><strong>Date Enrolled:</strong></div>
+                       <div class="col-6">${formatDate(child.dateEnrolled)}</div>
+                   </div>
+                   <div class="row mt-2">
+                       <div class="col-6"><strong>Status:</strong></div>
+                       <div class="col-6">${getStatusBadge(child.status)}</div>
+                   </div>
+               `;
+               $('#childDetailsContent').html(content);
+               $('#viewChildModal').modal('show');
+           }
+       }
+   
+       function editChild(id) {
+           const child = childrenData.find(c => c.id === id);
+           if (child) {
+               $('#childId').val(child.id);
+               $('#studentLRN').val(child.lrn);
+               $('#childName').val(child.name);
+               $('#relationship').val(child.relationship);
+               $('#emergencyContact').val(child.emergencyContact);
+               $('#childModal').modal('show');
+           }
+       }
+   
+       function cancelRequest(id) {
+           if (confirm('Are you sure you want to cancel this enrollment request?')) {
+               const index = childrenData.findIndex(c => c.id === id);
+               if (index > -1) {
+                   childrenData.splice(index, 1);
+                   renderChildrenTable();
+   
+               }
+           }
+       }
+    */
     // Event Handlers
     $(document).ready(function () {
 

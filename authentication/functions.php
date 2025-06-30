@@ -1,6 +1,8 @@
 <?php
 include "config.php";
 
+$pdo = db_connect();
+
 /* function initInstaller()
 {
     $pdo = db_connect();
@@ -128,7 +130,7 @@ function render_json()
 
 }
 
- function render_scripts()
+function render_scripts()
 {
 
     $scripts = [
@@ -173,5 +175,8 @@ function get_option($key)
         return '';
     }
 }
+
+
+
 
 ?>

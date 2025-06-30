@@ -50,8 +50,8 @@ class Action
     }
     function login()
     {
-        session_unset();
-        session_destroy();
+        /* session_unset();
+        session_destroy(); */
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -114,7 +114,7 @@ class Action
                         'barangay' => $teacher['barangay'],
                         'birth' => $teacher['birth'],
                         'gender' => $teacher['gender'],
-                        'status' => $teacher['status'],
+                        'status' => $teacher['teacher_status'],
                         'user_role' => $teacher['user_role'],
                         'username' => $teacher['username'],
                         'teacher_id' => $teacher['teacher_id'],
@@ -154,7 +154,7 @@ class Action
                         'barangay' => $parent['barangay'],
                         'birth' => $parent['birth'],
                         'gender' => $parent['gender'],
-                        'status' => $parent['status'],
+                        'status' => $parent['parent_status'],
                         'user_role' => $parent['user_role'],
                         'username' => $parent['username'],
                         'profile_picture' => $parent['parent_picture'],

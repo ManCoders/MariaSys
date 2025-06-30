@@ -1,7 +1,5 @@
 <?php include "../../header.php"; ?>
-<?php
 
-?>
 <html lang="en">
 <?php include 'nav-head.php'; ?>
 <head>

@@ -37,7 +37,7 @@ function db_connect()
                 barangay VARCHAR(50) NOT NULL,
                 birth VARCHAR(10) NOT NULL,
                 gender VARCHAR(10) NOT NULL,
-                status VARCHAR(10) NOT NULL,
+                admin_status VARCHAR(10) NOT NULL,
                 email VARCHAR(100) NOT NULL,
                 username VARCHAR(50) NOT NULL,
                 password VARCHAR(255) NOT NULL,
@@ -91,7 +91,7 @@ function db_connect()
                 occupation VARCHAR(100) NOT NULL,
                 birth VARCHAR(10) NOT NULL,
                 gender VARCHAR(10) NOT NULL,
-                status VARCHAR(10) NOT NULL,
+                parent_status VARCHAR(10) NOT NULL,
                 email VARCHAR(100) NOT NULL,
                 username VARCHAR(50) NOT NULL,
                 password VARCHAR(255) NOT NULL,
@@ -134,14 +134,58 @@ function db_connect()
                 guardian_fname VARCHAR(50) NOT NULL ,
                 guardian_mname VARCHAR(50) NOT NULL ,
                 guardian_contact VARCHAR(15) NOT NULL ,
-
-                grade_level_id INT(11),
-                school_year_id INT(11),
                 parent_id INT(11),
                 teacher_id INT(11),
-                attendance_id INT(11)
-                
+                grade_level_id INT(11),
+                school_year_id INT(11),
+
+                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE,
+                FOREIGN KEY (parent_id) REFERENCES parent(parent_id) ON DELETE CASCADE
             )", 
+            "CREATE TABLE IF NOT EXISTS school_year (
+                school_year_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                school_year_name VARCHAR(50) NOT NULL,
+                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )",
+            
+            "CREATE TABLE IF NOT EXISTS grade_level (
+                grade_level_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                grade_level_name VARCHAR(50) NOT NULL,
+                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )",
+            "CREATE TABLE IF NOT EXISTS subject_grades (
+                learner_subject_grade_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                subject_grade_nama VARCHAR(50) NOT NULL,
+                learner_id INT(11) NOT NULL,
+                school_year_id INT(11) NOT NULL,
+                teacher_id INT(11) NOT NULL,
+                
+                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE,
+                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE CASCADE,
+                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE,
+                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                
+            )"
+            ,
+            "CREATE TABLE IF NOT EXISTS learner_subject (
+                learner_subject_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                learner_subject_name VARCHAR(50) NOT NULL,
+
+                learner_subject_grade_id INT(11) NOT NULL,
+                learner_id INT(11) NOT NULL,
+                grade_level_id INT(11) NOT NULL,
+                school_year_id INT(11) NOT NULL,
+                teacher_id INT(11) NOT NULL,
+
+                FOREIGN KEY (learner_subject_grade_id) REFERENCES subject_grades(learner_subject_grade_id) ON DELETE CASCADE,
+                FOREIGN KEY (grade_level_id) REFERENCES grade_level(grade_level_id) ON DELETE CASCADE,
+                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE,
+                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE CASCADE,
+                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE,
+                
+                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )",
+
             "CREATE TABLE IF NOT EXISTS system (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 system_title VARCHAR(50) NOT NULL,
@@ -161,7 +205,7 @@ function db_connect()
         if ($count == 0) {
             $stmt = $pdo->prepare("INSERT INTO admin (
                 firstname, middlename, lastname, suffix, cpno, position, department, rating,
-                province, city, barangay, birth, gender, status,
+                province, city, barangay, birth, gender, admin_status,
                 email, username, password, user_role, admin_picture
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -192,7 +236,7 @@ function db_connect()
         if ($count == 0) {
             $stmt = $pdo->prepare("INSERT INTO teacher (
                 firstname, middlename, lastname, suffix, employeeid, cpno, position, department, rating,
-                province, city, barangay, birth, gender, status,
+                province, city, barangay, birth, gender, teacher_status,
                 email, username, password, user_role, teacher_picture
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -220,11 +264,27 @@ function db_connect()
             ]);
         }
 
+        $count = $pdo->query("SELECT COUNT(*) FROM school_year")->fetchColumn();
+        if ($count == 0) {
+            $stmt = $pdo->prepare("INSERT INTO school_year (school_year_name
+            ) VALUES (?),(?)");
+
+            $stmt->execute(['2024-2025','2025-2026']);
+        }
+
+        $count = $pdo->query("SELECT COUNT(*) FROM grade_level")->fetchColumn();
+        if ($count == 0) {
+            $stmt = $pdo->prepare("INSERT INTO grade_level (grade_level_name
+            ) VALUES (?),(?),(?)");
+
+            $stmt->execute(['Grade 1','Grade 2','Grade 3']);
+        }
+
         $count = $pdo->query("SELECT COUNT(*) FROM parent")->fetchColumn();
         if ($count == 0) {
             $stmt = $pdo->prepare("INSERT INTO parent (
                 firstname, middlename, lastname, suffix, cpno, position, department, rating,
-                province, city, barangay, birth, gender, status,
+                province, city, barangay, birth, gender, parent_status,
                 email, username, password, user_role, parent_picture
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 

@@ -1,3 +1,4 @@
+<?php include "../../header.php"; ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5,7 +6,7 @@
     <title>Admin</title>
 </head>
 <body>
-    <?php include "../../header.php"; ?>
+    
     <?php include 'nav-head.php'; ?>
     
     <div class="d-flex d-justify-between">
