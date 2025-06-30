@@ -3,6 +3,13 @@
         max-width: 1200px;
         width: 90%;
     }
+
+    .name-cell {
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 </style>
 
 <section class="p-2">
@@ -236,7 +243,7 @@
                     data.forEach(emp => {
                         let tr = $('<tr></tr>');
                         tr.append(`<td class="text-center">${i++}</td>`);
-                        tr.append(`<td>${emp.teacher_name}</td>`);
+                        tr.append(`<td class="name-cell">${emp.teacher_name}</td>`);
                         tr.append(`<td>${emp.employeeid}</td>`);
                         tr.append(`<td>${emp.created_date}</td>`);
                         tr.append(`<td>${emp.cpno}</td>`);
@@ -332,7 +339,7 @@
                     $('#childModal').modal('hide');
                     $form[0].reset();
                     location.href = base_url + "/src/UI-admin/index.php?page=contents/teacher";
-                    renderChildrenTable();
+                    renderTable();
 
                 });
             },
@@ -349,7 +356,7 @@
                 }).then(() => {
                     $('#childModal').modal('hide');
                     $form[0].reset();
-                    renderChildrenTable();
+                    renderTable();
                 });
             },
             complete: function () {
@@ -372,6 +379,11 @@
         $('#employee_id').on('input', function () {
             let value = $(this).val().replace(/\D/g, '');
             if (value.length > 6) value = value.substring(0, 6);
+            $(this).val(value);
+        });
+        $('#contact').on('input', function () {
+            let value = $(this).val().replace(/\D/g, '');
+            if (value.length > 11) value = value.substring(0, 11);
             $(this).val(value);
         });
 

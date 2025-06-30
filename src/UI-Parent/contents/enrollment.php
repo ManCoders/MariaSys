@@ -358,43 +358,6 @@ if ($qry && $qry->rowCount() > 0) {
 </section>
 
 <script>
-    // Sample data for demonstration
-    /*  const childrenData = [
-         {
-             id: 1,
-             name: "Maria Santos",
-             lrn: "123456789012",
-             grade: "Grade 5",
-             section: "Section A",
-             dateEnrolled: "2024-08-15",
-             status: "Approved",
-             relationship: "Mother",
-             emergencyContact: "09123456789"
-         },
-         {
-             id: 2,
-             name: "Juan Santos",
-             lrn: "123456789013",
-             grade: "Grade 3",
-             section: "Section B",
-             dateEnrolled: "2024-08-15",
-             status: "Approved",
-             relationship: "Mother",
-             emergencyContact: "09123456789"
-         },
-         {
-             id: 3,
-             name: "Ana Santos",
-             lrn: "123456789014",
-             grade: "Grade 1",
-             section: "Section C",
-             dateEnrolled: "2024-11-20",
-             status: "Pending",
-             relationship: "Mother",
-             emergencyContact: "09123456789"
-         }
-     ];
-  */
     let dataTable;
 
     function renderTable() {
