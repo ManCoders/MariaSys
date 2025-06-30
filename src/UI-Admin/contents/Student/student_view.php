@@ -583,9 +583,6 @@
 
         $('#studentProfileSection').show();
         $('#noChildMessage').hide();
-
-
-
     }
     
     

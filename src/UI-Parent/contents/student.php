@@ -8,76 +8,76 @@
         border: 1px solid #ddd;
         margin-bottom: 10px;
     }
-    
+
     .stats-card h4 {
         margin: 5px 0;
         color: #333;
         font-size: 20px;
     }
-    
+
     .stats-card small {
         color: #777;
         font-size: 12px;
     }
-    
+
     .info-table td {
         padding: 5px 8px;
         border: none;
         color: #555;
     }
-    
+
     .info-table td:first-child {
         font-weight: 500;
         color: #333;
     }
-    
+
     .status-badge {
         padding: 3px 8px;
         border-radius: 4px;
         font-size: 11px;
         font-weight: 500;
     }
-    
+
     .status-present {
         background-color: #e8f5e8;
         color: #2d5a2d;
         border: 1px solid #c3e6c3;
     }
-    
+
     .status-absent {
         background-color: #f8d7da;
         color: #721c24;
         border: 1px solid #f5c6cb;
     }
-    
+
     .status-late {
         background-color: #fff3cd;
         color: #664d03;
         border: 1px solid #ffda6a;
     }
-    
+
     .grade-cell {
         text-align: center;
         font-weight: 500;
         color: #555;
     }
-    
+
     .student-photo {
         border: 3px solid #f8f9fa;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
-    
+
     .nav-tabs .nav-link {
         color: #666;
         border: 1px solid transparent;
     }
-    
+
     .nav-tabs .nav-link.active {
         color: #333;
         background-color: #f8f9fa;
         border-color: #ddd #ddd #f8f9fa;
     }
-    
+
     .nav-tabs .nav-link:hover {
         border-color: #e9ecef #e9ecef #f8f9fa;
         background-color: #f8f9fa;
@@ -108,20 +108,23 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="mb-3">
-                                <img src="https://via.placeholder.com/120x120/6c757d/ffffff?text=Student" 
-                                     alt="Student Photo" class="rounded-circle student-photo" width="120" height="120">
+                                <img src="https://via.placeholder.com/120x120/6c757d/ffffff?text=Student"
+                                    alt="Student Photo" class="rounded-circle student-photo" width="120" height="120">
                             </div>
                             <h5 id="studentName" style="color: #333;">Student Name</h5>
                             <p class="text-muted mb-1" id="studentLRN">LRN: 000000000000</p>
                             <p class="text-muted mb-1" id="studentGrade">Grade & Section</p>
-                            <span class="status-badge" style="background-color: #e8f5e8; color: #2d5a2d; border: 1px solid #c3e6c3;" id="studentStatus">Active</span>
+                            <span class="status-badge"
+                                style="background-color: #e8f5e8; color: #2d5a2d; border: 1px solid #c3e6c3;"
+                                id="studentStatus">Active</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                         <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                            <h6 class="mb-0" style="color: #555;"><i class="fa fa-info-circle me-2"></i>Basic Information</h6>
+                            <h6 class="mb-0" style="color: #555;"><i class="fa fa-info-circle me-2"></i>Basic
+                                Information</h6>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -148,15 +151,15 @@
                                 <div class="col-md-6">
                                     <table class="table table-borderless info-table">
                                         <tr>
-                                            <td><strong>Address:</strong></td>
+                                            <td><strong>Birth Place:</strong></td>
                                             <td id="infoAddress">-</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Contact Number:</strong></td>
+                                            <td><strong>Enrolled Date:</strong></td>
                                             <td id="infoContact">-</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Emergency Contact:</strong></td>
+                                            <td><strong>Grade level:</strong></td>
                                             <td id="infoEmergency">-</td>
                                         </tr>
                                         <tr>
@@ -176,26 +179,26 @@
                 <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
                     <ul class="nav nav-tabs card-header-tabs" id="studentInfoTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="attendance-tab" data-bs-toggle="tab" 
-                                    data-bs-target="#attendance" type="button" role="tab">
+                            <button class="nav-link active" id="attendance-tab" data-bs-toggle="tab"
+                                data-bs-target="#attendance" type="button" role="tab">
                                 <i class="fa fa-calendar-check me-1"></i>Attendance
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="grades-tab" data-bs-toggle="tab" 
-                                    data-bs-target="#grades" type="button" role="tab">
+                            <button class="nav-link" id="grades-tab" data-bs-toggle="tab" data-bs-target="#grades"
+                                type="button" role="tab">
                                 <i class="fa fa-chart-line me-1"></i>Grades
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="health-tab" data-bs-toggle="tab" 
-                                    data-bs-target="#health" type="button" role="tab">
+                            <button class="nav-link" id="health-tab" data-bs-toggle="tab" data-bs-target="#health"
+                                type="button" role="tab">
                                 <i class="fa fa-heartbeat me-1"></i>Health Records
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="behavior-tab" data-bs-toggle="tab" 
-                                    data-bs-target="#behavior" type="button" role="tab">
+                            <button class="nav-link" id="behavior-tab" data-bs-toggle="tab" data-bs-target="#behavior"
+                                type="button" role="tab">
                                 <i class="fa fa-star me-1"></i>Behavior
                             </button>
                         </li>
@@ -300,7 +303,8 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <div class="card" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
+                                        <div class="card-header"
+                                            style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
                                             <h6 class="mb-0" style="color: #555;">Physical Information</h6>
                                         </div>
                                         <div class="card-body">
@@ -327,7 +331,8 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
+                                        <div class="card-header"
+                                            style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
                                             <h6 class="mb-0" style="color: #555;">Medical History</h6>
                                         </div>
                                         <div class="card-body">
@@ -350,7 +355,8 @@
                                 </div>
                             </div>
                             <div class="card" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
+                                <div class="card-header"
+                                    style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
                                     <h6 class="mb-0" style="color: #555;">Health Check-ups & Medical Notes</h6>
                                 </div>
                                 <div class="card-body">
@@ -431,34 +437,7 @@
 
 <script>
     // Sample data
-    const studentsData = [
-        {
-            id: 1,
-            name: "Maria Santos",
-            lrn: "123456789012",
-            grade: "Grade 5",
-            section: "Section A",
-            birthdate: "2014-03-15",
-            gender: "Female",
-            address: "123 Main St, Polomolok, South Cotabato",
-            contact: "09123456789",
-            emergency: "09987654321",
-            photo: "https://via.placeholder.com/120x120/6c757d/ffffff?text=MS"
-        },
-        {
-            id: 2,
-            name: "Juan Santos",
-            lrn: "123456789013",
-            grade: "Grade 3",
-            section: "Section B",
-            birthdate: "2016-08-22",
-            gender: "Male",
-            address: "123 Main St, Polomolok, South Cotabato",
-            contact: "09123456789",
-            emergency: "09987654321",
-            photo: "https://via.placeholder.com/120x120/6c757d/ffffff?text=JS"
-        }
-    ];
+
 
     const attendanceData = [
         { date: "2024-11-25", status: "Present", timeIn: "7:30 AM", timeOut: "4:00 PM", remarks: "" },
@@ -517,36 +496,63 @@
         }
     ];
 
-    function populateChildSelector() {
-        const selector = $('#childSelector');
-        selector.html('<option value="">Select a child</option>');
-        
-        studentsData.forEach(student => {
-            selector.append(`<option value="${student.id}">${student.name} (${student.grade})</option>`);
+
+    function loadStudentsData() {
+        $.ajax({
+            url: base_url + "/authentication/action.php?action=getLearner",
+            type: 'GET',
+            dataType: 'json',
+            success: function (res) {
+                if (res.status === 1) {
+                    const studentsData = res.data;
+
+                    const selector = $('#childSelector');
+                    selector.html('<option value="">Select a child</option>');
+                    studentsData.forEach(student => {
+                        selector.append(`<option value="${student.learner_id}">${student.name} (${student.grade_level_id})</option>`);
+
+                        selector.change(function () {
+                            const selectedId = $(this).val();
+                            if (selectedId) {
+                                displayStudentInfo(selectedId, studentsData);
+                            } else {
+                                $('#studentProfileSection').hide();
+                                $('#noChildMessage').show();
+                            }
+                        });
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Failed to fetch student data:", error);
+            }
         });
     }
 
-    function displayStudentInfo(studentId) {
-        const student = studentsData.find(s => s.id == studentId);
+    function displayStudentInfo(studentId, dtdata) {
+        const student = dtdata.find(s => s.learner_id == studentId);
         if (!student) return;
 
-        // Update profile section
         $('#studentName').text(student.name);
         $('#studentLRN').text(`LRN: ${student.lrn}`);
-        $('#studentGrade').text(`${student.grade} - ${student.section}`);
-        
+        $('#studentGrade').text(`Grade ${student.grade_level_id} - Section ${student.grade_level_id}`);
+        $('#studentStatus').text(student.learner_status);
         // Update basic info
         $('#infoName').text(student.name);
         $('#infoBirthdate').text(formatDate(student.birthdate));
         $('#infoAge').text(calculateAge(student.birthdate) + ' years old');
         $('#infoGender').text(student.gender);
-        $('#infoAddress').text(student.address);
-        $('#infoContact').text(student.contact);
-        $('#infoEmergency').text(student.emergency);
+        $('#infoAddress').text(student.birth_place);
+        $('#infoContact').text(student.created_date);
+        $('#infoEmergency').text(student.grade_level_id);
 
         // Update photo
-        $('img[alt="Student Photo"]').attr('src', student.photo);
-
+        //$('img[alt="Student Photo"]').attr('src', student.learner_picture);
+        if (student.learner_picture) {
+            $('img[alt="Student Photo"]').attr('src', '../../authentication/' + student.learner_picture);
+        } else {
+            $('img[alt="Student Photo"]').attr('src', '../../assets/image/users.jpg');
+        }
         // Populate tabs
         populateAttendanceTab();
         populateGradesTab();
@@ -562,64 +568,64 @@
         const birth = new Date(birthdate);
         let age = today.getFullYear() - birth.getFullYear();
         const monthDiff = today.getMonth() - birth.getMonth();
-        
+
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
             age--;
         }
-        
+
         return age;
     }
 
     function formatDate(dateStr) {
         const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         });
     }
 
     function populateAttendanceTab() {
         const tbody = $('#attendanceRecords');
         tbody.html('');
-        
+
         attendanceData.forEach(record => {
-            const statusBadge = record.status === 'Present' ? 
-                '<span class="status-badge status-present">Present</span>' : 
+            const statusBadge = record.status === 'Present' ?
+                '<span class="status-badge status-present">Present</span>' :
                 '<span class="status-badge status-absent">Absent</span>';
-                
+
             tbody.append(`
-                <tr>
-                    <td>${formatDate(record.date)}</td>
-                    <td>${statusBadge}</td>
-                    <td>${record.timeIn}</td>
-                    <td>${record.timeOut}</td>
-                    <td>${record.remarks}</td>
-                </tr>
-            `);
+                 <tr>
+                     <td>${formatDate(record.date)}</td>
+                     <td>${statusBadge}</td>
+                     <td>${record.timeIn}</td>
+                     <td>${record.timeOut}</td>
+                     <td>${record.remarks}</td>
+                 </tr>
+             `);
         });
     }
 
     function populateGradesTab() {
         const tbody = $('#gradesRecords');
         tbody.html('');
-        
+
         gradesData.forEach(grade => {
-            const remarksBadge = grade.final >= 75 ? 
-                '<span class="status-badge status-present">Passed</span>' : 
+            const remarksBadge = grade.final >= 75 ?
+                '<span class="status-badge status-present">Passed</span>' :
                 '<span class="status-badge status-absent">Failed</span>';
-                
+
             tbody.append(`
-                <tr>
-                    <td>${grade.subject}</td>
-                    <td class="grade-cell">${grade.q1}</td>
-                    <td class="grade-cell">${grade.q2}</td>
-                    <td class="grade-cell">${grade.q3}</td>
-                    <td class="grade-cell">${grade.q4}</td>
-                    <td class="grade-cell"><strong>${grade.final}</strong></td>
-                    <td class="text-center">${remarksBadge}</td>
-                </tr>
-            `);
+                 <tr>
+                     <td>${grade.subject}</td>
+                     <td class="grade-cell">${grade.q1}</td>
+                     <td class="grade-cell">${grade.q2}</td>
+                     <td class="grade-cell">${grade.q3}</td>
+                     <td class="grade-cell">${grade.q4}</td>
+                     <td class="grade-cell"><strong>${grade.final}</strong></td>
+                     <td class="text-center">${remarksBadge}</td>
+                 </tr>
+             `);
         });
     }
 
@@ -627,72 +633,64 @@
         // Immunization records
         const immunizationTbody = $('#immunizationRecords');
         immunizationTbody.html('');
-        
+
         immunizationData.forEach(record => {
-            const statusBadge = record.status === 'Complete' ? 
-                '<span class="status-badge status-present">Complete</span>' : 
+            const statusBadge = record.status === 'Complete' ?
+                '<span class="status-badge status-present">Complete</span>' :
                 '<span class="status-badge" style="background-color: #e8f4fd; color: #0c5460; border: 1px solid #b3d7ff;">Up to date</span>';
-                
+
             immunizationTbody.append(`
-                <tr>
-                    <td>${record.vaccine}</td>
-                    <td>${formatDate(record.dateGiven)}</td>
-                    <td>${record.nextDue}</td>
-                    <td>${statusBadge}</td>
-                </tr>
-            `);
+                 <tr>
+                     <td>${record.vaccine}</td>
+                     <td>${formatDate(record.dateGiven)}</td>
+                     <td>${record.nextDue}</td>
+                     <td>${statusBadge}</td>
+                 </tr>
+             `);
         });
 
         // Health records
         const healthTbody = $('#healthRecords');
         healthTbody.html('');
-        
+
         healthRecordsData.forEach(record => {
             healthTbody.append(`
-                <tr>
-                    <td>${formatDate(record.date)}</td>
-                    <td>${record.type}</td>
-                    <td>${record.findings}</td>
-                    <td>${record.recommendations}</td>
-                    <td>${record.officer}</td>
-                </tr>
-            `);
+                 <tr>
+                     <td>${formatDate(record.date)}</td>
+                     <td>${record.type}</td>
+                     <td>${record.findings}</td>
+                     <td>${record.recommendations}</td>
+                     <td>${record.officer}</td>
+                 </tr>
+             `);
         });
     }
 
     function populateBehaviorTab() {
         const tbody = $('#behaviorRecords');
         tbody.html('');
-        
+
         behaviorRecordsData.forEach(record => {
-            const typeBadge = record.type === 'Commendation' ? 
-                '<span class="status-badge status-present">Commendation</span>' : 
+            const typeBadge = record.type === 'Commendation' ?
+                '<span class="status-badge status-present">Commendation</span>' :
                 '<span class="status-badge status-late">Warning</span>';
-                
+
             tbody.append(`
-                <tr>
-                    <td>${formatDate(record.date)}</td>
-                    <td>${typeBadge}</td>
-                    <td>${record.description}</td>
-                    <td>${record.action}</td>
-                    <td>${record.reportedBy}</td>
-                </tr>
-            `);
+                 <tr>
+                     <td>${formatDate(record.date)}</td>
+                     <td>${typeBadge}</td>
+                     <td>${record.description}</td>
+                     <td>${record.action}</td>
+                     <td>${record.reportedBy}</td>
+                 </tr>
+             `);
         });
     }
 
     // Event handlers
-    $(document).ready(function() {
-        populateChildSelector();
+    $(document).ready(function () {
+        loadStudentsData();
 
-        $('#childSelector').change(function() {
-            const selectedId = $(this).val();
-            if (selectedId) {
-                displayStudentInfo(selectedId);
-            } else {
-                $('#studentProfileSection').hide();
-                $('#noChildMessage').show();
-            }
-        });
+
     });
 </script>

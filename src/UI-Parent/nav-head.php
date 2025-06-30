@@ -1,7 +1,12 @@
-<!-- <?php
-$adminData = $_SESSION['adminData'] ?? null;
-$adminName = $adminData ? $adminData['firstname'] . ' ' . $adminData['lastname'] : 'Parent';
-?> -->
+<?php
+session_start();
+if (!isset($_SESSION['parentData'])) {
+    include 'eror.php';
+    exit;
+}
+
+$parentData = $_SESSION['parentData']['lastname'];
+?>
 
 <style>
   :root {
@@ -26,7 +31,7 @@ $adminName = $adminData ? $adminData['firstname'] . ' ' . $adminData['lastname']
     z-index: 1000;
 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
+
   }
 
   .nav-brand {
@@ -123,7 +128,7 @@ $adminName = $adminData ? $adminData['firstname'] . ' ' . $adminData['lastname']
     border: 1px solid var(--gray-border);
   }
 
-  
+
 
   .dropdown-content a {
     color: var(--primary-dark);
@@ -184,7 +189,7 @@ $adminName = $adminData ? $adminData['firstname'] . ' ' . $adminData['lastname']
     <!-- Admin Info Display -->
     <div class="admin-info">
       <i class="fas fa-user-shield"></i>
-      <span><?php echo htmlspecialchars($adminName); ?></span>
+       <span><?php echo htmlspecialchars($parentData); ?></span>
     </div>
 
     <!-- Navigation Menu -->

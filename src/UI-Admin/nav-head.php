@@ -1,7 +1,13 @@
-<!-- <?php
-$adminData = $_SESSION['adminData'] ?? null;
-$adminName = $adminData ? $adminData['firstname'] . ' ' . $adminData['lastname'] : 'Admin';
-?> -->
+<?php
+session_start();
+if (!isset($_SESSION['adminData'])) {
+    include 'eror.php';
+    exit;
+} 
+
+$adminData = $_SESSION['adminData']['lastname'];
+
+?>
 
 <style>
   :root {
@@ -184,7 +190,7 @@ $adminName = $adminData ? $adminData['firstname'] . ' ' . $adminData['lastname']
     <!-- Admin Info Display -->
     <div class="admin-info">
       <i class="fas fa-user-shield"></i>
-      <span><?php echo htmlspecialchars($adminName); ?></span>
+      <span><?php echo htmlspecialchars($adminData); ?></span>
     </div>
 
     <!-- Navigation Menu -->

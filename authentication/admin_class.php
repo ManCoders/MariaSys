@@ -98,7 +98,7 @@ class Action
 
             if ($teacher && $teacher['user_role'] === 'teacher') {
                 if (password_verify($password, $teacher['password'])) {
-                    $_SESSION['userData'] = [
+                    $_SESSION['teacherData'] = [
                         'firstname' => $teacher['firstname'],
                         'middlename' => $teacher['middlename'],
                         'lastname' => $teacher['lastname'],
@@ -118,6 +118,7 @@ class Action
                         'user_role' => $teacher['user_role'],
                         'username' => $teacher['username'],
                         'teacher_id' => $teacher['teacher_id'],
+                        'teacher_picture' => $teacher['teacher_picture'],
                         'created_date' => $teacher['created_date']
                     ];
                     return json_encode([
@@ -137,7 +138,7 @@ class Action
 
             if ($parent && $parent['user_role'] === 'parent') {
                 if (password_verify($password, $parent['password'])) {
-                    $_SESSION['userData'] = [
+                    $_SESSION['parentData'] = [
                         'firstname' => $parent['firstname'],
                         'middlename' => $parent['middlename'],
                         'lastname' => $parent['lastname'],
@@ -156,7 +157,7 @@ class Action
                         'status' => $parent['status'],
                         'user_role' => $parent['user_role'],
                         'username' => $parent['username'],
-                        'profile_picture' => $parent['profile_picture'],
+                        'profile_picture' => $parent['parent_picture'],
                         'parent_id' => $parent['parent_id'],
                         'created_date' => $parent['created_date']
                     ];
@@ -370,8 +371,8 @@ class Action
                     :birthdate, :notes, :gender, :profile_picture, :status, :tongue, :grade_level_id, :parent_id, :birth_place, :school_year_id, 
                     :religious
                 )
-            "); 
-            
+            ");
+
             $stmt1->execute([
                 ':lrn' => $lrn,
                 ':nickname' => $nickname ?? null,
@@ -456,12 +457,95 @@ class Action
         }
     }
 
+    function NewTeacher()
+    {
+        extract($_POST); // ⚠️ Still recommended to use $_POST['key'] individually for clarity & safety
+
+        try {
+
+            if (empty($employee_id) || empty($family_name) || empty($given_name) || empty($middle_name) || empty($birthdate) || empty($religious)) {
+                return json_encode(['status' => 2, 'message' => 'Please fill in all required fields.']);
+            }
+
+            if (!preg_match('/^\d{6}$/', $employee_id)) {
+                return json_encode(['status' => 2, 'message' => 'Invalid LRN format. It should be 12 digits.']);
+            }
 
 
-    public function getLearner()
-{
-    try {
-        $stmt = $this->db->prepare("
+            $check = $this->db->prepare("SELECT COUNT(*) FROM teacher WHERE employeeid = :lrn");
+            $check->execute([':lrn' => $employee_id]);
+            if ($check->fetchColumn() > 0) {
+                return json_encode(['status' => 2, 'message' => 'This LRN is already registered.']);
+            }
+
+            $profilePicPath = null;
+            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+                $file = $_FILES['profile_picture'];
+                $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+
+                if (!in_array($ext, $allowed)) {
+                    return json_encode(['status' => 2, 'message' => 'Only JPG, PNG, and GIF files are allowed.']);
+                }
+
+                $uploadDir = __DIR__ . '/uploads/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                $newName = uniqid('profile_', false) . '.' . $ext;
+                $uploadPath = $uploadDir . $newName;
+
+                if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                    $profilePicPath = 'uploads/' . $newName;
+                } else {
+                    return json_encode(['status' => 2, 'message' => 'Failed to save uploaded profile picture.']);
+                }
+            }
+
+            // 1. INSERT learner main info
+            $stmt1 = $this->db->prepare("
+                INSERT INTO teacher (
+                    employee_id, lastname, firstname, middlename, suffix,
+                    birthdate, notes, gender, teacher_picture, teacher_status, tongue, grade_level_id, parent_id, birth_place, school_year_id, religious
+                ) VALUES (
+                    :employee_id, :family_name, :given_name, :middle_name, :suffix,
+                    :birthdate, :notes, :gender, :profile_picture, :status, :tongue, :grade_level_id, :parent_id, :birth_place, :school_year_id, 
+                    :religious
+                )
+            ");
+
+            $stmt1->execute([
+                ':employee_id' => $employee_id,
+                ':family_name' => $family_name,
+                ':given_name' => $given_name,
+                ':middle_name' => $middle_name,
+                ':suffix' => $suffix ?? null,
+                ':birthdate' => $birthdate,
+                ':notes' => $notes ?? null,
+                ':gender' => $gender ?? null,
+                ':profile_picture' => $profilePicPath,
+                ':status' => $status,
+                ':tongue' => $tongue,
+                ':grade_level_id' => $grade_level_id,
+                ':parent_id' => $parent_id,
+                ':birth_place' => $birth_place,
+                ':school_year_id' => $school_year_id,
+                ':religious' => $religious
+            ]);
+
+            
+
+            return json_encode(['status' => 1, 'message' => 'Successfully registered. Please wait for approval!']);
+        } catch (PDOException $e) {
+            return json_encode(['status' => 0, 'message' => 'Database Error: ' . $e->getMessage()]);
+        }
+    }
+
+    function getLearner()
+    {
+        try {
+            $stmt = $this->db->prepare("
             SELECT 
                 learners.*,
                 CONCAT(learners.family_name, ', ', learners.given_name, ' ', LEFT(learners.middle_name, 1), '.') AS name,
@@ -473,54 +557,21 @@ class Action
             ORDER BY learners.created_date DESC
         ");
 
-        $stmt->execute();
-        $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return json_encode([
-            'status' => 1,
-            'data' => $learners
-        ]);
-    } catch (PDOException $e) {
-        http_response_code(500);
-        return json_encode([
-            'status' => 0,
-            'message' => 'Database error: ' . $e->getMessage()
-        ]);
-    }
-}
-
-    /* 
-        public function getLearnerById($id)
-        {
-            try {
-                $stmt = $this->db->prepare(" SELECT * FROM learners WHERE id = $id");
-                $stmt->execute();
-                $learner = $stmt->fetch(PDO::FETCH_ASSOC);
-                return json_encode([
-                    'status' => 1,
-                    'data' => $learner
-                ]);
-
-            } catch (PDOException $e) {
-                http_response_code(500); // optional for error tracking
-                return json_encode([
-                    'status' => 0,
-                    'message' => 'Database error: ' . $e->getMessage()
-                ]);
-            }
+            return json_encode([
+                'status' => 1,
+                'data' => $learners
+            ]);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
         }
-
-
-        public function getRelationship()
-        {
-            try {
-
-                $stmt = $this->db->prepare("SELECT DISTINCT relationship FROM learners");
-
-            }
-
-
-        } */
+    }
 
 
 

@@ -1,3 +1,10 @@
+<style>
+    .modal-lg {
+        max-width: 1200px;
+        width: 90%;
+    }
+</style>
+
 <section class="p-2">
     <div class="sub-section">
         <div class="d-flex justify-content-between align-items-center mb-0">
@@ -29,52 +36,156 @@
 
     <!-- Modal -->
     <div class="modal fade" id="editModal" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="editForm">
-                    <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title">Update Information</h5>
+                <form id="childForm" enctype="multipart/form-data">
+                    <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
+                        <h5 class="modal-title text-white">Link Teacher Account</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="editId">
-                        <div class="mb-2">
-                            <label class="form-label">Teacher Name</label>
-                            <input type="text" class="form-control" id="editName" required>
+                        <input type="hidden" name="child_id" id="childId">
+                        <input type="hidden" name="status" value="Pending">
+                        <div class="row text-center d-flex justify-content-center">
+                            <p>TEACHER's PERSONAL INFORMATION</p>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Employee No : *</label>
+                                <input type="text" class="form-control" name="employee_id" id="employee_id" required
+                                    placeholder="Enter 6-digit Employee #">
+                                <small class="text-muted">The official Employee Number from school</small>
+                            </div>
+
+
+
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label"> Section Adviser *</label>
+                                <select class="form-control" name="section_id" id="section_id" required>
+                                    <option value="">Select Grade level</option>
+                                    <option value="1">Grade 1</option>
+                                    <option value="2">Grade 2</option>
+                                    <option value="3">Grade 3</option>
+                                    <option value="4">Grade 4</option>
+                                    <option value="5">Grade 5</option>
+                                    <option value="6">Grade 6</option>
+                                    <option value="1">Kinder Garden 1</option>
+                                    <option value="2">Kinder Garden 2</option>
+                                </select>
+                                <small class="text-muted">Select Incoming school grade</small>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">School Year</label>
+                                <select class="form-control" name="school_year_id" id="school_year_id" required>
+                                    <option value="">Select School Year</option>
+                                    <option value="2024-2025" selected>2024-2025</option>
+                                </select>
+
+                            </div>
+
                         </div>
-                        <div class="mb-2">
-                            <label class="form-label">Grade Level</label>
-                            <input type="text" class="form-control" id="editGrade" required>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Family Name *</label>
+                                <input type="text" class="form-control" name="family_name" id="familyName" required
+                                    placeholder="Enter Family Name">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Given Name *</label>
+                                <input type="text" class="form-control" name="given_name" id="givenName" required
+                                    placeholder="Enter Given Name">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Middle Name *</label>
+                                <input type="text" class="form-control" name="middle_name" id="middleName" required
+                                    placeholder="Enter Middle Name">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Suffix</label>
+                                <input type="text" class="form-control" name="suffix" id="suffix"
+                                    placeholder="e.g. Jr., Sr., III">
+                            </div>
                         </div>
-                        <div class="mb-2">
-                            <label class="form-label">Date Submitted</label>
-                            <input type="text" class="form-control" id="editDate" required>
+
+
+                        <div class="row ">
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Date of Birth *</label>
+                                <input type="date" class="form-control" name="birthdate" id="childBirthdate" required>
+                            </div>
+
+                            <div class="col-md-3 mb-1">
+                                <label class="form-label">Place of Birth*</label>
+                                <input type="text" class="form-control" name="birth_place" id="birth_place"
+                                    placeholder="Enter Place of Birth">
+                            </div>
+                            <div class="col-md-2 mb-1">
+                                <label class="form-label">Gender*</label>
+                                <select class="form-control" name="gender" id="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-1">
+                                <label class="form-label">Language*</label>
+                                <select class="form-control" name="tongue" id="tongue" required>
+                                    <option value="">Select Language</option>
+                                    <option value="English">English</option>
+                                    <option value="Bisaya">Bisaya</option>
+                                    <option value="Chavacano">Chavacano</option>
+                                    <option value="Muslim">Muslim</option>
+                                    <option value="Tagalog">Tagalog</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-1">
+                                <label class="form-label">Religious *</label>
+                                <select class="form-control" name="religious" id="religious" required>
+                                    <option value="">Select Religion</option>
+                                    <option value="Roman Catholic">Roman Catholic</option>
+                                    <option value="Islam (Muslim)">Islam (Muslim)</option>
+                                    <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+                                    <option value="Evangelical Christianity">Evangelical Christianity</option>
+                                    <option value="Seventh-day Adventist">Seventh-day Adventist</option>
+                                    <option value="Jehovah’s Witnesses">Jehovah’s Witnesses</option>
+                                    <option value="Born Again Christian">Born Again Christian</option>
+                                    <option value="Buddhism">Buddhism</option>
+                                </select>
+
+                            </div>
+                            <div class="row text-center d-flex justify-content-between">
+                                <div class="mb-3 col-md-8">
+                                    <label class="form-label">Additional Notes</label>
+                                    <textarea class="form-control" name="notes" id="notes" rows="8"
+                                        placeholder="Any special instructions or information..."></textarea>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="mt-2">
+                                        <img id="profilePreview" src="../assets/image/users.png" alt="Profile Preview"
+                                            class="img-thumbnail" width="200">
+                                    </div>
+                                    <input type="file" class="form-control" id="profilePicInput" required
+                                        name="profile_picture" accept="image/*">
+                                    <small class="text-muted">Upload a clear image (JPG, PNG)</small>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="alert alert-light"
+                                style="border: 1px solid #d1ecf1; background-color: #e8f4fd; color: #0c5460;">
+                                <i class="fa fa-info-circle me-2"></i>
+                                <strong>Note:</strong> Your enrollment request will be verified by the school
+                                administration. You will receive a notification once the verification is complete.
+                            </div>
                         </div>
-                        <div class="mb-2">
-                            <label class="form-label">Contact Number</label>
-                            <input type="text" class="form-control" id="editContact" required>
+                        <div class="modal-footer">
+                            <button class="btn btn-success text-white" type="submit">
+                                <i class="fa fa-save me-1"></i>Submit Request
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>
-                        <div class="mb-2">
-                            <label class="form-label">Type</label>
-                            <select class="form-select" id="editType">
-                                <option>New</option>
-                                <option>Transfer</option>
-                                <option>Regular</option>
-                            </select>
-                        </div>
-                        <div class="mb-2">
-                            <label class="form-label">Status</label>
-                            <select class="form-select" id="editStatus">
-                                <option>Pending</option>
-                                <option>Approved</option>
-                                <option>Declide</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success text-white" type="submit">Save Changes</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    </div>
                 </form>
             </div>
         </div>
@@ -120,23 +231,6 @@
         dataTable = $('#student-tbl').DataTable({
             pageLength: 5,
             lengthMenu: [5, 10, 25],
-            /* buttons: [
-                {
-                    extend: 'excelHtml5',
-                    text: 'Export Excel',
-                    className: 'btn btn-success btn-sm'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: 'Export PDF',
-                    className: 'btn btn-danger btn-sm'
-                },
-                {
-                    extend: 'print',
-                    text: 'Print',
-                    className: 'btn btn-dark btn-sm'
-                }
-            ], */
             columnDefs: [
                 { orderable: false, targets: 7 }
             ]
@@ -159,49 +253,125 @@
         });
 
         $('#addNewBtn').click(function () {
-            $('#editId').val('');
-            $('#editName').val('');
-            $('#editGrade').val('');
-            $('#editDate').val('');
-            $('#editContact').val('');
-            $('#editType').val('New');
-            $('#editStatus').val('Pending');
-            new bootstrap.Modal(document.getElementById('editModal')).show();
+            $('#childForm')[0].reset();
+            $('#profilePreview').attr('src', '../assets/image/users.png');
+            $('#editModal').modal('show');
         });
 
-    }
 
-    $('#editForm').submit(function (e) {
+
+    }
+    $('#childForm').submit(function (e) {
         e.preventDefault();
-        const id = $('#editId').val();
-        if (id) {
-            const index = sampleData.findIndex(e => e.id == id);
-            if (index !== -1) {
-                sampleData[index].name = $('#editName').val();
-                sampleData[index].grade = $('#editGrade').val();
-                sampleData[index].date = $('#editDate').val();
-                sampleData[index].contact = $('#editContact').val();
-                sampleData[index].type = $('#editType').val();
-                sampleData[index].status = $('#editStatus').val();
+
+
+        const $form = $(this);
+        const formData = new FormData(this); // Supports file + text data
+
+        $.ajax({
+            url: base_url + "/authentication/action.php?action=NewTeacher",
+            method: "POST",
+            data: formData,
+            processData: false, // Required for FormData
+            contentType: false, // Required for FormData
+            dataType: "json",
+            beforeSend: function () {
+                $form.find("button[type='submit']").html("Submitting...");
+            },
+            success: function (response) {
+                Swal.fire({
+                    title: response.status === 1 ? "Success!" : "Error",
+                    text: response.message,
+                    icon: response.status === 1 ? "success" : "error",
+                    toast: true,
+                    position: "top-end",
+                    timer: 3000,
+                    showConfirmButton: false,
+                }).then(() => {
+                    $('#childModal').modal('hide');
+                    $form[0].reset();
+                    location.href = base_url + "/src/UI-admin/index.php?page=contents/teacher";
+                    renderChildrenTable();
+
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                //console.error("AJAX error:", textStatus, errorThrown);
+                Swal.fire({
+                    title: "Technical Error",
+                    text: "Please contact the administration!",
+                    icon: "error",
+                    toast: true,
+                    position: "top-end",
+                    timer: 2000,
+                    showConfirmButton: false,
+                }).then(() => {
+                    $('#childModal').modal('hide');
+                    $form[0].reset();
+                    renderChildrenTable();
+                });
+            },
+            complete: function () {
+                $form.find("button[type='submit']").html("Submit Request");
             }
-        } else {
-            const newId = sampleData.length ? sampleData[sampleData.length - 1].id + 1 : 1;
-            sampleData.push({
-                id: newId,
-                name: $('#editName').val(),
-                grade: $('#editGrade').val(),
-                date: $('#editDate').val(),
-                contact: $('#editContact').val(),
-                type: $('#editType').val(),
-                status: $('#editStatus').val()
-            });
-        }
-        renderTable();
-        bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
+        });
     });
+
 
 
     $(document).ready(function () {
         renderTable();
+
+        $('#employee_id').on('input', function () {
+            let value = $(this).val().replace(/\D/g, '');
+            if (value.length > 6) value = value.substring(0, 6);
+            $(this).val(value);
+        });
+
+
+        $('#childForm input, #childForm select, #childForm textarea').on('input change blur', function () {
+            validateField($(this));
+        });
+
+        function validateField(field) {
+            const val = field.val().trim();
+            const name = field.attr('name');
+            const type = field.attr('type');
+            const isRequired = field.prop('required');
+
+            // Remove previous error message
+            field.removeClass('is-invalid');
+            field.next('.error-feedback').remove();
+
+            // Skip hidden fields
+            if (field.is(':hidden')) return true;
+
+            // LRN must be 12-digit number
+            if (name === 'lrn' && val && !/^\d{6}$/.test(val)) {
+                showError(field, "LRN must be exactly 12 digits.");
+                return false;
+            }
+
+            // Required fields check
+            if (isRequired && val === '') {
+                showError(field, "This field is required.");
+                return false;
+            }
+
+            // File validation
+            if (type === 'file' && isRequired && field.prop('files').length === 0) {
+                showError(field, "Please upload a file.");
+                return false;
+            }
+
+            return true;
+        }
+
+        function showError(field, message) {
+            field.addClass('is-invalid');
+            if (field.next('.error-feedback').length === 0) {
+                field.after(`<div class="error-feedback">${message}</div>`);
+            }
+        }
     });
 </script>

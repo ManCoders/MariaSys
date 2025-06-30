@@ -178,7 +178,7 @@
                     <div class="modal-body">
                         <input type="hidden" name="child_id" id="childId">
                         <input type="hidden" name="status" value="Pending">
-                        <input type="hidden" name="parent_id" id="parentId" value="1">
+                        <input type="hidden" name="parent_id" id="parentId" value="<?php echo $_SESSION['parent_id'] ? $_SESSION['parent_id'] : '1' ?>">
                         <div class="row text-center d-flex justify-content-center">
                             <p>LEARNER's PERSONAL INFORMATION</p>
                             <div class="col-md-3 mb-3">
@@ -346,7 +346,7 @@
 
 <script>
     // Sample data for demonstration
-    const childrenData = [
+   /*  const childrenData = [
         {
             id: 1,
             name: "Maria Santos",
@@ -381,7 +381,7 @@
             emergencyContact: "09123456789"
         }
     ];
-
+ */
     let dataTable;
 
     function renderTable() {
@@ -453,7 +453,7 @@
                     $('.viewBtn').off('click').on('click', function () {
                         const id = $(this).data('id');
                         sessionStorage.setItem('learner_id', id);
-                        location.href = 'index.php?page=contents/student/student_view';
+                        location.href = 'index.php?page=contents/student';
                     });
 
                 } else {
@@ -467,7 +467,7 @@
         });
     }
 
-    function getStatusBadge(status) {
+ /*    function getStatusBadge(status) {
         const badges = {
             'Approved': '<span class="status-badge status-approved">Approved</span>',
             'Pending': '<span class="status-badge status-pending">Pending</span>',
@@ -573,7 +573,7 @@
             }
         }
     }
-
+ */
     // Event Handlers
     $(document).ready(function () {
 
@@ -699,46 +699,6 @@
         }
 
     });
-
-
-    /* $('#relationship').on('change', function () {
-        const selected = $(this).val();
-        if (!selected) return;
-
-        $.ajax({
-            url: base_url + "/authentication/action.php?action=getRelationship",
-            method: 'GET',
-            data: { type: selected },
-            dataType: 'json',
-            success: function (data) {
-                if (data.status === 'success') {
-                    const info = data.info;
-                    if (selected === 'guardian') {
-                        $('#guardian_lname').val(info.lname);
-                        $('#guardian_fname').val(info.fname);
-                        $('#guardian_mname').val(info.mname);
-                        $('#guardian_contact').val(info.contact);
-                    } else if (selected === 'mother') {
-                        $('#mother_lname').val(info.lname);
-                        $('#mother_fname').val(info.fname);
-                        $('#mother_mname').val(info.mname);
-                        $('#mother_contact').val(info.contact);
-                    } else if (selected === 'father') {
-                        $('#father_lname').val(info.lname);
-                        $('#father_fname').val(info.fname);
-                        $('#father_mname').val(info.mname);
-                        $('#father_contact').val(info.contact);
-                    }
-                } else {
-                    Swal.fire("No Data", data.message, "info");
-                }
-            },
-            error: function () {
-                Swal.fire("Error", "Failed to load relationship data", "error");
-            }
-        });
-    }); */
-
 
     document.getElementById('profilePicInput').addEventListener('change', function (e) {
         const file = e.target.files[0];
