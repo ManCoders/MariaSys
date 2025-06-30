@@ -9,7 +9,7 @@
                 <i class="fa fa-plus"></i> Add New Learner
             </button>
         </div>
-        <table class="table table-bordered table-hover mb-0" id="student-tbl">
+        <table class="table table-bordered table-hover   mb-0" id="student-tbl">
             <thead class="table-light text-dark">
                 <tr>
                     <th class="text-center" style="width:4%">#</th>
@@ -30,6 +30,14 @@
         .modal-lg {
             max-width: 1200px;
             width: 90%;
+        }
+
+        .name-cell {
+            max-width: 150px;
+            /* adjust width as needed */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
     <!-- Modal -->
@@ -251,7 +259,7 @@
                     data.forEach(emp => {
                         let tr = $('<tr></tr>');
                         tr.append(`<td class="text-center">${i++}</td>`);
-                        tr.append(`<td>${emp.name}</td>`);
+                        tr.append(`<td class="text-truncate name-cell">${emp.name}</td>`);
                         tr.append(`<td>${emp.lrn}</td>`);
                         tr.append(`<td>${emp.date}</td>`);
                         tr.append(`<td>${emp.parent_contact}</td>`);
@@ -360,8 +368,9 @@
                     }).then(() => {
                         $('#childModal').modal('hide');
                         $form[0].reset();
-                        renderChildrenTable();
+                        renderTable();
                         $('#profilePreview').val('');
+
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -377,7 +386,8 @@
                     }).then(() => {
                         $('#childModal').modal('hide');
                         $form[0].reset();
-                        renderChildrenTable();
+                        renderTable();
+
                     });
                 },
                 complete: function () {

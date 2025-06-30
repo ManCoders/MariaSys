@@ -130,23 +130,7 @@
         dataTable = $('#student-tbl').DataTable({
             pageLength: 5,
             lengthMenu: [5, 10, 25],
-            /* buttons: [
-                {
-                    extend: 'excelHtml5',
-                    text: 'Export Excel',
-                    className: 'btn btn-success btn-sm'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: 'Export PDF',
-                    className: 'btn btn-danger btn-sm'
-                },
-                {
-                    extend: 'print',
-                    text: 'Print',
-                    className: 'btn btn-dark btn-sm'
-                }
-            ], */
+           
             columnDefs: [
                 { orderable: false, targets: 7 }
             ]

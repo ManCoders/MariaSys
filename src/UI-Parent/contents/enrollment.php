@@ -24,7 +24,7 @@
     }
 
     .status-badge {
-        padding: 4px 8px;
+        padding: 4px 6px;
         border-radius: 4px;
         font-size: 12px;
         font-weight: 500;
@@ -58,29 +58,16 @@
         transition: 0.2s;
     }
 
-    .btn-action:hover {
-        background-color: #f8f9fa;
-        border-color: #adb5bd;
-    }
-
-    .btn-action.view {
-        border-color: #b3d7ff;
-        color: #0056b3;
-    }
-
-    .btn-action.edit {
-        border-color: #ffda6a;
-        color: #664d03;
-    }
-
-    .btn-action.delete {
-        border-color: #f5c6cb;
-        color: #721c24;
-    }
 
     .modal-lg {
         max-width: 1200px;
         width: 90%;
+    }
+    .name-cell {
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>
 <?php
@@ -358,43 +345,6 @@ if ($qry && $qry->rowCount() > 0) {
 </section>
 
 <script>
-    // Sample data for demonstration
-    /*  const childrenData = [
-         {
-             id: 1,
-             name: "Maria Santos",
-             lrn: "123456789012",
-             grade: "Grade 5",
-             section: "Section A",
-             dateEnrolled: "2024-08-15",
-             status: "Approved",
-             relationship: "Mother",
-             emergencyContact: "09123456789"
-         },
-         {
-             id: 2,
-             name: "Juan Santos",
-             lrn: "123456789013",
-             grade: "Grade 3",
-             section: "Section B",
-             dateEnrolled: "2024-08-15",
-             status: "Approved",
-             relationship: "Mother",
-             emergencyContact: "09123456789"
-         },
-         {
-             id: 3,
-             name: "Ana Santos",
-             lrn: "123456789014",
-             grade: "Grade 1",
-             section: "Section C",
-             dateEnrolled: "2024-11-20",
-             status: "Pending",
-             relationship: "Mother",
-             emergencyContact: "09123456789"
-         }
-     ];
-  */
     let dataTable;
 
     function renderTable() {
@@ -413,7 +363,7 @@ if ($qry && $qry->rowCount() > 0) {
                     data.forEach(emp => {
                         let tr = $('<tr></tr>');
                         tr.append(`<td class="text-center">${i++}</td>`);
-                        tr.append(`<td>${emp.name}</td>`);
+                        tr.append(`<td class="name-cell">${emp.name}</td>`);
                         tr.append(`<td>${emp.lrn}</td>`);
                         tr.append(`<td>${emp.date}</td>`);
                         tr.append(`<td>${emp.parent_contact}</td>`);
