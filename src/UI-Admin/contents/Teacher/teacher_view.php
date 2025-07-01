@@ -600,7 +600,7 @@
                 </tr>
             `);
         });
-    } dsadsa
+    }
 
     function populateGradesTab() {
         const tbody = $('#gradesRecords');
