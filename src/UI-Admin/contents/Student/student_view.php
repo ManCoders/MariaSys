@@ -1,725 +1,1058 @@
 <style>
-    .stats-card {
-        background: white;
-        padding: 15px;
+.stats-card {
+    background: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.stats-card h4 {
+    margin: 5px 0;
+    color: #333;
+    font-size: 20px;
+}
+
+.stats-card small {
+    color: #777;
+    font-size: 12px;
+}
+
+.info-table td {
+    padding: 5px 8px;
+    border: none;
+    color: #555;
+}
+
+.info-table td:first-child {
+    font-weight: 500;
+    color: #333;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #664d03;
+    border: 1px solid #ffda6a;
+}
+
+.status-approved {
+    background-color: #e8f5e8;
+    color: #2d5a2d;
+    border: 1px solid #c3e6c3;
+}
+
+.status-declined {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.container-fluid {
+    max-width: 100%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+@media (max-width: 1200px) {
+    .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    .d-flex.justify-content-between > div {
         text-align: center;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        border: 1px solid #ddd;
-        margin-bottom: 10px;
+        width: 100%;
     }
-
-    .stats-card h4 {
-        margin: 5px 0;
-        color: #333;
-        font-size: 20px;
+    
+    .d-flex.justify-content-between h4 {
+        font-size: 1.2rem;
     }
+}
 
-    .stats-card small {
-        color: #777;
-        font-size: 12px;
+.table-responsive {
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.85rem;
+        border-radius: 0.25rem;
     }
-
-    .info-table td {
-        padding: 5px 8px;
-        border: none;
-        color: #555;
+    
+    .table th,
+    .table td {
+        padding: 0.5rem 0.375rem;
+        vertical-align: middle;
     }
-
-    .info-table td:first-child {
-        font-weight: 500;
-        color: #333;
+    
+    .table th {
+        font-size: 0.8rem;
+        font-weight: 600;
     }
+    
+    .d-md-none {
+        display: block !important;
+    }
+    
+    .d-none.d-md-table-cell {
+        display: none !important;
+    }
+    
+    .d-none.d-lg-table-cell {
+        display: none !important;
+    }
+}
 
+@media (max-width: 576px) {
+    .table th,
+    .table td {
+        padding: 0.375rem 0.25rem;
+        font-size: 0.8rem;
+    }
+    
+    .table th {
+        font-size: 0.75rem;
+    }
+    
     .status-badge {
-        padding: 3px 8px;
-        border-radius: 4px;
-        font-size: 11px;
-        font-weight: 500;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
     }
+}
 
-    .status-present {
-        background-color: #e8f5e8;
-        color: #2d5a2d;
-        border: 1px solid #c3e6c3;
+.action-buttons {
+    min-width: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .btn-group .btn {
+        border-radius: 0;
+        margin: 0;
     }
-
-    .status-absent {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
+    
+    .btn-group .btn:first-child {
+        border-top-left-radius: 0.375rem;
+        border-bottom-left-radius: 0.375rem;
     }
-
-    .status-late {
-        background-color: #fff3cd;
-        color: #664d03;
-        border: 1px solid #ffda6a;
+    
+    .btn-group .btn:last-child {
+        border-top-right-radius: 0.375rem;
+        border-bottom-right-radius: 0.375rem;
     }
+}
 
-    .grade-cell {
+@media (max-width: 767.98px) {
+    .btn-group-vertical .btn {
+        padding: 0.25rem 0.5rem;
+        margin-bottom: 0.125rem;
+        border-radius: 0.25rem !important;
+        font-size: 0.75rem;
+        min-width: 32px;
+    }
+    
+    .btn-group-vertical .btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    .action-buttons {
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+    }
+    
+    .modal-lg {
+        max-width: calc(100% - 1rem);
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .modal-header,
+    .modal-footer {
+        padding: 0.75rem 1rem;
+    }
+    
+    .modal-title {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0.25rem;
+        max-width: calc(100% - 0.5rem);
+    }
+    
+    .modal-body {
+        padding: 0.75rem;
+    }
+    
+    .modal-header,
+    .modal-footer {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .row {
+        margin-left: -0.375rem;
+        margin-right: -0.375rem;
+    }
+    
+    .row > * {
+        padding-left: 0.375rem;
+        padding-right: 0.375rem;
+    }
+}
+
+.form-control,
+.form-select {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .form-control,
+    .form-select {
+        font-size: 0.875rem;
+        padding: 0.45rem 0.65rem;
+    }
+    
+    .form-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.375rem;
+    }
+    
+    .mb-3 {
+        margin-bottom: 0.75rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-control,
+    .form-select {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .form-label {
+        font-size: 0.8rem;
+    }
+    
+    .mb-3 {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    h4 {
+        font-size: 1.1rem !important;
+    }
+    
+    .d-flex.justify-content-between > div:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .d-flex.justify-content-between > div:last-child .btn {
+        width: 100%;
+    }
+}
+
+.view-field {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.2s ease;
+}
+
+.view-field:hover {
+    background-color: #e9ecef;
+}
+
+.view-field-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.view-field-value {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .view-field {
+        padding: 0.6rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .view-field-label {
+        font-size: 0.8rem;
+    }
+    
+    .view-field-value {
+        font-size: 0.85rem;
+    }
+}
+
+.dataTables_wrapper {
+    padding: 1rem 0.5rem;
+}
+
+.dataTables_length,
+.dataTables_filter {
+    margin-bottom: 1rem;
+}
+
+.dataTables_length label,
+.dataTables_filter label {
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.dataTables_info {
+    color: #666;
+    font-size: 0.875rem;
+}
+
+.dataTables_paginate .paginate_button {
+    padding: 0.375rem 0.75rem !important;
+    margin: 0 0.125rem;
+    border-radius: 0.375rem !important;
+    border: 1px solid #dee2e6 !important;
+    background: white !important;
+    color: #333 !important;
+    font-size: 0.875rem !important;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    background: #f8f9fa !important;
+    border-color: #2dce89 !important;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background: #2dce89 !important;
+    border-color: #2dce89 !important;
+    color: white !important;
+}
+
+@media (max-width: 768px) {
+    .dataTables_wrapper {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
         text-align: center;
-        font-weight: 500;
-        color: #555;
+        margin-bottom: 0.75rem;
     }
+    
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        text-align: center;
+        margin-top: 0.75rem;
+    }
+    
+    .dataTables_length label,
+    .dataTables_filter label {
+        font-size: 0.85rem;
+    }
+    
+    .dataTables_filter input {
+        width: 200px !important;
+        margin-left: 0.5rem;
+    }
+}
 
-    .student-photo {
-        border: 3px solid #f8f9fa;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+@media (max-width: 576px) {
+    .dataTables_wrapper {
+        padding: 0.25rem;
     }
+    
+    .dataTables_filter input {
+        width: 150px !important;
+        font-size: 0.85rem;
+    }
+    
+    .dataTables_paginate .paginate_button {
+        padding: 0.25rem 0.5rem !important;
+        font-size: 0.8rem !important;
+    }
+}
 
-    .nav-tabs .nav-link {
-        color: #666;
-        border: 1px solid transparent;
-    }
+.btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 0.375rem;
+}
 
-    .nav-tabs .nav-link.active {
-        color: #333;
-        background-color: #f8f9fa;
-        border-color: #ddd #ddd #f8f9fa;
+@media (max-width: 768px) {
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
     }
+    
+    .btn {
+        white-space: nowrap;
+    }
+}
 
-    .nav-tabs .nav-link:hover {
-        border-color: #e9ecef #e9ecef #f8f9fa;
-        background-color: #f8f9fa;
+@media (max-width: 576px) {
+    .btn-sm {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.75rem;
     }
+}
+
+.btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(45, 206, 137, 0.25);
+}
 </style>
 
 <section class="p-2">
-    <div>
+    <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h4 class="mb-0"><i class="fa fa-users text-primary me-2"></i>Student Overview</h4>
-                <small class="text-muted">View your children's profiles, attendance, and health records</small>
+                <h4 class="mb-0"><i class="fa fa-folder-open text-primary me-2"></i>Learner Registration</h4>
+                <span class="text-muted">Manage and process student registration application</span>
             </div>
             <div>
-                <button class="btn btn-success btn-sm " id="backPreviewPage" type="button"><i
-                        class="fa fa-arrow-left"></i>Back</button>
+                <button class="btn btn-success btn-sm me-2" id="addNewBtn">
+                    <i class="fa fa-plus"></i> Add New Learner
+                </button>
+                <button class="btn btn-secondary btn-sm" id="refreshBtn">
+                    <i class="fa fa-refresh"></i> Refresh
+                </button>
             </div>
         </div>
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover mb-0" id="student-tbl">
+                <thead class="table-light text-dark">
+                    <tr>
+                        <th class="text-center" style="width:4%">#</th>
+                        <th>Learner Name</th>
+                        <th class="d-none d-md-table-cell">Student LRN</th>
+                        <th class="d-none d-lg-table-cell">Date Submitted</th>
+                        <th class="d-none d-md-table-cell">Parent Contact</th>
+                        <th class="d-none d-lg-table-cell">Grade Level</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center" style="width:100px">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_data_body"></tbody>
+            </table>
+        </div>
+    </div>
 
-        <!-- Student Profile Card -->
-        <div id="studentProfileSection" style="display: none;">
-            <div class="row mb-4">
-                <div class="col-md-4">
-                    <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                            <h6 class="mb-0" style="color: #555;"><i class="fa fa-user me-2"></i>Student Profile</h6>
-                        </div>
-                        <div class="card-body text-center">
-                            <div class="mb-3">
-                                <img src="../../assets/image/users.png" alt="Student Photo"
-                                    class="rounded-circle student-photo" width="120" height="120">
+    <div class="modal fade" id="childModal" tabindex="-1" aria-labelledby="childModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="childForm">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="childModalLabel">Add New Learner</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="editId" name="learner_id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Learner Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="editName" name="name" required>
+                                </div>
                             </div>
-                            <h5 id="studentName" style="color: #333;">Student Name</h5>
-                            <p class="text-muted mb-1" id="studentLRN">LRN: 000000000000</p>
-                            <p class="text-muted mb-1" id="studentGrade">Grade & Section</p>
-                            <span class="status-badge"
-                                style="background-color: #e8f5e8; color: #2d5a2d; border: 1px solid #c3e6c3;"
-                                id="studentStatus">Active</span>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Student LRN <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="editLRN" name="lrn" required maxlength="12">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Grade Level <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="editGrade" name="grade" required>
+                                        <option value="">Select Grade Level</option>
+                                        <option value="Grade 1">Grade 1</option>
+                                        <option value="Grade 2">Grade 2</option>
+                                        <option value="Grade 3">Grade 3</option>
+                                        <option value="Grade 4">Grade 4</option>
+                                        <option value="Grade 5">Grade 5</option>
+                                        <option value="Grade 6">Grade 6</option>
+                                        <option value="Grade 7">Grade 7</option>
+                                        <option value="Grade 8">Grade 8</option>
+                                        <option value="Grade 9">Grade 9</option>
+                                        <option value="Grade 10">Grade 10</option>
+                                        <option value="Grade 11">Grade 11</option>
+                                        <option value="Grade 12">Grade 12</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Date Submitted</label>
+                                    <input type="date" class="form-control" id="editDate" name="date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Parent Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="editParentName" name="parent_name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Parent Contact <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="editContact" name="parent_contact" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Student Type</label>
+                                    <select class="form-select" id="editType" name="type">
+                                        <option value="New">New</option>
+                                        <option value="Transfer">Transfer</option>
+                                        <option value="Regular">Regular</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select" id="editStatus" name="learner_status">
+                                        <option value="Pending">Pending</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Declined">Declined</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                            <h6 class="mb-0" style="color: #555;"><i class="fa fa-info-circle me-2"></i>Basic
-                                Information</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 overflow-scroll mb-3">
-                                    <table class="table table-borderless info-table text-sm text-truncate text-nowrap overflow-hidden ">
-                                        <tr>
-                                            <td><strong>Full Name:</strong></td>
-                                            <td id="infoName">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Date of Birth:</strong></td>
-                                            <td id="infoBirthdate">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Age:</strong></td>
-                                            <td id="infoAge">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Gender:</strong></td>
-                                            <td id="infoGender">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Father Complete Name:</strong></td>
-                                            <td id="fathername">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Contact No:</strong></td>
-                                            <td id="fathercontact">-</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-md-6  overflow-scroll mb-3">
-                                    <table class="table table-borderless info-table text-sm ">
-                                        <tr>
-                                            <td><strong>Place of Birth:</strong></td>
-                                            <td id="infoAddress">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Enroll by:</strong></td>
-                                            <td id="infoResponse">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Enroll Contact:</strong></td>
-                                            <td id="infoEmergency">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>School Year:</strong></td>
-                                            <td id="infoSchoolYear">2024-2025</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Mother Complete Name:</strong></td>
-                                            <td id="mothername">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Contact No:</strong></td>
-                                            <td id="mothercontact">-</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                               
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-save me-1"></i>Save Learner
+                        </button>
                     </div>
-                </div>
-            </div>
-
-            <!-- Tabs for detailed information -->
-            <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                    <ul class="nav nav-tabs card-header-tabs" id="studentInfoTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="attendance-tab" data-bs-toggle="tab"
-                                data-bs-target="#attendance" type="button" role="tab">
-                                <i class="fa fa-calendar-check me-1"></i>Attendance
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="grades-tab" data-bs-toggle="tab" data-bs-target="#grades"
-                                type="button" role="tab">
-                                <i class="fa fa-chart-line me-1"></i>Grades
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="health-tab" data-bs-toggle="tab" data-bs-target="#health"
-                                type="button" role="tab">
-                                <i class="fa fa-heartbeat me-1"></i>Health Records
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="behavior-tab" data-bs-toggle="tab" data-bs-target="#behavior"
-                                type="button" role="tab">
-                                <i class="fa fa-star me-1"></i>Behavior
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <div class="tab-content" id="studentInfoTabContent">
-                        <!-- Attendance Tab -->
-                        <div class="tab-pane fade show active" id="attendance" role="tabpanel">
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f5e8; border-color: #c3e6c3;">
-                                        <h4 id="attendancePresent">85</h4>
-                                        <small>Present Days</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #fff3cd; border-color: #ffda6a;">
-                                        <h4 id="attendanceAbsent">5</h4>
-                                        <small>Absent Days</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f4fd; border-color: #b3d7ff;">
-                                        <h4 id="attendanceLate">3</h4>
-                                        <small>Late Arrivals</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #f8f9fa; border-color: #ddd;">
-                                        <h4 id="attendanceRate">94%</h4>
-                                        <small>Attendance Rate</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <h6 style="color: #555;">Recent Attendance (Last 10 Days)</h6>
-                            <table class="table table-bordered table-sm">
-                                <thead class="table-light">
-                                    <tr style="color: #555;">
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Time In</th>
-                                        <th>Time Out</th>
-                                        <th>Remarks</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="attendanceRecords" style="color: #666;">
-                                    <!-- Will be populated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Grades Tab -->
-                        <div class="tab-pane fade" id="grades" role="tabpanel">
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f5e8; border-color: #c3e6c3;">
-                                        <h4 id="overallGrade">88.5</h4>
-                                        <small>Overall Average</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #f8f9fa; border-color: #ddd;">
-                                        <h4 id="classRank">5</h4>
-                                        <small>Class Rank</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f4fd; border-color: #b3d7ff;">
-                                        <h4 id="totalSubjects">8</h4>
-                                        <small>Total Subjects</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #fff3cd; border-color: #ffda6a;">
-                                        <h4 id="failingSubjects">0</h4>
-                                        <small>Failing Subjects</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <h6 style="color: #555;">Subject Grades</h6>
-                            <table class="table table-bordered">
-                                <thead class="table-light">
-                                    <tr style="color: #555;">
-                                        <th>Subject</th>
-                                        <th>1st Quarter</th>
-                                        <th>2nd Quarter</th>
-                                        <th>3rd Quarter</th>
-                                        <th>4th Quarter</th>
-                                        <th>Final Grade</th>
-                                        <th>Remarks</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="gradesRecords" style="color: #666;">
-                                    <!-- Will be populated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Health Records Tab -->
-                        <div class="tab-pane fade" id="health" role="tabpanel">
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <div class="card" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                        <div class="card-header"
-                                            style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                                            <h6 class="mb-0" style="color: #555;">Physical Information</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <table class="table table-borderless info-table">
-                                                <tr>
-                                                    <td><strong>Height:</strong></td>
-                                                    <td id="healthHeight">125 cm</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Weight:</strong></td>
-                                                    <td id="healthWeight">28 kg</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>BMI:</strong></td>
-                                                    <td id="healthBMI">17.9 (Normal)</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Blood Type:</strong></td>
-                                                    <td id="healthBloodType">O+</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                        <div class="card-header"
-                                            style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                                            <h6 class="mb-0" style="color: #555;">Medical History</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <h6 style="color: #555;">Immunization Records</h6>
-                                            <table class="table table-sm table-bordered">
-                                                <thead class="table-light">
-                                                    <tr style="color: #555;">
-                                                        <th>Vaccine</th>
-                                                        <th>Date Given</th>
-                                                        <th>Next Due</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="immunizationRecords" style="color: #666;">
-                                                    <!-- Will be populated by JavaScript -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                <div class="card-header"
-                                    style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                                    <h6 class="mb-0" style="color: #555;">Health Check-ups & Medical Notes</h6>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-bordered">
-                                        <thead class="table-light">
-                                            <tr style="color: #555;">
-                                                <th>Date</th>
-                                                <th>Type</th>
-                                                <th>Findings</th>
-                                                <th>Recommendations</th>
-                                                <th>Medical Officer</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="healthRecords" style="color: #666;">
-                                            <!-- Will be populated by JavaScript -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Behavior Tab -->
-                        <div class="tab-pane fade" id="behavior" role="tabpanel">
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f5e8; border-color: #c3e6c3;">
-                                        <h4 id="behaviorGood">25</h4>
-                                        <small>Good Behavior</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #fff3cd; border-color: #ffda6a;">
-                                        <h4 id="behaviorWarning">2</h4>
-                                        <small>Warnings</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #f8d7da; border-color: #f5c6cb;">
-                                        <h4 id="behaviorIncidents">0</h4>
-                                        <small>Incidents</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #f8f9fa; border-color: #ddd;">
-                                        <h4 id="behaviorScore">95%</h4>
-                                        <small>Behavior Score</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <table class="table table-bordered">
-                                <thead class="table-light">
-                                    <tr style="color: #555;">
-                                        <th>Date</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                        <th>Action Taken</th>
-                                        <th>Reported By</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="behaviorRecords" style="color: #666;">
-                                    <!-- Will be populated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
+    </div>
 
-        <!-- No Child Selected Message -->
-        <div id="noChildMessage" class="text-center py-5">
-            <i class="fa fa-users fa-3x text-muted mb-3"></i>
-            <h5 class="text-muted">No child selected</h5>
-            <p class="text-muted">Please select a child from the dropdown above to view their information.</p>
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="viewModalLabel">Learner Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="viewModalBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="editFromView">
+                        <i class="fa fa-edit me-1"></i>Edit Learner
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-    const attendanceData = [
-        { date: "2024-11-25", status: "Present", timeIn: "7:30 AM", timeOut: "4:00 PM", remarks: "" },
-        { date: "2024-11-24", status: "Present", timeIn: "7:35 AM", timeOut: "4:00 PM", remarks: "Late arrival" },
-        { date: "2024-11-23", status: "Absent", timeIn: "-", timeOut: "-", remarks: "Sick" },
-        { date: "2024-11-22", status: "Present", timeIn: "7:30 AM", timeOut: "4:00 PM", remarks: "" },
-        { date: "2024-11-21", status: "Present", timeIn: "7:25 AM", timeOut: "4:00 PM", remarks: "" }
-    ];
+const sampleStudentData = [
+    {
+        learner_id: 1,
+        name: "Maria Santos",
+        lrn: "123456789012",
+        date: "2025-06-01",
+        parent_name: "Juan Santos",
+        parent_contact: "09123456789",
+        grade: "Grade 6",
+        type: "New",
+        learner_status: "Approved"
+    },
+    {
+        learner_id: 2,
+        name: "Jose Dela Cruz",
+        lrn: "123456789013",
+        date: "2025-06-02",
+        parent_name: "Maria Dela Cruz",
+        parent_contact: "09234567890",
+        grade: "Grade 7",
+        type: "Transfer",
+        learner_status: "Pending"
+    },
+    {
+        learner_id: 3,
+        name: "Ana Reyes",
+        lrn: "123456789014",
+        date: "2025-06-03",
+        parent_name: "Pedro Reyes",
+        parent_contact: "09345678901",
+        grade: "Grade 8",
+        type: "Regular",
+        learner_status: "Declined"
+    },
+    {
+        learner_id: 4,
+        name: "Carlos Rivera",
+        lrn: "123456789015",
+        date: "2025-06-04",
+        parent_name: "Linda Rivera",
+        parent_contact: "09456789012",
+        grade: "Grade 5",
+        type: "New",
+        learner_status: "Approved"
+    },
+    {
+        learner_id: 5,
+        name: "Isabel Garcia",
+        lrn: "123456789016",
+        date: "2025-06-05",
+        parent_name: "Roberto Garcia",
+        parent_contact: "09567890123",
+        grade: "Grade 9",
+        type: "Transfer",
+        learner_status: "Pending"
+    }
+];
 
-    const gradesData = [
-        { subject: "Mathematics", q1: 88, q2: 90, q3: 85, q4: 92, final: 89, remarks: "Passed" },
-        { subject: "English", q1: 90, q2: 88, q3: 92, q4: 89, final: 90, remarks: "Passed" },
-        { subject: "Science", q1: 85, q2: 87, q3: 88, q4: 90, final: 88, remarks: "Passed" },
-        { subject: "Filipino", q1: 89, q2: 91, q3: 87, q4: 88, final: 89, remarks: "Passed" },
-        { subject: "Social Studies", q1: 92, q2: 89, q3: 90, q4: 91, final: 91, remarks: "Passed" }
-    ];
+let dataTable;
+let currentEditId = null;
 
-    const immunizationData = [
-        { vaccine: "BCG", dateGiven: "2014-04-01", nextDue: "Complete", status: "Complete" },
-        { vaccine: "DPT", dateGiven: "2024-08-15", nextDue: "2025-08-15", status: "Up to date" },
-        { vaccine: "Measles", dateGiven: "2024-07-10", nextDue: "Complete", status: "Complete" },
-        { vaccine: "Polio", dateGiven: "2024-06-05", nextDue: "Complete", status: "Complete" }
-    ];
+$(document).ready(function() {
+    renderChildrenTable();
+    bindEvents();
+});
 
-    const healthRecordsData = [
-        {
-            date: "2024-09-15",
-            type: "Annual Physical",
-            findings: "Normal growth and development",
-            recommendations: "Continue healthy diet and exercise",
-            officer: "Dr. Jane Smith"
-        },
-        {
-            date: "2024-06-10",
-            type: "Dental Check-up",
-            findings: "Good oral health",
-            recommendations: "Regular brushing and flossing",
-            officer: "Dr. Mark Johnson"
-        }
-    ];
-
-    const behaviorRecordsData = [
-        {
-            date: "2024-11-20",
-            type: "Commendation",
-            description: "Helped classmate with homework",
-            action: "Recognized in class",
-            reportedBy: "Ms. Garcia"
-        },
-        {
-            date: "2024-11-15",
-            type: "Warning",
-            description: "Talking during class",
-            action: "Verbal warning given",
-            reportedBy: "Ms. Garcia"
-        }
-    ];
-
-
+function renderChildrenTable() {
+    const tbody = $('#tb_data_body');
+    tbody.empty();
     
+    sampleStudentData.forEach((emp, index) => {
+        const row = `
+            <tr>
+                <td class="text-center">${index + 1}</td>
+                <td>
+                    <div class="d-flex flex-column">
+                        <span class="fw-bold">${emp.name}</span>
+                        <small class="text-muted d-md-none">LRN: ${emp.lrn}</small>
+                        <small class="text-muted d-lg-none">${emp.grade}</small>
+                    </div>
+                </td>
+                <td class="d-none d-md-table-cell">${emp.lrn}</td>
+                <td class="d-none d-lg-table-cell">${formatDate(emp.date)}</td>
+                <td class="d-none d-md-table-cell">
+                    <div class="d-flex flex-column">
+                        <span>${emp.parent_contact}</span>
+                        <small class="text-muted d-lg-none">${formatDate(emp.date)}</small>
+                    </div>
+                </td>
+                <td class="d-none d-lg-table-cell">${emp.grade}</td>
+                <td class="text-center">
+                    <span class="status-badge status-${emp.learner_status.toLowerCase()}">${emp.learner_status}</span>
+                </td>
+                <td class="text-center">
+                    <div class="action-buttons">
+                        <div class="btn-group-vertical d-md-none" role="group">
+                            <button class="btn btn-sm btn-primary viewBtn" data-id="${emp.learner_id}" title="View Details">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-success editBtn" data-id="${emp.learner_id}" title="Edit">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger trashBtn" data-id="${emp.learner_id}" title="Delete">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="btn-group d-none d-md-flex" role="group">
+                            <button class="btn btn-sm btn-primary viewBtn" data-id="${emp.learner_id}" title="View Details">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-success editBtn" data-id="${emp.learner_id}" title="Edit">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger trashBtn" data-id="${emp.learner_id}" title="Delete">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        `;
+        tbody.append(row);
+    });
 
-     const data = sessionStorage.getItem('learner_id');
-    function displayStudentInfo() {
-       
- 
-        //if (!student) return;
+    if ($.fn.DataTable.isDataTable('#student-tbl')) {
+        $('#student-tbl').DataTable().destroy();
+    }
 
-
-        $.ajax({
-            url: base_url + "/authentication/action.php?action=getLearner",
-            method: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 1) {
-                    const datas = response.data;
-
-                    datas.forEach(emp => {
-                        if (emp.learner_id == data) {
-                            if (emp.learner_picture) {
-                                $('img[alt="Student Photo"]').attr('src', '../../authentication/'+ emp.learner_picture);
-                            } else {
-                                $('img[alt="Student Photo"]').attr('src', '../../assets/image/users.jpg');
-                            }
-
-                            $('#studentName').text(emp.name);
-                            $('#studentLRN').text(`LRN: ${emp.lrn}`);
-                            $('#infoName').text(emp.name);
-                            $('#infoBirthdate').text(formatDate(emp.birthdate));
-                            $('#infoAge').text(calculateAge(emp.birthdate) + ' years old');
-                            $('#infoGender').text(emp.gender ?? 'N/A');
-                            $('#infoAddress').text(emp.birth_place ?? 'Not Provided');
-                            $('#infoResponse').text(emp.parent_name ?? 'Not Provided' );
-                            $('#infoEmergency').text(emp.parent_contact ?? 'Not Available');
-                            $('#studentStatus').text(emp.learner_status) ?? 'Not Available';
-                            $('#mothername').text(emp.mother_lname + ', ' + emp.mother_fname + ' ' + emp.mother_mname) ;
-                            $('#fathername').text(emp.father_lname + ', '+ emp.father_fname + ' ' + emp.father_mname);
-                            $('#fathercontact').text(emp.father_contact);
-                            $('#mothercontact').text(emp.mother_contact);
-                        }
-                    });
-
-
-                } else {
-                    Swal.fire("Error", response.message, "error");
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("AJAX error:", status, error);
-                Swal.fire("Error", "Unable to fetch data from server.", "error");
+    dataTable = $('#student-tbl').DataTable({
+        responsive: true,
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50],
+        columnDefs: [
+            { orderable: false, targets: -1 },
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 1 },
+            { responsivePriority: 3, targets: -1 }
+        ],
+        language: {
+            search: "Search learners:",
+            lengthMenu: "Show _MENU_ learners per page",
+            info: "Showing _START_ to _END_ of _TOTAL_ learners",
+            paginate: {
+                first: "First",
+                last: "Last",
+                next: "Next",
+                previous: "Previous"
             }
-        });
-
-
-        // Update profile section
-
-        //$('#studentGrade').text(`${student.grade} - ${student.section}`);
-
-        // Update basic info
-
-
-
-        // Update photo
-
-
-        // Populate tabs
-        populateAttendanceTab();
-        populateGradesTab();
-        populateHealthTab();
-        populateBehaviorTab();
-
-        $('#studentProfileSection').show();
-        $('#noChildMessage').hide();
-    }
-    
-    
-    
-    $('#backPreviewPage').click(function () {
-        sessionStorage.clear();
-        sessionStorage.removeItem('learner_id');
-        location.href = 'index.php?page=contents/student';
-    });
-
-
-    function calculateAge(birthdate) {
-        const today = new Date();
-        const birth = new Date(birthdate);
-        let age = today.getFullYear() - birth.getFullYear();
-        const monthDiff = today.getMonth() - birth.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-            age--;
         }
-
-        return age;
-    }
-
-    function formatDate(dateStr) {
-        const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    }
-
-    function populateAttendanceTab() {
-        const tbody = $('#attendanceRecords');
-        tbody.html('');
-
-        attendanceData.forEach(record => {
-            const statusBadge = record.status === 'Present' ?
-                '<span class="status-badge status-present">Present</span>' :
-                '<span class="status-badge status-absent">Absent</span>';
-
-            tbody.append(`
-                <tr>
-                    <td>${formatDate(record.date)}</td>
-                    <td>${statusBadge}</td>
-                    <td>${record.timeIn}</td>
-                    <td>${record.timeOut}</td>
-                    <td>${record.remarks}</td>
-                </tr>
-            `);
-        });
-    }
-
-    function populateGradesTab() {
-        const tbody = $('#gradesRecords');
-        tbody.html('');
-
-        gradesData.forEach(grade => {
-            const remarksBadge = grade.final >= 75 ?
-                '<span class="status-badge status-present">Passed</span>' :
-                '<span class="status-badge status-absent">Failed</span>';
-
-            tbody.append(`
-                <tr>
-                    <td>${grade.subject}</td>
-                    <td class="grade-cell">${grade.q1}</td>
-                    <td class="grade-cell">${grade.q2}</td>
-                    <td class="grade-cell">${grade.q3}</td>
-                    <td class="grade-cell">${grade.q4}</td>
-                    <td class="grade-cell"><strong>${grade.final}</strong></td>
-                    <td class="text-center">${remarksBadge}</td>
-                </tr>
-            `);
-        });
-    }
-
-    function populateHealthTab() {
-        // Immunization records
-        const immunizationTbody = $('#immunizationRecords');
-        immunizationTbody.html('');
-
-        immunizationData.forEach(record => {
-            const statusBadge = record.status === 'Complete' ?
-                '<span class="status-badge status-present">Complete</span>' :
-                '<span class="status-badge" style="background-color: #e8f4fd; color: #0c5460; border: 1px solid #b3d7ff;">Up to date</span>';
-
-            immunizationTbody.append(`
-                <tr>
-                    <td>${record.vaccine}</td>
-                    <td>${formatDate(record.dateGiven)}</td>
-                    <td>${record.nextDue}</td>
-                    <td>${statusBadge}</td>
-                </tr>
-            `);
-        });
-
-        // Health records
-        const healthTbody = $('#healthRecords');
-        healthTbody.html('');
-
-        healthRecordsData.forEach(record => {
-            healthTbody.append(`
-                <tr>
-                    <td>${formatDate(record.date)}</td>
-                    <td>${record.type}</td>
-                    <td>${record.findings}</td>
-                    <td>${record.recommendations}</td>
-                    <td>${record.officer}</td>
-                </tr>
-            `);
-        });
-    }
-
-    function populateBehaviorTab() {
-        const tbody = $('#behaviorRecords');
-        tbody.html('');
-
-        behaviorRecordsData.forEach(record => {
-            const typeBadge = record.type === 'Commendation' ?
-                '<span class="status-badge status-present">Commendation</span>' :
-                '<span class="status-badge status-late">Warning</span>';
-
-            tbody.append(`
-                <tr>
-                    <td>${formatDate(record.date)}</td>
-                    <td>${typeBadge}</td>
-                    <td>${record.description}</td>
-                    <td>${record.action}</td>
-                    <td>${record.reportedBy}</td>
-                </tr>
-            `);
-        });
-    }
-    
-    
-    $(document).ready(function () {
-        displayStudentInfo();
     });
+
+    bindTableEvents();
+}
+
+function bindEvents() {
+    $('#addNewBtn').off('click').on('click', function() {
+        currentEditId = null;
+        $('#childModalLabel').text('Add New Learner');
+        $('#childForm')[0].reset();
+        $('#editId').val('');
+        $('#editDate').val(new Date().toISOString().split('T')[0]);
+        $('#editStatus').val('Pending');
+        $('#editType').val('New');
+        $('#childModal').modal('show');
+    });
+
+    $('#childForm').off('submit').on('submit', function(e) {
+        e.preventDefault();
+        if (validateForm()) {
+            saveLearner();
+        }
+    });
+
+    $('#editFromView').off('click').on('click', function() {
+        $('#viewModal').modal('hide');
+        const student = sampleStudentData.find(s => s.learner_id === currentEditId);
+        if (student) {
+            showEditModal(student);
+        }
+    });
+
+    $('#refreshBtn').off('click').on('click', function() {
+        renderChildrenTable();
+        Swal.fire({
+            title: 'Refreshed!',
+            text: 'Student data has been refreshed.',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+            position: 'top-end',
+            toast: true
+        });
+    });
+
+    $('#editLRN').off('input').on('input', function() {
+        let value = $(this).val().replace(/\D/g, '');
+        if (value.length > 12) value = value.substring(0, 12);
+        $(this).val(value);
+    });
+}
+
+function bindTableEvents() {
+    $('.viewBtn').off('click').on('click', function() {
+        const id = parseInt($(this).data('id'));
+        const student = sampleStudentData.find(s => s.learner_id === id);
+        if (student) {
+            showViewModal(student);
+        }
+    });
+
+    $('.editBtn').off('click').on('click', function() {
+        const id = parseInt($(this).data('id'));
+        const student = sampleStudentData.find(s => s.learner_id === id);
+        if (student) {
+            showEditModal(student);
+        }
+    });
+
+    $('.trashBtn').off('click').on('click', function() {
+        const id = parseInt($(this).data('id'));
+        const student = sampleStudentData.find(s => s.learner_id === id);
+        if (student) {
+            Swal.fire({
+                title: 'Are you sure?',
+                html: `Delete learner <strong>"${student.name}"</strong>?<br><small class="text-muted">This action cannot be undone!</small>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fa fa-trash me-1"></i>Yes, delete it!',
+                cancelButtonText: '<i class="fa fa-times me-1"></i>Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteLearner(id);
+                }
+            });
+        }
+    });
+}
+
+function showViewModal(student) {
+    currentEditId = student.learner_id;
+    const content = `
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="view-field">
+                    <div class="view-field-label">Learner Name</div>
+                    <div class="view-field-value">${student.name}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="view-field">
+                    <div class="view-field-label">Student LRN</div>
+                    <div class="view-field-value">${student.lrn}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="view-field">
+                    <div class="view-field-label">Grade Level</div>
+                    <div class="view-field-value">${student.grade}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="view-field">
+                    <div class="view-field-label">Date Submitted</div>
+                    <div class="view-field-value">${formatDate(student.date)}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="view-field">
+                    <div class="view-field-label">Parent Name</div>
+                    <div class="view-field-value">${student.parent_name}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="view-field">
+                    <div class="view-field-label">Parent Contact</div>
+                    <div class="view-field-value">${student.parent_contact}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="view-field">
+                    <div class="view-field-label">Student Type</div>
+                    <div class="view-field-value">${student.type}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="view-field">
+                    <div class="view-field-label">Status</div>
+                    <div class="view-field-value">
+                        <span class="status-badge status-${student.learner_status.toLowerCase()}">${student.learner_status}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    $('#viewModalBody').html(content);
+    $('#viewModalLabel').text(`Learner Details - ${student.name}`);
+    $('#viewModal').modal('show');
+}
+
+function showEditModal(student) {
+    currentEditId = student.learner_id;
+    $('#childModalLabel').text('Edit Learner Information');
+    $('#editId').val(student.learner_id);
+    $('#editName').val(student.name);
+    $('#editLRN').val(student.lrn);
+    $('#editGrade').val(student.grade);
+    $('#editDate').val(student.date);
+    $('#editParentName').val(student.parent_name);
+    $('#editContact').val(student.parent_contact);
+    $('#editType').val(student.type);
+    $('#editStatus').val(student.learner_status);
+    $('#childModal').modal('show');
+}
+
+function validateForm() {
+    const requiredFields = ['editName', 'editLRN', 'editGrade', 'editParentName', 'editContact'];
+    let isValid = true;
+    
+    $('.form-control, .form-select').removeClass('is-invalid');
+    
+    requiredFields.forEach(field => {
+        const value = $(`#${field}`).val().trim();
+        if (!value) {
+            $(`#${field}`).addClass('is-invalid');
+            isValid = false;
+        }
+    });
+    
+    const lrn = $('#editLRN').val().trim();
+    if (lrn && !/^\d{12}$/.test(lrn)) {
+        $('#editLRN').addClass('is-invalid');
+        isValid = false;
+    }
+    
+    if (!isValid) {
+        Swal.fire({
+            title: 'Validation Error',
+            text: 'Please fill in all required fields correctly.',
+            icon: 'error'
+        });
+    }
+    
+    return isValid;
+}
+
+function saveLearner() {
+    const formData = {
+        learner_id: $('#editId').val() || (sampleStudentData.length + 1),
+        name: $('#editName').val().trim(),
+        lrn: $('#editLRN').val().trim(),
+        grade: $('#editGrade').val(),
+        date: $('#editDate').val() || new Date().toISOString().split('T')[0],
+        parent_name: $('#editParentName').val().trim(),
+        parent_contact: $('#editContact').val().trim(),
+        type: $('#editType').val(),
+        learner_status: $('#editStatus').val()
+    };
+    
+    const saveBtn = $('#childForm button[type="submit"]');
+    const originalText = saveBtn.html();
+    saveBtn.html('<i class="fa fa-spinner fa-spin me-1"></i>Saving...').prop('disabled', true);
+    
+    setTimeout(() => {
+        if (currentEditId) {
+            const index = sampleStudentData.findIndex(s => s.learner_id == currentEditId);
+            if (index !== -1) {
+                sampleStudentData[index] = { ...sampleStudentData[index], ...formData, learner_id: parseInt(formData.learner_id) };
+            }
+        } else {
+            sampleStudentData.push({ ...formData, learner_id: parseInt(formData.learner_id) });
+        }
+        
+        $('#childModal').modal('hide');
+        renderChildrenTable();
+        
+        Swal.fire({
+            title: 'Success!',
+            text: `Learner ${currentEditId ? 'updated' : 'added'} successfully.`,
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+            position: 'top-end',
+            toast: true
+        });
+        
+        saveBtn.html(originalText).prop('disabled', false);
+    }, 1000);
+}
+
+function deleteLearner(id) {
+    const index = sampleStudentData.findIndex(s => s.learner_id == id);
+    if (index !== -1) {
+        const studentName = sampleStudentData[index].name;
+        sampleStudentData.splice(index, 1);
+        renderChildrenTable();
+        
+        Swal.fire({
+            title: 'Deleted!',
+            text: `${studentName} has been deleted successfully.`,
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+            position: 'top-end',
+            toast: true
+        });
+    }
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+    });
+}
+
+$(window).on('resize', function() {
+    if (dataTable) {
+        dataTable.columns.adjust().responsive.recalc();
+    }
+});
 </script>
