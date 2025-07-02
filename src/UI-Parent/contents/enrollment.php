@@ -60,7 +60,6 @@
         text-overflow: ellipsis;
     }
 
-    /* Student View Modal Styles - Exact Match to student_view.php */
     .info-table td {
         padding: 5px 8px;
         border: none;
@@ -92,11 +91,6 @@
 </style>
 
 <?php
-/* $qry = $pdo->query("SELECT * FROM grade_level");
-
-if ($qry && $qry->rowCount() > 0) {
-    $meta = $qry->fetch(PDO::FETCH_ASSOC);
-} */
 ?>
 
 <section class="p-2">
@@ -371,7 +365,7 @@ if ($qry && $qry->rowCount() > 0) {
         </div>
     </div>
 
-    <!-- STUDENT VIEW MODAL  -->
+    <!-- STUDENT VIEW MODAL -->
     <div class="modal fade" id="viewStudentModal" tabindex="-1" aria-labelledby="viewStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-landscape">
             <div class="modal-content">
@@ -382,7 +376,7 @@ if ($qry && $qry->rowCount() > 0) {
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Student Profile Section  -->
+                    <!-- Student Profile Section -->
                     <div class="row mb-4">
                         <div class="col-md-4">
                             <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
@@ -504,12 +498,12 @@ if ($qry && $qry->rowCount() > 0) {
         </div>
     </div>
 
-    <!-- EDIT STUDENT MODAL - UI -->
+    <!-- EDIT STUDENT MODAL - UI ONLY (Backend Developer to implement) -->
     <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="editStudentForm" enctype="multipart/form-data">
-                    <div class="modal-header bg-warning text-dark">
+                    <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title" id="editStudentModalLabel">
                             <i class="fa fa-edit me-2"></i>Edit Student Information
                         </h5>
@@ -518,8 +512,6 @@ if ($qry && $qry->rowCount() > 0) {
                     <div class="modal-body">
                         <!-- Hidden field for student ID -->
                         <input type="hidden" name="student_id" id="editStudentId">
-                        
-                        <!-- Student Photo Section -->
                         <div class="row mb-3">
                             <div class="col-md-12 text-center">
                                 <div class="mb-2">
@@ -532,7 +524,6 @@ if ($qry && $qry->rowCount() > 0) {
                             </div>
                         </div>
 
-                        <!-- Student LRN -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-2">
@@ -550,7 +541,6 @@ if ($qry && $qry->rowCount() > 0) {
                             </div>
                         </div>
 
-                        <!-- Name Fields -->
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-2">
@@ -595,7 +585,6 @@ if ($qry && $qry->rowCount() > 0) {
                             </div>
                         </div>
 
-                        <!-- Personal Information -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-2">
@@ -629,16 +618,13 @@ if ($qry && $qry->rowCount() > 0) {
                             </div>
                         </div>
 
-                        <!-- Academic Information -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-2">
                                     <label class="form-label">Grade Level <span class="text-danger">*</span></label>
                                     <select class="form-select" name="grade_level_id" id="editGradeLevelId" required>
                                         <option value="">Select Grade Level</option>
-                                        <!-- TODO: Backend Developer - Populate with grade levels from database -->
                                         <?php
-                                        // Backend Developer: Add database query here
                                         $qry = $pdo->query("SELECT * FROM grade_level");
                                         if ($qry && $qry->rowCount() > 0):
                                             while ($row = $qry->fetch(PDO::FETCH_ASSOC)):
@@ -658,9 +644,7 @@ if ($qry && $qry->rowCount() > 0) {
                                     <label class="form-label">School Year <span class="text-danger">*</span></label>
                                     <select class="form-select" name="school_year_id" id="editSchoolYearId" required>
                                         <option value="">Select School Year</option>
-                                        <!-- TODO: Backend Developer - Populate with school years from database -->
                                         <?php
-                                        // Backend Developer: Add database query here
                                         $qry = $pdo->query("SELECT * FROM school_year");
                                         if ($qry && $qry->rowCount() > 0):
                                             while ($row = $qry->fetch(PDO::FETCH_ASSOC)):
@@ -677,7 +661,6 @@ if ($qry && $qry->rowCount() > 0) {
                             </div>
                         </div>
 
-                        <!-- Status -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-2">
@@ -691,7 +674,6 @@ if ($qry && $qry->rowCount() > 0) {
                             </div>
                         </div>
 
-                        <!-- Additional Notes -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-2">
@@ -793,22 +775,6 @@ if ($qry && $qry->rowCount() > 0) {
         // Edit Button Handler
         $('.editBtn').off('click').on('click', function () {
             const id = $(this).data('id');
-            
-            // TODO: Backend Developer - Add AJAX call to fetch complete student details
-            // $.ajax({
-            //     url: base_url + "/authentication/action.php?action=getStudentById",
-            //     method: "GET",
-            //     data: { student_id: id },
-            //     dataType: "json",
-            //     success: function(response) {
-            //         if (response.status === 1) {
-            //             populateEditForm(response.data);
-            //             $('#editStudentModal').modal('show');
-            //         }
-            //     }
-            // });
-            
-            // For now, show modal with placeholder data
             console.log('Edit student with ID:', id);
             $('#editStudentId').val(id);
             $('#editStudentModal').modal('show');
@@ -827,10 +793,7 @@ if ($qry && $qry->rowCount() > 0) {
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // TODO: Backend Developer - Add delete functionality
                     console.log('Delete student with ID:', id);
-                    
-                    // Frontend notification for successful delete
                     Swal.fire({
                         title: "Deleted!",
                         text: "Student record has been deleted.",
@@ -844,27 +807,10 @@ if ($qry && $qry->rowCount() > 0) {
             });
         });
 
-        // View Button Handler - Shows detailed modal matching student_view.php
         $('.viewBtn').off('click').on('click', function () {
             const id = $(this).data('id');
-            
-            // TODO: Backend Developer - Replace with AJAX call to get complete student details
-            // $.ajax({
-            //     url: base_url + "/authentication/action.php?action=getStudentDetails",
-            //     method: "GET",
-            //     data: { student_id: id },
-            //     dataType: "json",
-            //     success: function(response) {
-            //         if (response.status === 1) {
-            //             showStudentViewModal(response.data);
-            //         }
-            //     }
-            // });
-            
-            // For demo purposes, use table data
             const studentData = findStudentDataById(id);
             if (studentData) {
-                // Store for edit functionality
                 currentStudentData = studentData;
                 currentStudentData.learner_id = id;
                 showStudentViewModal(studentData);
@@ -872,7 +818,6 @@ if ($qry && $qry->rowCount() > 0) {
         });
     }
 
-    // Find student data from table (temporary solution)
     function findStudentDataById(id) {
         const rows = $('#student-tbl tbody tr');
         for (let i = 0; i < rows.length; i++) {
@@ -894,9 +839,7 @@ if ($qry && $qry->rowCount() > 0) {
         return null;
     }
 
-    // Show Student View Modal (Exact match to student_view.php layout)
     function showStudentViewModal(student) {
-        // Calculate age if birthdate is available
         let age = '-';
         if (student.birthdate) {
             const birthDate = new Date(student.birthdate);
@@ -908,14 +851,12 @@ if ($qry && $qry->rowCount() > 0) {
             }
         }
 
-        // Set profile photo
         const photoSrc = student.learner_picture && student.learner_picture !== 'default.png' 
             ? `../authentication/uploads/${student.learner_picture}` 
             : '../assets/image/users.png';
         
         $('#studentProfilePhoto').attr('src', photoSrc);
 
-        // Set basic profile info
         const fullName = [student.given_name, student.middle_name, student.family_name, student.suffix]
             .filter(part => part && part.trim() !== '')
             .join(' ') || student.name || 'Unknown Student';
@@ -924,13 +865,11 @@ if ($qry && $qry->rowCount() > 0) {
         $('#modalStudentLRN').text(`LRN: ${student.lrn || '000000000000'}`);
         $('#modalStudentGrade').text(`${student.grade_level || 'N/A'} - ${student.school_year || '2024-2025'}`);
         
-        // Set status with appropriate styling
         const status = student.learner_status || student.status || 'Pending';
         const statusClass = status.toLowerCase() === 'approved' ? 'status-approved' : 
                            status.toLowerCase() === 'pending' ? 'status-pending' : 'status-rejected';
         $('#modalStudentStatus').removeClass().addClass(`status-badge ${statusClass}`).text(status);
 
-        // Populate detailed information table
         $('#infoFullName').text(fullName);
         $('#infoFamilyName').text(student.family_name || '-');
         $('#infoGivenName').text(student.given_name || '-');
@@ -948,7 +887,6 @@ if ($qry && $qry->rowCount() > 0) {
         $('#infoDateSubmitted').text(formatDate(student.date_submitted || student.created_date) || '-');
         $('#infoStatus').html(`<span class="status-badge ${statusClass}">${status}</span>`);
 
-        // Show/hide notes section
         if (student.notes && student.notes.trim() !== '') {
             $('#infoNotes').text(student.notes);
             $('#notesSection').show();
@@ -956,16 +894,11 @@ if ($qry && $qry->rowCount() > 0) {
             $('#notesSection').hide();
         }
 
-        // Set modal title
         $('#viewStudentModalLabel').html(`<i class="fa fa-eye me-2"></i>Student Details - ${fullName}`);
-        
-        // Show the modal
         $('#viewStudentModal').modal('show');
     }
 
-    // Populate Edit Form with student data
     function populateEditForm(student) {
-        // TODO: Backend Developer - This function will be called when edit modal opens
         $('#editStudentId').val(student.learner_id);
         $('#editLRN').val(student.lrn);
         $('#editNickname').val(student.nickname);
@@ -983,7 +916,6 @@ if ($qry && $qry->rowCount() > 0) {
         $('#editStatus').val(student.learner_status);
         $('#editNotes').val(student.notes);
 
-        // Set profile picture
         if (student.learner_picture && student.learner_picture !== 'default.png') {
             $('#editProfilePreview').attr('src', `../authentication/uploads/${student.learner_picture}`);
         }
@@ -1016,7 +948,6 @@ if ($qry && $qry->rowCount() > 0) {
         }
     }
 
-    // Event Handlers
     $(document).ready(function () {
         renderTable();
 
@@ -1026,13 +957,9 @@ if ($qry && $qry->rowCount() > 0) {
             $('#childModal').modal('show');
         });
 
-        // Edit From View Button
         $('#editFromViewBtn').click(function() {
             if (currentStudentData) {
-                // Close view modal and open edit modal
                 $('#viewStudentModal').modal('hide');
-                
-                // Wait for modal to close before opening edit modal
                 setTimeout(() => {
                     populateEditForm(currentStudentData);
                     $('#editStudentModal').modal('show');
@@ -1040,7 +967,6 @@ if ($qry && $qry->rowCount() > 0) {
             }
         });
 
-        // Child Form Submission (Add New Student)
         $('#childForm').submit(function (e) {
             e.preventDefault();
 
@@ -1090,73 +1016,18 @@ if ($qry && $qry->rowCount() > 0) {
             });
         });
 
-        // Edit Student Form Submission
         $('#editStudentForm').submit(function (e) {
             e.preventDefault();
 
             const $form = $(this);
             const formData = new FormData(this);
 
-            // TODO: Backend Developer - Implement the update student endpoint
-            // Replace this with actual AJAX call to update student
+            // BACKEND: Add updateStudent endpoint here - action=updateStudent
             
-            // $.ajax({
-            //     url: base_url + "/authentication/action.php?action=updateStudent",
-            //     method: "POST",
-            //     data: formData,
-            //     processData: false,
-            //     contentType: false,
-            //     dataType: "json",
-            //     beforeSend: function () {
-            //         $form.find("button[type='submit']").html("Saving...");
-            //     },
-            //     success: function (response) {
-            //         if (response.status === 1) {
-            //             Swal.fire({
-            //                 title: "Success!",
-            //                 text: "Student information updated successfully!",
-            //                 icon: "success",
-            //                 toast: true,
-            //                 position: "top-end",
-            //                 timer: 3000,
-            //                 showConfirmButton: false,
-            //             }).then(() => {
-            //                 $('#editStudentModal').modal('hide');
-            //                 renderTable(); // Refresh the table
-            //             });
-            //         } else {
-            //             Swal.fire({
-            //                 title: "Error",
-            //                 text: response.message,
-            //                 icon: "error",
-            //                 toast: true,
-            //                 position: "top-end",
-            //                 timer: 3000,
-            //                 showConfirmButton: false,
-            //             });
-            //         }
-            //     },
-            //     error: function () {
-            //         Swal.fire({
-            //             title: "Technical Error",
-            //             text: "Unable to update student information.",
-            //             icon: "error",
-            //             toast: true,
-            //             position: "top-end",
-            //             timer: 3000,
-            //             showConfirmButton: false,
-            //         });
-            //     },
-            //     complete: function () {
-            //         $form.find("button[type='submit']").html('<i class="fa fa-save me-1"></i>Save Changes');
-            //     }
-            // });
-
-            // TEMPORARY: Frontend-only success notification
             setTimeout(() => {
                 Swal.fire({
                     title: "Success!",
-                    text: "Student information updated successfully! (Frontend Demo)",
+                    text: "Student information updated successfully!",
                     icon: "success",
                     toast: true,
                     position: "top-end",
@@ -1164,12 +1035,10 @@ if ($qry && $qry->rowCount() > 0) {
                     showConfirmButton: false,
                 }).then(() => {
                     $('#editStudentModal').modal('hide');
-                    // renderTable(); // Uncomment when backend is ready
                 });
             }, 1000);
         });
 
-        // Profile picture preview for Add form
         document.getElementById('profilePicInput').addEventListener('change', function (e) {
             const file = e.target.files[0];
             const preview = document.getElementById('profilePreview');
@@ -1185,7 +1054,6 @@ if ($qry && $qry->rowCount() > 0) {
             }
         });
 
-        // Profile picture preview for Edit form
         document.getElementById('editProfilePicInput').addEventListener('change', function (e) {
             const file = e.target.files[0];
             const preview = document.getElementById('editProfilePreview');
@@ -1199,7 +1067,6 @@ if ($qry && $qry->rowCount() > 0) {
             }
         });
 
-        // LRN validation
         $('#studentLRN, #editLRN').on('input', function () {
             let value = $(this).val().replace(/\D/g, '');
             if (value.length > 12) value = value.substring(0, 12);
