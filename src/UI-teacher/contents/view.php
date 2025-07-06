@@ -1,4 +1,4 @@
-    <style>
+<style>
     .card-admin {
         background: white;
         padding: 20px;
@@ -74,10 +74,11 @@
                                 <div class="">
                                     <div class="d-flex justify-content-between align-items-center mb-0">
                                         <div>
-                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Cluster list</h5>
+                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Cluster list
+                                            </h5>
                                             <span>View all student by sections</span>
                                         </div>
-                                        
+
                                     </div>
                                     <table class="table table-bordered table-hover mb-0" id="student-tbl-1">
                                         <thead class="table-light text-dark">
@@ -110,10 +111,11 @@
                                 <div class="">
                                     <div class="d-flex justify-content-between align-items-center mb-0">
                                         <div>
-                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Cluster list</h5>
+                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Cluster list
+                                            </h5>
                                             <span>View all student by sections</span>
                                         </div>
-                                        
+
                                     </div>
                                     <table class="table table-bordered table-hover mb-0" id="student-tbl-2">
                                         <thead class="table-light text-dark">
@@ -146,7 +148,8 @@
                                 <div class="">
                                     <div class="d-flex justify-content-between align-items-center mb-0">
                                         <div>
-                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Cluster list</h5>
+                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Cluster list
+                                            </h5>
                                             <span>View all student by sections</span>
                                         </div>
                                         <!-- <button class="btn btn-success btn-sm" id="addNewBtn" data-section="3">

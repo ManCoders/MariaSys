@@ -1,4 +1,5 @@
-<style>
+
+    <style>
     .card-admin {
         background: white;
         padding: 20px;
@@ -31,12 +32,14 @@
 
     }
 </style>
-
 <section class="stats-admin p-3">
-    <div class="card-admin"><i class="fa fa-users"></i> 29 <span>Total Students</span></div>
-    <div class="card-admin"><i class="fa fa-check"></i> 20 <span>Present today</span></div>
-    <div class="card-admin"><i class="fa fa-x"></i> 9 <span>Absence Today</span></div>
-    <div class="card-admin">70% <span>Attendance Rate</span></div>
+    <div class="card-admin"><span id="totalStudents">0</span> <span>Total
+            Students</span></div>
+    <div class="card-admin"><span id="presentToday">0</span> <span>Present
+            today</span></div>
+    <div class="card-admin"><span id="absentToday">0</span> <span>Absence Today</span>
+    </div>
+    <div class="card-admin"><span id="attendanceRate">0%</span> <span>Attendance Rate</span></div>
 </section>
 <section class="attendance-overview">
     <div class="overview-grid row g-3">
@@ -50,14 +53,7 @@
                         <button class="nav-link active" id="tab-sec1" data-bs-toggle="tab" data-bs-target="#sec1"
                             type="button" role="tab">Section 1</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="tab-sec2" data-bs-toggle="tab" data-bs-target="#sec2" type="button"
-                            role="tab">Section 2</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="tab-sec3" data-bs-toggle="tab" data-bs-target="#sec3" type="button"
-                            role="tab">Section 3</button>
-                    </li>
+                    
                 </ul>
 
                 <!-- Tab Content Per Section -->
@@ -101,83 +97,7 @@
                         </div>
                     </div>
 
-                    <!-- Section 2 -->
-                    <div class="tab-pane fade" id="sec2" role="tabpanel" aria-labelledby="tab-sec2">
-                        <div class="card p-3">
-                            <section class="p-2">
-                                <div class="">
-                                    <div class="d-flex justify-content-between align-items-center mb-0">
-                                        <div>
-                                            <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Section
-                                                Management</h4>
-                                            <span>Manage and process student registration application</span>
-                                        </div>
-                                        <button class="btn btn-success btn-sm" id="addNewBtn" data-section="2">
-                                            <i class="fa fa-plus"></i> Add New Learner
-                                        </button>
-                                    </div>
-                                    <table class="table table-bordered table-hover mb-0" id="student-tbl-2">
-                                        <thead class="table-light text-dark">
-                                            <tr>
-                                                <th class="text-center" style="width:4%">#</th>
-                                                <th>Learner Name</th>
-                                                <th>Grade Level</th>
-                                                <th>Date Submitted</th>
-                                                <th>Contact Number</th>
-                                                <th>Type</th>
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="sample-data-body-2"></tbody>
-                                    </table>
-                                </div>
-
-
-                                <!-- Modal -->
-
-                            </section>
-                        </div>
-                    </div>
-
-                    <!-- Section 3 -->
-                    <div class="tab-pane fade" id="sec3" role="tabpanel" aria-labelledby="tab-sec3">
-                        <div class="card p-3 d-flex">
-                            <section class="p-2">
-                                <div class="">
-                                    <div class="d-flex justify-content-between align-items-center mb-0">
-                                        <div>
-                                            <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Section
-                                                Management</h4>
-                                            <span>Manage and process student registration application</span>
-                                        </div>
-                                        <button class="btn btn-success btn-sm" id="addNewBtn" data-section="3">
-                                            <i class="fa fa-plus"></i> Add New Learner
-                                        </button>
-                                    </div>
-                                    <table class="table table-bordered table-hover mb-0" id="student-tbl-3">
-                                        <thead class="table-light text-dark">
-                                            <tr>
-                                                <th class="text-center" style="width:4%">#</th>
-                                                <th>Learner Name</th>
-                                                <th>Grade Level</th>
-                                                <th>Date Submitted</th>
-                                                <th>Contact Number</th>
-                                                <th>Type</th>
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="sample-data-body-3"></tbody>
-                                    </table>
-                                </div>
-
-
-                                <!-- Modal -->
-
-                            </section>
-                        </div>
-                    </div>
+                  
                 </div>
             </div>
         </div>

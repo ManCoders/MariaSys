@@ -75,7 +75,6 @@ function db_connect()
                 religious VARCHAR(50) NOT NULL,
                 grade_level_id INT(11),
                 school_year_id INT(11),
-
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
 
@@ -108,53 +107,63 @@ function db_connect()
             )",
             "CREATE TABLE IF NOT EXISTS learners (
                 learner_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                lrn BIGINT(12) NOT NULL UNIQUE,
+                lrn BIGINT UNSIGNED NOT NULL UNIQUE,
+                
                 family_name VARCHAR(100) NOT NULL,
                 given_name VARCHAR(100) NOT NULL,
                 middle_name VARCHAR(100),
                 nickname VARCHAR(50),
                 suffix VARCHAR(10),
+                
                 birthdate DATE,
-                notes TEXT,
-                tongue VARCHAR(20),
                 birth_place VARCHAR(100),
-                gender VARCHAR(10),
-                learner_picture VARCHAR(255),
-                learner_status VARCHAR(10),
+                gender ENUM('Male', 'Female', 'Other') DEFAULT NULL,
+                tongue VARCHAR(20),
                 religious VARCHAR(50),
+                notes TEXT,
+                
+                learner_picture VARCHAR(255),
+                learner_status ENUM('Active', 'Inactive', 'Transferred', 'Graduated') DEFAULT 'Active',
+
+                -- Address
                 home_street VARCHAR(100) NOT NULL,
                 barangay VARCHAR(50) NOT NULL,
                 municipality VARCHAR(50) NOT NULL,
                 province VARCHAR(50) NOT NULL,
                 zipcode VARCHAR(10) NOT NULL,
-                created_date DATE DEFAULT CURRENT_DATE,
+
+                -- Parents
                 mother_lname VARCHAR(50) NOT NULL,
                 mother_fname VARCHAR(50) NOT NULL,
-                mother_mname VARCHAR(50) NOT NULL,
+                mother_mname VARCHAR(50),
                 mother_contact VARCHAR(15) NOT NULL,
-                father_lname VARCHAR(50) NOT NULL ,
-                father_fname VARCHAR(50) NOT NULL ,
-                father_mname VARCHAR(50) NOT NULL ,
-                father_contact VARCHAR(15) NOT NULL ,
 
-                guardian_lname VARCHAR(50) NOT NULL ,
-                guardian_fname VARCHAR(50) NOT NULL ,
-                guardian_mname VARCHAR(50) NOT NULL ,
-                guardian_contact VARCHAR(15) NOT NULL ,
+                father_lname VARCHAR(50) NOT NULL,
+                father_fname VARCHAR(50) NOT NULL,
+                father_mname VARCHAR(50),
+                father_contact VARCHAR(15) NOT NULL,
+
+                -- Guardian
+                guardian_lname VARCHAR(50) NOT NULL,
+                guardian_fname VARCHAR(50) NOT NULL,
+                guardian_mname VARCHAR(50),
+                guardian_contact VARCHAR(15) NOT NULL,
+
+                -- Foreign Keys
                 parent_id INT(11),
-                teacher_id INT(11),
-                grade_level_id INT(11),
-                school_year_id INT(11),
 
-                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE,
-                FOREIGN KEY (parent_id) REFERENCES parent(parent_id) ON DELETE CASCADE
-            )", 
+                -- Timestamps
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                FOREIGN KEY (parent_id) REFERENCES parent(parent_id) ON DELETE SET NULL
+            )
+            ",
             "CREATE TABLE IF NOT EXISTS school_year (
                 school_year_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 school_year_name VARCHAR(50) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
-            
+
             "CREATE TABLE IF NOT EXISTS grade_level (
                 grade_level_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 grade_level_name VARCHAR(50) NOT NULL,
@@ -162,37 +171,82 @@ function db_connect()
             )",
             "CREATE TABLE IF NOT EXISTS subject_grades (
                 learner_subject_grade_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                subject_grade_nama VARCHAR(50) NOT NULL,
-                learner_id INT(11) NOT NULL,
-                school_year_id INT(11) NOT NULL,
-                teacher_id INT(11) NOT NULL,
-                
-                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE,
-                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE CASCADE,
-                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE,
-                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-                
-            )"
-            ,
-            "CREATE TABLE IF NOT EXISTS learner_subject (
-                learner_subject_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                learner_subject_name VARCHAR(50) NOT NULL,
-
-                learner_subject_grade_id INT(11) NOT NULL,
                 learner_id INT(11) NOT NULL,
                 grade_level_id INT(11) NOT NULL,
                 school_year_id INT(11) NOT NULL,
                 teacher_id INT(11) NOT NULL,
-
-                FOREIGN KEY (learner_subject_grade_id) REFERENCES subject_grades(learner_subject_grade_id) ON DELETE CASCADE,
-                FOREIGN KEY (grade_level_id) REFERENCES grade_level(grade_level_id) ON DELETE CASCADE,
-                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE,
-                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE CASCADE,
-                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE,
+                learning_area VARCHAR(50) NOT NULL,
+                q1_grade DECIMAL(3,2) NULL,
+                q2_grade DECIMAL(3,2) NULL,
+                q3_grade DECIMAL(3,2) NULL,
+                q4_grade DECIMAL(3,2) NULL,
+                q5_finalrating DECIMAL(3,2) NULL,
+                q6_remark ENUM('Waited', 'Promoted', 'Passed', 'Failed', 'Retained') DEFAULT 'Waited',
                 
+                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE,
+                FOREIGN KEY (grade_level_id) REFERENCES grade_level(grade_level_id) ON DELETE CASCADE,
+                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE CASCADE,
+                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE ON UPDATE CASCADE,
+                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                
+            )",
+            "CREATE TABLE IF NOT EXISTS  learner_observed (
+                learner_observed_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                learner_id INT(11) NOT NULL,
+                grade_level_id INT(11) NOT NULL,
+                school_year_id INT(11) NOT NULL,
+                teacher_id INT(11) NOT NULL,
+                observed_by VARCHAR(50) NOT NULL,
+                observed_description text NOT NULL,
+                oq1 ENUM('AO', 'SO','RO','NO') DEFAULT 'NO',
+                oq2 ENUM('AO', 'SO','RO','NO') DEFAULT 'NO',
+                oq3 ENUM('AO', 'SO','RO','NO') DEFAULT 'NO',
+                oq4 ENUM('AO', 'SO','RO','NO') DEFAULT 'NO',
+
+                FOREIGN KEY (grade_level_id) REFERENCES grade_level(grade_level_id) ON DELETE CASCADE,
+                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE CASCADE,
+                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE ON UPDATE CASCADE,
+                created_data TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )",
+            " CREATE TABLE IF NOT EXISTS  attendance_monthly (
+                attendance_monthly_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                learner_id INT(11) NOT NULL,
+                grade_level_id INT(11) NOT NULL,
+                school_year_id INT(11) NOT NULL,
+                teacher_id INT(11) NOT NULL,
+                attendance_text VARCHAR(100) NOT NULL,
+                july INT(3) NOT NULL DEFAULT 0,
+                august INT(3) NOT NULL DEFAULT 0,
+                september INT(3) NOT NULL DEFAULT 0,
+                october INT(3) NOT NULL DEFAULT 0,
+                november INT(3) NOT NULL DEFAULT 0,
+                december INT(3) NOT NULL DEFAULT 0,
+                january INT(3) NOT NULL DEFAULT 0,
+                february INT(3) NOT NULL DEFAULT 0,
+                march INT(3) NOT NULL DEFAULT 0,
+                april INT(3) NOT NULL DEFAULT 0,
+                may INT(3) NOT NULL DEFAULT 0,
+                june INT(3) NOT NULL DEFAULT 0,
+                total INT(3) NOT NULL DEFAULT 0,
+
+                FOREIGN KEY (grade_level_id) REFERENCES grade_level(grade_level_id) ON DELETE CASCADE,
+                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE CASCADE,
+                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE ON UPDATE CASCADE
+            )",
+            "CREATE TABLE IF NOT EXISTS learner_section (
+                section_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                section_name VARCHAR(50) NOT NULL,
+                grade_level_id INT(11) NOT NULL,
+                school_year_id INT(11) NOT NULL,
+                teacher_id INT(11) NOT NULL,
+                learner_id INT(11) NOT NULL,
+
+                FOREIGN KEY (grade_level_id) REFERENCES grade_level(grade_level_id) ON DELETE CASCADE,
+                FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE CASCADE,
+                FOREIGN KEY (teacher_id) REFERENCES teacher(teacher_id) ON DELETE CASCADE ON UPDATE CASCADE,
+                FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE ON UPDATE CASCADE,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
-
             "CREATE TABLE IF NOT EXISTS system (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 system_title VARCHAR(50) NOT NULL,
@@ -276,7 +330,7 @@ function db_connect()
             $stmt = $pdo->prepare("INSERT INTO school_year (school_year_name
             ) VALUES (?),(?)");
 
-            $stmt->execute(['2024-2025','2025-2026']);
+            $stmt->execute(['2024-2025', '2025-2026']);
         }
 
         $count = $pdo->query("SELECT COUNT(*) FROM grade_level")->fetchColumn();
@@ -284,7 +338,7 @@ function db_connect()
             $stmt = $pdo->prepare("INSERT INTO grade_level (grade_level_name
             ) VALUES (?),(?),(?)");
 
-            $stmt->execute(['Grade 1','Grade 2','Grade 3']);
+            $stmt->execute(['Grade 1', 'Grade 2', 'Grade 3']);
         }
 
         $count = $pdo->query("SELECT COUNT(*) FROM parent")->fetchColumn();
@@ -317,6 +371,52 @@ function db_connect()
                 'default.png'
             ]);
         }
+
+        $count = $pdo->query("SELECT COUNT(*) FROM learners")->fetchColumn();
+
+        if ($count == 0) {
+            $stmt = $pdo->prepare("INSERT INTO learners (
+        lrn, family_name, given_name, middle_name, nickname, suffix,
+        birthdate, birth_place, gender, learner_status,
+        home_street, barangay, municipality, province, zipcode,
+        mother_lname, mother_fname, mother_mname, mother_contact,
+        father_lname, father_fname, father_mname, father_contact,
+        guardian_lname, guardian_fname, guardian_mname, guardian_contact,
+        parent_id
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            $stmt->execute([
+                '12345678912',
+                'Daligdig',
+                'Manuel',
+                'Ewayan',
+                'Junjun',
+                NULL,
+                '2025-07-01',
+                'Upper Calarian Z.C.',
+                'Male',
+                'Active',
+                'Purok 3',
+                'Barangay Uno',
+                'Zamboanga City',
+                'Zamboanga del Sur',
+                '7000',
+                'Daligdig',
+                'Maria',
+                'Ewayan',
+                '09181234567',
+                'Daligdig',
+                'Jose',
+                'Ewayan',
+                '09181234567',
+                'Daligdig',
+                'Alicia',
+                'Ewayan',
+                '09181234567',
+                '1',
+            ]);
+        }
+
         $count = $pdo->query("SELECT COUNT(*) FROM system")->fetchColumn();
         if ($count == 0) {
             $stmt = $pdo->prepare("INSERT INTO system (system_title, system_description, system_logo) VALUES (?, ?, ?)");
