@@ -59,12 +59,12 @@
             <div class="action" id="SF2"><i class="fa fa-folder-open"></i><p>SF2</p></div>
             <div class="action" id="SF3"><i class="fa fa-folder-open"></i><p>SF3</p></div>
             <div class="action" id="SF4"><i class="fa fa-folder-open"></i><p>SF4</p></div>
-            <div class="action" id="SF5"><i class="fa fa-folder-open"></i><p>SF5</p><span style="font-size: .8rem;">Promotion and Learning achievement Report</span></div>
+            <div class="action" id="SF5"><i class="fa fa-folder-open"></i><p>SF5</p><span style="font-size: .8rem;">Report on Promotion and Learning Progress & Achievement</span></div>
             <div class="action" id="SF6"><i class="fa fa-folder-open"></i><p>SF6</p></div>
             <div class="action" id="SF7"><i class="fa fa-folder-open"></i><p>SF7</p></div>
             <div class="action" id="SF8"><i class="fa fa-folder-open"></i><p>SF8</p></div>
-            <div class="action" id="SF9"><i class="fa fa-folder-open"></i><p>SF9</p><span style="font-size: .8rem;">School Record Card</span></div>
-            <div class="action" id="SF10"><i class="fa fa-folder-open"></i><p>SF10</p><span style="font-size: .8rem;">Learners Permanent record</span></div>
+            <div class="action" id="SF9"><i class="fa fa-folder-open"></i><p>SF9</p><span style="font-size: .8rem;">Learner's Progress Report Card</span></div>
+            <div class="action" id="SF10"><i class="fa fa-folder-open"></i><p>SF10</p><span style="font-size: .8rem;">Learner Permanent Record for Elementary School</span></div>
             <div class="action" id="SF11"><i class="fa fa-folder-open"></i><p>SF11</p></div>
             <div class="action" id="SF12"><i class="fa fa-folder-open"></i><p>SF12</p></div>
         </div>

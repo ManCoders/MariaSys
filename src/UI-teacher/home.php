@@ -1,110 +1,110 @@
-<style>
-    .dashboard-admin {
-        max-width: 1200px;
-        margin: auto;
-        padding: 20px;
-    }
+    <style>
+        .dashboard-admin {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
 
-    header {
-        text-align: center;
-        margin-bottom: 30px;
-    }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-    .stats-admin {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
+        .stats-admin {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-    .card-admin {
-        background: white;
-        padding: 20px;
-        flex: 2;
-        text-align: center;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        min-width: 150px;
-        font-size: 20px;
-    }
+        .card-admin {
+            background: white;
+            padding: 20px;
+            flex: 2;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
+            font-size: 20px;
+        }
 
-    .card-admin i {
-        font-size: 20px;
-        display: block;
-        margin-bottom: 10px;
-    }
+        .card-admin i {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 10px;
+        }
 
-    .card-admin span {
-        display: block;
-        margin-top: 5px;
-        font-size: 14px;
-        color: #555;
-    }
+        .card-admin span {
+            display: block;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #555;
+        }
 
-    .quick-actions h4,
-    .attendance-overview h4 {
-        margin-top: 20px;
-        margin-bottom: 8px;
-    }
+        .quick-actions h4,
+        .attendance-overview h4 {
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
 
-    .action-grid {
-        display: flex;
-        justify-content: space-around;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
+        .action-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
 
-    .action {
-        background: white;
-        text-align: center;
-        padding: 20px;
-        border-radius: 8px;
-        flex: 1 1 150px;
-        cursor: pointer;
-        transition: 0.3s;
-        border: 1px solid #888;
-    }
+        .action {
+            background: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1 1 150px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #888;
+        }
 
-    .action:hover {
-        background-color: #eef;
-    }
+        .action:hover {
+            background-color: #eef;
+        }
 
-    .action i {
-        font-size: 28px;
-        margin-bottom: 10px;
-    }
+        .action i {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
 
-    .overview-grid {
-        gap: 5px;
-        display: flex;
-        justify-content: space-around;
-        background: white;
-        border-radius: 10px;
-        padding: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        font-size: 18px;
-    }
+        .overview-grid {
+            gap: 5px;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+        }
 
-    .recent-activities ul {
-        list-style: none;
-        padding: 0;
-        background: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
+        .recent-activities ul {
+            list-style: none;
+            padding: 0;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
 
-    .recent-activities li {
-        border-bottom: 1px solid #eee;
-        padding: 10px 0;
-    }
+        .recent-activities li {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
 
-    .recent-activities span {
-        float: right;
-        font-size: 12px;
-        color: #888;
-    }
-</style>
+        .recent-activities span {
+            float: right;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
 
 <div class="dashboard-admin">
     <header>
@@ -125,8 +125,8 @@
             <div class="action" id="student"><i class="fa fa-user-graduate"></i>
                 <p>Students</p>
             </div>
-            <div class="action" id="parent"><i class="fa fa-users"></i>
-                <p>Parents</p>
+            <div class="action" id="classroom"><i class="fa fa-school"></i>
+                <p>Classroom</p>
             </div>
             <div class="action" id="attendance"><i class="fa fa-user-tie"></i>
                 <p>Take Attendance</p>
@@ -215,8 +215,8 @@
             location.href = "index.php?page=contents/student";
         });
 
-        $('#parent').click(function () {
-            location.href = "index.php?page=contents/parent";
+        $('#classroom').click(function () {
+            location.href = "index.php?page=contents/classroom";
         });
 
         $('#attendance').click(function () {

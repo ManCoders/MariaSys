@@ -22,7 +22,7 @@
         <!-- <a href="index.php?page=contents/parent" class="nav-link nav-parent d-flex align-items-center">
             <i class="fas fa-users me-2"></i> Parents
         </a> -->
-        <a href="index.php?page=contents/view" class="nav-link nav-view d-flex align-items-center">
+        <a href="index.php?page=contents/classroom" class="nav-link nav-classroom d-flex align-items-center">
             <i class="fas fa-eye me-2"></i> View Class
         </a>
         <a href="index.php?page=contents/attendance" class="nav-link nav-attendance d-flex align-items-center">
