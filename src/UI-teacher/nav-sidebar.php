@@ -1,8 +1,8 @@
 <style>
     .sidebar-list a.active {
-        background-color: rgb(196, 196, 196);
+        background-color: rgb(233, 233, 233);
         font-weight: bold;
-        color: snow;
+        color: grey;
     }
 
     .sidebar-list a {
@@ -11,55 +11,38 @@
         border: 1px solid #ddd;
     }
 </style>
-
-<nav id="sidebar" class="ms-2" style="border-radius:5px;">
-    <div class="" style="width: 240px; border-radius: 5px; background-color: #f8f9fa;">
-        <div class="sidebar-list ">
-            <a href="index.php?page=home" class="nav-item nav-home">
-                <span class=""><i class=""></i></span> Dashboard
-            </a>
-
-            <a href="index.php?page=contents/student" class="nav-item nav-student">
-                <span class=""><i class=""></i></span>My Students
-            </a>
-            <a href="index.php?page=contents/parent" class="nav-item nav-Parent">
-                <span class=""><i class=""></i></span> Parents
-            </a>
-            <a href="index.php?page=contents/view" class="nav-item nav-view">
-                <span class=""><i class=""></i></span> Views class
-            </a>
-            <a href="index.php?page=contents/attendance" class="nav-item nav-attendance">
-                <span class=""><i class=""></i></span> Takes attendance
-            </a>
-            <a href="index.php?page=contents/health" class="nav-item nav-health">
-                <span class=""><i class=""></i></span> Medical health
-            </a>
-            <a href="index.php?page=contents/schedule" class="nav-item nav-schedule">
-                <span class=""><i class=""></i></span> My schedule
-            </a>
-            <a href="index.php?page=contents/enrolled" class="nav-item nav-enrolled">
-                <span class=""><i class=""></i></span> Enrollment process
-            </a>
-            <a href="index.php?page=contents/generate" class="nav-item nav-generate 
-            nav-sf1
-            nav-sf2 
-            nav-sf3
-            nav-sf4
-            nav-sf5
-            nav-sf6
-            nav-sf7
-            nav-sf8
-            nav-sf9
-            nav-sf10
-            nav-sf11
-            nav-sf12">
-
-                <span class=""><i class=""></i></span> Generate Data
-            </a>
-            <a href="index.php?page=contents/setting" class="nav-item nav-setting">
-                <span class=""><i class=""></i></span> Account Settings
-            </a>
-        </div>
+<nav id="sidebar" class="bg-white border rounded p-3" style="min-width: 250px;">
+    <div class="sidebar-list d-flex flex-column gap-2">
+        <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
+            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+        </a>
+        <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">
+            <i class="fas fa-user-graduate me-2"></i> My Students
+        </a>
+        <!-- <a href="index.php?page=contents/parent" class="nav-link nav-parent d-flex align-items-center">
+            <i class="fas fa-users me-2"></i> Parents
+        </a> -->
+        <a href="index.php?page=contents/view" class="nav-link nav-view d-flex align-items-center">
+            <i class="fas fa-eye me-2"></i> View Class
+        </a>
+        <a href="index.php?page=contents/attendance" class="nav-link nav-attendance d-flex align-items-center">
+            <i class="fas fa-clipboard-check me-2"></i> Take Attendance
+        </a>
+        <a href="index.php?page=contents/health" class="nav-link nav-health d-flex align-items-center">
+            <i class="fas fa-heartbeat me-2"></i> Medical Health
+        </a>
+        <a href="index.php?page=contents/schedule" class="nav-link nav-schedule d-flex align-items-center">
+            <i class="fas fa-calendar-alt me-2"></i> My Schedule
+        </a>
+        <a href="index.php?page=contents/enrolled" class="nav-link nav-enrolled d-flex align-items-center">
+            <i class="fas fa-user-plus me-2"></i> Enrollment Process
+        </a>
+        <a href="index.php?page=contents/generate" class="nav-link nav-generate nav-sf1 nav-sf2 nav-sf3 nav-sf4 nav-sf5 nav-sf6 nav-sf7 nav-sf8 nav-sf9 nav-sf10 nav-sf11 nav-sf12 d-flex align-items-center">
+            <i class="fas fa-database me-2"></i> Generate Data
+        </a>
+        <a href="index.php?page=contents/setting" class="nav-link nav-setting d-flex align-items-center">
+            <i class="fas fa-cog me-2"></i> Account Settings
+        </a>
     </div>
 </nav>
 

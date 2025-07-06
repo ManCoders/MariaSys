@@ -2,7 +2,7 @@
 initInstaller()
 ?>
 
-<style>
+<!-- <style>
 body, html {
     margin: 0;
     padding: 0;
@@ -83,7 +83,7 @@ body, html {
     padding: 15px 20px;
 }
 </style>
-
+ -->
 <div class="breadcrumb-nav">
     <h2 class="text-center mb-0">
         <a href="index.php" class="text-decoration-none system-title"><?php echo get_option('system_title'); ?></a>

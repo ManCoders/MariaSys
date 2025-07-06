@@ -152,9 +152,7 @@ $(document).ready(function () {
               position: "top-end",
               timer: 3000,
               showConfirmButton: false,
-            }).then(() => {
-              window.location.href = base_url + "src/";
-            });
+            }),
             $this.find("button").text("Please try again!");
             $this.removeClass("processing");
           }

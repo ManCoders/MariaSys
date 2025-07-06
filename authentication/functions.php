@@ -85,7 +85,7 @@ function base_url()
     );
 
     if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
-        return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/UI/';
+        return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/mariasys/';
     }
     return $base_url = $protocol . "://" . $_SERVER['SERVER_NAME'] . '/';
 
