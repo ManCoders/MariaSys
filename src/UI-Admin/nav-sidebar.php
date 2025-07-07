@@ -1,47 +1,45 @@
 <style>
     .sidebar-list a.active {
-        background-color: rgb(196, 196, 196);
+        background-color: rgb(233, 233, 233);
         font-weight: bold;
-        color: snow;
+        color: grey;
     }
-    .sidebar-list a{
+
+    .sidebar-list a {
         font-weight: 500;
         padding:.5rem;
         border: 1px solid #ddd;
-        
     }
-
-    
 </style>
-
-<nav id="sidebar" class="ms-2" style="border-radius:5px;">
-    <div class="" style="width: 240px; border-radius: 5px; background-color: #f8f9fa;">
-        <div class="sidebar-list">
-            <a href="index.php?page=home" class="nav-item nav-home">
-                <span class=""><i class=""></i></span> Dashboard
-            </a>
-            <a href="index.php?page=contents/teacher" class="nav-item nav-teacher">
-                <span class=""><i class=""></i></span> Teachers Management
-            </a>
-            <a href="index.php?page=contents/student" class="nav-item nav-student nav-student_view">
-                <span class=""><i class=""></i></span> Students Management
-            </a>
-            <a href="index.php?page=contents/parents" class="nav-item nav-parents">
-                <span class=""><i class=""></i></span> Parents Management
-            </a>
-            <a href="index.php?page=contents/classroom" class="nav-item nav-classroom nav-masterlist nav-class_content">
-                <span class=""><i class=""></i></span> ClassRoom
-            </a>
-            <a href="index.php?page=contents/Subject" class="nav-item nav-Subject nav-subject_content">
-                <span class=""><i class=""></i></span> Subjects
-            </a>
-            <a href="index.php?page=contents/record" class="nav-item nav-record">
-                <span class=""><i class=""></i></span>Documents report
-            </a>
-            <a href="index.php?page=contents/setting" class="nav-item nav-setting">
-                <span class=""><i class=""></i></span> System Settings
-            </a>
-        </div>
+<nav id="sidebar" class="bg-white border rounded p-3" style="min-width: 250px;">
+    <div class="sidebar-list d-flex flex-column gap-2">
+        <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
+            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+        </a>
+        <a href="index.php?page=contents/teacher" class="nav-link nav-teacher d-flex align-items-center">
+            <i class="fas fa-users me-2"></i> Teacher management
+        </a>
+        <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">
+            <i class="fas fa-users me-2"></i> Student management
+        </a>
+        <a href="index.php?page=contents/users" class="nav-link nav-users d-flex align-items-center">
+            <i class="fas fa-laptop me-2"></i>Users Accounts
+        </a>
+        <a href="index.php?page=contents/health" class="nav-link nav-health d-flex align-items-center">
+            <i class="fas fa-heartbeat me-2"></i> Medical Health
+        </a>
+        <a href="index.php?page=contents/Classroom" class="nav-link nav-Classroom d-flex align-items-center">
+            <i class="fas fa-building me-2"></i> School Classroom
+        </a>
+        <a href="index.php?page=contents/enrolled" class="nav-link nav-enrolled d-flex align-items-center">
+            <i class="fas fa-user-plus me-2"></i> Enrollment
+        </a>
+        <a href="index.php?page=contents/record" class="nav-link nav-record  d-flex align-items-center">
+            <i class="fas fa-database me-2"></i> Generate Data
+        </a>
+        <a href="index.php?page=contents/setting" class="nav-link nav-setting d-flex align-items-center">
+            <i class="fas fa-cog me-2"></i> Setting Settings
+        </a>
     </div>
 </nav>
 

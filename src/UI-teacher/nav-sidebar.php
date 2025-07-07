@@ -19,9 +19,6 @@
         <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">
             <i class="fas fa-user-graduate me-2"></i> My Students
         </a>
-        <!-- <a href="index.php?page=contents/parent" class="nav-link nav-parent d-flex align-items-center">
-            <i class="fas fa-users me-2"></i> Parents
-        </a> -->
         <a href="index.php?page=contents/classroom" class="nav-link nav-classroom d-flex align-items-center">
             <i class="fas fa-eye me-2"></i> View Class
         </a>

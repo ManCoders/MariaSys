@@ -1,46 +1,14 @@
-<style>
-    .card-admin {
-        background: white;
-        padding: 20px;
-        flex: 2;
-        text-align: center;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        min-width: 150px;
-        font-size: 20px;
-    }
-
-    .card-admin i {
-        font-size: 20px;
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .card-admin span {
-        display: block;
-        margin-top: 5px;
-        font-size: 14px;
-        color: #555;
-    }
-
-    .stats-admin {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 10px;
-
-    }
-</style>
-
-<section class="stats-admin p-3">
-    <div class="card-admin"><!-- <i class="fa fa-users"></i>  --><span id="totalStudents">0</span> <span>Total
+<section class="nav d-flex justify-content-evenly text-center m-3  w-90">
+    <div class="card p-4 w-20 shadow"><!-- <i class="fa fa-users"></i>  --><span id="totalStudents">0</span> <span>Total
             Students</span></div>
-    <div class="card-admin"><!-- <i class="fa fa-check"></i>  --><span id="presentToday">0</span> <span>Present
+    <div class="card p-4 w-20 shadow"><!-- <i class="fa fa-check"></i>  --><span id="presentToday">0</span> <span>Present
             today</span></div>
-    <div class="card-admin"><!-- <i class="fa fa-x"></i>  --><span id="absentToday">0</span> <span>Absence Today</span>
+    <div class="card p-4 w-20 shadow"><!-- <i class="fa fa-x"></i>  --><span id="absentToday">0</span> <span>Absence Today</span>
     </div>
-    <div class="card-admin"><span id="attendanceRate">0%</span> <span>Attendance Rate</span></div>
+    <div class="card p-4 w-20 shadow"><span id="attendanceRate">0%</span> <span>Attendance Rate</span></div>
 </section>
+
+
 
 
 <section class="attendance-overview">
@@ -80,7 +48,7 @@
                                         </div>
 
                                     </div>
-                                    <table class="table table-bordered table-hover mb-0" id="student-tbl-1">
+                                    <table class="table table-bordered table-responsive table-hover mb-0" id="student-tbl-1">
                                         <thead class="table-light text-dark">
                                             <tr>
                                                 <th class="text-center" style="width:4%">#</th>
