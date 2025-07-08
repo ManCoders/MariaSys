@@ -198,15 +198,6 @@
     </section>
 
 
-    <!-- <section class="recent-activities">
-        <h2>Recent Activities</h2>
-        <ul>
-            <li><strong>New Student Enrolled</strong><br>John Doe enrolled in Grade 3-A <span>10 minutes ago</span></li>
-            <li><strong>Attendance Updated</strong><br>Teacher Maria updated attendance for Grade 5-B <span>25 minutes ago</span></li>
-            <li><strong>Health Records Updated</strong><br>Medical records updated for 15 students in Grade 2 <span>1 hour ago</span></li>
-            <li><strong>System Maintenance</strong><br><span>2 hours ago</span></li>
-        </ul>
-    </section> -->
 </div>
 
 <script>
