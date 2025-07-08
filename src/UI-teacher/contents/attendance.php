@@ -48,7 +48,7 @@
                                             <i class="fa fa-plus"></i> Add New Learner
                                         </button>
                                     </div>
-                                    <table class="table table-bordered table-hover mb-0" id="student-tbl-1">
+                                    <table class="table table-bordered table-hover mb-0" style="width: 95%;" id="student-tbl-1">
                                         <thead class="table-light text-dark">
                                             <tr>
                                                 <th class="text-center" style="width:4%">#</th>

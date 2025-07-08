@@ -142,11 +142,11 @@ function render_scripts()
         base_url() . 'assets/js/bootstrap.min.js',
         base_url() . 'assets/js/custom-bs.js',
         base_url() . 'assets/js/main.js',
-        base_url() . 'assets/js/chart.js',
         base_url() . 'assets/js/raphael.min.js',
         base_url() . 'assets/js/morris.min.js',
         base_url() . 'assets/js/jquery-3.7.1.min.js',
-        base_url() . 'assets/js/dataTables.min.js'
+        base_url() . 'assets/js/dataTables.min.js',
+        base_url() . 'assets/js/teacher_doc.js'
     ];
 
     foreach ($scripts as $script) {
@@ -177,6 +177,26 @@ function get_option($key)
 }
 
 
+function get_section($id, $key)
+{
+    try {
+        $pdo = db_connect();
+
+        $stmt = $pdo->prepare("SELECT * FROM learner_section WHERE teacher_id = ?");
+        $stmt->execute([$id]);
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row && isset($row[$key])) {
+            return $row[$key];
+        }
+
+        return '';
+    } catch (PDOException $e) {
+        error_log("Database error in get_section(): " . $e->getMessage());
+        return '';
+    }
+}
 
 
 ?>

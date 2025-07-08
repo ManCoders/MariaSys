@@ -1,5 +1,7 @@
-
-    <style>
+<?php
+$teacher_id = 1;
+?>
+<style>
     .card-admin {
         background: white;
         padding: 20px;
@@ -46,15 +48,16 @@
 
         <!-- Attendance Card with Tabs -->
         <div class="col-md-12 p-3">
-            <div class="w-100">
-                <!-- Section Tabs -->
+            <div class=" m-2">
                 <ul class="nav nav-tabs nav-justified w-100" id="sectionTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="tab-sec1" data-bs-toggle="tab" data-bs-target="#sec1"
-                            type="button" role="tab">Section 1</button>
+                            type="button" role="tab">
+                            <?php echo get_section($teacher_id, 'section_name'); ?>
+                        </button>
                     </li>
-                    
                 </ul>
+
 
                 <!-- Tab Content Per Section -->
                 <div class="tab-content pt-3" id="sectionTabsContent">
@@ -73,7 +76,8 @@
                                             <i class="fa fa-plus"></i> Add New Learner
                                         </button>
                                     </div>
-                                    <table class="table table-bordered table-hover mb-0" id="student-tbl-1">
+                                    <table class="table table-bordered table-hover " style="min-width: 95%;"
+                                        id="student-tbl-1">
                                         <thead class="table-light text-dark">
                                             <tr>
                                                 <th class="text-center" style="width:4%">#</th>
@@ -97,7 +101,7 @@
                         </div>
                     </div>
 
-                  
+
                 </div>
             </div>
         </div>
