@@ -60,7 +60,7 @@ $teacher_id = 1;
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="sample-data-body"></tbody>
+                                        <tbody id="data_body"></tbody>
                                     </table>
                                 </div>
 
@@ -207,126 +207,5 @@ $teacher_id = 1;
 </div>
 
 <script>
-    const sectionData = {
-        1: [
-            { id: 1, name: "Juan Dela Cruz", grade: "Grade 3", date: "June 1, 2025", contact: "09123456789", type: "New", status: "Pending" },
-            { id: 2, name: "Maria Santos", grade: "Grade 6", date: "June 2, 2025", contact: "09234567890", type: "Transfer", status: "Approved" }
-        ],
-        2: [
-            { id: 1, name: "Miguel Torres", grade: "Grade 5", date: "June 6, 2025", contact: "09678901234", type: "Regular", status: "Declined" },
-            { id: 2, name: "Liza Mendoza", grade: "Grade 4", date: "June 7, 2025", contact: "09789012345", type: "New", status: "Pending" }
-        ],
-        3: [
-            { id: 1, name: "Enzo Cruz", grade: "Grade 1", date: "June 8, 2025", contact: "09890123456", type: "Transfer", status: "Approved" },
-            { id: 2, name: "Grace Aquino", grade: "Grade 2", date: "June 9, 2025", contact: "09901234567", type: "New", status: "Pending" }
-        ]
-    };
-
-    const dataTables = {};
-
-    function renderTable(sectionId) {
-        const data = sectionData[sectionId];
-        const tableId = `#student-tbl-${sectionId}`;
-        const tbodyId = `#sample-data-body-${sectionId}`;
-        let tbody = $(tbodyId);
-        tbody.html('');
-        let i = 1;
-
-        data.forEach(emp => {
-            let tr = $('<tr></tr>');
-            tr.append(`<td class="text-center">${i++}</td>`);
-            tr.append(`<td>${emp.name}</td>`);
-            tr.append(`<td>${emp.grade}</td>`);
-            tr.append(`<td>${emp.date}</td>`);
-            tr.append(`<td>${emp.contact}</td>`);
-            tr.append(`<td>${emp.type}</td>`);
-            tr.append(`<td class="text-center">${emp.status}</td>`);
-            tr.append(`
-                <td class="text-center">
-                <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}" data-section="${sectionId}"><i class="fa fa-edit"></i></button>
-                <button class="btn btn-sm btn-danger trashBtn"><i class="fa fa-trash"></i></button>
-                <button class="btn btn-sm btn-primary viewBtn"><i class="fa fa-eye"></i></button>
-                </td>`);
-            tbody.append(tr);
-        });
-
-        if (dataTables[sectionId]) dataTables[sectionId].destroy();
-        dataTables[sectionId] = $(tableId).DataTable({
-            pageLength: 5,
-            lengthMenu: [5, 10, 25],
-            columnDefs: [{ orderable: false, targets: 7 }]
-        });
-
-        $(`${tbodyId} .editBtn`).click(function () {
-            const id = $(this).data('id');
-            const sec = $(this).data('section');
-            const record = sectionData[sec].find(e => e.id === id);
-            if (record) {
-                $('#editId').val(record.id);
-                $('#editName').val(record.name);
-                $('#editGrade').val(record.grade);
-                $('#editDate').val(record.date);
-                $('#editContact').val(record.contact);
-                $('#editType').val(record.type);
-                $('#editStatus').val(record.status);
-                $('#editForm').data('section', sec);
-                new bootstrap.Modal(document.getElementById('editModal')).show();
-            }
-        });
-
-        $('#addNewBtn').off('click').on('click', function () {
-            const sec = sectionId;
-            $('#editForm').data('section', sec);
-            $('#editId').val('');
-            $('#editName').val('');
-            $('#editGrade').val('');
-            $('#editDate').val('');
-            $('#editContact').val('');
-            $('#editType').val('New');
-            $('#editStatus').val('Pending');
-            new bootstrap.Modal(document.getElementById('editModal')).show();
-        });
-    }
-
-    $('#editForm').submit(function (e) {
-        e.preventDefault();
-        const id = $('#editId').val();
-        const sectionId = $('#editForm').data('section');
-        const data = sectionData[sectionId];
-
-        if (id) {
-            const index = data.findIndex(e => e.id == id);
-            if (index !== -1) {
-                data[index].name = $('#editName').val();
-                data[index].grade = $('#editGrade').val();
-                data[index].date = $('#editDate').val();
-                data[index].contact = $('#editContact').val();
-                data[index].type = $('#editType').val();
-                data[index].status = $('#editStatus').val();
-            }
-        } else {
-            const newId = data.length ? data[data.length - 1].id + 1 : 1;
-            data.push({
-                id: newId,
-                name: $('#editName').val(),
-                grade: $('#editGrade').val(),
-                date: $('#editDate').val(),
-                contact: $('#editContact').val(),
-                type: $('#editType').val(),
-                status: $('#editStatus').val()
-            });
-        }
-
-        renderTable(sectionId);
-        bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
-    });
-
-    $(document).ready(function () {
-        renderTable(1); // Load default (Section 1)
-        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-            const targetId = $(e.target).attr('data-bs-target');
-            const sectionId = targetId.replace('#sec', '');
-            renderTable(sectionId);
-        });
-    });
+    
 </script>

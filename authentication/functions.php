@@ -145,7 +145,8 @@ function render_scripts()
         base_url() . 'assets/js/morris.min.js',
         base_url() . 'assets/js/jquery-3.7.1.min.js',
         base_url() . 'assets/js/dataTables.min.js',
-        base_url() . 'assets/js/teacher_doc.js'
+        base_url() . 'assets/js/teacher_doc.js',
+        base_url() . 'assets/js/student_doc.js'
     ];
 
     foreach ($scripts as $script) {
@@ -196,6 +197,7 @@ function get_section($id, $key)
         return '';
     }
 }
+
 
 
 ?>

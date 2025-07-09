@@ -16,7 +16,7 @@
         <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard
         </a>
-        <a href="index.php?page=contents/teacher" class="nav-link nav-teacher d-flex align-items-center">
+        <a href="index.php?page=contents/teacher" class="nav-link nav-teacher nav-teacher_view d-flex align-items-center">
             <i class="fas fa-users me-2"></i> Teacher management
         </a>
         <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">

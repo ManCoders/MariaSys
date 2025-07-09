@@ -48,9 +48,9 @@ if ($action === 'childForm') {
 
 
 if ($action === 'getLearner') {
-	$learner = $crud->getLearner();
-	if ($learner) {
-		echo $learner;
+	$getLearner = $crud->getLearner();
+	if ($getLearner) {
+		echo $getLearner;
 	}
 }
 
@@ -67,4 +67,12 @@ if ($action === 'NewTeacher') {
 		echo $learner;
 	}
 }
+
+/* if($action === 'get_student_by_id'){
+	$learner = $crud->get_student_by_section();
+	if($learner){
+		echo $learner;
+	}
+} */
+
 ?>

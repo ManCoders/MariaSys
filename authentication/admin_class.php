@@ -247,7 +247,7 @@ class Action
     }
 
 
-    //ERROR PA //fix na
+    //WORKING
     function registration_form()
     {
         $user_role = htmlspecialchars($_POST['user_role'] ?? '');
@@ -277,11 +277,11 @@ class Action
 
             $user_role == 'teacher' ? $stmt1 = $this->db->prepare("
             INSERT INTO teacher 
-            (firstname, middlename, lastname, email, suffix, username, password, user_role, cpno, province, city, barangay, birth, gender, status) 
+            (firstname, middlename, lastname, email, suffix, username, password, user_role, cpno, province, city, barangay, birth, gender, teacher_status) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)
         ") : $stmt1 = $this->db->prepare("
             INSERT INTO parent 
-            (firstname, middlename, lastname, email, suffix, username, password, user_role, cpno, province, city, barangay, birth, gender, status) 
+            (firstname, middlename, lastname, email, suffix, username, password, user_role, cpno, province, city, barangay, birth, gender, parent_status) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)
         ");
 
@@ -314,7 +314,7 @@ class Action
         }
 
     }
-
+    //WORKING
     function Enrollment()
     {
         extract($_POST); // ⚠️ Still recommended to use $_POST['key'] individually for clarity & safety
@@ -467,12 +467,6 @@ class Action
                 return json_encode(['status' => 2, 'message' => 'Please fill in all required fields.']);
             }
 
-            $check = $this->db->prepare("SELECT COUNT(*) FROM teacher WHERE employeeid = :lrn");
-            $check->execute([':lrn' => $employee_id]);
-            if ($check->fetchColumn() > 0) {
-                return json_encode(['status' => 2, 'message' => 'This LRN is already registered.']);
-            }
-
             $profilePicPath = null;
             if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
                 $file = $_FILES['profile_picture'];
@@ -528,28 +522,47 @@ class Action
                 ':religious' => $religious,
                 ':contact' => $contact
             ]);
-
-            
-
-            return json_encode(['status' => 1, 'message' => 'Successfully registered. Please wait for approval!']);
+            /* location.href = base_url + "/src/UI-admin/index.php?page=contents/teacher"; */
+            return json_encode(['status' => 1, 'message' => 'Successfully registered!']);
         } catch (PDOException $e) {
             return json_encode(['status' => 0, 'message' => 'Database Error: ' . $e->getMessage()]);
         }
     }
 
+    //WORKING DONT TOUCH IT DISPLAY TO TABLE THIS
     function getLearner()
     {
         try {
             $stmt = $this->db->prepare("
             SELECT 
-                learners.*,
-                CONCAT(learners.family_name, ', ', learners.given_name, ' ', LEFT(learners.middle_name, 1), '.') AS name,
-                learners.created_date AS date,
+                l.learner_id,
+                l.lrn,
+                l.family_name,
+                l.given_name,
+                l.middle_name,
+                l.suffix,
+                l.birthdate,
+                l.birth_place,
+                l.gender AS learner_gender,
+                l.religious,
+                l.tongue,
+                l.notes,
+                l.learner_status,
+                l.learner_picture,
+                l.created_at AS date,
                 p.cpno AS parent_contact,
-                CONCAT(p.lastname, ', ', p.firstname, ' ', LEFT(p.middlename, 1), '.') AS parent_name
-            FROM learners
-            INNER JOIN parent p ON learners.parent_id = p.parent_id
-            ORDER BY learners.created_date DESC
+                CONCAT(p.lastname, ', ', p.firstname, ' ', LEFT(p.middlename, 1), '.') AS parent_name,
+                sy.school_year_name,
+                gl.grade_level_name,
+                gl.grade_level_id
+            FROM learner_section ls
+            INNER JOIN learners l ON ls.learner_id = l.learner_id
+            INNER JOIN parent p ON l.parent_id = p.parent_id
+            INNER JOIN school_year sy ON ls.school_year_id = sy.school_year_id
+            INNER JOIN grade_level gl ON ls.grade_level_id = gl.grade_level_id
+            GROUP BY l.learner_id
+            ORDER BY l.created_at DESC
+
         ");
 
             $stmt->execute();
@@ -560,14 +573,13 @@ class Action
                 'data' => $learners
             ]);
         } catch (PDOException $e) {
-            http_response_code(500);
             return json_encode([
                 'status' => 0,
                 'message' => 'Database error: ' . $e->getMessage()
             ]);
         }
     }
-
+    //WORKING DONT TOUCH IT DISPLAY TO TABLE THIS
     function getTeacher()
     {
         try {
@@ -587,7 +599,7 @@ class Action
                 'data' => $teacher
             ]);
         } catch (PDOException $e) {
-            http_response_code(500);
+            /* http_response_code(500); */
             return json_encode([
                 'status' => 0,
                 'message' => 'Database error: ' . $e->getMessage()
@@ -596,5 +608,30 @@ class Action
     }
 
 
+    /* function get_student_by_section(){
+        try {
+            $stmt = $this->db->prepare("
+            SELECT 
+                *,
+                CONCAT(lastname, ', ', firstname, ' ', LEFT(middlename, 1), '.') AS learner_name
+            FROM leaners
+            ORDER BY learner.created_date ASC
+        ");
+
+            $stmt->execute();
+            $teacher = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return json_encode([
+                'status' => 1,
+                'data' => $teacher
+            ]);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
+    } */
 
 }
