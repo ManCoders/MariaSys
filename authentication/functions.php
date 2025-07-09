@@ -107,7 +107,6 @@ function render_styles()
     $styles = [
         base_url() . 'assets/css/all.min.css',
         base_url() . 'assets/css/custom-bs.min.css',
-        base_url() . 'assets/css/main.css',
         base_url() . 'assets/css/icons.min.css',
         base_url() . 'assets/css/morris.css',
         base_url() . 'assets/css/dataTables.dataTables.min.css'
