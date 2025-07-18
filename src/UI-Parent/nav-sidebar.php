@@ -1,35 +1,34 @@
 <style>
     .sidebar-list a.active {
-        background-color: rgb(196, 196, 196);
+        background-color: rgb(233, 233, 233);
         font-weight: bold;
-        color: snow;
+        color: grey;
     }
-    .sidebar-list a{
+
+    .sidebar-list a {
         font-weight: 500;
-        padding:.5rem;
+        padding: .5rem;
         border: 1px solid #ddd;
     }
 </style>
 
-<nav id="sidebar" class="ms-2" style="border-radius:5px;">
-    <div class="" style="width: 240px; border-radius: 5px; background-color: #f8f9fa;">
-        <div class="sidebar-list ">
-            <a href="index.php?page=home" class="nav-item nav-home">
-                <span class=""><i class=""></i></span> Dashboard
-            </a>
-            <a href="index.php?page=contents/enrollment" class="nav-item nav-enrollment">
-                <span class=""><i class=""></i></span> Enrollment
-            </a>
-            <a href="index.php?page=contents/student" class="nav-item nav-student">
-                <span class=""><i class=""></i></span> Students View
-            </a>
-            <a href="index.php?page=contents/feedback" class="nav-item nav-feedback">
-                <span class=""><i class=""></i></span> Feedback
-            </a>
-            <a href="index.php?page=contents/setting" class="nav-item nav-setting">
-                <span class=""><i class=""></i></span> Account Settings
-            </a>
-        </div>
+<nav id="sidebar" class="bg-white border rounded p-3" style="min-width: 250px;">
+    <div class="sidebar-list d-flex flex-column gap-2">
+        <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
+            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+        </a>
+        <a href="index.php?page=contents/enrollment" class="nav-link nav-enrollment d-flex align-items-center">
+            <i class="fas fa-user-plus me-2"></i> Enrollment
+        </a>
+        <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">
+            <i class="fas fa-user-graduate me-2"></i> Students View
+        </a>
+        <a href="index.php?page=contents/feedback" class="nav-link nav-feedback d-flex align-items-center">
+            <i class="fas fa-comment-alt me-2"></i> Feedback
+        </a>
+        <a href="index.php?page=contents/setting" class="nav-link nav-setting d-flex align-items-center">
+            <i class="fas fa-cog me-2"></i> Account Settings
+        </a>
     </div>
 </nav>
 
