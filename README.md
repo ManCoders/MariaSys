@@ -1,1 +1,1 @@
-Sta.Maria Elementary school management system
+A school management system is a software application designed to help schools manage their day-to-day operations. It is an integrated platform that allows administrators, teachers, students, and parents to access and manage information in real-time. The system is designed to streamline the school’s administrative tasks and provide transparency and efficiency in operations. Here are some of the key features of a school management system

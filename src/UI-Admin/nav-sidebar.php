@@ -11,7 +11,7 @@
         border: 1px solid #ddd;
     }
 </style>
-<nav id="sidebar" class="bg-white border rounded p-3" style="min-width: 250px;">
+<nav id="sidebar" class=" border rounded p-3" style="min-width: 280px;">
     <div class="sidebar-list d-flex flex-column gap-2">
         <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard
@@ -21,6 +21,9 @@
         </a>
         <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">
             <i class="fas fa-users me-2"></i> Student management
+        </a>
+        <a href="index.php?page=contents/classroom" class="nav-link nav-classroom d-flex align-items-center">
+            <i class="fas fa-school me-2"></i> Classroom management
         </a>
         <a href="index.php?page=contents/users" class="nav-link nav-users d-flex align-items-center">
             <i class="fas fa-laptop me-2"></i>Users Accounts
