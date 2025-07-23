@@ -202,15 +202,16 @@ $adminData = $_SESSION['adminData']['lastname'];
     <strong class="mediaFlex p-0 m-0" style="display: none; font-size: 13px !important;">Sta. Maria Elementary School</strong>
   </div>
 
-  <div class="d-flex align-items-center gap-3 col-md-5 col-5 flex-row">
+  <div class="d-flex align-items-center gap-3 col-md-5 col-5 flex-row justify-content-end">
     <!-- Admin Info Display -->
-    <div class="admin-info mediaPadding">
-      <i class="fas fa-user-shield"></i>
-      <span><?php echo htmlspecialchars($adminData); ?></span>
-    </div>
+   
 
     <!-- Navigation Menu -->
-    <ul class="nav-menu mediaPadding col-md-12 col-12 d-flex flex-row">
+    <ul class="nav-menu mediaPadding col-md-12 col-12 d-flex flex-row justify-content-end">
+       <div class="admin-info mediaPadding">
+        <i class="fas fa-user-shield"></i>
+        <span><?php echo htmlspecialchars($adminData); ?></span>
+      </div>
       <li class="dropdown">
         <a href="#" class="profile mediaPadding col-md-12 col-12">
           <i class="fas fa-user-cog"></i>
