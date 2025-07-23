@@ -4,7 +4,9 @@
       margin: auto;
       padding: 20px;
    }
-
+   .dashboard-admin::-webkit-scrollbar{
+      display: none !important;
+   }
    header {
       text-align: center;
       margin-bottom: 30px;

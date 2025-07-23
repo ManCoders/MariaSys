@@ -203,8 +203,6 @@ $adminData = $_SESSION['adminData']['lastname'];
   </div>
 
   <div class="d-flex align-items-center gap-3 col-md-5 col-5 flex-row justify-content-end">
-    <!-- Admin Info Display -->
-   
 
     <!-- Navigation Menu -->
     <ul class="nav-menu mediaPadding col-md-12 col-12 d-flex flex-row justify-content-end">

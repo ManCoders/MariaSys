@@ -243,12 +243,17 @@
             tr.append(`<td class="text-center">${emp.status}</td>`);
             tr.append(`
                 <td class="text-center w-10">
-                <button class="btn btn-sm btn-success editBtn" data-id="${emp.id}" data-section="${sectionId}"><i class=""></i>View</button>
+                <button class="btn btn-sm btn-success viewBtn" id="goToProfile" data-id="${emp.id}" data-section="${sectionId}"><i class=""></i>View</button>
                
                 </td>`);
             tbody.append(tr);
         });
-
+        $('.viewBtn').off('click').on('click', function () {
+            alert('button clicked!');
+            const id = $(this).data('id');
+            sessionStorage.setItem('id', id);
+            location.href = 'index.php?page=contents/student/student_view';
+        });
         if (dataTables[sectionId]) dataTables[sectionId].destroy();
         dataTables[sectionId] = $(tableId).DataTable({
             pageLength: 5,

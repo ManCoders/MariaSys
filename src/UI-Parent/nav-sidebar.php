@@ -10,6 +10,16 @@
         padding: .5rem;
         border: 1px solid #ddd;
     }
+     @media (max-width: 768px) {
+        #sidebar{
+            position: absolute !important;
+            top: 2.7rem !important;
+            transform: translateX(-50rem);
+            background-color: #fefefe !important;
+            z-index: 5 !important;
+            height: 100% !important;
+        }
+    }
 </style>
 
 <nav id="sidebar" class="bg-white border rounded p-3" style="min-width: 250px;">

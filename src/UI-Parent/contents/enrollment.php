@@ -87,49 +87,64 @@
             max-width: 98vw;
             width: 98vw;
         }
+        .mediaSize{
+            font-size: 15px !important;
+        }
+        .mediaSizeP{
+            font-size: 12px !important;
+        }
+        #addChildBtn{
+            width: 9rem !important;
+        }
+        .mediaMarginRight{
+            padding-right: 2rem !important;
+        }
     }
 </style>
 
 <?php
 ?>
 
-<section class="p-2">
-    <div>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <div>
-                <h4 class="mb-0"><i class="fa fa-user-plus text-primary me-2"></i>Child Enrollment </h4>
-                <small class="text-muted">Register and link your child to your parent account</small>
+<section class="p-2 w-100 mediaMarginRight">
+    <div class="w-100">
+        <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+            <div class="col-md-8 col-11">
+                <h4 class="mb-0 mediaSize"><i class="fa fa-user-plus text-primary me-2"></i>Child Enrollment </h4>
+                <small class="text-muted mediaSizeP">Register and link your child to your parent account</small>
             </div>
-            <button class="btn btn-success btn-sm" id="addChildBtn">
-                <i class="fa fa-plus"></i> Link New Child
-            </button>
+                <div class="col-md-4 col-11 d-flex justify-content-end">
+                    <button class="btn btn-success btn-sm p-2" id="addChildBtn">
+                    <i class="fa fa-plus"></i> Link New Child
+                </button>
+            </div>
+            
         </div>
 
         <!-- Enrollment Status Cards -->
-        <div class="row mb-3">
-            <div class="col-md-3">
-                <div class="stats-card">
+        <div class="row mb-3 d-flex flex-wrap align-items-center col-md-12 col-12 m-0 p-0 justify-content-center h-auto">
+            <div class="col-md-3 col-11 p-0 m-0">
+                <div class="stats-card p-2 m-1">
                     <i class="fa fa-users"></i>
                     <h5 id="totalChildren">2</h5>
                     <small>Linked Children</small>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="stats-card">
+            <div class="col-md-3 col-11 p-0 m-0">
+                <div class="stats-card p-2 m-1">
                     <i class="fa fa-clock"></i>
                     <h5 id="pendingEnrollments">1</h5>
                     <small>Pending Requests</small>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="stats-card">
+            <div class="col-md-3 col-11 p-0 m-0">
+                <div class="stats-card p-2 m-1">
                     <i class="fa fa-check-circle"></i>
                     <h5 id="approvedEnrollments">2</h5>
                     <small>Approved</small>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="stats-card">
+            <div class="col-md-3 col-11 p-0 m-0">
+                <div class="stats-card p-2 m-1">
                     <i class="fa fa-times-circle"></i>
                     <h5 id="rejectedEnrollments">0</h5>
                     <small>Rejected</small>

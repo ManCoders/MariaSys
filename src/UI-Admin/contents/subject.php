@@ -16,7 +16,7 @@
                     <th class="text-center" style="width:4%">#</th>
                     <th>Subject Code</th>
                     <th>Subject Name</th>
-                    <th  >Learner No</th>
+                    <th >Learner No</th>
                     <th>Grade Level</th>
                     <th>Units</th>
                     <th>Teacher Assigned</th>
