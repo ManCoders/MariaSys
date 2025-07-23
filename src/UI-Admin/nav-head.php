@@ -169,6 +169,20 @@ $adminData = $_SESSION['adminData']['lastname'];
       padding: 6px 10px;
       font-size: 0.85rem;
     }
+
+    .mediaFlex{
+        display: flex !important;
+    }
+    .mediaNone{
+        display: none !important;
+    }
+    .mediaMargin{
+      margin: 0 !important;
+      padding: .5rem !important;
+    }
+    .mediaPadding{
+      padding: .2rem !important;
+    }
   }
 
   @media (max-width: 480px) {
@@ -180,23 +194,25 @@ $adminData = $_SESSION['adminData']['lastname'];
   }
 </style>
 
-<nav class="navbar mx-2">
-  <div class="nav-brand">
-    <i class="fas fa-graduation-cap"></i>
-    <strong>Sta. Maria Elementary School - Admin Panel</strong>
+<nav class="navbar mx-2 d-flex justify-content-between align-items-center mediaMargin">
+  <div class="nav-brand col-md-7 col-7">
+    <i class="fa-solid fa-bars mediaFlex" style="display: none; font-size: 17px !important;" id="burgerButton"></i>
+    <i class="fas fa-graduation-cap mediaNone"></i>
+    <strong class="mediaNone">Sta. Maria Elementary School - Admin Panel</strong>
+    <strong class="mediaFlex p-0 m-0" style="display: none; font-size: 13px !important;">Sta. Maria Elementary School</strong>
   </div>
 
-  <div class="d-flex align-items-center gap-3">
+  <div class="d-flex align-items-center gap-3 col-md-5 col-5 flex-row">
     <!-- Admin Info Display -->
-    <div class="admin-info">
+    <div class="admin-info mediaPadding">
       <i class="fas fa-user-shield"></i>
       <span><?php echo htmlspecialchars($adminData); ?></span>
     </div>
 
     <!-- Navigation Menu -->
-    <ul class="nav-menu">
+    <ul class="nav-menu mediaPadding col-md-12 col-12 d-flex flex-row">
       <li class="dropdown">
-        <a href="#" class="profile">
+        <a href="#" class="profile mediaPadding col-md-12 col-12">
           <i class="fas fa-user-cog"></i>
           <span>Profile</span>
         </a>
@@ -214,7 +230,7 @@ $adminData = $_SESSION['adminData']['lastname'];
       </li>
 
       <li>
-        <a id="logout" class="logout" style="cursor: pointer;">
+        <a id="logout" class="logout mediaPadding col-md-12 col-12" style="cursor: pointer;">
           <i class="fas fa-sign-out-alt"></i>
           <span>Logout</span>
         </a>

@@ -996,8 +996,10 @@ progress {
 .gy-12 {
     --bs-gutter-y: 16rem
 }
+/* MARCO CSS */
 
 @media(min-width:576px) {
+    
     .col-sm {
         flex: 1 0 0%
     }
@@ -26239,3 +26241,4 @@ pre[class*=language-] {
         overflow: auto !important
     }
 }
+
