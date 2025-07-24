@@ -120,6 +120,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
+                            Profile
+                        </button>
                         <button class="btn btn-success text-white" type="submit">
                             <i class="fa fa-save me-1"></i>Validate Learner
                         </button>
@@ -176,6 +179,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
+                            Profile
+                        </button>
                         <button class="btn btn-success text-white" type="submit">
                             <i class="fa fa-save me-1"></i>Validate
                         </button>
@@ -232,6 +238,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
+                            Profile
+                        </button>
                         <button class="btn btn-success text-white" type="submit">
                             <i class="fa fa-save me-1"></i>Validate
                         </button>
@@ -413,7 +422,14 @@
             $('#viewStudentRejected').click(function () {
                 $('#learnersModalRejected').modal('show');
             });
+
+            $('#viewBtnLearners').off('click').on('click', function () {
+                const id = $(this).data('id'); 
+                sessionStorage.setItem('learners_id', id); 
+                location.href = 'index.php?page=contents/users/view_learners'; 
+            });
         });
+
 
     const statusFilter = document.getElementById('statusFilter');
     const tableRows = document.querySelectorAll('#student-tbl-1 tbody tr');
