@@ -88,16 +88,16 @@
             width: 98vw;
         }
         .mediaSize{
-            font-size: 15px !important;
+            font-size: 16px !important;
         }
         .mediaSizeP{
-            font-size: 12px !important;
+            font-size: 13px !important;
         }
         #addChildBtn{
             width: 9rem !important;
         }
         .mediaMarginRight{
-            padding-right: 2rem !important;
+            /* padding-right: 2rem !important; */
         }
     }
 </style>
@@ -105,7 +105,7 @@
 <?php
 ?>
 
-<section class="p-2 w-100 mediaMarginRight">
+<section class=" w-100 mediaMarginRight pe-0 ps-0 p-0 m-0">
     <div class="w-100">
         <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
             <div class="col-md-8 col-11">
@@ -113,7 +113,7 @@
                 <small class="text-muted mediaSizeP">Register and link your child to your parent account</small>
             </div>
                 <div class="col-md-4 col-11 d-flex justify-content-end">
-                    <button class="btn btn-success btn-sm p-2" id="addChildBtn">
+                    <button class="btn btn-success btn-sm p-2 m-0" id="addChildBtn">
                     <i class="fa fa-plus"></i> Link New Child
                 </button>
             </div>
@@ -153,25 +153,51 @@
         </div>
 
         <!-- Children List Table -->
-        <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-            <div class="card-body">
-                <table class="table table-bordered table-hover mb-0" id="student-tbl">
-                    <thead class="table-light text-dark">
-                        <tr>
-                            <th class="text-center" style="width:4%">#</th>
-                            <th>Learner Name</th>
-                            <th>Student LRN</th>
-                            <th>Date Submitted</th>
-                            <th>Grade Level</th>
-                            <th>School Year</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tb_data_body"></tbody>
-                </table>
-            </div>
-        </div>
+         <div class="col-md-12 col-12 d-flex  flex-wrap h-auto">
+            <!-- <div class="card col-md-5 col-5 d-flex" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);"> -->
+                <div class="card-body col-md-5 col-10 d-flex p-0 m-0 shadow p-2 m-2 rounded-4">
+                    <div class="img col-md-4 col-4 d-flex align-items-center justify-content-center flex-column">
+                        <img src="../../assets/image/users.png" alt="" style="width: 90px; height: 90px; border-radius: 50%;">
+                        <label for="">LRN: 9384590343</label>
+                    </div>
+                    <div class="information col-md-8 col-8 d-flex flex-column">
+                        <div class="m-0 d-flex">
+                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">NAME:</label>
+                            <span>PAGOTAISIDRO, NARCO JEAN F.</span>
+                        </div>
+                        <div class="m-0 d-flex">
+                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">GRADE: </label>
+                            <span class="h-100 d-flex align-items-center">6</span>
+                        </div>
+                        <div class="m-0 d-flex">
+                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">STATUS: </label>
+                            <span>ENROLLED</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body col-md-5 col-10 d-flex p-0 m-0 shadow p-2 m-2 rounded-4">
+                    <div class="img col-md-4 col-4 d-flex align-items-center justify-content-center flex-column">
+                        <img src="../../assets/image/users.png" alt="" style="width: 90px; height: 90px; border-radius: 50%;">
+                        <label for="">LRN: 9384590343</label>
+                    </div>
+                    <div class="information col-md-8 col-8 d-flex flex-column">
+                        <div class="m-0 d-flex">
+                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">NAME:</label>
+                            <span>PAGOTAISIDRO, NARCO JEAN F.</span>
+                        </div>
+                        <div class="m-0 d-flex">
+                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">GRADE: </label>
+                            <span class="h-100 d-flex align-items-center">6</span>
+                        </div>
+                        <div class="m-0 d-flex">
+                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">STATUS: </label>
+                            <span>UNENROLLED</span>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+         </div>
+        
     </div>
 
     <!-- Add/Edit Child Modal -->
@@ -419,7 +445,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <table class="table table-borderless info-table">
+                                            <!-- <table class="table table-borderless info-table">
                                                 <tr>
                                                     <td><strong>Full Name:</strong></td>
                                                     <td id="infoFullName">-</td>
@@ -452,7 +478,7 @@
                                                     <td><strong>Age:</strong></td>
                                                     <td id="infoAge">-</td>
                                                 </tr>
-                                            </table>
+                                            </table> -->
                                         </div>
                                         <div class="col-md-6">
                                             <table class="table table-borderless info-table">

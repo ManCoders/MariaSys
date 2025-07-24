@@ -13,9 +13,11 @@
             <thead class="table-light text-dark">
                 <tr>
                     <th class="text-center" style="width:4%">#</th>
-                    <th>Classroom Number</th>
-                    <th>Department</th>
+                    <th>Academic Year</th>
                     <th>Grade Level</th>
+                    <th>Section</th>
+                    <th>Status</th>
+                    <th>Date Calenndar</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
@@ -37,6 +39,10 @@
             text-overflow: ellipsis;
         }
     </style>
+    <?php 
+        date_default_timezone_set('Asia/Manila');
+        $currentDate = date('Y-m-d'); 
+    ?>
     <!-- Modal -->
     <div class="modal fade " id="classroomModal" tabindex="-1">
         <div class="modal-dialog  modal-md">
@@ -49,16 +55,47 @@
                     </div>
                     <div class="modal-body">
                         <div class="m-2">
-                            <label for="">Classroom number</label>
-                            <input type="text" class="form-control" name="classroomNumber" placeholder="Classroom number">
-                        </div>
-                        <div class="m-2">
-                            <label for="">Department</label>
-                            <input type="text" class="form-control" name="Department" placeholder="Department">
+                            <label for="">Academic Year</label>
+                            <select name="academic_year" id="" class="form-select">
+                                <option value="">Select academic year</option>
+                                <option value="">2024 - 2025</option>
+                                <option value="">2025 - 2026</option>
+                                <option value="">2026 - 2027</option>
+                            </select>
                         </div>
                         <div class="m-2">
                             <label for="">Grade Level</label>
-                            <input type="text" class="form-control" name="gradeLevel" placeholder="Grade Level">
+                            <select name="academic_year" id="" class="form-select">
+                                <option value="">Select Grade Level</option>
+                                <option value="">Kinder 1</option>
+                                <option value="">kinder 2</option>
+                                <option value="">grade 1</option>
+                                <option value="">grade 2</option>
+                                <option value="">grade 3</option>
+                                <option value="">grade 4</option>
+                                <option value="">grade 5</option>
+                                <option value="">grade 6</option>
+                            </select>
+                        </div>
+                        <div class="m-2">
+                            <label for="">Section</label>
+                            <select name="academic_year" id="" class="form-select">
+                                <option value="">Select Section</option>
+                                <option value="">JUPITURN</option>
+                                <option value="">SATURN</option>
+                                <option value="">EARTH</option>
+                                <option value="">MARS</option>
+                                <option value="">VENUS</option>
+                                <option value="">URANUS</option>
+                            </select>
+                        </div>
+                        <div class="m-2">
+                            <label for="">Status</label>
+                            <input type="text" class="form-control" value="Active" name="status" placeholder="Status">
+                        </div>
+                        <div class="m-2">
+                            <label for="">School Calendar</label>
+                            <input type="date" class="form-control" name="gradeLevel" value="<?= $currentDate ?>" placeholder="Grade Level">
                         </div>
                     </div>
                     <div class="modal-footer">
