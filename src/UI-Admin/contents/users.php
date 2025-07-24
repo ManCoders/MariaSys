@@ -1,3 +1,8 @@
+<style>
+    .fontSize{
+        font-size: 15px !important;
+    }
+</style>
 <section class="p-2">
     <div>
         <div class="d-flex justify-content-between align-items-center mb-0">
@@ -9,21 +14,6 @@
                 <i class="fa fa-plus"></i> Add New Parent
             </button>
         </div>
-        <!-- <table class="table table-bordered table-hover mb-0" id="parent-tbl">
-            <thead class="table-light text-dark">
-                <tr>
-                    <th class="text-center" style="width:4%">#</th>
-                    <th>Parent Name</th>
-                    <th>Student Name</th>
-                    <th>Date Submitted</th>
-                    <th>Contact Number</th>
-                    <th>Type</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody id="parent-data-body"></tbody>
-        </table> -->
     </div>
 
     <!-- Scrollable View Cards -->
@@ -32,8 +22,61 @@
         <div class="row parent-card-scroll" id="parent-card-view"></div>
     </div>
     <div class="overviewContents col-md-12 col-12 d-flex flex-wrap">
-        <div class="col-md-5 col-md-12 rounded-3 shadow d-flex p-2 m-2">
+        <div class="col-md-5 col-5 rounded-3 shadow d-flex p-2 px-4 m-2 flex-row">
+            <div class="image col-md-4 col-4 d-flex flex-column align-items-center justify-content=center">
+                <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                <div class="d-flex align-items-center justify-content-center">
+                <span class="fontSize">Status: </span>
+                <span class="ms-1 fw-bold text-muted fontSize" >ACTIVE</span>
+            </div>
+            </div>
+            <div class="d-flex flex-column align-items-start justify-content-start col-md-8 col-8">
+                <div class="d-flex flex-row">
+                    <label class="fontSize">Name: </label>
+                    <span class="text-center text-muted ms-1">NAME OF THE PARENTS</span>
+                </div>
+                <div class="d-flex flex-row">
+                    <label class="fontSize">Gender: </label>
+                    <span class="text-center text-muted ms-1">MALE</span>
+                </div>
+                <div class="d-flex flex-row">
+                    <label class="fontSize">Gmail: </label>
+                    <span class="text-center text-muted ms-1">parent@example.edu.ph</span>
+                </div>
+                <div class="button col-md-12 justify-content-end align-items-end d-flex" style="border-top: solid 1px rgba(0,0,0,.4)">
+                    <button class="btn btn-sm m-0">view</button>
+                </div>
+            </div>
+            
+        </div>
 
+        <!-- SECOND SAMPLE USER -->
+         <div class="col-md-5 col-5 rounded-3 shadow d-flex p-2 px-4 m-2 flex-row">
+            <div class="image col-md-4 col-4 d-flex flex-column align-items-center justify-content=center">
+                <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                <div class="d-flex align-items-center justify-content-center">
+                <span class="fontSize">Status: </span>
+                <span class="ms-1 fw-bold text-muted fontSize" >ACTIVE</span>
+            </div>
+            </div>
+            <div class="d-flex flex-column align-items-start justify-content-start col-md-8 col-8">
+                <div class="d-flex flex-row">
+                    <label class="fontSize">Name: </label>
+                    <span class="text-center text-muted ms-1">NAME OF THE PARENTS</span>
+                </div>
+                <div class="d-flex flex-row">
+                    <label class="fontSize">Gender: </label>
+                    <span class="text-center text-muted ms-1">MALE</span>
+                </div>
+                <div class="d-flex flex-row">
+                    <label class="fontSize">Gmail: </label>
+                    <span class="text-center text-muted ms-1">parent@example.edu.ph</span>
+                </div>
+                <div class="button col-md-12 justify-content-end align-items-end d-flex" style="border-top: solid 1px rgba(0,0,0,.4)">
+                    <button class="btn btn-sm m-0">view</button>
+                </div>
+            </div>
+            
         </div>
     </div>
     <!-- Modal -->
