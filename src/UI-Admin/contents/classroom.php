@@ -5,6 +5,12 @@
                 <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Classroom Management</h4>
                 <span>Manage and process Classroom with departments</span>
             </div>
+            <select name="" id="" class="form-select w-25">
+                <option value="">Select Category</option>
+                <option value="">Manage Classroom</option>
+                <option value="">Manage Sections</option>
+                <option value="">Manage Academic Year</option>
+            </select>
             <button class="btn btn-success btn-sm" id="addClassroom">
                 <i class="fa fa-plus"></i> Add New Classroom
             </button>

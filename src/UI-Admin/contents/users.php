@@ -45,7 +45,7 @@
                 </div>
                 <div class="button col-md-12 justify-content-end align-items-end d-flex">
                     <button class="btn btn-sm m-0 mb-2 viewBtnUsers">Profile</button>
-                    <button class="btn btn-sm m-0 mb-2 mx-1">View learner</button>
+                    <button class="btn btn-sm m-0 mb-2 mx-1 viewBtnLearners">View learner</button>
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
                 </div>
                 <div class="button col-md-12 justify-content-end align-items-end d-flex">
                     <button class="btn btn-sm m-0 mb-2 viewBtnUsers">view</button>
-                    <button class="btn btn-sm m-0 mb-2 mx-1">View learner</button>
+                    <button class="btn btn-sm m-0 mb-2 mx-1 viewBtnLearners">View learner</button>
                 </div>
             </div>
 
@@ -177,5 +177,10 @@ $('.viewBtnUsers').off('click').on('click', function() {
     const id = $(this).data('id');
     sessionStorage.setItem('teacher_id', id);
     location.href = 'index.php?page=contents/users/view_users';
+});
+$('.viewBtnLearners').off('click').on('click', function() {
+    const id = $(this).data('id');
+    sessionStorage.setItem('teacher_id', id);
+    location.href = 'index.php?page=contents/users/view_learners';
 });
 </script>

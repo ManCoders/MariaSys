@@ -5,6 +5,12 @@
                 <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Learner Registration</h4>
                 <span>Manage and process student registration application</span>
             </div>
+            <select id="statusFilter" class="form-select w-25">
+                <option value="">Select Category</option>
+                <option value="Pending">Pending</option>
+                <option value="Validated">Validated</option>
+                <option value="Rejected">Rejected</option>
+            </select>
             <button class="btn btn-success btn-sm" id="addNewBtn">
                 <i class="fa fa-plus"></i> Add New Learner
             </button>
@@ -17,12 +23,45 @@
                     <th>Student LRN</th>
                     <th>Date Submitted</th>
                     <th>Parent Contact</th>
-                    <th>Parent Enroll</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
-            <tbody id="tb_data_body_student"></tbody>
+            <tbody>
+                <tr class="status-Pending">
+                    <th>1</th>
+                    <th>PAGOTAISIDRO, MARCO JEAN F,</th>
+                    <th>1118374859</th>
+                    <th>12/23/2025</th>
+                    <th>09358374977</th>
+                    <th>Pending</th>
+                    <th>
+                        <button class="btn btn-sm" id="viewStudent">View</button>
+                    </th>
+                </tr>
+                <tr class="status-Validated">
+                    <th>2</th>
+                    <th>PAGOTAISIDRO, MARCO JEAN F,</th>
+                    <th>1118374859</th>
+                    <th>12/23/2025</th>
+                    <th>09358374977</th>
+                    <th>Validated</th>
+                    <th>
+                        <button class="btn btn-sm" id="viewStudentValidated">View</button>
+                    </th>
+                </tr>
+                <tr class="status-Rejected">
+                    <th>3</th>
+                    <th>PAGOTAISIDRO, MARCO JEAN F,</th>
+                    <th>1118374859</th>
+                    <th>12/23/2025</th>
+                    <th>09358374977</th>
+                    <th>Rejected</th>
+                    <th>
+                        <button class="btn btn-sm" id="viewStudentRejected">View</button>
+                    </th>
+                </tr>
+            </tbody>
         </table>
     </div>
 
@@ -40,6 +79,181 @@
             text-overflow: ellipsis;
         }
     </style>
+    <!-- LEARNERS MANAGEMENT PENDING -->
+    <div class="modal fade" id="learnersModal" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form id="childForm" enctype="multipart/form-data">
+                    <div class="modal-header bg-secondary" style="border-bottom: 1px solid #ddd;">
+                        <h5 class="modal-title text-white">STUDENT INFORMATIONS</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
+                        <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
+                            <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">LRN: </label>
+                                <span>11193849573</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Status: </label>
+                                <span style="font-size: 12px !important;">PENDING</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-12 d-flex flex-column align-items-start justify-content-start ps-1">
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Name: </label>
+                                <span class="ms-2">PAGOTAISIDRO, MARCO JEAN F.</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Grade: </label>
+                                <span class="ms-2">6</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Section: </label>
+                                <span class="ms-1">Venus</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Parent Contact: </label>
+                                <span class="ms-1">09847384762</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
+                            Profile
+                        </button>
+                        <button class="btn btn-success text-white" type="submit">
+                            <i class="fa fa-save me-1"></i>Validate Learner
+                        </button>
+                        <button class="btn btn-danger text-white" type="submit">
+                            Reject
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEARNERS MANAGEMENT VALIDATED -->
+    <div class="modal fade" id="learnersModalValidated" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form id="childForm" enctype="multipart/form-data">
+                    <div class="modal-header bg-success" style="border-bottom: 1px solid #ddd;">
+                        <h5 class="modal-title text-white">STUDENT INFORMATIONS</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                         <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
+                            <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
+                                <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">LRN: </label>
+                                    <span>11193849573</span>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Status: </label>
+                                    <span style="font-size: 12px !important;">VALIDATED</span>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-12 d-flex flex-column align-items-start justify-content-start ps-1">
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Name: </label>
+                                    <span class="ms-2">PAGOTAISIDRO, MARCO JEAN F.</span>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Grade: </label>
+                                    <span class="ms-2">6</span>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Section: </label>
+                                    <span class="ms-1">Venus</span>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Parent Contact: </label>
+                                    <span class="ms-1">09847384762</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
+                            Profile
+                        </button>
+                        <button class="btn btn-success text-white" type="submit">
+                            <i class="fa fa-save me-1"></i>Validate
+                        </button>
+                        <button class="btn btn-danger text-white" type="submit">
+                            Reject
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEARNERS MANAGEMENT REJECTED -->
+    <div class="modal fade" id="learnersModalRejected" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form id="childForm" enctype="multipart/form-data">
+                    <div class="modal-header bg-danger" style="border-bottom: 1px solid #ddd;">
+                        <h5 class="modal-title text-white">STUDENT INFORMATIONS</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                         <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
+                            <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
+                                <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">LRN: </label>
+                                    <span>11193849573</span>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Status: </label>
+                                    <span style="font-size: 12px !important;">REJECTED</span>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-12 d-flex flex-column align-items-start justify-content-start ps-1">
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Name: </label>
+                                    <span class="ms-2">PAGOTAISIDRO, MARCO JEAN F.</span>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Grade: </label>
+                                    <span class="ms-2">6</span>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Section: </label>
+                                    <span class="ms-1">Venus</span>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="d-flex align-items-center m-0 p-0">Parent Contact: </label>
+                                    <span class="ms-1">09847384762</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
+                            Profile
+                        </button>
+                        <button class="btn btn-success text-white" type="submit">
+                            <i class="fa fa-save me-1"></i>Validate
+                        </button>
+                        <button class="btn btn-danger text-white" type="submit">
+                            Delete
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal -->
     <div class="modal fade " id="childModal" tabindex="-1">
         <div class="modal-dialog  modal-lg ">
@@ -197,5 +411,40 @@
     </div>
 </section>
 <script>
-    
+       $(document).ready(function () { 
+            // Show modal when View button is clicked
+            $('#viewStudent').click(function () {
+                $('#learnersModal').modal('show');
+            });
+            $('#viewStudentValidated').click(function () {
+                $('#learnersModalValidated').modal('show');
+            });
+            $('#viewStudentRejected').click(function () {
+                $('#learnersModalRejected').modal('show');
+            });
+
+            $('#viewBtnLearners').off('click').on('click', function () {
+                const id = $(this).data('id'); 
+                sessionStorage.setItem('learners_id', id); 
+                location.href = 'index.php?page=contents/users/view_learners'; 
+            });
+        });
+
+
+    const statusFilter = document.getElementById('statusFilter');
+    const tableRows = document.querySelectorAll('#student-tbl-1 tbody tr');
+    function filterTable() {
+        const selectedStatus = statusFilter.value;
+        
+        tableRows.forEach(row => {
+            const rowStatus = row.classList[0].replace('status-', '');
+            
+            if (selectedStatus === '' || selectedStatus === rowStatus) {
+                row.style.display = ''; 
+            } else {
+                row.style.display = 'none'; 
+            }
+        });
+    }
+    statusFilter.addEventListener('change', filterTable);
 </script>
