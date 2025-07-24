@@ -155,7 +155,7 @@
         <!-- Children List Table -->
          <div class="col-md-12 col-12 d-flex  flex-wrap h-auto">
             <!-- <div class="card col-md-5 col-5 d-flex" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);"> -->
-                <div class="card-body col-md-5 col-10 d-flex p-0 m-0 shadow p-2 m-2 rounded-4">
+                <div class="card-body col-md-5 col-10 d-flex p-0 m-0 shadow p-2 m-2 rounded-3">
                     <div class="img col-md-4 col-4 d-flex align-items-center justify-content-center flex-column">
                         <img src="../../assets/image/users.png" alt="" style="width: 90px; height: 90px; border-radius: 50%;">
                         <label for="">LRN: 9384590343</label>
@@ -173,9 +173,13 @@
                             <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">STATUS: </label>
                             <span>ENROLLED</span>
                         </div>
+                        <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end">
+                            <button class="me-2 btn btn-success" type="button" id="enrollBtn">Enroll</button>
+                            <button class="me-2 btn btn-secondary">Edit</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body col-md-5 col-10 d-flex p-0 m-0 shadow p-2 m-2 rounded-4">
+                <div class="card-body col-md-5 col-10 d-flex p-0 m-0 shadow p-2 m-2 rounded-3">
                     <div class="img col-md-4 col-4 d-flex align-items-center justify-content-center flex-column">
                         <img src="../../assets/image/users.png" alt="" style="width: 90px; height: 90px; border-radius: 50%;">
                         <label for="">LRN: 9384590343</label>
@@ -193,11 +197,49 @@
                             <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">STATUS: </label>
                             <span>UNENROLLED</span>
                         </div>
+                        <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end">
+                            <button class="me-2 btn btn-success" type="button" id="enrollBtn">Enroll</button>
+                            <button class="me-2 btn btn-secondary" type="button">Edit</button>
+                        </div>
                     </div>
                 </div>
             <!-- </div> -->
          </div>
         
+    </div>
+    <div class="modal fade" id="enrollModal" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form id="childForm" enctype="multipart/form-data">
+                    <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
+                        <h5 class="modal-title text-white">Enroll Child</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex flex-column">
+                            <label for="">Grade Level</label>
+                            <select name="" id="" class="form-select">
+                                <option value="">Select grade level</option>
+                                <option value="">Kinder 1</option>
+                                <option value="">kinder 2</option>
+                                <option value="">Grade 1</option>
+                                <option value="">Grade 2</option>
+                                <option value="">Grade 3</option>
+                                <option value="">Grade 4</option>
+                                <option value="">Grade 5</option>
+                                <option value="">Grade 6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success text-white" type="submit">
+                            <i class="fa fa-save me-1"></i>Submit Request
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Add/Edit Child Modal -->
@@ -741,7 +783,20 @@
         </div>
     </div>
 </section>
+<!-- ============== MARCO JAVASCRIPT FOR MODAL ENROLMENT =================== -->
+<script>
+    $(document).ready(function () {
+        renderTable();
 
+        $('#enrollBtn').click(function () {
+            $('#childForm')[0].reset();
+            $('#childId').val('');
+            $('#enrollModal').modal('show');
+        });
+    });
+</script>
+
+<!-- ============== STATIC BACKEND =================== -->
 <script>
     let dataTable;
     let currentStudentData = null; // Store current student data
