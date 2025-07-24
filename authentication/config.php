@@ -66,6 +66,9 @@ function db_connect()
                 birth VARCHAR(10) NOT NULL,
                 gender VARCHAR(10) NOT NULL,
                 teacher_status VARCHAR(10) NOT NULL,
+                reg_status ENUM('Pending', 'Approved', 'Rejected', 'Invalidation') DEFAULT 'Pending',
+
+
                 email VARCHAR(100) NOT NULL,
                 username VARCHAR(50) NOT NULL,
                 password VARCHAR(255) NOT NULL,
@@ -98,6 +101,8 @@ function db_connect()
                 birth VARCHAR(10) NOT NULL,
                 gender VARCHAR(10) NOT NULL,
                 parent_status VARCHAR(10) NOT NULL,
+                
+                reg_status ENUM('Pending', 'Approved', 'Rejected', 'Invalidation') DEFAULT 'Pending',
                 email VARCHAR(100) NOT NULL,
                 username VARCHAR(50) NOT NULL,
                 password VARCHAR(255) NOT NULL,
@@ -124,6 +129,7 @@ function db_connect()
                 
                 learner_picture VARCHAR(255),
                 learner_status ENUM('Active', 'Inactive', 'Transferred', 'Graduated') DEFAULT 'Active',
+                reg_status ENUM('Pending', 'Approved', 'Rejected', 'Invalidation') DEFAULT 'Pending',
 
                 -- Address
                 home_street VARCHAR(100) NOT NULL,

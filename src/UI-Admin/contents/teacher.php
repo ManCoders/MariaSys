@@ -35,7 +35,7 @@
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
-            <tbody id="tb_data_body-2"></tbody>
+            <tbody id="tb_data_body"></tbody>
         </table>
     </div>
 
