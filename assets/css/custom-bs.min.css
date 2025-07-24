@@ -53,6 +53,9 @@
     --bs-body-line-height: 1.5;
     --bs-body-color: #67748e;
     --bs-body-bg: #fff;
+    --bs-body-bg: #d1d1d1;
+    --bs-logo: url('../assets/image/system_logo/logo.png');
+    --bs-background: url('../assets/image/system_logo/bg.jpg');
     --btn-primary: rgb(126, 126, 126);
 }
 
@@ -71,15 +74,20 @@
 body {
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
-    background-color: var(--bs-body-bg);
+    background-image: url('../assets/image/system_logo/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
     color: var(--bs-body-color);
     font-family: var(--bs-body-font-family);
     font-size: var(--bs-body-font-size);
     font-weight: var(--bs-body-font-weight);
     line-height: var(--bs-body-line-height);
     margin: 0;
-    text-align: var(--bs-body-text-align)
+    text-align: var(--bs-body-text-align);
 }
+
 
 hr {
     background-color: currentColor;
@@ -998,7 +1006,7 @@ progress {
 }
 
 @media(min-width:576px) {
-    
+
     .col-sm {
         flex: 1 0 0%
     }
@@ -3447,7 +3455,8 @@ textarea.form-control.is-valid {
 }
 
 .invalid-feedback {
-    color: #67748e;;
+    color: #67748e;
+    ;
     display: none;
     font-size: .875em;
     margin-top: .25rem;
@@ -3481,13 +3490,15 @@ textarea.form-control.is-valid {
     background-position: right .75rem center;
     background-repeat: no-repeat;
     background-size: 1rem 1rem;
-    border-color: #67748e;;
+    border-color: #67748e;
+    ;
     padding-right: unset
 }
 
 .form-control.is-invalid:focus,
 .was-validated .form-control:invalid:focus {
-    border-color: #67748e;;
+    border-color: #67748e;
+    ;
     box-shadow: 0 0 0 2px rgba(253, 92, 112, .25)
 }
 
@@ -3514,7 +3525,8 @@ textarea.form-control.is-invalid {
 
 .form-select.is-invalid:focus,
 .was-validated .form-select:invalid:focus {
-    border-color: #67748e;;
+    border-color: #67748e;
+    ;
     box-shadow: 0 0 0 2px rgba(253, 92, 112, .25)
 }
 
@@ -26240,4 +26252,3 @@ pre[class*=language-] {
         overflow: auto !important
     }
 }
-
