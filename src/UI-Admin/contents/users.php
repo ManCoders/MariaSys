@@ -1,7 +1,7 @@
 <style>
-    .fontSize{
-        font-size: 15px !important;
-    }
+.fontSize {
+    font-size: 15px !important;
+}
 </style>
 <section class="p-2">
     <div>
@@ -21,14 +21,14 @@
         <h5 class="text-muted mb-3">OverView Card</h5>
         <div class="row parent-card-scroll" id="parent-card-view"></div>
     </div>
-    <div class="overviewContents col-md-12 col-12 d-flex flex-wrap">
+    <div class="overviewContents col-md-12 col-12 d-flex flex-wrap align-items-start justify-content-center" style="height: 70vh; overflow-y: scroll;">
         <div class="col-md-5 col-5 rounded-3 shadow d-flex p-2 px-4 m-2 flex-row">
             <div class="image col-md-4 col-4 d-flex flex-column align-items-center justify-content=center">
                 <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
                 <div class="d-flex align-items-center justify-content-center">
-                <span class="fontSize">Status: </span>
-                <span class="ms-1 fw-bold text-muted fontSize" >ACTIVE</span>
-            </div>
+                    <span class="fontSize">Status: </span>
+                    <span class="ms-1 fw-bold text-muted fontSize">ACTIVE</span>
+                </div>
             </div>
             <div class="d-flex flex-column align-items-start justify-content-start col-md-8 col-8">
                 <div class="d-flex flex-row">
@@ -43,21 +43,21 @@
                     <label class="fontSize">Gmail: </label>
                     <span class="text-center text-muted ms-1">parent@example.edu.ph</span>
                 </div>
-                <div class="button col-md-12 justify-content-end align-items-end d-flex" style="border-top: solid 1px rgba(0,0,0,.4)">
-                    <button class="btn btn-sm m-0">view</button>
+                <div class="button col-md-12 justify-content-end align-items-end d-flex">
+                    <button class="btn btn-sm m-0 mb-2 viewBtnUsers">view</button>
                 </div>
             </div>
-            
+
         </div>
 
         <!-- SECOND SAMPLE USER -->
-         <div class="col-md-5 col-5 rounded-3 shadow d-flex p-2 px-4 m-2 flex-row">
+        <div class="col-md-5 col-5 rounded-3 shadow d-flex p-2 px-4 m-2 flex-row">
             <div class="image col-md-4 col-4 d-flex flex-column align-items-center justify-content=center">
                 <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
                 <div class="d-flex align-items-center justify-content-center">
-                <span class="fontSize">Status: </span>
-                <span class="ms-1 fw-bold text-muted fontSize" >ACTIVE</span>
-            </div>
+                    <span class="fontSize">Status: </span>
+                    <span class="ms-1 fw-bold text-muted fontSize">ACTIVE</span>
+                </div>
             </div>
             <div class="d-flex flex-column align-items-start justify-content-start col-md-8 col-8">
                 <div class="d-flex flex-row">
@@ -72,11 +72,11 @@
                     <label class="fontSize">Gmail: </label>
                     <span class="text-center text-muted ms-1">parent@example.edu.ph</span>
                 </div>
-                <div class="button col-md-12 justify-content-end align-items-end d-flex" style="border-top: solid 1px rgba(0,0,0,.4)">
-                    <button class="btn btn-sm m-0">view</button>
+                <div class="button col-md-12 justify-content-end align-items-end d-flex">
+                    <button class="btn btn-sm m-0 mb-2 viewBtnUsers">view</button>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <!-- Modal -->
@@ -134,42 +134,46 @@
 </section>
 
 <style>
-    .parent-view-grid .parent-card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 15px;
-        background: #f9f9f9;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
+.parent-view-grid .parent-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-    .parent-view-grid .parent-card h6 {
-        margin: 0 0 5px 0;
-        font-weight: bold;
-    }
+.parent-view-grid .parent-card h6 {
+    margin: 0 0 5px 0;
+    font-weight: bold;
+}
 
-    .parent-view-grid .parent-card small {
-        font-size: 0.85rem;
-        color: #555;
-    }
+.parent-view-grid .parent-card small {
+    font-size: 0.85rem;
+    color: #555;
+}
 
-    /* ✅ Scroll container */
-    .parent-card-scroll {
-        max-height: 350px;
-        overflow-y: auto;
-        padding-right: 10px;
-    }
+/* ✅ Scroll container */
+.parent-card-scroll {
+    max-height: 350px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
 
-    .parent-card-scroll::-webkit-scrollbar {
-        width: 8px;
-    }
+.parent-card-scroll::-webkit-scrollbar {
+    width: 8px;
+}
 
-    .parent-card-scroll::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
-    }
+.parent-card-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
 </style>
-<!-- 
+
 <script>
-   
-</script> -->
+$('.viewBtnUsers').off('click').on('click', function() {
+    const id = $(this).data('id');
+    sessionStorage.setItem('teacher_id', id);
+    location.href = 'index.php?page=contents/users/view_users';
+});
+</script>
