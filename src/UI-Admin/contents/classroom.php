@@ -81,7 +81,7 @@
                             <label for="">Section</label>
                             <select name="academic_year" id="" class="form-select">
                                 <option value="">Select Section</option>
-                                <option value="">JUPITURN</option>
+                                <option value="">JUPITER</option>
                                 <option value="">SATURN</option>
                                 <option value="">EARTH</option>
                                 <option value="">MARS</option>
@@ -117,5 +117,4 @@
             $('#classroomModal').modal('show');
         });
     });
-
 </script>

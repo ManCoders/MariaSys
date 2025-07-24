@@ -37,18 +37,6 @@
         <a href="index.php?page=contents/users" class="nav-link nav-users d-flex align-items-center">
             <i class="fas fa-laptop me-2"></i>Users Accounts
         </a>
-        <a href="index.php?page=contents/health" class="nav-link nav-health d-flex align-items-center">
-            <i class="fas fa-heartbeat me-2"></i> Medical Health
-        </a>
-        <a href="index.php?page=contents/Classroom" class="nav-link nav-Classroom d-flex align-items-center">
-            <i class="fas fa-building me-2"></i> School Classroom
-        </a>
-        <a href="index.php?page=contents/enrolled" class="nav-link nav-enrolled d-flex align-items-center">
-            <i class="fas fa-user-plus me-2"></i> Enrollment
-        </a>
-        <a href="index.php?page=contents/record" class="nav-link nav-record  d-flex align-items-center">
-            <i class="fas fa-database me-2"></i> Generate Data
-        </a>
         <a href="index.php?page=contents/setting" class="nav-link nav-setting d-flex align-items-center">
             <i class="fas fa-cog me-2"></i> Setting Settings
         </a>
