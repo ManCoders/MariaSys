@@ -120,8 +120,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
-                            Profile
+                        <button class="btn btn-success text-white" type="Button" id="viewForm">
+                            Form
                         </button>
                         <button class="btn btn-success text-white" type="submit">
                             <i class="fa fa-save me-1"></i>Validate Learner
@@ -145,36 +145,34 @@
                         <h5 class="modal-title text-white">STUDENT INFORMATIONS</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="modal-body">
-                         <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
-                            <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
-                                <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">LRN: </label>
-                                    <span>11193849573</span>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Status: </label>
-                                    <span style="font-size: 12px !important;">VALIDATED</span>
-                                </div>
+                    <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
+                        <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
+                            <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">LRN: </label>
+                                <span>11193849573</span>
                             </div>
-                            <div class="col-md-8 col-12 d-flex flex-column align-items-start justify-content-start ps-1">
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Name: </label>
-                                    <span class="ms-2">PAGOTAISIDRO, MARCO JEAN F.</span>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Grade: </label>
-                                    <span class="ms-2">6</span>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Section: </label>
-                                    <span class="ms-1">Venus</span>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Parent Contact: </label>
-                                    <span class="ms-1">09847384762</span>
-                                </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Status: </label>
+                                <span style="font-size: 12px !important;">PENDING</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-12 d-flex flex-column align-items-start justify-content-start ps-1">
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Name: </label>
+                                <span class="ms-2">PAGOTAISIDRO, MARCO JEAN F.</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Grade: </label>
+                                <span class="ms-2">6</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Section: </label>
+                                <span class="ms-1">Venus</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Parent Contact: </label>
+                                <span class="ms-1">09847384762</span>
                             </div>
                         </div>
                     </div>
@@ -204,36 +202,34 @@
                         <h5 class="modal-title text-white">STUDENT INFORMATIONS</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="modal-body">
-                         <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
-                            <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
-                                <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">LRN: </label>
-                                    <span>11193849573</span>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Status: </label>
-                                    <span style="font-size: 12px !important;">REJECTED</span>
-                                </div>
+                    <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
+                        <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
+                            <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">LRN: </label>
+                                <span>11193849573</span>
                             </div>
-                            <div class="col-md-8 col-12 d-flex flex-column align-items-start justify-content-start ps-1">
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Name: </label>
-                                    <span class="ms-2">PAGOTAISIDRO, MARCO JEAN F.</span>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Grade: </label>
-                                    <span class="ms-2">6</span>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Section: </label>
-                                    <span class="ms-1">Venus</span>
-                                </div>
-                                <div class="d-flex">
-                                    <label class="d-flex align-items-center m-0 p-0">Parent Contact: </label>
-                                    <span class="ms-1">09847384762</span>
-                                </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Status: </label>
+                                <span style="font-size: 12px !important;">PENDING</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-12 d-flex flex-column align-items-start justify-content-start ps-1">
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Name: </label>
+                                <span class="ms-2">PAGOTAISIDRO, MARCO JEAN F.</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Grade: </label>
+                                <span class="ms-2">6</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Section: </label>
+                                <span class="ms-1">Venus</span>
+                            </div>
+                            <div class="d-flex">
+                                <label class="d-flex align-items-center m-0 p-0">Parent Contact: </label>
+                                <span class="ms-1">09847384762</span>
                             </div>
                         </div>
                     </div>
@@ -409,6 +405,11 @@
             </div>
         </div>
     </div>
+
+    <!-- form modal wtf ang dami tang ina -->
+     
+
+
 </section>
 <script>
        $(document).ready(function () { 
@@ -422,11 +423,15 @@
             $('#viewStudentRejected').click(function () {
                 $('#learnersModalRejected').modal('show');
             });
-
             $('#viewBtnLearners').off('click').on('click', function () {
                 const id = $(this).data('id'); 
                 sessionStorage.setItem('learners_id', id); 
                 location.href = 'index.php?page=contents/users/view_learners'; 
+            });
+            $('#viewForm').off('click').on('click', function () {
+                const id = $(this).data('id'); 
+                sessionStorage.setItem('learners_id', id); 
+                location.href = 'index.php?page=contents/users/form'; 
             });
         });
 
