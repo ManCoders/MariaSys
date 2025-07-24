@@ -44,7 +44,8 @@
                     <span class="text-center text-muted ms-1">parent@example.edu.ph</span>
                 </div>
                 <div class="button col-md-12 justify-content-end align-items-end d-flex">
-                    <button class="btn btn-sm m-0 mb-2 viewBtnUsers">view</button>
+                    <button class="btn btn-sm m-0 mb-2 viewBtnUsers">Profile</button>
+                    <button class="btn btn-sm m-0 mb-2 mx-1">View learner</button>
                 </div>
             </div>
 
@@ -74,6 +75,7 @@
                 </div>
                 <div class="button col-md-12 justify-content-end align-items-end d-flex">
                     <button class="btn btn-sm m-0 mb-2 viewBtnUsers">view</button>
+                    <button class="btn btn-sm m-0 mb-2 mx-1">View learner</button>
                 </div>
             </div>
 
