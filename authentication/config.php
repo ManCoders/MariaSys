@@ -98,8 +98,8 @@ function db_connect()
                 city VARCHAR(50) NOT NULL,
                 barangay VARCHAR(50) NOT NULL,
                 occupation VARCHAR(100) NOT NULL,
-                birth VARCHAR(10) NOT NULL,
-                gender VARCHAR(10) NOT NULL,
+                dateofbirth DATE NOT NULL,
+                gender ENUM ('Male', 'Female', 'Other') DEFAULT NULL,
                 parent_status VARCHAR(10) NOT NULL,
                 
                 reg_status ENUM('Pending', 'Approved', 'Rejected', 'Invalidation') DEFAULT 'Pending',
@@ -166,6 +166,7 @@ function db_connect()
             ",
             "CREATE TABLE IF NOT EXISTS school_year (
                 school_year_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                school_year_status ENUM('Active', 'Inactive') DEFAULT 'Inactive',
                 school_year_name VARCHAR(50) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
@@ -351,7 +352,7 @@ function db_connect()
         if ($count == 0) {
             $stmt = $pdo->prepare("INSERT INTO parent (
                 firstname, middlename, lastname, suffix, cpno, position, department, rating,
-                province, city, barangay, birth, gender, parent_status,
+                province, city, barangay, dateofbirth, gender, parent_status,
                 email, username, password, user_role, parent_picture
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 

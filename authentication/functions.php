@@ -177,6 +177,27 @@ function get_option($key)
     }
 }
 
+function getSchoolYear($school_year)
+{
+    try {
+        $pdo = db_connect();
+
+        $stmt = $pdo->prepare("SELECT * FROM school_year WHERE school_year_status = 'Active' LIMIT 1");
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            return $row['' . $school_year . ''];
+        }
+        return '';
+
+    } catch (PDOException $e) {
+        error_log("Database error in get_option(): " . $e->getMessage());
+        return '';
+    }
+}
+
 
 function get_section($id, $key)
 {

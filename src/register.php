@@ -24,17 +24,18 @@
                                     <option selected value="Parent">Parents</option> 
                                 </select>
                             </div>
-                                <div class="col-md-3 ">
-                                    <label class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" name="LastName" required>
-                                </div>
+                                
                                 <div class="col-md-3 ">
                                     <label class="form-label">First Name</label>
-                                    <input type="text" class="form-control" name="FirstName" required>
+                                    <input type="text" class="form-control" name="firstName" required>
                                 </div>
                                 <div class="col-md-3 ">
                                     <label class="form-label">Middle Name</label>
-                                    <input type="text" class="form-control" name="MiddleName" required>
+                                    <input type="text" class="form-control" name="middleName" required>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" name="lastName" required>
                                 </div>
                             </div>
 
@@ -86,7 +87,7 @@
                                 <input class="" type="checkbox" id="agree" name="agree" required>
                                 <label class="form-check-label" for="agree">
                                     I agree to the
-                                    <a href="terms.php" class="text-danger text-decoration-none">Terms and
+                                    <a href="#" class="text-danger text-decoration-none">Terms and
                                         Conditions</a>
                                 </label>
                             </div>
