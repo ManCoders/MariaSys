@@ -164,35 +164,41 @@
 
               <!-- Guardian's Name -->
               <div class="col-md-6 mb-3">
-                <label for="guardianName" class="form-label">Parent/Guardian Full Name</label>
+                <label for="guardianName" class="form-label">LRN :  </label>
                 <input type="text" class="form-control" id="guardianName" name="guardianName" required>
               </div>
 
               <!-- Relationship -->
               <div class="col-md-6 mb-3">
                 <label for="relationship" class="form-label">Relationship to Learner</label>
-                <input type="text" class="form-control" id="relationship" name="relationship" required
-                  placeholder="e.g., Mother, Father">
-              </div>
-
-              <!-- Guardian Occupation -->
-              <div class="col-md-6 mb-3">
-                <label for="guardianOccupation" class="form-label">Occupation</label>
-                <input type="text" class="form-control" id="guardianOccupation" name="guardianOccupation">
+                <select class="form-select" id="relationship" name="relationship" required>
+                  <option value="" selected disabled>Select Relationship</option>
+                  <option value="Mother">Mother</option>
+                  <option value="Father">Father</option>
+                  <option value="Guardian">Guardian</option>
+                </select>
               </div>
 
               <!-- Contact Number -->
               <div class="col-md-6 mb-3">
                 <label for="contactNumber" class="form-label">Contact Number</label>
-                <input type="tel" class="form-control" id="contactNumber" name="contactNumber"
+                <input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="<?php echo $_SESSION['parentData']['cpno'] ?>"
                   placeholder="e.g., 0917xxxxxxx" required>
               </div>
 
               <!-- Home Address (full-width) -->
-              <div class="col-12 mb-3">
+              <div class="col-6 mb-3">
                 <label for="address" class="form-label">Complete Home Address</label>
                 <textarea class="form-control" id="address" name="address" rows="2"
                   placeholder="Street, Barangay, City/Municipality, Province" required></textarea>
+              </div>
+              <div class="col-6 mb-3">
+                <label for="profilePicInput" class="form-label">Profile Picture Learner</label>
+                <input type="file" class="form-control" id="profilePicInput" name="profile_picture" accept="image/*">
+              </div>
+              <div class="col-6 mb-3">
+                <label for="profilePicInput" class="form-label">Learner PSA, or Birth Certificate</label>
+                <input type="file" class="form-control" id="profilePicInput" name="profile_picture" accept=".pdf, image/*, .doc, .docx">
               </div>
             </div>
           </div>
