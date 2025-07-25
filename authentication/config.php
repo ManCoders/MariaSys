@@ -429,7 +429,7 @@ function db_connect()
             $stmt->execute([
                 'Sta.Maria Elementary School',
                 'A modern web-based school portal for admin, teachers, and parents.',
-                'default.jpeg'
+                'logo2.png'
             ]);
         }
 

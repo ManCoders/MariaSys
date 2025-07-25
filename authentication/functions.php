@@ -161,7 +161,7 @@ function get_option($key)
     try {
         $pdo = db_connect();
 
-        $stmt = $pdo->prepare("SELECT system_title, system_description FROM system ");
+        $stmt = $pdo->prepare("SELECT system_title, system_description, system_logo FROM system ");
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);

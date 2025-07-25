@@ -8,7 +8,7 @@ initInstaller()
         <div class="row align-items-center justify-content-between m-4">
             <!-- Logo Column -->
             <div class="col-md-4 w-65 text-center">
-                <img src="../assets/image/system_logo/logo2.png" alt="Logo" class="img-fluid m-3">
+                <img src="../assets/image/system_logo/<?php echo get_option('system_logo'); ?>" alt="Logo" class="img-fluid m-3">
             </div>
 
             <!-- Login Form Column -->
@@ -16,7 +16,7 @@ initInstaller()
                 <div class="shadow-lg bg-white rounded">
                     <div class="card-header text-center">
                         <div class="school-logo">
-                            <img src="../assets/image/system_logo/logo2.png" class="w-25" alt="logo">
+                            <img src="../assets/image/system_logo/<?php echo get_option('system_logo'); ?>" class="w-25" alt="logo">
                         </div>
                         <h4 class="card-title text-danger fw-bold mb-2">Login Access</h4>
                         <p class="card-text text-muted small">
@@ -44,6 +44,7 @@ initInstaller()
                                     placeholder="Password" required>
                             </div>
                         </div>
+                        
 
                         <div class="m-4">
                             <button type="submit" class="btn btn-danger btn-login w-100">
@@ -51,7 +52,7 @@ initInstaller()
                             </button>
                         </div>
 
-                        <div class="text-center">
+                        <div class="text-center p-3">
                             <small class="text">Don't have an account?</small><br>
                             <a href="register.php" class="text-decoration-none text-danger m-3 fw-semibold">
                                 Create Account

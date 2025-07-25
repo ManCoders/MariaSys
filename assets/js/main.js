@@ -168,7 +168,8 @@ $(document).ready(function () {
   $("body").on("submit", "#register-form", function (e) {
     e.preventDefault();
     const $this = $(this);
-    const data = new FormData(this);
+    alert('test')
+    /* const data = new FormData(this);
     data.append("action", "register-form");
 
     if (!$this.hasClass("processing")) {
@@ -186,21 +187,10 @@ $(document).ready(function () {
         },
         success: function (response) {
           if (response.status == 1) {
-            Swal.fire({
-              title: "Success!",
-              text: response.message,
-              icon: "success",
-              toast: true,
-              position: "top-end",
-              timer: 3000,
-              showConfirmButton: false,
-            }).then(() => {
-              window.location.href =
-                base_url + response.redirect_url || base_url + "src/";
-            });
+            showError(response.message, "success", "Success!", response.redirect_url + 'src/');
             $this.removeClass("processing");
           } else {
-            showError(response.message);
+            showError(response.message, 'error', 'Error!');
             $this.find("button[type='submit']").text("Please try again!");
             $this.removeClass("processing");
           }
@@ -213,7 +203,7 @@ $(document).ready(function () {
           $this.removeClass("processing");
         },
       });
-    }
+    } */
   });
 
   $("body").on("click", "#logout", function (e) {
@@ -228,20 +218,9 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response.status == 1) {
-          Swal.fire({
-            title: "Success!",
-            text: response.message,
-            icon: "success",
-            toast: true,
-            position: "top-end",
-            timer: 3000,
-            showConfirmButton: false,
-          }).then(() => {
-            window.location.href =
-              base_url + (response.redirect_url || "index.php");
-          });
+          showError(response.message, "success", "Success!", response.redirect_url);
         } else {
-          showError(response.message);
+          showError(response.message, 'error', 'Error!');
         }
       },
       error: function () {
@@ -251,17 +230,17 @@ $(document).ready(function () {
   });
 
 
-  function showError(message) {
+  function showError(message, icon, title, url = null) {
     Swal.fire({
-      title: "Error",
+      title: title,
       text: message,
-      icon: "error",
+      icon: icon,
       toast: true,
       position: "top-end",
       timer: 3000,
       showConfirmButton: false,
     }).then(() => {
-      window.location.href = base_url;
+      window.location.href = base_url + url;
     });
   }
 });
