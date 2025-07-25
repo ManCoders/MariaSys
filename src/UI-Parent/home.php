@@ -217,7 +217,7 @@
       </div>
 
       <div class="modal-body">
-        <div class="container">
+        <div >
 
           <!-- Image and Name -->
           <div class="row align-items-start mb-4">
@@ -300,10 +300,125 @@
       </div>
 
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="editEnrolleeBtn" data-bs-toggle="modal" data-bs-target="#editEnrolleeModal">Edit</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
+<!-- Edit Enrollee Info Modal -->
+<div class="modal fade" id="editEnrolleeModal" tabindex="-1" aria-labelledby="editEnrolleeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <form id="editEnrolleeForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editEnrolleeModalLabel">Edit Enrollee Information</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div >
+
+            <!-- Image and Name -->
+            <div class="row align-items-start mb-4">
+              <div class="col-md-3 text-center">
+                <img src="../../assets/image/users.png" class="img-thumbnail rounded-circle w-75" alt="Profile Picture">
+              </div>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <label for="lastName" class="form-label fw-bold">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" value="Dela Cruz" required>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="firstName" class="form-label fw-bold">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" value="Juan" required>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="middleName" class="form-label fw-bold">Middle Name</label>
+                    <input type="text" class="form-control" id="middleName" name="middleName" value="Santos">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="birthdate" class="form-label fw-bold">Date of Birth</label>
+                <input type="date" class="form-control" id="birthdate" name="birthdate" value="2015-09-15" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="birthPlace" class="form-label fw-bold">Place of Birth</label>
+                <input type="text" class="form-control" id="birthPlace" name="birthPlace" value="Quezon City" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="sex" class="form-label fw-bold">Sex</label>
+                <select class="form-select" id="sex" name="sex" required>
+                  <option value="Male" selected>Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="gradeLevel" class="form-label fw-bold">Grade Level</label>
+                <select class="form-select" id="gradeLevel" name="gradeLevel" required>
+                  <option selected>Grade 3</option>
+                  <option>Kindergarten</option>
+                  <option>Grade 1</option>
+                  <option>Grade 2</option>
+                  <option>Grade 4</option>
+                  <option>Grade 5</option>
+                  <option>Grade 6</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Guardian Information -->
+            <hr>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="guardianName" class="form-label fw-bold">Parent/Guardian Name</label>
+                <input type="text" class="form-control" id="guardianName" name="guardianName" value="Maria Dela Cruz" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="relationship" class="form-label fw-bold">Relationship</label>
+                <input type="text" class="form-control" id="relationship" name="relationship" value="Mother" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="guardianOccupation" class="form-label fw-bold">Occupation</label>
+                <input type="text" class="form-control" id="guardianOccupation" name="guardianOccupation" value="Teacher">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="contactNumber" class="form-label fw-bold">Contact Number</label>
+                <input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="09171234567" required>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <hr>
+            <div class="row">
+              <div class="col-12 mb-3">
+                <label for="address" class="form-label fw-bold">Complete Address</label>
+                <textarea class="form-control" id="address" name="address" rows="2" required>123 Sampaguita St., Brgy. Malinis, Quezon City, Metro Manila</textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save Changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 
