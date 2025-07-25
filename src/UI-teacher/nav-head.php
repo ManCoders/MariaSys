@@ -179,7 +179,7 @@ $teacherData = $_SESSION['teacherData']['lastname'];
   }
 </style>
 
-<nav class="navbar mx-2">
+<nav class="navbar m-0 mb-1">
   <div class="nav-brand">
     <i class="fas fa-graduation-cap"></i>
     <strong>Sta. Maria Elementary School - Teacher Panel</strong>

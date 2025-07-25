@@ -3,6 +3,7 @@
             max-width: 1200px;
             margin: auto;
             padding: 20px;
+            border-radius: 10px !important;
         }
 
         header {
@@ -106,7 +107,7 @@
         }
     </style>
 
-<div class="dashboard-admin">
+<div class="dashboard-admin rounded-2">
     <header>
         <h3>Teacher Dashboard</h3>
         <p>Welcome to Sta. Maria Central School - SY:2025-2026</p>

@@ -1,4 +1,4 @@
-<div class="container vh-100">
+<div class="container h-100">
   <!-- Dashboard Header -->
   <div class="text-center mb-2">
     <h3 class="fw-bold text-danger mb-0 ">Welcome to Parent Dashboard</h3>

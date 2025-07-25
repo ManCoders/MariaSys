@@ -9,8 +9,8 @@ $parentData = $_SESSION['parentData']['lastname'];
 ?>
 
 
-<nav class="navbar mb-1 navbar-light bg-white">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
+<nav class="navbar mb-1 navbar-light bg-white m-0 w-100">
+  <div class="container-fluid d-flex justify-content-between align-items-center p-0 m-0">
 
     <div class="d-flex align-items-center gap-2">
       <div class="avatar">
