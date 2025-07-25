@@ -1,4 +1,13 @@
 $(document).ready(function () {
+
+
+/*   $('body').on('click', '#register_child', function () {
+    $('#childForm')[0].reset();
+    $('#childId').val('');
+    $('#profilePreview').attr('src', '../assets/image/users.png');
+    $('#childModal').modal('show');
+  }); */
+
   $("#systemLogo").on("change", function (event) {
     const fileInput = event.target;
     const preview = $(".preview");
@@ -226,6 +235,47 @@ $(document).ready(function () {
       },
     });
   });
+
+
+ /*  $("body").on("submit", "#register-form", function (e) {
+    e.preventDefault();
+    const $this = $(this);
+    const data = new FormData(this);
+
+    if (!$this.hasClass("processing")) {
+      $this.addClass("processing");
+
+      $.ajax({
+        url: base_url + "/authentication/action.php?action=register-form",
+        method: "POST",
+        data: data,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        beforeSend: function () {
+          $("#nextBtn button").text("Processing...");
+        },
+        success: function (response) {
+          if (response.status == 1) {
+            showError(response.message, "success", "Success!", response.redirect_url);
+            $this.removeClass("processing");
+          } else {
+            showError(response.message, 'error', 'Error!', response.redirect_url);
+            $this.find("button[type='submit']").text("Please try again!");
+            $this.removeClass("processing");
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error("AJAX error:", textStatus, errorThrown);
+          $this.removeClass("processing");
+        },
+        complete: function () {
+          $this.removeClass("processing");
+        },
+      });
+    }
+  }); */
+
 
 
   function showError(message, icon, title, url) {
