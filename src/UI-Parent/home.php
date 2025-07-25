@@ -83,9 +83,9 @@
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <form>
-            <div class="modal-header">
-               <h5 class="modal-title" id="enrollmentModalLabel">Elementary Learner Enrollment Form</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header bg-danger  ">
+               <h5 class="modal-title text-white" id="enrollmentModalLabel">Learner Enrollment Form</h5>
+               <button type="button" class="btn-close btn-danger " data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
@@ -197,7 +197,7 @@
             </div>
 
             <div class="modal-footer">
-               <button type="submit" class="btn btn-success">Submit Enrollment</button>
+               <button type="submit" class="btn btn-danger">Submit Enrollment</button>
                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
 
@@ -211,8 +211,8 @@
 <div class="modal fade" id="viewEnrolleeModal" tabindex="-1" aria-labelledby="viewEnrolleeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="viewEnrolleeModalLabel">Enrollee Information</h5>
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title text-white" id="viewEnrolleeModalLabel">Enrollee Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -300,7 +300,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="editEnrolleeBtn" data-bs-toggle="modal" data-bs-target="#editEnrolleeModal">Edit</button>
+        <button type="button" class="btn btn-danger" id="editEnrolleeBtn" data-bs-toggle="modal"  data-bs-target="#editEnrolleeModal">Edit</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
@@ -314,13 +314,13 @@
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <form id="editEnrolleeForm">
-        <div class="modal-header">
+        <div class="modal-header bg-danger">
           <h5 class="modal-title" id="editEnrolleeModalLabel">Edit Enrollee Information</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body">
-          <div >
+          <div class="container-fluid"  >
 
             <!-- Image and Name -->
             <div class="row align-items-start mb-4">
