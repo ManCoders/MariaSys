@@ -13,16 +13,32 @@
       <!-- Child Profile Card 1 -->
       <div class="col-md-6 col-lg-4">
          <div class="card h-100 shadow-sm">
-            <div class="card-header bg-success text-white">
-               <h5 class="mb-0 text-white">Juan Dela Cruz</h5>
+            <div class="card-header bg-primary ">
+               <h5 class="mb-0 text-white">Maria Santos</h5>
             </div>
             <div class="card-body">
-               <p><strong>Grade:</strong> 5 - Section A</p>
-               <p><strong>Age:</strong> 11</p>
-               <p><strong>Gender:</strong> Male</p>
+               <div class="col-md-12 text-center">
+                  <img src="../../assets/image/users.png" class="avatar  w-50 h-auto" alt="">
+               </div>
+               <div class="row text-center">
+                  <div class="col-md-4">
+                  <span>Grade 9</span>
+                  <p><strong>Grade</strong></p>
+               </div>
+               <div class="col-md-4">
+                 <span>9 Year Old</span>
+                  <p><strong>Age</strong></p>
+               </div>
+               <div class="col-md-4">
+                  <span>Male</span>
+                  <p><strong>Gender</strong></p>
+               </div>
+               </div>
             </div>
-            <div class="card-footer mx-auto">
-               <span class="badge bg-success">Status: Active</span>
+            <span class="badge bg-warning col-md-5 mx-auto text-white">Status: On Leave</span>
+            <div class="card-footer mx-auto mb-0">
+               <button class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#viewEnrolleeModal"><i
+                     class="fa fa-eye me-2"></i>View</button>
             </div>
          </div>
       </div>
@@ -34,12 +50,28 @@
                <h5 class="mb-0 text-white">Maria Santos</h5>
             </div>
             <div class="card-body">
-               <p><strong>Grade:</strong> 3 - Section B</p>
-               <p><strong>Age:</strong> 9</p>
-               <p><strong>Gender:</strong> Female</p>
+               <div class="col-md-12 text-center">
+                  <img src="../../assets/image/users.png" class="avatar  w-50 h-auto" alt="">
+               </div>
+               <div class="row text-center">
+                  <div class="col-md-4">
+                  <span>Grade 9</span>
+                  <p><strong>Grade</strong></p>
+               </div>
+               <div class="col-md-4">
+                 <span>Grade 9</span>
+                  <p><strong>Age</strong></p>
+               </div>
+               <div class="col-md-4">
+                  <<span>Grade 9</span>
+                  <p><strong>Gender</strong></p>
+               </div>
+               </div>
             </div>
-            <div class="card-footer mx-auto">
-               <span class="badge bg-warning text-white">Status: On Leave</span>
+            <span class="badge bg-warning col-md-5 mx-auto text-white">Status: On Leave</span>
+            <div class="card-footer mx-auto mb-0">
+               <button class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#viewEnrolleeModal"><i
+                     class="fa fa-eye me-2"></i>View</button>
             </div>
          </div>
       </div>
@@ -100,7 +132,7 @@
                         <label for="birthPlace" class="form-label">Place of Birth</label>
                         <input type="text" class="form-control" id="birthPlace" name="birthPlace" required>
                      </div>
-                     
+
 
                      <!-- Sex -->
                      <div class="col-md-6 mb-3">
@@ -173,3 +205,105 @@
       </div>
    </div>
 </div>
+
+
+<!-- Enrollee Info View Modal -->
+<div class="modal fade" id="viewEnrolleeModal" tabindex="-1" aria-labelledby="viewEnrolleeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewEnrolleeModalLabel">Enrollee Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+
+          <!-- Image and Name -->
+          <div class="row align-items-start mb-4">
+            <div class="col-md-3 text-center">
+              <img src="../../assets/image/users.png" class="img-thumbnail rounded-circle w-75" alt="Profile Picture">
+            </div>
+            <div class="col-md-9">
+              <div class="row">
+                <div class="col-md-4 mb-2">
+                  <label class="form-label fw-bold">Last Name:</label>
+                  <div class="form-control-plaintext">Dela Cruz</div>
+                </div>
+                <div class="col-md-4 mb-2">
+                  <label class="form-label fw-bold">First Name:</label>
+                  <div class="form-control-plaintext">Juan</div>
+                </div>
+                <div class="col-md-4 mb-2">
+                  <label class="form-label fw-bold">Middle Name:</label>
+                  <div class="form-control-plaintext">Santos</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Personal Information -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Date of Birth:</label>
+              <div class="form-control-plaintext">2015-09-15</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Place of Birth:</label>
+              <div class="form-control-plaintext">Quezon City</div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Sex:</label>
+              <div class="form-control-plaintext">Male</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Grade Level:</label>
+              <div class="form-control-plaintext">Grade 3</div>
+            </div>
+          </div>
+
+          <!-- Guardian Information -->
+          <hr>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Parent/Guardian Name:</label>
+              <div class="form-control-plaintext">Maria Dela Cruz</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Relationship:</label>
+              <div class="form-control-plaintext">Mother</div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Occupation:</label>
+              <div class="form-control-plaintext">Teacher</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Contact Number:</label>
+              <div class="form-control-plaintext">09171234567</div>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <hr>
+          <div class="row">
+            <div class="col-12 mb-3">
+              <label class="form-label fw-bold">Complete Address:</label>
+              <div class="form-control-plaintext">
+                123 Sampaguita St., Brgy. Malinis, Quezon City, Metro Manila
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
