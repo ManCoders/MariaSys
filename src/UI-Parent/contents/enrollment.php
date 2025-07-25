@@ -473,70 +473,35 @@
     <!-- Add/Edit Child Modal -->
     <div class="modal fade" id="childModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content   ">
+            <div class="modal-content">
                 <form id="childForm" enctype="multipart/form-data">
                     <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
                         <h5 class="modal-title text-white">Link Child Account</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body d-flex flex-column align-items-center justify-content-center">
                         <input type="hidden" name="child_id" id="childId">
                         <input type="hidden" name="status" value="Pending">
                         <input type="hidden" name="parent_id" id="parentId"
                             value="<?php echo isset($_SESSION['parentData']) ? $_SESSION['parentData']['parent_id'] : ''; ?>">
 
                         <!-- LRN -->
-                        <div class="row">
-                            <div class="col-md-6">
+                        <div class="row gap-1 col-md-12 d-flex justify-content-between">
+                            <div class="col-md-5 p-0">
                                 <div class="mb-2">
                                     <label class="m-0" class="form-label">Student LRN <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="lrn" id="studentLRN" required maxlength="12"
                                         placeholder="Enter 12-digit LRN">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3 p-0">
                                 <div class="mb-2">
-                                    <label class="form-label">Nickname</label>
+                                    <label class="form-label m-0">Nickname</label>
                                     <input type="text" class="form-control" name="nickname" id="nickname"
                                         placeholder="Enter nickname (optional)">
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Separate Name Fields -->
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-2">
-                                    <label class="form-label">Family Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="family_name" id="familyName" required
-                                        placeholder="Enter family name">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-2">
-                                    <label class="form-label">Given Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="given_name" id="givenName" required
-                                        placeholder="Enter given name">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-2">
-                                    <label class="form-label">Middle Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="middle_name" id="middleName" required
-                                        placeholder="Enter middle name">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-2">
-                                    <label class="form-label">Suffix</label>
-                                    <input type="text" class="form-control" name="suffix" id="suffix"
-                                        placeholder="e.g. Jr., Sr., III (optional)">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3 p-0">
                                 <div class="mb-2">
                                     <label class="form-label">Gender</label>
                                     <select class="form-select" name="gender" id="gender">
@@ -548,43 +513,41 @@
                             </div>
                         </div>
 
-                        <!-- Required Fields -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-2">
-                                    <label class="form-label">Birthdate <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="birthdate" id="birthdate" required>
+                        <!-- Separate Name Fields -->
+                        <div class="row col-md-12 col-12 gap-2 d-flex justify-content-between">
+                            <div class="col-md-3  p-0 ">
+                                <div class="mb-2 p-0 m-0">
+                                    <label class="form-label">Family Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="family_name" id="familyName" required
+                                        placeholder="Enter family name">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-2">
-                                    <label class="form-label">Religious Affiliation <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="religious" id="religious" required
-                                        placeholder="Enter religion">
+                            <div class="col-md-3  p-0 ">
+                                <div class="mb-3 p-0 m-0">
+                                    <label class="form-label">Given Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="given_name" id="givenName" required
+                                        placeholder="Enter given name">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-2">
-                                    <label class="form-label">Birth Place</label>
-                                    <input type="text" class="form-control" name="birth_place" id="birthPlace"
-                                        placeholder="Enter birth place">
+                            <div class="col-md-3  p-0 ">
+                                <div class="mb-3 p-0 m-0">
+                                    <label class="form-label">Middle Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="middle_name" id="middleName" required
+                                        placeholder="Enter middle name">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-2">
-                                    <label class="form-label">Mother Tongue</label>
-                                    <input type="text" class="form-control" name="tongue" id="tongue"
-                                        placeholder="Enter mother tongue">
+                            <div class="col-md-2 p-0 ">
+                                <div class="mb-2 m-0 p-0">
+                                    <label class="form-label">Suffix</label>
+                                    <input type="text" class="form-control" name="suffix" id="suffix"
+                                        placeholder="e.g. Jr., Sr., III (optional)">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Database IDs -->
-                        <div class="row">
-                            <div class="col-md-6">
+                        <div class="row col-md-12 gap-2 d-flex justify-content-between">
+                            <div class="col-md-4 p-0">
                                 <div class="mb-2">
                                     <label class="form-label">Grade Level <span class="text-danger">*</span></label>
                                     <select class="form-select" name="grade_level_id" id="gradeLevelId" required>
@@ -611,7 +574,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4 p-0">
                                 <div class="mb-2">
                                     <label class="form-label">School Year <span class="text-danger">*</span></label>
                                     <select class="form-select" name="school_year_id" id="schoolYearId" required>
@@ -634,23 +597,59 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-3 p-0">
+                                <div class="mb-2">
+                                    <label class="form-label">Mother Tongue</label>
+                                    <input type="text" class="form-control" name="tongue" id="tongue"
+                                        placeholder="Enter mother tongue">
+                                </div>
+                            </div>
                         </div>
 
+                        <!-- Required Fields -->
+                        <div class="row col-md-12 gap-2 d-flex justify-content-between">
+                            <div class="col-md-4 p-0">
+                                <div class="mb-2">
+                                    <label class="form-label">Religious Affiliation <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="religious" id="religious" required
+                                        placeholder="Enter religion">
+                                </div>
+                            </div>
+                            <div class="col-md-3 m-0 p-0">
+                                <div class="m-0">
+                                    <label class="form-label">Birthdate <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="birthdate" id="birthdate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4 p-0">
+                                <div class="mb-2">
+                                    <label class="form-label">Birth Place</label>
+                                    <input type="text" class="form-control" name="birth_place" id="birthPlace"
+                                        placeholder="Enter birth place">
+                                </div>
+                            </div>
+                        </div>
+                        
                         <!-- Profile Picture Upload -->
-                        <div class="row">
-                            <div class="col-md-8">
+                        <div class="row col-md-12 gap-2 d-flex justify-content-between">
+                            <div class="col-md-6 p-0">
                                 <div class="mb-2">
                                     <label class="form-label">Additional Notes</label>
                                     <textarea class="form-control" name="notes" id="notes" rows="3"
                                         placeholder="Any special instructions or information..."></textarea>
                                 </div>
+                                <div class="alert alert-light" style="border: 1px solid #d1ecf1; background-color: #e8f4fd; color: #0c5460;">
+                                    <i class="fa fa-info-circle me-2"></i>
+                                    <strong>Note:</strong> Your enrollment request will be verified by the school administration. 
+                                    You will receive a notification once the verification is complete.
+                                </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 p-0">
                                 <div class="mb-2">
                                     <label class="form-label">Profile Picture</label>
-                                    <div class="text-center mb-2">
-                                        <img id="profilePreview" src="../assets/image/users.png" alt="Profile Preview"
-                                            class="img-thumbnail" width="120" height="120">
+                                    <div class="text-center mb-2 w-100">
+                                        <img id="profilePreview" src="../../assets/image/users.png" alt="Profile Preview"
+                                            class="img-thumbnail" style="height: 100px; width: 100px; border-radius: 50%;" >
                                     </div>
                                     <input type="file" class="form-control" id="profilePicInput" name="profile_picture" 
                                         accept="image/*">
@@ -659,11 +658,7 @@
                             </div>
                         </div>
 
-                        <div class="alert alert-light" style="border: 1px solid #d1ecf1; background-color: #e8f4fd; color: #0c5460;">
-                            <i class="fa fa-info-circle me-2"></i>
-                            <strong>Note:</strong> Your enrollment request will be verified by the school administration. 
-                            You will receive a notification once the verification is complete.
-                        </div>
+                        
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-success text-white" type="submit">

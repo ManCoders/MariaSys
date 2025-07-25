@@ -11,7 +11,9 @@
         --warning-color: #ffc107;
         --info-color: #17a2b8;
     }
-
+    .BG-white{
+        background-color: #fff !important;
+    }
     .stats-card {
         background: white;
         padding: 15px;
@@ -351,8 +353,8 @@
     }
 </style>
 
-<section class="p-2">
-    <div>
+<section class="p-2 w-100 rounded-2 BG-white">
+    <div class="rounded-2 h-100">
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
