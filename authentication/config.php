@@ -2,7 +2,7 @@
 
 function db_connect()
 {
-    $host = '192.168.10.20';
+    $host = '127.0.0.1';
     $username = 'root';
     $password = '';
     $database = 'elementaryDB';
