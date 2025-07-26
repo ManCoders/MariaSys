@@ -1,17 +1,38 @@
+<style>
+@media(max-width:576px) {
+    .mediaSize {
+        font-size: 15px !important;
+    }
+
+    .mediaSizeP {
+        font-size: 13px !important;
+    }
+
+    .table {
+        display: none !important;
+    }
+
+    .mediaLearners {
+        display: flex !important;
+    }
+}
+</style>
 <section class="p-2">
     <div class="">
-        <div class="d-flex justify-content-between align-items-center mb-0">
-            <div>
-                <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Learner Registration</h4>
-                <span>Manage and process student registration application</span>
+        <div class="d-flex justify-content-between align-items-center mb-0 flex-wrap col-md-12 col-12 mb-3">
+            <div class="col-md-3 col-12">
+                <h4 class="mediaSize"><i class="fa fa-folder-open text-primary me-2"></i>Learner Registration</h4>
+                <span class="mediaSizeP">Manage and process student registration application</span>
             </div>
-            <select id="statusFilter" class="form-select w-25">
-                <option value="">Select Category</option>
-                <option value="Pending">Pending</option>
-                <option value="Validated">Validated</option>
-                <option value="Rejected">Rejected</option>
-            </select>
-            <button class="btn btn-success btn-sm" id="addNewBtn">
+            <div class="col-md-4 col-7">
+                <select id="statusFilter" class="form-select col-md-12 col-12">
+                    <option value="">Select Category</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Validated">Validated</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+            </div>
+            <button class="btn btn-success btn-sm m-0 col-md-2 col-4 p-1 py-2" id="addNewBtn">
                 <i class="fa fa-plus"></i> Add New Learner
             </button>
         </div>
@@ -63,21 +84,50 @@
                 </tr>
             </tbody>
         </table>
+        <div class="mediaLearners col-md-12 col-12 flex-wrap"
+            style="display: none; height: 63vh; overflow-y: scroll;">
+            <div class="card-body col-md-5 col-12 d-flex flex-column p-0 m-0 shadow p-1 m-1 rounded-3" style="max-height: 15rem !important;">
+                <div class="img col-md-12 col-12 d-flex align-items-center justify-content-center flex-column">
+                    <img src="../../assets/image/users.png" alt=""
+                        style="width: 90px; height: 90px; border-radius: 50%;">
+                    <label class="mediaSizeP">LRN: 9384590343</label>
+                </div>
+                <div class="information col-md-12 col-12 d-flex flex-column">
+                    <div class="m-0 d-flex">
+                        <label class="m-0 p-0 d-flex align-items-center mediaSizeP" style="width: 4rem !important;">NAME:</label>
+                        <span class="mediaSizeP">PAGOTAISIDRO, NARCO JEAN F.</span>
+                    </div>
+                    <div class="m-0 d-flex">
+                        <label class="m-0 p-0 d-flex align-items-center mediaSizeP" style="width: 4rem !important;">GRADE: </label>
+                        <span class="mediaSizeP" class="h-100 d-flex align-items-center">6</span>
+                    </div>
+                    <div class="m-0 d-flex">
+                        <label class="m-0 p-0 d-flex align-items-center mediaSizeP" style="width: 4rem !important;">STATUS:
+                        </label>
+                        <span class="mediaSizeP">ENROLLED</span>
+                    </div>
+                    <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end mt-3">
+                        <button class="me-2 btn btn-success p-1 px-3 m-0" type="button" id="enrollBtn">Enroll</button>
+                        <button class="me-2 btn btn-secondary p-1 px-3 m-0">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <style>
-        .modal-lg {
-            max-width: 1200px;
-            width: 90%;
-        }
+    .modal-lg {
+        max-width: 1200px;
+        width: 90%;
+    }
 
-        .name-cell {
-            max-width: 150px;
-            /* adjust width as needed */
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+    .name-cell {
+        max-width: 150px;
+        /* adjust width as needed */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     </style>
     <!-- LEARNERS MANAGEMENT PENDING -->
     <div class="modal fade" id="learnersModal" tabindex="-1">
@@ -89,8 +139,10 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
-                        <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
-                            <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                        <div
+                            class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
+                            <img src="../../assets/image/users.png" alt=""
+                                style="width: 100px; height: 100px; border-radius: 50%;">
                             <div class="d-flex">
                                 <label class="d-flex align-items-center m-0 p-0">LRN: </label>
                                 <span>11193849573</span>
@@ -146,8 +198,10 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
-                        <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
-                            <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                        <div
+                            class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
+                            <img src="../../assets/image/users.png" alt=""
+                                style="width: 100px; height: 100px; border-radius: 50%;">
                             <div class="d-flex">
                                 <label class="d-flex align-items-center m-0 p-0">LRN: </label>
                                 <span>11193849573</span>
@@ -203,8 +257,10 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body col-md-12 col-12 d-flex flex-wrap">
-                        <div class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
-                            <img src="../../assets/image/users.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                        <div
+                            class="col-md-4 col-12 d-flex flex-column border align-items-center justify-content-center">
+                            <img src="../../assets/image/users.png" alt=""
+                                style="width: 100px; height: 100px; border-radius: 50%;">
                             <div class="d-flex">
                                 <label class="d-flex align-items-center m-0 p-0">LRN: </label>
                                 <span>11193849573</span>
@@ -254,7 +310,7 @@
     <div class="modal fade " id="childModal" tabindex="-1">
         <div class="modal-dialog  modal-lg ">
             <div class="modal-content ">
-            
+
                 <form id="childForm" enctype="multipart/form-data">
                     <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
                         <h5 class="modal-title text-white">Link Child Account</h5>
@@ -407,49 +463,50 @@
     </div>
 
     <!-- form modal wtf ang dami tang ina -->
-     
+
 
 
 </section>
 <script>
-       $(document).ready(function () { 
-            // Show modal when View button is clicked
-            $('#viewStudent').click(function () {
-                $('#learnersModal').modal('show');
-            });
-            $('#viewStudentValidated').click(function () {
-                $('#learnersModalValidated').modal('show');
-            });
-            $('#viewStudentRejected').click(function () {
-                $('#learnersModalRejected').modal('show');
-            });
-            $('#viewBtnLearners').off('click').on('click', function () {
-                const id = $(this).data('id'); 
-                sessionStorage.setItem('learners_id', id); 
-                location.href = 'index.php?page=contents/users/view_learners'; 
-            });
-            $('#viewForm').off('click').on('click', function () {
-                const id = $(this).data('id'); 
-                sessionStorage.setItem('learners_id', id); 
-                location.href = 'index.php?page=contents/users/form'; 
-            });
-        });
+$(document).ready(function() {
+    // Show modal when View button is clicked
+    $('#viewStudent').click(function() {
+        $('#learnersModal').modal('show');
+    });
+    $('#viewStudentValidated').click(function() {
+        $('#learnersModalValidated').modal('show');
+    });
+    $('#viewStudentRejected').click(function() {
+        $('#learnersModalRejected').modal('show');
+    });
+    $('#viewBtnLearners').off('click').on('click', function() {
+        const id = $(this).data('id');
+        sessionStorage.setItem('learners_id', id);
+        location.href = 'index.php?page=contents/users/view_learners';
+    });
+    $('#viewForm').off('click').on('click', function() {
+        const id = $(this).data('id');
+        sessionStorage.setItem('learners_id', id);
+        location.href = 'index.php?page=contents/users/form';
+    });
+});
 
 
-    const statusFilter = document.getElementById('statusFilter');
-    const tableRows = document.querySelectorAll('#student-tbl-1 tbody tr');
-    function filterTable() {
-        const selectedStatus = statusFilter.value;
-        
-        tableRows.forEach(row => {
-            const rowStatus = row.classList[0].replace('status-', '');
-            
-            if (selectedStatus === '' || selectedStatus === rowStatus) {
-                row.style.display = ''; 
-            } else {
-                row.style.display = 'none'; 
-            }
-        });
-    }
-    statusFilter.addEventListener('change', filterTable);
+const statusFilter = document.getElementById('statusFilter');
+const tableRows = document.querySelectorAll('#student-tbl-1 tbody tr');
+
+function filterTable() {
+    const selectedStatus = statusFilter.value;
+
+    tableRows.forEach(row => {
+        const rowStatus = row.classList[0].replace('status-', '');
+
+        if (selectedStatus === '' || selectedStatus === rowStatus) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+statusFilter.addEventListener('change', filterTable);
 </script>

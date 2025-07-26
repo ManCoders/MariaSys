@@ -15,11 +15,12 @@ $(document).ready(function () {
         sidebar.style.flexDirection = 'column';
         sidebar.style.transition = 'transform 0.45s cubic-bezier(.4,0,.2,1)';
         sidebar.style.willChange = 'transform';
+        sidebar.style.marginTop = '1rem';
 
         // Toggle visibility
         if (!isShifted) {
             // Bring into view
-            sidebar.style.transform = 'translateX(0)';
+            sidebar.style.transform = 'translate(0px, .8rem)';
         } else {
             // Move off screen to the left
             sidebar.style.transform = 'translateX(-50rem)';
