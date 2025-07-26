@@ -4,7 +4,7 @@ function db_connect()
 {
     $host = 'localhost';
     $username = 'root';
-    $password = '';
+    $password = 'root';
     $database = 'elementaryDB';
 
     try {
