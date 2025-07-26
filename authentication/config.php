@@ -2,7 +2,7 @@
 
 function db_connect()
 {
-    $host = 'localhost';
+    $host = 'MariaSys';
     $username = 'root';
     $password = '';
     $database = 'elementaryDB';
