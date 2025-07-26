@@ -194,7 +194,7 @@ $adminData = $_SESSION['adminData']['lastname'];
   }
 </style>
 
-<nav class="navbar mx-2 d-flex justify-content-between align-items-center mediaMargin">
+<nav class="navbar m-0 px-2 mb-2 d-flex justify-content-between align-items-center mediaMargin">
   <div class="nav-brand col-md-7 col-7">
     <i class="fa-solid fa-bars mediaFlex" style="display: none; font-size: 17px !important;" id="burgerButton"></i>
     <i class="fas fa-graduation-cap mediaNone"></i>

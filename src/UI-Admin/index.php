@@ -9,7 +9,7 @@
     
     <?php include 'nav-head.php'; ?>
     
-    <div class="d-flex d-justify-between">
+    <div class="d-flex d-justify-between" style="height: 90vh !important;">
         <?php include 'nav-sidebar.php'; ?>
         <div class="mx-2 w-100 bg-white" >
             <?php include 'content.php'; ?>

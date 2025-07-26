@@ -20,7 +20,7 @@
         }
     }
 </style>
-<nav id="sidebar" class=" border rounded p-3" style="min-width: 280px;">
+<nav id="sidebar" class=" border rounded p-3" style="min-width: 280px; background-color: #fff !important;">
     <div class="sidebar-list d-flex flex-column gap-2">
         <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard

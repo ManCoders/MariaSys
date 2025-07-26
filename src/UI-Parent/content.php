@@ -1,3 +1,8 @@
+<style>
+    .dashboard::-webkit-scrollbar{
+        display: none !important;
+    }
+</style>
 <div class="bg-white h-100 rounded dashboard w-100 p-4" style="overflow-y: scroll;">
     
     <main id="view-panel" >

@@ -27,6 +27,9 @@
         <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard
         </a>
+        <a href="index.php?page=contents/enrollment" class="nav-link nav-enrollment d-flex align-items-center">
+            <i class="fas fa-user-plus me-2"></i> Enrollment
+        </a>
         <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">
             <i class="fas fa-user-graduate me-2"></i> Students View
         </a>
