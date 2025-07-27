@@ -17,83 +17,92 @@
         <!-- Enrollment Status Cards -->
         <div class="row mb-3 d-flex flex-wrap align-items-center col-md-12 col-12 m-0 p-0 justify-content-center h-auto">
             <div class="col-md-3 col-11 p-0 m-0">
-                <div class="stats-card p-2 m-1">
+                <div class="stats-card m-1 col-md-12 col-12 d-flex align-items-center shadow-sm p-4 gap-4">
                     <i class="fa fa-users"></i>
-                    <h5 id="totalChildren">2</h5>
+                    <h5 class="m-0 p-0" id="totalChildren">2</h5>
                     <small>Linked Children</small>
                 </div>
             </div>
             <div class="col-md-3 col-11 p-0 m-0">
-                <div class="stats-card p-2 m-1">
+                <div class="stats-card m-1 col-md-12 col-12 d-flex align-items-center shadow-sm p-4 gap-4">
                     <i class="fa fa-clock"></i>
-                    <h5 id="pendingEnrollments">1</h5>
+                    <h5 class="m-0 p-0" id="pendingEnrollments">1</h5>
                     <small>Pending Requests</small>
                 </div>
             </div>
             <div class="col-md-3 col-11 p-0 m-0">
-                <div class="stats-card p-2 m-1">
+                <div class="stats-card m-1 col-md-12 col-12 d-flex align-items-center shadow-sm p-4 gap-4">
                     <i class="fa fa-check-circle"></i>
-                    <h5 id="approvedEnrollments">2</h5>
+                    <h5 class="m-0 p-0" id="approvedEnrollments">2</h5>
                     <small>Approved</small>
                 </div>
             </div>
             <div class="col-md-3 col-11 p-0 m-0">
-                <div class="stats-card p-2 m-1">
+                <div class="stats-card m-1 col-md-12 col-12 d-flex align-items-center shadow-sm p-4 gap-4">
                     <i class="fa fa-times-circle"></i>
-                    <h5 id="rejectedEnrollments">0</h5>
+                    <h5 class="m-0 p-0" id="rejectedEnrollments">0</h5>
                     <small>Rejected</small>
                 </div>
             </div>
         </div>
-
+        <style>
+            @media(max-width:576px) {
+                .mediaSizeP{
+                    font-size: 11px !important;
+                }
+                .paddingSize{
+                    padding: 7px !important;
+                }
+            }
+        </style>
         <!-- Children List Table -->
          <div class="col-md-12 col-12 d-flex  flex-wrap h-auto">
             <!-- <div class="card col-md-5 col-11 d-flex" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);"> -->
                 <div class="card-body col-md-5 col-10 d-flex p-0 m-0 shadow p-2 m-2 rounded-3">
                     <div class="img col-md-4 col-4 d-flex align-items-center justify-content-center flex-column">
                         <img src="../../assets/image/users.png" alt="" style="width: 90px; height: 90px; border-radius: 50%;">
-                        <label for="">LRN: 9384590343</label>
+                        <label class="mediaSizeP">LRN: 9384590343</label>
                     </div>
                     <div class="information col-md-8 col-8 d-flex flex-column">
                         <div class="m-0 d-flex">
                             <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">NAME:</label>
-                            <span>PAGOTAISIDRO, NARCO JEAN F.</span>
+                            <span class="mediaSizeP">PAGOTAISIDRO, NARCO JEAN F.</span>
                         </div>
                         <div class="m-0 d-flex">
-                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">GRADE: </label>
-                            <span class="h-100 d-flex align-items-center">6</span>
+                            <label class="m-0 p-0 d-flex mediaSizeP align-items-center" style="width: 4rem !important;">GRADE: </label>
+                            <span class="mediaSizeP" class="h-100 d-flex align-items-center">6</span>
                         </div>
                         <div class="m-0 d-flex">
-                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">STATUS: </label>
-                            <span>ENROLLED</span>
+                            <label class="m-0 p-0 d-flex mediaSizeP align-items-center" style="width: 4rem !important;">STATUS: </label>
+                            <span class="mediaSizeP">ENROLLED</span>
                         </div>
-                        <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end">
-                            <button class="me-2 btn btn-success" type="button" id="enrollBtn">Enroll</button>
-                            <button class="me-2 btn btn-secondary">Edit</button>
+                        <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end mt-3">
+                            <button class="me-2 btn btn-success p-2 px-3 paddingSize" type="button" id="enrollBtn">Enroll</button>
+                            <button class="me-2 btn btn-secondary  p-2 px-3 paddingSize">Edit</button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body col-md-5 col-10 d-flex p-0 m-0 shadow p-2 m-2 rounded-3">
                     <div class="img col-md-4 col-4 d-flex align-items-center justify-content-center flex-column">
                         <img src="../../assets/image/users.png" alt="" style="width: 90px; height: 90px; border-radius: 50%;">
-                        <label for="">LRN: 9384590343</label>
+                        <label class="mediaSizeP">LRN: 9384590343</label>
                     </div>
                     <div class="information col-md-8 col-8 d-flex flex-column">
                         <div class="m-0 d-flex">
-                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">NAME:</label>
-                            <span>PAGOTAISIDRO, NARCO JEAN F.</span>
+                            <label class="m-0 p-0 d-flex mediaSizeP align-items-center" style="width: 4rem !important;">NAME:</label>
+                            <span class="mediaSizeP">PAGOTAISIDRO, NARCO JEAN F.</span>
                         </div>
                         <div class="m-0 d-flex">
-                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">GRADE: </label>
-                            <span class="h-100 d-flex align-items-center">6</span>
+                            <label class="m-0 p-0 d-flex mediaSizeP align-items-center" style="width: 4rem !important;">GRADE: </label>
+                            <span class="mediaSizeP" class="h-100 d-flex align-items-center">6</span>
                         </div>
                         <div class="m-0 d-flex">
-                            <label class="m-0 p-0 d-flex align-items-center" style="width: 4rem !important;">STATUS: </label>
-                            <span>UNENROLLED</span>
+                            <label class="m-0 p-0 d-flex mediaSizeP align-items-center" style="width: 4rem !important;">STATUS: </label>
+                            <span class="mediaSizeP">UNENROLLED</span>
                         </div>
-                        <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end">
-                            <button class="me-2 btn btn-success" type="button" id="enrollBtn">Enroll</button>
-                            <button class="me-2 btn btn-secondary" type="button">Edit</button>
+                        <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end mt-3">
+                            <button class="me-2 btn btn-success p-2 px-3 paddingSize" type="button" id="enrollBtn">Enroll</button>
+                            <button class="me-2 btn btn-secondary  p-2 px-3 paddingSize" type="button">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -104,7 +113,7 @@
     <!-- ENROLLMENT MODAL WAG NATO WAG TO E DELETE -->
     <div class="modal fade" id="enrollModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content ms-2">
+            <div class="modal-content">
                 <form id="childForm" enctype="multipart/form-data">
                     <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
                         <h5 class="modal-title text-white">BASIC EDUCATION ENROLLMENT FORM</h5>

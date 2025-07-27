@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -26,7 +26,7 @@
     }
   </style>
 </head>
-<body>
+<body> -->
 
 <div class="container py-4">
   <h4 class="mb-4">Admin Dashboard</h4>
@@ -153,6 +153,6 @@
     }
   });
 </script>
-
+<!-- 
 </body>
-</html>
+</html> -->

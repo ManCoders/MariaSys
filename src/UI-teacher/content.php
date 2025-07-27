@@ -1,3 +1,8 @@
+<style>
+    .dashboard::-webkit-scrollbar{
+        display: none !important;
+    }
+</style>
 <div class="bg-white dashboard">
     
     <main id="" class="w-100 rounded-1" style="height: 90.5vh; overflow-y: auto;">
