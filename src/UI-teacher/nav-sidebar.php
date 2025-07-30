@@ -15,10 +15,7 @@
     <div class="sidebar-list d-flex flex-column gap-2">
         <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-        </a>
-        <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">
-            <i class="fas fa-user-graduate me-2"></i> My Students
-        </a>
+        </a>s
         <a href="index.php?page=contents/classroom" class="nav-link nav-classroom d-flex align-items-center">
             <i class="fas fa-eye me-2"></i> View Class
         </a>

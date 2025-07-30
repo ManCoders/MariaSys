@@ -78,7 +78,7 @@
                         </div>
                         <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end mt-3">
                             <button class="me-2 btn btn-success p-2 px-3 paddingSize" type="button" id="enrollBtn">Enroll</button>
-                            <button class="me-2 btn btn-secondary  p-2 px-3 paddingSize">Edit</button>
+                            <button class="me-2 btn btn-secondary  p-2 px-3 paddingSize" id="editBtn">profile</button>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                         </div>
                         <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end mt-3">
                             <button class="me-2 btn btn-success p-2 px-3 paddingSize" type="button" id="enrollBtn">Enroll</button>
-                            <button class="me-2 btn btn-secondary  p-2 px-3 paddingSize" type="button">Edit</button>
+                            <button class="me-2 btn btn-secondary  p-2 px-3 paddingSize" id="editBtn" type="button">profile</button>
                         </div>
                     </div>
                 </div>
@@ -479,6 +479,7 @@
         </div>
     </div>
     <!-- END OF ENROLLMENT MODAL -->
+
     <!-- Add/Edit Child Modal -->
     <div class="modal fade" id="childModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
@@ -1016,7 +1017,7 @@
     </div>
 </section>
 <!-- ============== MARCO JAVASCRIPT FOR MODAL ENROLMENT =================== -->
-<script>
+<!-- <script>
     $(document).ready(function () {
         renderTable();
 
@@ -1026,9 +1027,21 @@
             $('#enrollModal').modal('show');
         });
     });
-</script>
+</script> -->
 
 <!-- ============== STATIC BACKEND =================== -->
+<script>
+    $('#enrollBtn').off('click').on('click', function() {
+        const id = $(this).data('id');
+        sessionStorage.setItem('learners_id', id);
+        location.href = 'index.php?page=contents/enrollProccess';
+    });
+    $('#editBtn').off('click').on('click', function() {
+        const id = $(this).data('id');
+        sessionStorage.setItem('learners_id', id);
+        location.href = 'index.php?page=contents/users/view_learners';
+    });
+</script>
 <script>
     let dataTable;
     let currentStudentData = null; // Store current student data

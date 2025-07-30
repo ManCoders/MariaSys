@@ -30,9 +30,6 @@
         <a href="index.php?page=contents/enrollment" class="nav-link nav-enrollment d-flex align-items-center">
             <i class="fas fa-user-plus me-2"></i> Enrollment
         </a>
-        <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">
-            <i class="fas fa-user-graduate me-2"></i> Students View
-        </a>
         <a href="index.php?page=contents/feedback" class="nav-link nav-feedback d-flex align-items-center">
             <i class="fas fa-comment-alt me-2"></i> Feedback
         </a>

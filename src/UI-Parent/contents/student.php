@@ -116,18 +116,18 @@
     </div>
 
     <style>
-    .modal-lg {
-        max-width: 1200px;
-        width: 90%;
-    }
+        .modal-lg {
+            max-width: 1200px;
+            width: 90%;
+        }
 
-    .name-cell {
-        max-width: 150px;
-        /* adjust width as needed */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        .name-cell {
+            max-width: 150px;
+            /* adjust width as needed */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
     <!-- LEARNERS MANAGEMENT PENDING -->
     <div class="modal fade" id="learnersModal" tabindex="-1">
