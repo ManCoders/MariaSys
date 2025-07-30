@@ -562,7 +562,7 @@
     $('#backPreviewPage').click(function () {
         sessionStorage.clear();
         sessionStorage.removeItem('teacher_id');
-        location.href = 'index.php?page=contents/classroom';
+        location.href = 'index.php?page=contents/attendance';
     });
 
 

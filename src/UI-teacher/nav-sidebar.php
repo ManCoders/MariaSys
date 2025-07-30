@@ -15,18 +15,16 @@
     <div class="sidebar-list d-flex flex-column gap-2">
         <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-        </a>s
-        <a href="index.php?page=contents/classroom" class="nav-link nav-classroom d-flex align-items-center">
-            <i class="fas fa-eye me-2"></i> View Class
         </a>
+        <!-- TAKE ATTENDANCE HAS NAVIGATION TO LEANERS PROFILE -->
         <a href="index.php?page=contents/attendance" class="nav-link nav-attendance d-flex align-items-center">
             <i class="fas fa-clipboard-check me-2"></i> Take Attendance
         </a>
+        <a href="index.php?page=contents/parent" class="nav-link nav-parent d-flex align-items-center">
+            <i class="fas fa-user-plus me-2"></i> Parents Management
+        </a>
         <a href="index.php?page=contents/health" class="nav-link nav-health d-flex align-items-center">
             <i class="fas fa-heartbeat me-2"></i> Medical Health
-        </a>
-        <a href="index.php?page=contents/schedule" class="nav-link nav-schedule d-flex align-items-center">
-            <i class="fas fa-calendar-alt me-2"></i> My Schedule
         </a>
         <a href="index.php?page=contents/enrolled" class="nav-link nav-enrolled d-flex align-items-center">
             <i class="fas fa-user-plus me-2"></i> Enrollment Process

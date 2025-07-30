@@ -123,22 +123,13 @@
     <section class="quick-actions">
         <h4>Quick Actions</h4>
         <div class="action-grid">
-            <div class="action" id="student"><i class="fa fa-user-graduate"></i>
-                <p>Students</p>
-            </div>
-            <div class="action" id="classroom"><i class="fa fa-school"></i>
-                <p>Classroom</p>
-            </div>
             <div class="action" id="attendance"><i class="fa fa-user-tie"></i>
                 <p>Take Attendance</p>
-            </div>
-            <div class="action" id="schedule"><i class="fa fa-calendar-alt"></i>
-                <p>My Schedules</p>
             </div>
             <div class="action" id="health"><i class="fa fa-notes-medical"></i>
                 <p>Health Records</p>
             </div>
-            <div class="action" id="enrollment"><i class="fa fa-chart-line"></i>
+            <div class="action" id="enrolled"><i class="fa fa-chart-line"></i>
                 <p>Enrollment</p>
             </div>
         </div>
@@ -223,8 +214,8 @@
             location.href = "index.php?page=contents/health";
         });
 
-        $('#enrollment').click(function () {
-            location.href = "index.php?page=contents/enrollment";
+        $('#enrolled').click(function () {
+            location.href = "index.php?page=contents/enrolled";
         });
     });
 </script>

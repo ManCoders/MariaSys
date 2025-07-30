@@ -123,11 +123,8 @@
                         <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
                             Profile
                         </button>
-                        <button class="btn btn-success text-white" type="submit">
-                            <i class="fa fa-save me-1"></i>Validate Learner
-                        </button>
                         <button class="btn btn-danger text-white" type="submit">
-                            Reject
+                            Delete
                         </button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
@@ -182,11 +179,8 @@
                         <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
                             Profile
                         </button>
-                        <button class="btn btn-success text-white" type="submit">
-                            <i class="fa fa-save me-1"></i>Validate
-                        </button>
                         <button class="btn btn-danger text-white" type="submit">
-                            Reject
+                            Delete
                         </button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
@@ -240,9 +234,6 @@
                     <div class="modal-footer">
                         <button class="btn btn-success text-white" type="Button" id="viewBtnLearners">
                             Profile
-                        </button>
-                        <button class="btn btn-success text-white" type="submit">
-                            <i class="fa fa-save me-1"></i>Validate
                         </button>
                         <button class="btn btn-danger text-white" type="submit">
                             Delete

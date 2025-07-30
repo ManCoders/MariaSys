@@ -34,9 +34,10 @@
         <a href="index.php?page=contents/classroom" class="nav-link nav-classroom d-flex align-items-center">
             <i class="fas fa-school me-2"></i> Classroom management
         </a>
-        <a href="index.php?page=contents/users" class="nav-link nav-users d-flex align-items-center">
+        <!-- note: hindi naman talaga to kailangan meron nang teacher ata student management -->
+        <!-- <a href="index.php?page=contents/users" class="nav-link nav-users d-flex align-items-center">
             <i class="fas fa-laptop me-2"></i>Users Accounts
-        </a>
+        </a> -->
         <a href="index.php?page=contents/setting" class="nav-link nav-setting d-flex align-items-center">
             <i class="fas fa-cog me-2"></i> Setting Settings
         </a>

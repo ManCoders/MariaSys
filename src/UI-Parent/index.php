@@ -11,7 +11,7 @@
 <body>
 
 
-    <div class="d-flex d-justify-between" style="height: 90.5vh !important;">
+    <div class="d-flex d-justify-between" style="height: 90vh !important;">
         <?php include 'nav-sidebar.php'; ?>
         <div class="mx-2 w-100 ">
             <?php include 'content.php'; ?>

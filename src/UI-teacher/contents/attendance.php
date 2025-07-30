@@ -1,4 +1,4 @@
-<section class="nav d-flex justify-content-evenly text-center m-3  w-90">
+<section class="nav d-flex justify-content-evenly text-center m-3 w-100">
     <div class="card p-4 w-20 shadow"><!-- <i class="fa fa-users"></i>  --><span id="totalStudents">0</span> <span>Total
             Students</span></div>
     <div class="card p-4 w-20 shadow"><!-- <i class="fa fa-check"></i>  --><span id="presentToday">0</span> <span>Present
@@ -207,7 +207,13 @@
         </div>
     </div>
 </div>
-
+<script>
+     $('#student-tbl-1').off('click').on('click', function() {
+        const id = $(this).data('id');
+        sessionStorage.setItem('learners_id', id);
+        location.href = 'index.php?page=contents/student/student_view';
+    });
+</script>
 <script>
     const sectionData = {
         1: [

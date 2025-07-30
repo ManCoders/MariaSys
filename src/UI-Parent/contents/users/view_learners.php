@@ -561,7 +561,7 @@
     $('#backPreviewPage').click(function () {
         sessionStorage.clear();
         sessionStorage.removeItem('teacher_id');
-        location.href = 'index.php?page=contents/student';
+        location.href = 'index.php?page=contents/enrollment';
     });
 
 
