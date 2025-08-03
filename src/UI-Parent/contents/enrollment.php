@@ -959,7 +959,7 @@
                                         <div class="m-0 d-flex">
                                             <label class="m-0 p-0 d-flex mediaSizeP align-items-center" style="width: 4rem;">STATUS:</label>
                                             <span class="mediaSizeP">${
-                                            learner.status
+                                            learner.reg_status
                                             }</span>
                                         </div>
                                         <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end mt-3">

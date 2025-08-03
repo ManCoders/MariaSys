@@ -2,7 +2,7 @@
 
 <body>
     <main>
-        <div class="container my-5">
+        <div class="container m-1">
             <div class="row align-items-center justify-content-center m-2">
 
                 <div class="col-md-7">
@@ -101,7 +101,7 @@
                             </div>
 
                             <!-- Login Link -->
-                            <div class="text-center mt-3">
+                            <div class="text-center mt-0">
                                 <small class="text-muted">Already have an account?</small><br>
                                 <a href="index.php" class="text-decoration-none text-danger fw-semibold">Login Here</a>
                             </div>

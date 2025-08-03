@@ -49,15 +49,15 @@ initInstaller()
                         </div>
 
 
-                        <div class="m-4">
+                        <div class="m-1 col-md-5 mx-auto">
                             <button type="submit" class="btn btn-danger btn-login w-100">
                                 <i class="fas fa-sign-in-alt me-2"></i>Login
                             </button>
                         </div>
 
-                        <div class="text-center card-footer p-3">
+                        <div class="text-center card-footer ">
                             <small class="text">Don't have an account?</small><br>
-                            <a href="register.php" class="text-decoration-none text-danger m-3 fw-semibold">
+                            <a href="register.php" class="text-decoration-none text-danger m-1 fw-semibold">
                                 Create Account
                             </a>
                         </div>

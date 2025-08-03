@@ -132,6 +132,8 @@ function db_connect()
                 reg_status ENUM('Pending', 'Approved', 'Rejected', 'Invalidation') DEFAULT 'Pending',
 
                 -- Address
+                house_hold VARCHAR(100) NOT NULL,
+                country VARCHAR(100) NOT NULL,
                 home_street VARCHAR(100) NOT NULL,
                 barangay VARCHAR(50) NOT NULL,
                 municipality VARCHAR(50) NOT NULL,
@@ -176,6 +178,29 @@ function db_connect()
                 grade_level_name VARCHAR(50) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
+            "CREATE TABLE IF NOT EXISTS enrollment_additional_info (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    
+                    learner_id INT NOT NULL, 
+                    diagnosis TEXT,
+                    manifestations TEXT, 
+                    has_pwd_id ENUM('yes', 'no') DEFAULT 'no',
+                    last_grade_level VARCHAR(100),
+                    last_sy VARCHAR(20), 
+                    last_school VARCHAR(255),
+                    school_id VARCHAR(50),
+                    shs_semester ENUM('1st', '2nd') DEFAULT '1st',
+                    shs_track VARCHAR(100),
+                    shs_strand VARCHAR(100),
+                    learning_mode TEXT,
+                    is_ip ENUM('Yes', 'No') DEFAULT 'No',
+                    ip_specify VARCHAR(255), 
+                    is_4ps ENUM('Yes', 'No') DEFAULT 'No',
+                    household_id VARCHAR(100), 
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE
+                )
+                ",
             "CREATE TABLE IF NOT EXISTS subject_grades (
                 learner_subject_grade_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 learner_id INT(11) NOT NULL,
@@ -437,7 +462,6 @@ function db_connect()
 
 
         return $pdo;
-
     } catch (PDOException $e) {
         die("Database error: " . $e->getMessage());
     }
