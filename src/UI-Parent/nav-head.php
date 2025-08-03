@@ -54,10 +54,7 @@ $parentData = $_SESSION['parentData']['lastname'];
         <span><?php echo htmlspecialchars($parentData); ?></span>
       </li>
       <li class="nav-item">
-        <a id="logout" class="nav-link text-danger" style="cursor: pointer;">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
+        
       </li>
     </ul>
 
@@ -66,6 +63,7 @@ $parentData = $_SESSION['parentData']['lastname'];
 
 
 <script>
+  var parent_id = '<?php echo $_SESSION['parentData']['parent_id']; ?>';
   $(document).ready(function () {
     $('html').css('scroll-behavior', 'smooth');
   });

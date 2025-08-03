@@ -103,8 +103,6 @@ $(document).ready(function () {
           console.error("AJAX error:", textStatus, errorThrown);
         },
       });
-
-
     }
   });
 
@@ -153,7 +151,7 @@ $(document).ready(function () {
               timer: 3000,
               showConfirmButton: false,
             }),
-            $this.find("button").text("Please try again!");
+              $this.find("button").text("Please try again!");
             $this.removeClass("processing");
           }
         },
@@ -185,10 +183,20 @@ $(document).ready(function () {
         },
         success: function (response) {
           if (response.status == 1) {
-            showError(response.message, "success", "Success!", response.redirect_url);
+            showError(
+              response.message,
+              "success",
+              "Success!",
+              response.redirect_url
+            );
             $this.removeClass("processing");
           } else {
-            showError(response.message, 'error', 'Error!', response.redirect_url);
+            showError(
+              response.message,
+              "error",
+              "Error!",
+              response.redirect_url
+            );
             $this.find("button[type='submit']").text("Please try again!");
             $this.removeClass("processing");
           }
@@ -212,13 +220,18 @@ $(document).ready(function () {
       method: "POST",
       dataType: "json",
       beforeSend: function () {
-        $this.text("Logging out...");
+        $this.html('<i class="fas fa-door-open me-2"></i>Logging out');
       },
       success: function (response) {
         if (response.status == 1) {
-          showError(response.message, "success", "Success!", response.redirect_url);
+          showError(
+            response.message,
+            "success",
+            "Success!",
+            response.redirect_url
+          );
         } else {
-          showError(response.message, 'error', 'Error!');
+          showError(response.message, "error", "Error!");
         }
       },
       error: function () {
@@ -227,6 +240,55 @@ $(document).ready(function () {
     });
   });
 
+  $("body").on("submit", "#linkNewChild", function (e) {
+    e.preventDefault();
+    const $this = $(this);
+    const data = new FormData(this);
+
+    if (!$this.hasClass("processing")) {
+      $this.addClass("processing");
+
+      $.ajax({
+        url: base_url + "/authentication/action.php?action=LinkNewChild",
+        method: "POST",
+        data: data,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        beforeSend: function () {
+          $this.find("button[type='submit']").text("Processing..");
+        },
+        success: function (response) {
+          if (response.status == 1) {
+            Swal.fire({
+              title: "Success!",
+              text: response.message,
+              icon: "success",
+              toast: true,
+              position: "top-end",
+              timer: 3000,
+              showConfirmButton: false,
+            }).then(() => {
+              $(".modal").hide("modal");
+              window.location.reload();
+            });
+          } else {
+            $this.find("button[type='submit']").text("Please try again!");
+            $this.removeClass("processing");
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error("AJAX error:", textStatus, errorThrown);
+          $this.removeClass("processing");
+        },
+        complete: function () {
+          $this.removeClass("processing");
+        },
+      });
+    }
+  });
+
+  
 
   function showError(message, icon, title, url) {
     Swal.fire({

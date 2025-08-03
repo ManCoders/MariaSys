@@ -83,24 +83,19 @@
         background-color: #f8f9fa;
     }
 </style>
-
+<?php
+    if (isset($_POST['id'])) {
+    $learner_id = $_POST['id'];
+}
+?>
 <section class="p-2">
+    <input type="hidden" value="<?php echo $learner_id; ?>" name="learnerIdInput" id="learnerIdInput">
     <div>
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
                 <h4 class="mb-0"><i class="fa fa-users text-primary me-2"></i>Leaners Overview</h4>
                 <small class="text-muted">View Learners Data Records</small>
             </div>
-
-            <!-- ALL PARENTS CHILD WILL BE INSERTED HERE -->
-            <select name="" id="" class="form-select w-25">
-                <option value="">Select Learners</option>
-                <option value="">Child 1</option>
-                <option value="">Child 2</option>
-                <option value="">Child 3</option>
-            </select>
-            <div>
-            
             <button class="btn btn-success btn-sm " id="backPreviewPage" type="button"><i
                 class="fa fa-arrow-left"></i>Back</button>
             </div>
@@ -559,9 +554,7 @@
     
     
     $('#backPreviewPage').click(function () {
-        sessionStorage.clear();
-        sessionStorage.removeItem('teacher_id');
-        location.href = 'index.php?page=contents/enrollment';
+        window.location.href = 'index.php?page=contents/enrollment';
     });
 
 

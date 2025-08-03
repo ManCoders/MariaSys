@@ -116,7 +116,6 @@ class Action
                 'message' => 'User not found or incorrect credentials.',
                 'redirect_url' => 'src/index.php'
             ]);
-
         } catch (Exception $e) {
             return json_encode([
                 'status' => 2,
@@ -125,10 +124,6 @@ class Action
             ]);
         }
     }
-
-
-
-
     function save_installation_data()
     {
         $firstname = htmlspecialchars($_POST['firstname'] ?? '');
@@ -187,7 +182,6 @@ class Action
             return json_encode(['status' => 2, 'message' => 'An error occurred: ' . $e->getMessage()]);
         }
     }
-
 
     //WORKING
     function registration_form()
@@ -248,7 +242,6 @@ class Action
                 'message' => 'Registration successful.',
                 'redirect_url' => 'src/index.php'
             ]);
-
         } catch (Exception $e) {
             return json_encode([
                 'status' => 2,
@@ -257,7 +250,6 @@ class Action
             ]);
         }
     }
-
     //WORKING
     function Enrollment()
     {
@@ -401,9 +393,112 @@ class Action
         }
     }
 
+    // Parent Link account for learner
+    function LinkNewChild()
+    {
+        try {
+            $lrn        = $_POST['lrn'] ?? '';
+            $status     = $_POST['status'] ?? '';
+            $nickname   = htmlspecialchars(trim($_POST['nickname'] ?? ''));
+            $gender     = $_POST['gender'] ?? '';
+            $last_name  = htmlspecialchars(trim($_POST['family_name'] ?? ''));
+            $middle_name = htmlspecialchars(trim($_POST['middle_name'] ?? ''));
+            $given_name = htmlspecialchars(trim($_POST['given_name'] ?? ''));
+            $suffix     = $_POST['suffix'] ?? null;
+            $religious  = htmlspecialchars(trim($_POST['religious'] ?? ''));
+            $birthdate  = $_POST['birthdate'] ?? '';
+            $birth_place = htmlspecialchars(trim($_POST['birth_place'] ?? ''));
+            $notes      = htmlspecialchars(trim($_POST['notes'] ?? ''));
+            $parent_id  = $_POST['parent_id'] ?? '';
+
+            // Validate LRN
+            if (!preg_match('/^\d{12}$/', $lrn)) {
+                return json_encode(['status' => 2, 'message' => 'Invalid LRN format. It should be 12 digits.']);
+            }
+
+            // Check for existing LRN
+            $check = $this->db->prepare("SELECT COUNT(*) FROM learners WHERE lrn = ?");
+            $check->execute([$lrn]);
+            if ($check->fetchColumn() > 0) {
+                return json_encode(['status' => 2, 'message' => 'This LRN is already registered.']);
+            }
+
+            // Handle profile picture upload
+            $profilePicPath = null;
+            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+                $file = $_FILES['profile_picture'];
+                $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                $allowed = ['jpg', 'jpeg', 'png'];
+
+                if (!in_array($ext, $allowed)) {
+                    return json_encode(['status' => 2, 'message' => 'Only JPG and PNG files are allowed.']);
+                }
+
+                $uploadDir = __DIR__ . '/uploads/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                $newName = uniqid('profile_', false) . '.' . $ext;
+                $uploadPath = $uploadDir . $newName;
+
+                if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                    $profilePicPath = 'authentication/uploads/' . $newName;
+                } else {
+                    return json_encode(['status' => 2, 'message' => 'Failed to save uploaded profile picture.']);
+                }
+            }
+
+            // Insert new learner
+            $stmt1 = $this->db->prepare("
+            INSERT INTO learners (
+                parent_id,
+                lrn,
+                learner_status,
+                nickname,
+                gender,
+                family_name,
+                middle_name,
+                given_name,
+                suffix,
+                religious,
+                birthdate,
+                birth_place,
+                notes,
+                learner_picture,
+                mother_lname,
+                father_lname
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+
+            $stmt1->execute([
+                $parent_id,
+                $lrn,
+                $status,
+                $nickname,
+                $gender,
+                $last_name,
+                $middle_name,
+                $given_name,
+                $suffix,
+                $religious,
+                $birthdate,
+                $birth_place,
+                $notes,
+                $profilePicPath,
+                $middle_name,
+                $last_name
+            ]);
+
+            return json_encode(['status' => 1, 'message' => 'Successfully registered. Please wait for approval!']);
+        } catch (PDOException $e) {
+            return json_encode(['status' => 0, 'message' => 'Database Error: ' . $e->getMessage()]);
+        }
+    }
+
     function NewTeacher()
     {
-        extract($_POST); // ⚠️ Still recommended to use $_POST['key'] individually for clarity & safety
+        extract($_POST); 
 
         try {
 
@@ -472,41 +567,12 @@ class Action
             return json_encode(['status' => 0, 'message' => 'Database Error: ' . $e->getMessage()]);
         }
     }
-
     //WORKING DONT TOUCH IT DISPLAY TO TABLE THIS
     function getLearner()
     {
         try {
             $stmt = $this->db->prepare("
-            SELECT 
-                l.learner_id,
-                l.lrn,
-                l.family_name,
-                l.given_name,
-                l.middle_name,
-                l.suffix,
-                l.birthdate,
-                l.birth_place,
-                l.gender AS learner_gender,
-                l.religious,
-                l.tongue,
-                l.notes,
-                l.learner_status,
-                l.learner_picture,
-                l.created_at AS date,
-                p.cpno AS parent_contact,
-                CONCAT(p.lastname, ', ', p.firstname, ' ', LEFT(p.middlename, 1), '.') AS parent_name,
-                sy.school_year_name,
-                gl.grade_level_name,
-                gl.grade_level_id
-            FROM learner_section ls
-            INNER JOIN learners l ON ls.learner_id = l.learner_id
-            INNER JOIN parent p ON l.parent_id = p.parent_id
-            INNER JOIN school_year sy ON ls.school_year_id = sy.school_year_id
-            INNER JOIN grade_level gl ON ls.grade_level_id = gl.grade_level_id
-            GROUP BY l.learner_id
-            ORDER BY l.created_at DESC
-
+            SELECT  * FROM learners ORDER BY created_at
         ");
 
             $stmt->execute();
@@ -551,7 +617,6 @@ class Action
         }
     }
 
-
     /* function get_student_by_section(){
         try {
             $stmt = $this->db->prepare("
@@ -577,5 +642,26 @@ class Action
             ]);
         }
     } */
+    function getLearnerByParentId()
+    {
+        try {
+            $stmt = $this->db->prepare("
+            SELECT * FROM learner
+        ");
 
+            $stmt->execute();
+            $teacher = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return json_encode([
+                'status' => 1,
+                'data' => $teacher
+            ]);
+        } catch (PDOException $e) {
+            /* http_response_code(500); */
+            return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
+    }
 }

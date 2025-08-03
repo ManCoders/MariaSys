@@ -46,6 +46,15 @@ if ($action === 'childForm') {
 	}
 }
 
+if ($action === 'LinkNewChild') {
+	$registration = $crud->LinkNewChild();
+	if ($registration) {
+		echo $registration;
+	}
+}
+
+
+
 
 if ($action === 'getLearner') {
 	$getLearner = $crud->getLearner();
@@ -74,5 +83,12 @@ if ($action === 'NewTeacher') {
 		echo $learner;
 	}
 } */
+
+if ($action === 'get_parent_student') {
+	$learner = $crud->getLearnerByParentId();
+	if ($learner) {
+		echo $learner;
+	}
+}
 
 ?>

@@ -54,7 +54,7 @@
     --bs-body-color: #67748e;
     --bs-body-bg: #d1d1d1;
     --bs-logo: url('../assets/image/system_logo/logo.png');
-    --bs-background: url('../assets/image/system_logo/bg.jpg');
+    --bs-background: url('../image/system_logo/bg.jpg');
     --btn-primary: rgb(126, 126, 126);
 }
 
@@ -69,10 +69,22 @@
         scroll-behavior: smooth
     }
 }
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
-    -webkit-text-size-adjust: 100%;
+    height: 100vh;
+    overflow: hidden !important;
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: bold;
+       -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
+    text-align: var(--bs-body-text-align);
+    font-size: var(--bs-body-font-size);
+    line-height: var(--bs-body-line-height);
+    
+}
+/* body {
+ 
     background-image: url('../image/system_logo/bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -86,8 +98,24 @@ body {
     line-height: var(--bs-body-line-height);
     margin: 0;
     text-align: var(--bs-body-text-align);
-}
+} */
 
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var( --bs-background);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.10;
+    pointer-events: none;
+    z-index: -1;
+}
 
 hr {
     background-color: currentColor;

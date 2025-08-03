@@ -1,18 +1,18 @@
+<?php
+    if (isset($_POST['id'])) {
+    $learner_id = $_POST['id'];
+}
+?>
+
 <form id="childForm" enctype="multipart/form-data">
+    <input type="text" value="<?php echo $learner_id; ?>"  data-id="<?php echo $learner_id; ?>" name="learnerIdInput" id="learnerIdInput">
     <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
         <h5 class="modal-title text-white">BASIC EDUCATION ENROLLMENT FORM</h5>
+        <h5 class="modal-title text-white">Status : <span id="enrollmentStatus">Pending</span></h5>
     </div>
     <div class="modal-body d-flex col-md-12 col-12 flex-wrap align-items-satrt justify-content-between gap-2">
-        <div class="d-flex flex-column col-md-4">
-            <label>School Year</label>
-            <div class="d-flex">
-                <input type="year" class="mx-2 form-control" placeholder="YYYY" name="schoolYearFrom"> <strong
-                    class="m-0 p-0"> - </strong> <input type="year" class="mx-2 form-control" placeholder="YYYY"
-                    name="schoolYearTo">
-            </div>
-        </div>
-        <div class="d-flex flex-column col-md-2 col-11">
-            <label>School Year</label>
+        <div class="d-flex flex-column col-md-3">
+            <label>Grade Level</label>
             <select name="" id="" class="form-select">
                 <option value="">Select grade level</option>
                 <option value="">Kinder 1</option>
@@ -25,6 +25,13 @@
                 <option value="">Grade 6</option>
             </select>
         </div>
+        <div class="d-flex flex-column col-md-3">
+            <label>School Year</label>
+            <div class="d-flex col-md-12 col-11">
+                <input type="text" name="school_year" class="form-control" value="<?= date('Y') . '-' . (date('Y') + 1) ?>" readonly>
+            </div>
+        </div>
+
         <div class="d-flex flex-column col-md-3 col-11 ">
             <label>LRN:</label>
             <input type="number" name="lrn" placeholder="LRN 12 digits" class="form-control">
@@ -59,15 +66,15 @@
         </div>
         <div class="d-flex flex-column col-md-3 col-11">
             <label class="m-0 mt-1">Sex</label>
-            <select name="" id="" class="form-select">
+            <select name="learner_gender" id="learner_gender" class="form-select">
                 <option value="">Select Gender</option>
-                <option value="">MALE</option>
-                <option value="">FEMALE</option>
+                <option value="Male">MALE</option>
+                <option value="Female">FEMALE</option>
             </select>
         </div>
         <div class="d-flex flex-column col-md-2 col-11">
             <label class="m-0 mt-1">Birth Place</label>
-            <input type="text" name="BirthPLace" placeholder="Birth Place (city/Muntinlupa)" class="form-control">
+            <input type="text" name="birth_place" placeholder="Birth Place (city/Muntinlupa)" class="form-control">
         </div>
         <div class="col-md-12 col-12 d-flex justify-content-start gap-4">
             <div class="d-flex flex-column col-md-3 col-11">
@@ -105,7 +112,7 @@
                 </select>
             </div>
         </div>
-        
+
         <!-- Indigenous & 4Ps Section -->
         <div class="d-flex flex-column col-md-12 mt-3">
             <label>Belonging to any Indigenous Peoples (IP) Community / Indigenous Cultural Community?</label>
@@ -318,12 +325,12 @@
         <!-- PWD ID -->
         <div class="mt-3 col-md-12">
             <label class="w-100 fs-5">b. Does the learner have a PWD ID?</label><br>
-            <input class="form-check-input" type="radio" name="pwd_id" value="yes"> Yes
-            <input class="form-check-input ms-3" type="radio" name="pwd_id" value="no"> No
+            <input class="" type="radio" name="pwd_id" value="yes"> Yes
+            <input class=" ms-3" type="radio" name="pwd_id" value="no"> No
         </div>
 
         <!-- BALIK-ARAL -->
-        <h5  class="mt-3 col-md-12">6. For Returning Learner (Balik-Aral)</h5>
+        <h5 class="mt-3 col-md-12">6. For Returning Learner (Balik-Aral)</h5>
         <div class="row col-md-12 col-12">
             <div class="col-md-3">
                 <label>Last Grade Level Completed</label>
@@ -346,13 +353,13 @@
         <!-- SHS Learner -->
         <h5 class="mt-3 col-md-12">7. For Learner in Senior High School</h5>
         <div class="row col-md-12">
-            <div class="col-md-12 col-12 d-flex" >
+            <div class="col-md-12 col-12 d-flex">
                 <label class="fs-5 me-3">Semester</label><br>
                 <input type="radio" name="1st" id="1st"> <label for="1st" class="m-0 p-0 d-flex align-items-center ms-1 me-4" style="font-size: 15px;">1st</label>
-                 <input type="radio" name="2nd" id="2nd"> <label for="2nd" class="m-0 p-0 d-flex align-items-center ms-1" style="font-size: 15px;">2nd</label>
+                <input type="radio" name="2nd" id="2nd"> <label for="2nd" class="m-0 p-0 d-flex align-items-center ms-1" style="font-size: 15px;">2nd</label>
             </div>
             <div class="d-flex col-md-12 col-12 gap-3">
-                 <div class="col-md-3">
+                <div class="col-md-3">
                     <label>Track</label>
                     <input type="text" name="shs_track" class="form-control">
                 </div>
@@ -386,6 +393,8 @@
         </div>
 
     </div>
+
+
     <div class="modal-footer">
         <button class="btn btn-success text-white" type="submit">
             <i class="fa fa-save me-1"></i>Submit Request
@@ -396,8 +405,31 @@
 
 <script>
     $('#enrollBtn').off('click').on('click', function() {
-        const id = $(this).data('id');
-        sessionStorage.setItem('learners_id', id);
         location.href = 'index.php?page=contents/enrollment';
     });
+
+        setTimeout(() => {
+            
+        $.ajax({
+            url: base_url + "authentication/action.php?action=getLearner",
+            type: "GET",
+            dataType: "json",
+            success: function(res) {
+                const id = $(this).data('id');
+                if (res.status === 1) {
+                    res.data.forEach((learner) => {
+                        if (learner.learner_id == id) {
+                            $('#enrollmentStatus').text(learner.reg_status);
+                        }
+                    });
+                }
+            },
+            error: function() {
+                console.error("Failed to load learners");
+            },
+        });
+    }, 500);
+
+
+
 </script>

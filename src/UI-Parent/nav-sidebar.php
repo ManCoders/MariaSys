@@ -27,7 +27,7 @@
         <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard
         </a>
-        <a href="index.php?page=contents/enrollment" class="nav-link nav-enrollment d-flex align-items-center">
+        <a href="index.php?page=contents/enrollment" class="nav-link nav-enrollment nav-enrollProccess nav-view_learners nav-view_users d-flex align-items-center">
             <i class="fas fa-user-plus me-2"></i> Enrollment
         </a>
         <a href="index.php?page=contents/feedback" class="nav-link nav-feedback d-flex align-items-center">
@@ -35,6 +35,9 @@
         </a>
         <a href="index.php?page=contents/setting" class="nav-link nav-setting d-flex align-items-center">
             <i class="fas fa-cog me-2"></i> Account Settings
+        </a>
+        <a href="#" class="nav-link d-flex align-items-center" id="logout">
+            <i class="fas fa-door-open me-2"></i> Log out
         </a>
     </div>
 </nav>
