@@ -5,6 +5,7 @@ if (!isset($_SESSION['teacherData'])) {
     exit;
 }
 $teacherData = $_SESSION['teacherData']['lastname'];
+$teacherID = $_SESSION['teacherData']['teacher_id'];
 
 ?>
 

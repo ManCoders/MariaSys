@@ -1,3 +1,8 @@
+<?php 
+include '../../authentication/settings.php';
+$parentInfo = get_user_info();
+$Parent = $parentInfo["parentInfo"];
+?>
 <style>
     .nav-tabs .nav-link {
         color: #666;
@@ -85,62 +90,69 @@
                 <div class="tab-content" id="settingsTabContent">
                     <!-- Profile Information Tab -->
                     <div class="tab-pane fade show active" id="profile" role="tabpanel">
-                        <form id="profileForm">
+                        <form action="../../authentication/settings.php" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="settings" value="true">
+                            <input type="hidden" name="user_id" value="<?= $parentID ?>">
+                            <input type="hidden" name="user_type" value="PARENT">
                             <div class="row">
                                 <div class="col-md-4 text-center">
                                     <div class="mb-3">
-                                        <img src="#" 
+                                        <img src="../../authentication/uploads/<?= htmlspecialchars($Parent["parent_picture"]) ?>" 
                                              alt="Profile Photo" class="rounded-circle profile-photo mb-3" width="150" height="150" id="profilePhoto">
                                         <br>
                                         <button type="button" class="btn btn-outline-secondary btn-sm" id="changePhotoBtn">
                                             <i class="fa fa-camera me-1"></i>Change Photo
                                         </button>
-                                        <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+                                        <input type="file" name="parent_picture" id="photoUpload" accept="image/*" style="display: none;">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row mb-3">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label class="form-label">First Name *</label>
-                                            <input type="text" class="form-control" id="firstName" value="Maria" required>
+                                            <input type="text" class="form-control" name="firstname" id="firstName" value="<?= htmlspecialchars($Parent["firstname"]) ?>" required>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Middle Name *</label>
+                                            <input type="text" class="form-control" name="middlename" id="middleName" value="<?= htmlspecialchars($Parent["middlename"]) ?>" required>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label class="form-label">Last Name *</label>
-                                            <input type="text" class="form-control" id="lastName" value="Santos" required>
+                                            <input type="text" class="form-control" name="lastname" id="lastName" value="<?= htmlspecialchars($Parent["lastname"]) ?>" required>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label class="form-label">Email Address *</label>
-                                            <input type="email" class="form-control" id="email" value="maria.santos@email.com" required>
+                                            <input type="email" class="form-control" name="email" id="email" value="<?= htmlspecialchars($Parent["email"]) ?>" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Phone Number *</label>
-                                            <input type="tel" class="form-control" id="phone" value="09123456789" required>
+                                            <input type="tel" class="form-control" name="cpno" id="phone" value="<?= htmlspecialchars($Parent["cpno"]) ?>" required>
                                         </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Complete Address *</label>
-                                        <textarea class="form-control" id="address" rows="3" required>123 Main Street, Barangay Centro, Polomolok, South Cotabato, 9504</textarea>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Province *</label>
+                                             <input type="text" value="<?= htmlspecialchars($Parent["province"]) ?>" class="form-control" name="province">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">City *</label>
+                                            <input type="text" value="<?= htmlspecialchars($Parent["city"]) ?>" class="form-control" name="city">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Barangay *</label>
+                                            <input type="text" value="<?= htmlspecialchars($Parent["barangay"]) ?>" class="form-control" name="barangay">
+                                        </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label class="form-label">Date of Birth</label>
-                                            <input type="date" class="form-control" id="birthdate" value="1985-06-15">
+                                            <input type="date" class="form-control" name="birthDay" id="birthdate" value="<?= htmlspecialchars($Parent["dateofbirth"]) ?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Occupation</label>
-                                            <input type="text" class="form-control" id="occupation" value="Teacher">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Emergency Contact Name</label>
-                                            <input type="text" class="form-control" id="emergencyContactName" value="Juan Santos">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Emergency Contact Number</label>
-                                            <input type="tel" class="form-control" id="emergencyContactPhone" value="09987654321">
+                                            <input type="text" class="form-control" name="occupation" id="occupation" value="<?= htmlspecialchars($Parent["occupation"]) ?>">
                                         </div>
                                     </div>
                                     <div class="text-end">

@@ -6,6 +6,7 @@ if (!isset($_SESSION['parentData'])) {
 }
 
 $parentData = $_SESSION['parentData']['lastname'];
+$parentID = $_SESSION['parentData']['parent_id'];
 ?>
 <style>
   .buttonHide{
