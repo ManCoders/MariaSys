@@ -169,8 +169,36 @@ $Teacher = $teacherInfo["teacherInfo"];
                             </div>
                         </form>
                     </div>
-
                 </div>
+            </div>
+        </div>
+        <div class="card settings-card mt-3">
+            <div class="card-body">
+                <h5><i class="fa-solid fa-lock"></i> Password Security Authentication</h5>
+                <form action="../../authentication/settings.php" method="POST">
+                    <input type="hidden" name="passsword" value="true">
+                    <input type="hidden" name="user_id" value="<?= $teacherID ?>">
+                    <input type="hidden" name="user_type" value="TEACHER">
+                    <div class="column">
+                        <div class="column my-2">
+                            <label for="">Current Password</label>
+                            <input type="password" class="form-control" name="Current_password" id="Current_password">
+                        </div>
+                        <div class="column my-2">
+                            <label for="">New Password</label>
+                            <input type="password" class="form-control" name="New_password" id="New_password">
+                        </div>
+                        <div class="column my-2">
+                            <label for="">Confirm Password</label>
+                            <input type="password" class="form-control" name="Confirm_password" id="Confirm_password">
+                        </div>
+                    </div>
+                    <div class="text-end mt-3">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-save me-1"></i>Save Passoword
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

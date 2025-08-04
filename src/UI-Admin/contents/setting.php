@@ -1,151 +1,272 @@
+<?php 
+include '../../authentication/settings.php';
+$adminInfo = get_user_info();
+$Admin = $adminInfo["adminInfo"];
+?>
+<style>
+    .nav-tabs .nav-link {
+        color: #666;
+        border: 1px solid transparent;
+        padding: 12px 16px;
+    }
+
+    .nav-tabs .nav-link.active {
+        color: #333;
+        background-color: #f8f9fa;
+        border-color: #ddd #ddd #f8f9fa;
+    }
+
+    .nav-tabs .nav-link:hover {
+        border-color: #e9ecef #e9ecef #f8f9fa;
+        background-color: #f8f9fa;
+        color: #495057;
+    }
+
+    .profile-photo {
+        border: 3px solid #f8f9fa;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .settings-card {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+    }
+
+    .status-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .status-enabled {
+        background-color: #e8f5e8;
+        color: #2d5a2d;
+        border: 1px solid #c3e6c3;
+    }
+
+    .status-disabled {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .form-label {
+        color: #555;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .text-danger {
+        color: #721c24 !important;
+    }
+
+    .alert-light-info {
+        background-color: #e8f4fd;
+        border: 1px solid #b3d7ff;
+        color: #0c5460;
+    }
+
+    .alert-light-warning {
+        background-color: #fff3cd;
+        border: 1px solid #ffda6a;
+        color: #664d03;
+    }
+</style>
+
 <section class="p-2">
     <div>
-        <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h4 class="mb-0">System Settings</h4>
-                <small class="text-muted">Configure and manage basic system preferences</small>
+                <h4 class="mb-0"><i class="fa fa-cog text-primary me-2"></i>Account Settings</h4>
+                <small class="text-muted">Manage your parent account information and preferences</small>
             </div>
-            <button class="btn btn-success btn-sm" id="addSettingBtn">
-                <i class="fa fa-plus"></i> Add Setting
-            </button>
         </div>
 
-        <table class="table table-bordered table-hover mb-0" id="settings-tbl">
-            <thead class="table-light text-dark">
-                <tr>
-                    <th class="text-center" style="width:5%">#</th>
-                    <th>Setting Name</th>
-                    <th>Value</th>
-                    <th>Description</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody id="settings-data-body"></tbody>
-        </table>
-    </div>
+        <!-- Settings Tabs -->
+        <div class="card settings-card">
 
-    <!-- Modal -->
-    <div class="modal fade" id="settingModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="settingForm">
-                    <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title">System Setting</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="card-body">
+                <div class="tab-content" id="settingsTabContent">
+                    <!-- Profile Information Tab -->
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel">
+                        <form action="../../authentication/settings.php" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="settings" value="true">
+                            <input type="hidden" name="user_id" value="<?= $adminID ?>">
+                            <input type="hidden" name="user_type" value="ADMIN">
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    <div class="mb-3">
+                                        <img src="../../authentication/uploads/<?= htmlspecialchars($Admin["admin_picture"]) ?>"
+                                            alt="Profile Photo" class="rounded-circle profile-photo mb-3" width="150"
+                                            height="150" id="profilePhoto">
+                                        <br>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm"
+                                            id="changePhotoBtn">
+                                            <i class="fa fa-camera me-1"></i>Change Photo
+                                        </button>
+                                        <input type="file" name="admin_picture" id="photoUpload" accept="image/*"
+                                            style="display: none;">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label class="form-label">First Name *</label>
+                                            <input type="text" class="form-control" name="firstname" id="firstName"
+                                                value="<?= htmlspecialchars($Admin["firstname"]) ?>" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Middle Name *</label>
+                                            <input type="text" class="form-control" name="middlename" id="middleName"
+                                                value="<?= htmlspecialchars($Admin["middlename"]) ?>" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Last Name *</label>
+                                            <input type="text" class="form-control" name="lastname" id="lastName"
+                                                value="<?= htmlspecialchars($Admin["lastname"]) ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Email Address *</label>
+                                            <input type="email" class="form-control" name="email" id="email"
+                                                value="<?= htmlspecialchars($Admin["email"]) ?>" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Phone Number *</label>
+                                            <input type="tel" class="form-control" name="cpno" id="phone"
+                                                value="<?= htmlspecialchars($Admin["cpno"]) ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fa fa-save me-1"></i>Save Profile Changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="settingId">
-                        <div class="mb-2">
-                            <label class="form-label">Setting Name</label>
-                            <input type="text" class="form-control" id="settingName" required>
+                </div>
+            </div>
+        </div>
+        <div class="card settings-card mt-3">
+            <div class="card-body">
+                <h5><i class="fa-solid fa-lock"></i> Change Password </h5>
+                <form action="../../authentication/settings.php" method="POST">
+                    <input type="hidden" name="passsword" value="true">
+                    <input type="hidden" name="user_id" value="<?= $adminID ?>">
+                    <input type="hidden" name="user_type" value="ADMIN">
+                    <div class="column">
+                        <div class="column my-2">
+                            <label for="">Current Password</label>
+                            <input type="password" required class="form-control" name="Current_password" id="Current_password">
                         </div>
-                        <div class="mb-2">
-                            <label class="form-label">Value</label>
-                            <input type="text" class="form-control" id="settingValue" required>
+                        <div class="column my-2">
+                            <label for="">New Password</label>
+                            <input type="password" required class="form-control" name="New_password" id="New_password">
                         </div>
-                        <div class="mb-2">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" id="settingDescription" rows="2"></textarea>
+                        <div class="column my-2">
+                            <label for="">Confirm Password</label>
+                            <input type="password" required class="form-control" name="Confirm_password" id="Confirm_password">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success text-white" type="submit">Save</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <div class="text-end mt-3">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-save me-1"></i>Save Passoword
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
 </section>
+
 <script>
-    const settingsData = [
-        { id: 1, name: "System Name", value: "School Portal", description: "Main system title" },
-        { id: 2, name: "Default Language", value: "English", description: "Interface language" },
-        { id: 3, name: "Maintenance Mode", value: "Off", description: "System availability mode" }
-    ];
-
-    let dataTable;
-
-    function renderSettingsTable() {
-        const tbody = $('#settings-data-body');
-        tbody.html('');
-        let i = 1;
-
-        settingsData.forEach(setting => {
-            const tr = $('<tr></tr>');
-            tr.append(`<td class="text-center">${i++}</td>`);
-            tr.append(`<td>${setting.name}</td>`);
-            tr.append(`<td>${setting.value}</td>`);
-            tr.append(`<td>${setting.description}</td>`);
-            tr.append(`
-                <td class="text-center">
-                    <button class="btn btn-sm btn-success editBtn" data-id="${setting.id}"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-sm btn-danger deleteBtn" data-id="${setting.id}"><i class="fa fa-trash"></i></button>
-                </td>`);
-            tbody.append(tr);
-        });
-
-        if (dataTable) dataTable.destroy();
-        dataTable = $('#settings-tbl').DataTable({
-            pageLength: 5,
-            lengthMenu: [5, 10, 20],
-            columnDefs: [{ orderable: false, targets: 4 }]
-        });
-
-        $('.editBtn').off('click').on('click', function () {
-            const id = $(this).data('id');
-            const record = settingsData.find(e => e.id === id);
-            if (record) {
-                $('#settingId').val(record.id);
-                $('#settingName').val(record.name);
-                $('#settingValue').val(record.value);
-                $('#settingDescription').val(record.description);
-                new bootstrap.Modal(document.getElementById('settingModal')).show();
-            }
-        });
-
-        $('.deleteBtn').off('click').on('click', function () {
-            const id = $(this).data('id');
-            const index = settingsData.findIndex(e => e.id === id);
-            if (index !== -1 && confirm('Delete this setting?')) {
-                settingsData.splice(index, 1);
-                renderSettingsTable();
-            }
-        });
-    }
-
-    $('#addSettingBtn').click(function () {
-        $('#settingId').val('');
-        $('#settingName').val('');
-        $('#settingValue').val('');
-        $('#settingDescription').val('');
-        new bootstrap.Modal(document.getElementById('settingModal')).show();
+    // Photo upload handler
+    $('#changePhotoBtn').click(function() {
+        $('#photoUpload').click();
     });
 
-    $('#settingForm').submit(function (e) {
-        e.preventDefault();
-        const id = $('#settingId').val();
-        if (id) {
-            const index = settingsData.findIndex(e => e.id == id);
-            if (index !== -1) {
-                settingsData[index].name = $('#settingName').val();
-                settingsData[index].value = $('#settingValue').val();
-                settingsData[index].description = $('#settingDescription').val();
-            }
-        } else {
-            const newId = settingsData.length ? settingsData[settingsData.length - 1].id + 1 : 1;
-            settingsData.push({
-                id: newId,
-                name: $('#settingName').val(),
-                value: $('#settingValue').val(),
-                description: $('#settingDescription').val()
-            });
+    $('#photoUpload').change(function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#profilePhoto').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(file);
         }
-        renderSettingsTable();
-        bootstrap.Modal.getInstance(document.getElementById('settingModal')).hide();
     });
 
-    $(document).ready(function () {
-        renderSettingsTable();
+    // Initialize tooltips (if using Bootstrap tooltips)
+    $(document).ready(function() {
+        $('[data-bs-toggle="tooltip"]').tooltip();
     });
 </script>
+<?php if (
+        isset($_GET['update']) || 
+        isset($_GET['changePass']) || 
+        isset($_GET['NewPassword']) || 
+        isset($_GET['incorrectPass'])
+    ): ?>
+    <script>
+        // Trigger file upload when "Change Photo" button is clicked
+        document.getElementById("changePhotoBtn").addEventListener("click", function () {
+            document.getElementById("photoUpload").click();
+        });
+
+        // Preview image when a file is selected
+        document.getElementById("photoUpload").addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("profilePhoto").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Tooltip initializer
+        document.addEventListener("DOMContentLoaded", function () {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // SweetAlert2 messages (still inside DOMContentLoaded)
+            const messages = {
+                update: { icon: 'success', title: 'Profile updated successfully!' },
+                changePass: { icon: 'success', title: 'Password changed successfully!' },
+                NewPassword: { icon: 'error', title: 'New passwords do not match!' },
+                incorrectPass: { icon: 'error', title: 'Current password is incorrect!' }
+            };
+
+            for (const key in messages) {
+                const value = new URLSearchParams(window.location.search).get(key);
+                if (value) {
+                    Swal.fire({
+                        toast: true,
+                        icon: messages[key].icon,
+                        title: messages[key].title,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didClose: () => removeUrlParams([key])
+                    });
+                    break;
+                }
+            }
+
+            function removeUrlParams(params) {
+                const url = new URL(window.location);
+                params.forEach(param => url.searchParams.delete(param));
+                window.history.replaceState({}, document.title, url.toString());
+            }
+        });
+    </script>
+<?php endif; ?>

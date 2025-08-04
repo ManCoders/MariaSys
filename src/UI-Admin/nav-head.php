@@ -6,6 +6,7 @@ if (!isset($_SESSION['adminData'])) {
 } 
 
 $adminData = $_SESSION['adminData']['lastname'];
+$adminID = $_SESSION['adminData']['admin_id'];
 
 ?>
 
