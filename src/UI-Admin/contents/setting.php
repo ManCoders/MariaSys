@@ -107,6 +107,7 @@ $Admin = $adminInfo["adminInfo"];
                                         </button>
                                         <input type="file" name="admin_picture" id="photoUpload" accept="image/*"
                                             style="display: none;">
+                                        <input type="hidden" name="current_profile_image" value="<?= $Admin["admin_picture"] ?>" >    
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -184,28 +185,6 @@ $Admin = $adminInfo["adminInfo"];
 
 </section>
 
-<script>
-    // Photo upload handler
-    $('#changePhotoBtn').click(function() {
-        $('#photoUpload').click();
-    });
-
-    $('#photoUpload').change(function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                $('#profilePhoto').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // Initialize tooltips (if using Bootstrap tooltips)
-    $(document).ready(function() {
-        $('[data-bs-toggle="tooltip"]').tooltip();
-    });
-</script>
 <?php if (
         isset($_GET['update']) || 
         isset($_GET['changePass']) || 

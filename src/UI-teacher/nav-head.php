@@ -192,34 +192,6 @@ $teacherID = $_SESSION['teacherData']['teacher_id'];
       <i class="fas fa-user-shield"></i>
       <span><?php echo htmlspecialchars($teacherData); ?></span>
     </div>
-
-    <!-- Navigation Menu -->
-    <ul class="nav-menu">
-      <li class="dropdown">
-        <a href="#" class="profile">
-          <i class="fas fa-user-cog"></i>
-          <span>Profile</span>
-        </a>
-        <div class="dropdown-content">
-          <a href="index.php?page=contents/setting">
-            <i class="fas fa-cog"></i> Settings
-          </a>
-          <a href="#">
-            <i class="fas fa-user-edit"></i> Edit Profile
-          </a>
-          <a href="#">
-            <i class="fas fa-key"></i> Change Password
-          </a>
-        </div>
-      </li>
-
-      <li>
-        <a id="logout" class="logout" style="cursor: pointer;">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
-      </li>
-    </ul>
   </div>
 </nav>
 

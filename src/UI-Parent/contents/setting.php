@@ -107,6 +107,7 @@ $Parent = $parentInfo["parentInfo"];
                                         </button>
                                         <input type="file" name="parent_picture" id="photoUpload" accept="image/*"
                                             style="display: none;">
+                                        <input type="hidden" name="current_profile_image" value="<?= $Parent["parent_picture"] ?>" >
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -212,69 +213,206 @@ $Parent = $parentInfo["parentInfo"];
     </div>
 
 </section>
-
-<?php if (
-    isset($_GET['update']) || 
-    isset($_GET['changePass']) || 
-    isset($_GET['NewPassword']) || 
-    isset($_GET['incorrectPass'])
-): ?>
 <script>
-    // Trigger file upload when "Change Photo" button is clicked
-    document.getElementById("changePhotoBtn").addEventListener("click", function () {
-        document.getElementById("photoUpload").click();
+    function showNotification(message, type = 'success') {
+        // You can implement a toast notification system here
+        alert(message);
+    }
+
+    // Profile form handler
+    $('#profileForm').submit(function(e) {
+        e.preventDefault();
+        
+        // Validate required fields
+        const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'address'];
+        let isValid = true;
+        
+        requiredFields.forEach(field => {
+            if (!$('#' + field).val().trim()) {
+                isValid = false;
+                $('#' + field).addClass('is-invalid');
+            } else {
+                $('#' + field).removeClass('is-invalid');
+            }
+        });
+        
+        if (isValid) {
+            showNotification('Profile updated successfully!');
+        } else {
+            showNotification('Please fill in all required fields.', 'error');
+        }
     });
 
-    // Preview image when a file is selected
-    document.getElementById("photoUpload").addEventListener("change", function (e) {
+    // Password form handler
+    $('#passwordForm').submit(function(e) {
+        e.preventDefault();
+        
+        const newPassword = $('#newPassword').val();
+        const confirmPassword = $('#confirmPassword').val();
+        
+        if (newPassword.length < 8) {
+            showNotification('Password must be at least 8 characters long.', 'error');
+            return;
+        }
+        
+        if (newPassword !== confirmPassword) {
+            showNotification('New password and confirmation do not match.', 'error');
+            return;
+        }
+        
+        showNotification('Password updated successfully!');
+        $('#passwordForm')[0].reset();
+    });
+
+    // Notification form handler
+    $('#notificationForm').submit(function(e) {
+        e.preventDefault();
+        showNotification('Notification settings saved successfully!');
+    });
+
+    // Privacy form handler
+    $('#privacyForm').submit(function(e) {
+        e.preventDefault();
+        showNotification('Privacy settings saved successfully!');
+    });
+
+    // Photo upload handler
+    $('#changePhotoBtn').click(function() {
+        $('#photoUpload').click();
+    });
+
+    $('#photoUpload').change(function(e) {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function (e) {
-                document.getElementById("profilePhoto").src = e.target.result;
+            reader.onload = function(e) {
+                $('#profilePhoto').attr('src', e.target.result);
             };
             reader.readAsDataURL(file);
         }
     });
 
-    // Tooltip initializer
-    document.addEventListener("DOMContentLoaded", function () {
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-            new bootstrap.Tooltip(tooltipTriggerEl);
-        });
-
-        // SweetAlert2 messages (still inside DOMContentLoaded)
-        const messages = {
-            update: { icon: 'success', title: 'Profile updated successfully!' },
-            changePass: { icon: 'success', title: 'Password changed successfully!' },
-            NewPassword: { icon: 'error', title: 'New passwords do not match!' },
-            incorrectPass: { icon: 'error', title: 'Current password is incorrect!' }
-        };
-
-        for (const key in messages) {
-            const value = new URLSearchParams(window.location.search).get(key);
-            if (value) {
-                Swal.fire({
-                    toast: true,
-                    icon: messages[key].icon,
-                    title: messages[key].title,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didClose: () => removeUrlParams([key])
-                });
-                break;
-            }
+    // Two-factor authentication toggle
+    $('#toggle2FA').click(function() {
+        const status = $('#twoFactorStatus');
+        const button = $(this);
+        
+        if (status.text() === 'Disabled') {
+            status.removeClass('status-disabled').addClass('status-enabled').text('Enabled');
+            button.text('Disable 2FA').removeClass('btn-outline-primary').addClass('btn-outline-warning');
+            showNotification('Two-factor authentication enabled successfully!');
+        } else {
+            status.removeClass('status-enabled').addClass('status-disabled').text('Disabled');
+            button.text('Enable 2FA').removeClass('btn-outline-warning').addClass('btn-outline-primary');
+            showNotification('Two-factor authentication disabled.');
         }
+    });
 
-        function removeUrlParams(params) {
-            const url = new URL(window.location);
-            params.forEach(param => url.searchParams.delete(param));
-            window.history.replaceState({}, document.title, url.toString());
+    // Delete account handlers
+    $('#deleteAccountBtn').click(function() {
+        $('#deleteAccountModal').modal('show');
+    });
+
+    $('#deleteConfirmation').on('input', function() {
+        const confirmation = $(this).val();
+        $('#confirmDeleteBtn').prop('disabled', confirmation !== 'DELETE');
+    });
+
+    $('#confirmDeleteBtn').click(function() {
+        showNotification('Account deletion request submitted. You will receive an email with further instructions.', 'info');
+        $('#deleteAccountModal').modal('hide');
+        $('#deleteConfirmation').val('');
+    });
+
+    // Phone number formatting
+    $('#phone, #emergencyContactPhone').on('input', function() {
+        let value = $(this).val().replace(/\D/g, '');
+        if (value.length > 11) {
+            value = value.substring(0, 11);
         }
+        $(this).val(value);
+    });
+
+    // Email validation
+    $('#email').on('blur', function() {
+        const email = $(this).val();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (email && !emailRegex.test(email)) {
+            $(this).addClass('is-invalid');
+            showNotification('Please enter a valid email address.', 'error');
+        } else {
+            $(this).removeClass('is-invalid');
+        }
+    });
+
+    // Initialize tooltips (if using Bootstrap tooltips)
+    $(document).ready(function() {
+        $('[data-bs-toggle="tooltip"]').tooltip();
     });
 </script>
 
+<?php if (
+        isset($_GET['update']) || 
+        isset($_GET['changePass']) || 
+        isset($_GET['NewPassword']) || 
+        isset($_GET['incorrectPass'])
+    ): ?>
+    <script>
+        // Trigger file upload when "Change Photo" button is clicked
+        document.getElementById("changePhotoBtn").addEventListener("click", function () {
+            document.getElementById("photoUpload").click();
+        });
+
+        // Preview image when a file is selected
+        document.getElementById("photoUpload").addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("profilePhoto").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Tooltip initializer
+        document.addEventListener("DOMContentLoaded", function () {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // SweetAlert2 messages (still inside DOMContentLoaded)
+            const messages = {
+                update: { icon: 'success', title: 'Profile updated successfully!' },
+                changePass: { icon: 'success', title: 'Password changed successfully!' },
+                NewPassword: { icon: 'error', title: 'New passwords do not match!' },
+                incorrectPass: { icon: 'error', title: 'Current password is incorrect!' }
+            };
+
+            for (const key in messages) {
+                const value = new URLSearchParams(window.location.search).get(key);
+                if (value) {
+                    Swal.fire({
+                        toast: true,
+                        icon: messages[key].icon,
+                        title: messages[key].title,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didClose: () => removeUrlParams([key])
+                    });
+                    break;
+                }
+            }
+
+            function removeUrlParams(params) {
+                const url = new URL(window.location);
+                params.forEach(param => url.searchParams.delete(param));
+                window.history.replaceState({}, document.title, url.toString());
+            }
+        });
+    </script>
 <?php endif; ?>

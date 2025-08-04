@@ -35,6 +35,10 @@
         <a href="index.php?page=contents/setting" class="nav-link nav-setting d-flex align-items-center">
             <i class="fas fa-cog me-2"></i> Account Settings
         </a>
+        <a id="logout" class="logout" style="cursor: pointer;">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
     </div>
 </nav>
 

@@ -1,13 +1,34 @@
-<section class="nav d-flex justify-content-evenly text-center m-3 w-100">
-    <div class="card p-4 w-20 shadow"><!-- <i class="fa fa-users"></i>  --><span id="totalStudents">0</span> <span>Total
+<!-- <section class="nav d-flex justify-content-evenly text-center m-3 w-100">
+    <div class="card p-4 w-20 shadow"><span id="totalStudents">0</span> <span>Total
             Students</span></div>
-    <div class="card p-4 w-20 shadow"><!-- <i class="fa fa-check"></i>  --><span id="presentToday">0</span> <span>Present
+    <div class="card p-4 w-20 shadow"><span id="presentToday">0</span> <span>Present
             today</span></div>
-    <div class="card p-4 w-20 shadow"><!-- <i class="fa fa-x"></i>  --><span id="absentToday">0</span> <span>Absence Today</span>
+    <div class="card p-4 w-20 shadow"><span id="absentToday">0</span> <span>Absence Today</span>
     </div>
     <div class="card p-4 w-20 shadow"><span id="attendanceRate">0%</span> <span>Attendance Rate</span></div>
 </section>
-
+ -->
+<div class="category col-md-12 col-12 row justify-content-between mb-5"> 
+    <div class="col-md-7">
+        <select name="" id="" class="form-select">
+            <option value="">Grade 6 Venus</option>
+            <option value="">Grade 6 Mars</option>
+            <option value="">Grade 6 Earth</option>
+        </select>
+    </div>
+    <div class="row col-md-5 gap-3 ms-2 justify-content-end">
+        <button id="presentBtn" class="btn btn-success btn-sm m-0 py-2 px-3 col-md-3">Presnt</button>
+        <button id="absentBtn" class="btn btn-danger btn-sm m-0 py-2 px-3 col-md-3">Absent</button>
+        <button id="lateBtn" class="btn btn-dark btn-sm m-0 py-2 px-3 col-md-3">Late</button>
+    </div>
+</div>
+<section class="nav d-flex justify-content-evenly text-center m-0 w-100">
+    <div class="card p-4 w-25 shadow"><span class="fw-bold fs-5" id="totalStudents">0</span> <span>Total
+            Students</span></div>
+    <div class="card p-4 w-25 shadow"><span class="fw-bold fs-5" id="totalStudents">0</span> <span>Total of <span id="status" class="fw-bold">Present</span>
+            Students Today</span></div>
+    <div class="card p-4 w-25 shadow"><span class="fw-bold fs-5" id="attendanceRate">0%</span> <span>Attendance Rate</span></div>
+</section>
 
 <section class="attendance-overview">
     <div class="overview-grid row g-3">
@@ -16,20 +37,20 @@
         <div class="col-md-12 p-3">
             <div class="w-100">
                 <!-- Section Tabs -->
-                <ul class="nav nav-tabs nav-justified w-100" id="sectionTabs" role="tablist">
+                <!-- <ul class="nav nav-tabs nav-justified w-100" id="sectionTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="tab-sec1" data-bs-toggle="tab" data-bs-target="#sec1"
-                            type="button" role="tab">Grade 2B Section</button>
+                            type="button" role="tab">Section 1</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="tab-sec2" data-bs-toggle="tab" data-bs-target="#sec2" type="button"
-                            role="tab">Grade 3A Section</button>
+                            role="tab">Section 2</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="tab-sec3" data-bs-toggle="tab" data-bs-target="#sec3" type="button"
-                            role="tab">Grade 1C Section</button>
+                            role="tab">Section 3</button>
                     </li>
-                </ul>
+                </ul> -->
 
                 <!-- Tab Content Per Section -->
                 <div class="tab-content pt-3" id="sectionTabsContent">
@@ -40,23 +61,23 @@
                                 <div class="">
                                     <div class="d-flex justify-content-between align-items-center mb-0">
                                         <div>
-                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Attendance
-                                                Check</h5>
-                                            <span>Manage and process student registration application</span>
+                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Learners
+                                                Management</h5>
+                                            <span>Manage and process Parent application</span>
                                         </div>
                                         <button class="btn btn-success btn-sm" id="addNewBtn" data-section="1">
-                                            <i class="fa fa-plus"></i> Add New Learner
+                                            <i class="fa fa-plus"></i> Add New Parent
                                         </button>
                                     </div>
-                                    <table class="table table-bordered table-hover mb-0" style="width: 95%;" id="student-tbl-1">
+                                    <table class="table table-bordered table-hover mb-0" style="width: 90%;" id="student-tbl-1">
                                         <thead class="table-light text-dark">
                                             <tr>
                                                 <th class="text-center" style="width:4%">#</th>
-                                                <th>Learner Name</th>
-                                                <th>Current Time</th>
-                                                <th>Current Date</th>
+                                                <th>Parent Name</th>
+                                                <th>Student LRN:</th>
+                                                <th>Date Submitted</th>
                                                 <th>Contact Number</th>
-                                                <th>Attendance Rate</th>
+                                                <th>Type</th>
                                                 <th class="text-center">Status</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
@@ -79,8 +100,8 @@
                                 <div class="">
                                     <div class="d-flex justify-content-between align-items-center mb-0">
                                         <div>
-                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Attendance
-                                                Check</h5>
+                                            <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Section
+                                                Management</h4>
                                             <span>Manage and process student registration application</span>
                                         </div>
                                         <button class="btn btn-success btn-sm" id="addNewBtn" data-section="2">
@@ -92,10 +113,10 @@
                                             <tr>
                                                 <th class="text-center" style="width:4%">#</th>
                                                 <th>Learner Name</th>
-                                                <th>Current Time</th>
-                                                <th>Current Date</th>
+                                                <th>Student LRN:</th>
+                                                <th>Date Submitted</th>
                                                 <th>Contact Number</th>
-                                                <th>Attendance Rate</th>
+                                                <th>Type</th>
                                                 <th class="text-center">Status</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
@@ -118,8 +139,8 @@
                                 <div class="">
                                     <div class="d-flex justify-content-between align-items-center mb-0">
                                         <div>
-                                            <h5 class=""><i class="fa fa-folder-open text-primary me-2"></i>Attendance
-                                                Check</h5>
+                                            <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Section
+                                                Management</h4>
                                             <span>Manage and process student registration application</span>
                                         </div>
                                         <button class="btn btn-success btn-sm" id="addNewBtn" data-section="3">
@@ -131,10 +152,10 @@
                                             <tr>
                                                 <th class="text-center" style="width:4%">#</th>
                                                 <th>Learner Name</th>
-                                                <th>Current Time</th>
-                                                <th>Current Date</th>
+                                                <th>Student LRN:</th>
+                                                <th>Date Submitted</th>
                                                 <th>Contact Number</th>
-                                                <th>Attendance Rate</th>
+                                                <th>Type</th>
                                                 <th class="text-center">Status</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
@@ -207,6 +228,31 @@
         </div>
     </div>
 </div>
+
+<script>
+  // Get references to the buttons and the span
+  const presentBtn = document.getElementById("presentBtn");
+  const absentBtn = document.getElementById("absentBtn");
+  const lateBtn = document.getElementById("lateBtn");
+  const statusSpan = document.getElementById("status");
+
+  // Event listeners to change the status text
+  presentBtn.addEventListener("click", () => {
+    statusSpan.textContent = "Present";
+    statusSpan.style.color = "green"; // Optional: change color
+  });
+
+  absentBtn.addEventListener("click", () => {
+    statusSpan.textContent = "Absent";
+    statusSpan.style.color = "red";
+  });
+
+  lateBtn.addEventListener("click", () => {
+    statusSpan.textContent = "Late";
+    statusSpan.style.color = "black";
+  });
+</script>
+
 <script>
      $('#student-tbl-1').off('click').on('click', function() {
         const id = $(this).data('id');

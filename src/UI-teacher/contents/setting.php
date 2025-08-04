@@ -103,7 +103,8 @@ $Teacher = $teacherInfo["teacherInfo"];
                                         <button type="button" class="btn btn-outline-secondary btn-sm" id="changePhotoBtn">
                                             <i class="fa fa-camera me-1"></i>Change Photo
                                         </button>
-                                        <input type="file" name="teacher_picture" id="photoUpload" accept="image/*" style="display: none;">
+                                        <input type="file" name="teacher_picture" value="<?= htmlspecialchars($Teacher["teacher_picture"]) ?>" id="photoUpload" accept="image/*" style="display: none;">
+                                        <input type="hidden" name="current_profile_image" value="<?= $Teacher["teacher_picture"] ?>" >
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -315,7 +316,6 @@ $Teacher = $teacherInfo["teacherInfo"];
             const reader = new FileReader();
             reader.onload = function(e) {
                 $('#profilePhoto').attr('src', e.target.result);
-                showNotification('Profile photo updated successfully!');
             };
             reader.readAsDataURL(file);
         }
@@ -380,3 +380,68 @@ $Teacher = $teacherInfo["teacherInfo"];
         $('[data-bs-toggle="tooltip"]').tooltip();
     });
 </script>
+
+<?php if (
+        isset($_GET['update']) || 
+        isset($_GET['changePass']) || 
+        isset($_GET['NewPassword']) || 
+        isset($_GET['incorrectPass'])
+    ): ?>
+    <script>
+        // Trigger file upload when "Change Photo" button is clicked
+        document.getElementById("changePhotoBtn").addEventListener("click", function () {
+            document.getElementById("photoUpload").click();
+        });
+
+        // Preview image when a file is selected
+        document.getElementById("photoUpload").addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("profilePhoto").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Tooltip initializer
+        document.addEventListener("DOMContentLoaded", function () {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // SweetAlert2 messages (still inside DOMContentLoaded)
+            const messages = {
+                update: { icon: 'success', title: 'Profile updated successfully!' },
+                changePass: { icon: 'success', title: 'Password changed successfully!' },
+                NewPassword: { icon: 'error', title: 'New passwords do not match!' },
+                incorrectPass: { icon: 'error', title: 'Current password is incorrect!' }
+            };
+
+            for (const key in messages) {
+                const value = new URLSearchParams(window.location.search).get(key);
+                if (value) {
+                    Swal.fire({
+                        toast: true,
+                        icon: messages[key].icon,
+                        title: messages[key].title,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didClose: () => removeUrlParams([key])
+                    });
+                    break;
+                }
+            }
+
+            function removeUrlParams(params) {
+                const url = new URL(window.location);
+                params.forEach(param => url.searchParams.delete(param));
+                window.history.replaceState({}, document.title, url.toString());
+            }
+        });
+    </script>
+<?php endif; ?>
