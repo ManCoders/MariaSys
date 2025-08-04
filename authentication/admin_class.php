@@ -498,7 +498,7 @@ class Action
 
     function NewTeacher()
     {
-        extract($_POST); 
+        extract($_POST);
 
         try {
 
@@ -594,11 +594,7 @@ class Action
     {
         try {
             $stmt = $this->db->prepare("
-            SELECT 
-                *,
-                CONCAT(lastname, ', ', firstname, ' ', LEFT(middlename, 1), '.') AS teacher_name
-            FROM teacher
-            ORDER BY teacher.created_date ASC
+            SELECT * FROM parent ORDER BY created_date ASC
         ");
 
             $stmt->execute();
@@ -646,7 +642,7 @@ class Action
     {
         try {
             $stmt = $this->db->prepare("
-            SELECT * FROM learner
+            SELECT * FROM learners
         ");
 
             $stmt->execute();
@@ -659,6 +655,212 @@ class Action
         } catch (PDOException $e) {
             /* http_response_code(500); */
             return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    /* function other_info()
+    {
+        try {
+            $learner_id = $_POST['learner_id'];
+            $diagnosis = isset($_POST['diagnosis']) ? implode(', ', $_POST['diagnosis']) : 'NA';
+            $manifestations = isset($_POST['manifestations']) ? implode(', ', $_POST['manifestations']) : 'NA';
+            $has_pwd_id = $_POST['pwd_id'] ?? 'no';
+            $last_grade_level = $_POST['last_grade_level'] ?? null;
+            $last_sy = $_POST['last_sy'] ?? null;
+            $last_school = $_POST['last_school'] ?? null;
+            $learning_mode = isset($_POST['learning_mode']) ? implode(', ', $_POST['learning_mode']) : null;
+            $is_ip = $_POST['is_ip'] ?? 'No';
+            $ip_specify = $_POST['ip_specify'] ?? null;
+            $is_4ps = $_POST['is_4ps'] ?? 'No';
+            $household_id = $_POST['household_id'] ?? null;
+
+            // Check if data already exists for this learner
+            $check = $this->db->prepare("SELECT COUNT(*) FROM enrollment_additional_info WHERE learner_id = ?");
+            $check->execute([$learner_id]);
+
+            if ($check->fetchColumn() > 0) {
+                $stmt = $this->db->prepare("UPDATE enrollment_additional_info SET 
+                diagnosis = ?, manifestations = ?, has_pwd_id = ?, 
+                last_grade_level = ?, last_sy = ?, last_school = ?, 
+                learning_mode = ?, is_ip = ?, ip_specify = ?, 
+                is_4ps = ?, household_id = ?
+                WHERE learner_id = ?");
+                $stmt->execute([
+                    $diagnosis,
+                    $manifestations,
+                    $has_pwd_id,
+                    $last_grade_level,
+                    $last_sy,
+                    $last_school,
+                    $learning_mode,
+                    $is_ip,
+                    $ip_specify,
+                    $is_4ps,
+                    $household_id,
+                    $learner_id
+                ]);
+            } else {
+                // Insert if new
+                $stmt = $this->db->prepare("INSERT INTO enrollment_additional_info (
+                learner_id, diagnosis, manifestations, has_pwd_id,
+                last_grade_level, last_sy, last_school,
+                learning_mode, is_ip, ip_specify, is_4ps, household_id
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute([
+                    $learner_id,
+                    $diagnosis,
+                    $manifestations,
+                    $has_pwd_id,
+                    $last_grade_level,
+                    $last_sy,
+                    $last_school,
+                    $learning_mode,
+                    $is_ip,
+                    $ip_specify,
+                    $is_4ps,
+                    $household_id
+                ]);
+            }
+
+            return json_encode([
+                'status' => 1,
+                'message' => 'Saved'
+            ]); 
+        } catch (PDOException $e) {
+            return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
+    } */
+    function other_info()
+    {
+        try {
+            $learner_id = $_POST['learner_id'] ?? null;
+            $field = $_POST['name'] ?? null;
+            $value = $_POST['value'] ?? null;
+
+            if (!$learner_id || !$field) {
+                return json_encode([
+                    'status' => 2,
+                    'message' => 'Missing required fields'
+                ]);
+            }
+
+            $check = $this->db->prepare("SELECT COUNT(*) FROM enrollment_additional_info WHERE learner_id = ?");
+            $check->execute([$learner_id]);
+
+            if ($check->fetchColumn() > 0) {
+                $stmt = $this->db->prepare("UPDATE enrollment_additional_info SET `$field` = ? WHERE learner_id = ?");
+                $stmt->execute([$value, $learner_id]);
+            } else {
+                // INSERT new row with only this one field and learner_id
+                $stmt = $this->db->prepare("INSERT INTO enrollment_additional_info (`learner_id`, `$field`) VALUES (?, ?)");
+                $stmt->execute([$learner_id, $value]);
+            }
+
+            return json_encode([
+                'status' => 1,
+                'message' => "Saved"
+            ]);
+        } catch (PDOException $e) {
+            return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    function get_additional_info()
+    {
+        try {
+            $learner_id = $_POST['learner_id'] ?? null;
+            if (!$learner_id) {
+                return json_encode(['status' => 0, 'message' => 'Missing learner_id']);
+            }
+
+            $stmt = $this->db->prepare("SELECT * FROM enrollment_additional_info WHERE learner_id = ?");
+            $stmt->execute([$learner_id]);
+
+            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return json_encode(['status' => 1, 'message' => 'Saved Data', 'data' => $row]);
+            }
+
+            return json_encode(['status' => 2, 'message' => 'No data found']);
+        } catch (PDOException $e) {
+            return json_encode(['status' => 2, 'message' => 'Database error: ' . $e->getMessage()]);
+        }
+    }
+
+    function updateLearners()
+    {
+        try {
+            $learner_id = $_POST['learner_id'] ?? null;
+            $field = $_POST['field'] ?? null;
+            $value = $_POST['value'] ?? null;
+
+            if (!$learner_id || !$field) {
+                
+                return json_encode(['status' => 2, 'message' => 'Missing required fields']);
+            }
+
+            // Ensure field name is valid to prevent SQL injection
+            $allowed_fields = [
+                'grade_level',
+                'school_year',
+                'lrn',
+                'psa',
+                'lname',
+                'fname',
+                'mname',
+                'suffix',
+                'birthdate',
+                'age',
+                'gender',
+                'birth_place',
+                'religion',
+                'tongue',
+                'current_house_no',
+                'current_street',
+                'current_barangay',
+                'current_city',
+                'current_province',
+                'current_country',
+                'current_zip'
+                
+            ];
+
+            if (!in_array($field, $allowed_fields)) {
+                echo json_encode([
+                    'status' => 0,
+                    'message' => 'Invalid field.'
+                ]);
+                return;
+            }
+
+            // Check if learner exists
+            $check = $this->db->prepare("SELECT COUNT(*) FROM learners WHERE learner_id = ?");
+            $check->execute([$learner_id]);
+
+            if ($check->fetchColumn() > 0) {
+                // Update field
+                $stmt = $this->db->prepare("UPDATE learners SET `$field` = ? WHERE learner_id = ?");
+                $stmt->execute([$value, $learner_id]);
+            } else {
+                // Insert new record (optional: normally learner should already exist)
+                $stmt = $this->db->prepare("INSERT INTO learners (`learner_id`, `$field`) VALUES (?, ?)");
+                $stmt->execute([$learner_id, $value]);
+            }
+
+            echo json_encode([
+                'status' => 1,
+                'message' => 'Saved successfully.'
+            ]);
+        } catch (PDOException $e) {
+            echo json_encode([
                 'status' => 0,
                 'message' => 'Database error: ' . $e->getMessage()
             ]);

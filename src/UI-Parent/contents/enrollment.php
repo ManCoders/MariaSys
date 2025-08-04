@@ -6,13 +6,13 @@
                 <small class="text-muted mediaSizeP">Register and link your child to your parent account</small>
             </div>
             <div class="col-md-4 col-11 d-flex justify-content-end">
-                <button
+<!--                 <button
                     class="btn btn-success btn-sm p-2 m-0"
                     data-bs-toggle="modal"
                     data-bs-target="#childModal"
                     id="addChildBtn">
                     <i class="fa fa-plus"></i> Link New Child
-                </button>
+                </button> -->
 
             </div>
 
@@ -409,6 +409,8 @@
             </div>
         </div>
     </div>
+
+ <!--    
     <div class="modal fade" id="childModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -476,9 +478,9 @@
                                 <div class="mb-3 m-0 p-0">
                                     <label for="suffix" class="form-label">Suffix</label>
                                     <select class="form-select" name="suffix" id="suffix">
-                                        <option value="" selected>None</option>
-                                        <option value="Jr.">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
+                                        <option value="" selected>Select Suffix</option>
+                                        <option value="Jr">Jr</option>
+                                        <option value="Sr">Sr</option>
                                         <option value="II">II</option>
                                         <option value="III">III</option>
                                         <option value="IV">IV</option>
@@ -565,7 +567,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="modal fade" id="viewStudentModal" tabindex="-1" aria-labelledby="viewStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-landscape">

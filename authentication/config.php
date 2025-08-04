@@ -126,19 +126,28 @@ function db_connect()
                 tongue VARCHAR(20),
                 religious VARCHAR(50),
                 notes TEXT,
-                
+                psa VARCHAR(50),
                 learner_picture VARCHAR(255),
                 learner_status ENUM('Active', 'Inactive', 'Transferred', 'Graduated') DEFAULT 'Active',
                 reg_status ENUM('Pending', 'Approved', 'Rejected', 'Invalidation') DEFAULT 'Pending',
 
                 -- Address
-                house_hold VARCHAR(100) NOT NULL,
-                country VARCHAR(100) NOT NULL,
-                home_street VARCHAR(100) NOT NULL,
-                barangay VARCHAR(50) NOT NULL,
-                municipality VARCHAR(50) NOT NULL,
-                province VARCHAR(50) NOT NULL,
-                zipcode VARCHAR(10) NOT NULL,
+                current_house_no VARCHAR(100),
+                current_street VARCHAR(100),
+                current_barangay VARCHAR(100),
+                current_city VARCHAR(100),
+                current_province VARCHAR(100),
+                current_country VARCHAR(100),
+                current_zip VARCHAR(10),
+
+                -- Permanent Address
+                permanent_house_no VARCHAR(100),
+                permanent_street VARCHAR(100),
+                permanent_barangay VARCHAR(100),
+                permanent_city VARCHAR(100),
+                permanent_province VARCHAR(100),
+                permanent_country VARCHAR(100),
+                permanent_zip VARCHAR(10),
 
                 -- Parents
                 mother_lname VARCHAR(50) NOT NULL,
@@ -185,6 +194,7 @@ function db_connect()
                     diagnosis TEXT,
                     manifestations TEXT, 
                     has_pwd_id ENUM('yes', 'no') DEFAULT 'no',
+                    has_pwd_id_specific VARCHAR(255),
                     last_grade_level VARCHAR(100),
                     last_sy VARCHAR(20), 
                     last_school VARCHAR(255),
@@ -198,7 +208,7 @@ function db_connect()
                     is_4ps ENUM('Yes', 'No') DEFAULT 'No',
                     household_id VARCHAR(100), 
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE
+                    FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE ON UPDATE CASCADE    
                 )
                 ",
             "CREATE TABLE IF NOT EXISTS subject_grades (
@@ -410,12 +420,11 @@ function db_connect()
             $stmt = $pdo->prepare("INSERT INTO learners (
         lrn, family_name, given_name, middle_name, nickname, suffix,
         birthdate, birth_place, gender, learner_status,
-        home_street, barangay, municipality, province, zipcode,
         mother_lname, mother_fname, mother_mname, mother_contact,
         father_lname, father_fname, father_mname, father_contact,
         guardian_lname, guardian_fname, guardian_mname, guardian_contact,
         parent_id
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([
                 '12345678912',
@@ -428,11 +437,6 @@ function db_connect()
                 'Upper Calarian Z.C.',
                 'Male',
                 'Active',
-                'Purok 3',
-                'Barangay Uno',
-                'Zamboanga City',
-                'Zamboanga del Sur',
-                '7000',
                 'Daligdig',
                 'Maria',
                 'Ewayan',

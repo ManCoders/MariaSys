@@ -117,6 +117,9 @@ body::after {
     z-index: -1;
 }
 
+.hand-cursor {
+    cursor: pointer;
+}
 hr {
     background-color: currentColor;
     border: 0;

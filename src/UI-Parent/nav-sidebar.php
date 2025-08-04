@@ -28,7 +28,7 @@
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard
         </a>
         <a href="index.php?page=contents/enrollment" class="nav-link nav-enrollment nav-enrollProccess nav-view_learners nav-view_users d-flex align-items-center">
-            <i class="fas fa-user-plus me-2"></i> Enrollment
+            <i class="fas fa-user-plus me-2"></i> Learners  
         </a>
         <a href="index.php?page=contents/feedback" class="nav-link nav-feedback d-flex align-items-center">
             <i class="fas fa-comment-alt me-2"></i> Feedback

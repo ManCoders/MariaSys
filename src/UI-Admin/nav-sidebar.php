@@ -25,12 +25,13 @@
         <a href="index.php?page=home" class="nav-link nav-home d-flex align-items-center">
             <i class="fas fa-tachometer-alt me-2"></i> Dashboard
         </a>
-        <a href="index.php?page=contents/teacher" class="nav-link nav-teacher nav-teacher_view d-flex align-items-center">
-            <i class="fas fa-users me-2"></i> Teacher management
-        </a>
         <a href="index.php?page=contents/student" class="nav-link nav-student d-flex align-items-center">
-            <i class="fas fa-users me-2"></i> Student management
+            <i class="fas fa-users me-2"></i> Learners management
         </a>
+        <a href="index.php?page=contents/teacher" class="nav-link nav-teacher nav-teacher_view d-flex align-items-center">
+            <i class="fas fa-users me-2"></i> Users management
+        </a>
+        
         <a href="index.php?page=contents/classroom" class="nav-link nav-classroom d-flex align-items-center">
             <i class="fas fa-school me-2"></i> Classroom management
         </a>
@@ -40,6 +41,9 @@
         </a> -->
         <a href="index.php?page=contents/setting" class="nav-link nav-setting d-flex align-items-center">
             <i class="fas fa-cog me-2"></i> Setting Settings
+        </a>
+        <a href="#" id="logout" class="nav-link d-flex align-items-center">
+            <i class="fas fa-door-open me-2"></i> Log out
         </a>
     </div>
 </nav>

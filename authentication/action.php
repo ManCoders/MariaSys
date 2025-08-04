@@ -63,6 +63,27 @@ if ($action === 'getLearner') {
 	}
 }
 
+if ($action === 'other_info') {
+	$getLearner = $crud->other_info();
+	if ($getLearner) {
+		echo $getLearner;
+	}
+}
+
+if ($action === 'get_additional_info') {
+	$getLearner = $crud->get_additional_info();
+	if ($getLearner) {
+		echo $getLearner;
+	}
+}
+
+if ($action === 'updateLearner') {
+	$learner = $crud->updateLearners();
+	if ($learner) {
+		echo $learner;
+	}
+}
+
 if ($action === 'getTeacher') {
 	$learner = $crud->getTeacher();
 	if ($learner) {

@@ -183,20 +183,26 @@ $(document).ready(function () {
         },
         success: function (response) {
           if (response.status == 1) {
-            showError(
-              response.message,
-              "success",
-              "Success!",
-              response.redirect_url
-            );
+            Swal.fire({
+              title: "Success!",
+              text: response.message,
+              icon: "success",
+              toast: true,
+              position: "top-end",
+              timer: 3000,
+              showConfirmButton: false,
+            });
             $this.removeClass("processing");
           } else {
-            showError(
-              response.message,
-              "error",
-              "Error!",
-              response.redirect_url
-            );
+            Swal.fire({
+              title: "Failed!",
+              text: response.message,
+              icon: "error",
+              toast: true,
+              position: "top-end",
+              timer: 3000,
+              showConfirmButton: false,
+            });
             $this.find("button[type='submit']").text("Please try again!");
             $this.removeClass("processing");
           }
@@ -227,8 +233,7 @@ $(document).ready(function () {
           showError(
             response.message,
             "success",
-            "Success!",
-            response.redirect_url
+            "Success!"
           );
         } else {
           showError(response.message, "error", "Error!");
@@ -299,8 +304,6 @@ $(document).ready(function () {
       position: "top-end",
       timer: 3000,
       showConfirmButton: false,
-    }).then(() => {
-      window.location.href = base_url + url;
-    });
+    })
   }
 });

@@ -228,12 +228,6 @@ $adminData = $_SESSION['adminData']['lastname'];
         </div>
       </li>
 
-      <li>
-        <a id="logout" class="logout mediaPadding col-md-12 col-12" style="cursor: pointer;">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
-      </li>
     </ul>
   </div>
 </nav>
