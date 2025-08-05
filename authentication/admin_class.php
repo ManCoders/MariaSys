@@ -45,7 +45,7 @@ class Action
         return json_encode([
             'status' => 1,
             'message' => 'Logout successful.',
-            'redirect_url' => './src/index.php'
+            'redirect_url' => '../../src/index.php'
         ]);
     }
     function login()

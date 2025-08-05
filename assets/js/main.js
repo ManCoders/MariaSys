@@ -230,11 +230,17 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response.status == 1) {
-          showError(
-            response.message,
-            "success",
-            "Success!"
-          );
+          Swal.fire({
+              title: "Success!",
+              text: response.message,
+              icon: "success",
+              toast: true,
+              position: "top-end",
+              timer: 3000,
+              showConfirmButton: false,
+            }).then(() => {
+              window.location.href = response.redirect_url || base_url + "index.php";
+            })
         } else {
           showError(response.message, "error", "Error!");
         }
