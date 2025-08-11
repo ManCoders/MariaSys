@@ -966,13 +966,13 @@
                                         </div>
                                         <div class="buttonDomains col-md-12 d-flex align-items-center justify-content-end mt-3">
                                             <button 
-                                                class="me-2 btn btn-success p-2 px-3 paddingSize updateBtn" 
+                                                class="me-2 btn btn-danger p-2 px-3 paddingSize updateBtn" 
                                                 id="update-btn-${learner.learner_id}"
                                                 data-id="${learner.learner_id}">
-                                                Enroll
+                                                View Form
                                             </button>
                                             <button 
-                                                class="me-2 btn btn-secondary p-2 px-3 paddingSize profileBtn" 
+                                                class="me-2 btn btn-success p-2 px-3 paddingSize profileBtn" 
                                                 id="profile-btn-${learner.learner_id}" 
                                                 data-id="${learner.learner_id}">
                                                 Records

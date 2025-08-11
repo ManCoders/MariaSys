@@ -1,5 +1,3 @@
-
-
 <section class="p-2">
     <div class="sub-section">
         <div class="d-flex justify-content-between align-items-center mb-0">
@@ -16,7 +14,7 @@
             <thead class="table-light text-sm p-0 text-dark">
                 <tr>
                     <th class="text-center" style="width:4%">#</th>
-                    <th>Teacher Name</th>
+                    <th>Complete Name</th>
                     <th>Grade/Section</th>
                     <th>Contact Number</th>
                     <th>Date Submitted</th>
@@ -28,7 +26,7 @@
     </div>
 
     <style>
-        .modal-lg{
+        .modal-lg {
             width: 60%;
         }
     </style>
@@ -41,7 +39,7 @@
                 <form id="register-form" method="post">
                     <div class="modal-header bg-danger ">
                         <h4 class="text-white modal-title">Register Access</h4>
-                       
+
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -125,7 +123,7 @@
 
                     <!-- Submit Button -->
                     <div class="modal-footer m-0 text-danger">
-                        <button type="submit" class="btn btn-danger ">
+                        <button type="submit" id="register" class="btn btn-danger ">
                             <i class="fas fa-user-plus me-1"></i> Register
                         </button>
                         <button type="button" data-bs-dismiss="modal" class="btn btn-danger ">
@@ -134,7 +132,9 @@
                     </div>
                 </form>
             </div>
+            <form id="teacherpostform" method="POST" action="" style="display: none;">
+                <input type="hidden" name="postteacherid" id="postteacherid">
+            </form>
         </div>
     </div>
 </section>
-

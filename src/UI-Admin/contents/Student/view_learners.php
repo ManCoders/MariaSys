@@ -84,12 +84,12 @@
     }
 </style>
 <?php
-if (isset($_POST['id'])) {
-    $learner_id = $_POST['id'];
+if (isset($_POST['postid'])) {
+    $learner_id = $_POST['postid'];
 }
 ?>
 <section class="p-2">
-    <input type="hidden" value="<?php echo $learner_id; ?>" data-id="<?php echo $learner_id; ?>" name="learnerIdInput" id="learnerIdInput">
+    <input type="text" value="<?php echo $learner_id; ?>" data-id="<?php echo $learner_id; ?>" name="learnerIdInput" id="learnerIdInput">
     <div>
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
@@ -453,8 +453,6 @@ if (isset($_POST['id'])) {
                             $('#studentStatus').text(learner.reg_status);
                             $('#learner_picture').attr('src', base_url + learner.learner_picture);
                             $('#infoLrn').text(learner.lrn);
-                            // $('#infoGrade').val();
-                            // $('#infoSchoolYear').text();
                             $('#infoName').text(learner.family_name + ' ' + learner.suffix + '. ' + learner.given_name + ' ' + learner.middle_name[0]);
 
                             $('#infoBirthdate').text(learner.birthdate);
@@ -678,7 +676,8 @@ if (isset($_POST['id'])) {
 
 
     $('#backPreviewPage').click(function() {
-        window.location.href = 'index.php?page=contents/enrollment';
+
+        window.location.href = 'index.php?page=contents/student';
     });
 
 

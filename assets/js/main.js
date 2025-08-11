@@ -179,7 +179,7 @@ $(document).ready(function () {
         contentType: false,
         dataType: "json",
         beforeSend: function () {
-          $("#nextBtn button").text("Processing...");
+          $("#register button").text("Processing...");
         },
         success: function (response) {
           if (response.status == 1) {
@@ -191,8 +191,13 @@ $(document).ready(function () {
               position: "top-end",
               timer: 3000,
               showConfirmButton: false,
-            });
-            $this.removeClass("processing");
+            }).then(()=>{
+              $(".modal").hide("modal");
+              
+              window.location.reload();
+              $this.removeClass("processing");
+            })
+            
           } else {
             Swal.fire({
               title: "Failed!",
@@ -281,7 +286,7 @@ $(document).ready(function () {
               showConfirmButton: false,
             }).then(() => {
               $(".modal").hide("modal");
-              window.location.reload();
+              window.location.href = "index.php?page=contents/enrollProccess"; 
             });
           } else {
             $this.find("button[type='submit']").text("Please try again!");

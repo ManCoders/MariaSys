@@ -45,8 +45,13 @@ $(document).ready(function () {
           $("#student-tbl-1 tbody")
             .off("click")
             .on("click", "tr.table-row", function () {
-                // window.location.href = 'index.php?page=contents/student/view_learners';
+              
               const dataId = $(this).data("id");
+              
+              $('#postid').val(dataId);
+              $('#postidform').attr('action', 'index.php?page=contents/student/view_learners');
+              $('#postidform').submit();
+
                 setTimeout(() => {
                 $.ajax({
                     url: base_url + "authentication/action.php?action=getLearner",

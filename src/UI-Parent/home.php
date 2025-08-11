@@ -154,7 +154,7 @@
 
           </div>
           <div class="modal-footer">
-            <button class="btn btn-danger text-white" type="submit">
+            <button class="btn btn-danger text-white" id="submitRequest" type="submit">
               <i class="fa fa-save me-1"></i>Submit Request
             </button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -165,3 +165,17 @@
   </div>
 
 </div>
+
+<script>
+/*   $(document).ready(function() {
+    $("#submitRequest").click(function(e) {
+      e.preventDefault();
+      $(this).addClass("processing");
+      
+      setTimeout(() => {
+        $(this).removeClass("processing");
+        
+      }, 2000);
+    });
+  }); */
+</script>

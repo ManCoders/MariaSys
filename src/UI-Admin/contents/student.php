@@ -24,6 +24,9 @@
             <tbody id="tb_data_body-1"></tbody>
         </table>
     </div>
+    <form id="postidform" method="POST" action="" style="display: none;">
+        <input type="hidden" name="postid" id="postid">
+    </form>
 
     <style>
         .modal-lg {
@@ -31,10 +34,10 @@
         }
     </style>
 
-   <div class="modal"class="modal-dialog modal-lg">
-        
-   </div>
-<!--     <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+    <div class="modal" class="modal-dialog modal-lg">
+
+    </div>
+    <!--     <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
         <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
             <ul class="nav nav-tabs card-header-tabs" id="studentInfoTabs" role="tablist">
                 <li class="nav-item" role="presentation">

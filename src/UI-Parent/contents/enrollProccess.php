@@ -8,60 +8,70 @@ if (isset($_POST['id'])) {
 
 <div class="modal-header bg-danger " style="border-bottom: 1px solid #ddd;">
     <!-- <h5 class="modal-title text-white">BASIC EDUCATION ENROLLMENT FORM</h5> -->
-    <h5 class="modal-title text-white">Status : <span id="enrollmentStatus">Pending</span></h5>
-    <button class="btn btn-sm m-0 text-white btn-close " id="enrollBtn" type="button"> </button>
+    <div class="m-0"><button type="button" class="btn m-0 btn-sm btn-danger" id="printSectionBtn">Print</button></div>
+    <div class="d-flex gap-5">
+        <h6 class="modal-title text-white">
+            Status : <span id="enrollmentStatus" class="status_pending">Pending</span>
+        </h6>
+        <div class="">
+            <button class="btn  btn-sm m-0 btn-close " id="enrollBtn" type="button"> </button>
+        </div>
+    </div>
+
 </div>
 
-<form id="childForm" method="POST" enctype="multipart/form-data">
-    <input type="hidden" value="<?php echo $learner_id; ?>" data-id="<?php echo $learner_id; ?>" name="learnerIdInput" id="learnerIdInput">
-    <div class="modal-body d-flex col-md-12 col-12 flex-wrap align-items-satrt justify-content-between gap-2">
-        
-        <div class="d-flex flex-column col-md-3 col-11 ">
-            <label>LRN:</label>
-            <input type="text" name="lrn" id="lrn" placeholder="LRN (12 digits only)" 
-           maxlength="12" class="form-control" pattern="\d{12}" required>
-        </div>
-        <div class="d-flex flex-column col-md-2 col-11 ">
-            <label>PSA birth Certificate</label>
-            <input type="text" name="psa" id="psa" placeholder="PSA birth . (if available)" class="form-control">
-        </div>
-        <div class="d-flex flex-column col-md-3 col-11 ">
-            <label class="m-0 mt-1">Last name</label>
-            <input type="text" id="lname" name="lname" placeholder="Last name" class="form-control">
-        </div>
-        <div class="d-flex flex-column col-md-3 col-11 ">
-            <label class="m-0 mt-1">First name</label>
-            <input type="text" id="fname" name="fname" placeholder="Last name" class="form-control">
-        </div>
-        <div class="d-flex flex-column col-md-3 col-11 ">
-            <label class="m-0 mt-1">Middle name</label>
-            <input type="text" id="mname" name="mname" placeholder="Last name" class="form-control">
-        </div>
-        <div class="d-flex flex-column col-md-2 col-11">
-            <label class="m-0 mt-1">name extention</label>
-            <input type="text" id="suffix" name="suffix" placeholder="Last name" class="form-control">
-        </div>
-        <div class="d-flex flex-column col-md-3 col-11">
-            <label class="m-0 mt-1">Birth date</label>
-            <input type="date" name="birthdate" id="birthdate" placeholder="Birth date" class="form-control">
-        </div>
-        <div class="d-flex flex-column col-md-3 col-11">
-            <label class="m-0 mt-1">Age</label>
-            <input type="text" name="age" id="age" placeholder="Age" readonly class="form-control">
-        </div>
-        <div class="d-flex flex-column col-md-3 col-11">
-            <label class="m-0 mt-1">Sex</label>
-            <select name="gender" id="gender" class="form-select">
-                <option value="">Select Gender</option>
-                <option value="Male">MALE</option>
-                <option value="Female">FEMALE</option>
-            </select>
-        </div>
-        <div class="d-flex flex-column col-md-2 col-11">
-            <label class="m-0 mt-1">Birth Place</label>
-            <input type="text" name="birth_place" id="birth_place" placeholder="Birth Place (city/Muntinlupa)" class="form-control">
-        </div>
-        <div class="d-flex flex-column col-md-3 col-11">
+
+<div id="enrollforms">
+    <form id="childForm" method="POST" enctype="multipart/form-data">
+        <input type="hidden" value="<?php echo $learner_id; ?>" data-id="<?php echo $learner_id; ?>" name="learnerIdInput" id="learnerIdInput">
+        <div class="modal-body d-flex col-md-12 col-12 flex-wrap align-items-satrt justify-content-between gap-2">
+
+            <div class="d-flex flex-column col-md-3 col-11 ">
+                <label>LRN:</label>
+                <input type="text" name="lrn" id="lrn" placeholder="LRN (12 digits only)"
+                    maxlength="12" class="form-control" pattern="\d{12}" required>
+            </div>
+            <div class="d-flex flex-column col-md-2 col-11 ">
+                <label>PSA birth Certificate</label>
+                <input type="text" name="psa" id="psa" placeholder="PSA birth . (if available)" class="form-control">
+            </div>
+            <div class="d-flex flex-column col-md-3 col-11 ">
+                <label class="m-0 mt-1">Last name</label>
+                <input type="text" id="lname" name="lname" placeholder="Last name" class="form-control">
+            </div>
+            <div class="d-flex flex-column col-md-3 col-11 ">
+                <label class="m-0 mt-1">First name</label>
+                <input type="text" id="fname" name="fname" placeholder="Last name" class="form-control">
+            </div>
+            <div class="d-flex flex-column col-md-3 col-11 ">
+                <label class="m-0 mt-1">Middle name</label>
+                <input type="text" id="mname" name="mname" placeholder="Last name" class="form-control">
+            </div>
+            <div class="d-flex flex-column col-md-2 col-11">
+                <label class="m-0 mt-1">name extention</label>
+                <input type="text" id="suffix" name="suffix" placeholder="Last name" class="form-control">
+            </div>
+            <div class="d-flex flex-column col-md-3 col-11">
+                <label class="m-0 mt-1">Birth date</label>
+                <input type="date" name="birthdate" id="birthdate" placeholder="Birth date" class="form-control">
+            </div>
+            <div class="d-flex flex-column col-md-3 col-11">
+                <label class="m-0 mt-1">Age</label>
+                <input type="text" name="age" id="age" placeholder="Age" readonly class="form-control">
+            </div>
+            <div class="d-flex flex-column col-md-3 col-11">
+                <label class="m-0 mt-1">Sex</label>
+                <select name="gender" id="gender" class="form-select">
+                    <option value="">Select Gender</option>
+                    <option value="Male">MALE</option>
+                    <option value="Female">FEMALE</option>
+                </select>
+            </div>
+            <div class="d-flex flex-column col-md-2 col-11">
+                <label class="m-0 mt-1">Birth Place</label>
+                <input type="text" name="birth_place" id="birth_place" placeholder="Birth Place (city/Muntinlupa)" class="form-control">
+            </div>
+            <div class="d-flex flex-column col-md-3 col-11">
                 <label class="m-0 mt-1">Religion</label>
                 <select name="religion" id="religion" class="form-select">
                     <option value="">Select Religion</option>
@@ -95,41 +105,42 @@ if (isset($_POST['id'])) {
                     <option value="Others">Others</option>
                 </select>
             </div>
-        
-        <h5 class="mt-4">Current Address</h5>
-        <div class="d-flex flex-wrap col-md-12 mb-3">
-            <div class="col-md-3 col-11 pe-2">
-                <label>House No.</label>
-                <input type="text" name="current_house_no" id="current_house_no" class="form-control">
+
+            <h5 class="mt-4">Current Address</h5>
+            <div class="d-flex flex-wrap col-md-12 mb-3">
+                <div class="col-md-3 col-11 pe-2">
+                    <label>House No.</label>
+                    <input type="text" name="current_house_no" id="current_house_no" class="form-control">
+                </div>
+                <div class="col-md-3 col-11 pe-2">
+                    <label>Sitio/Street</label>
+                    <input type="text" name="current_street" id="current_street" class="form-control">
+                </div>
+                <div class="col-md-3 col-11 pe-2">
+                    <label>Barangay</label>
+                    <input type="text" name="current_barangay" id="current_barangay" class="form-control">
+                </div>
+                <div class="col-md-3 col-11 pe-2">
+                    <label>Municipality/City</label>
+                    <input type="text" name="current_city" id="current_city" class="form-control">
+                </div>
+                <div class="col-md-3 col-11 pe-2 mt-2">
+                    <label>Province</label>
+                    <input type="text" name="current_province" id="current_province" class="form-control">
+                </div>
+                <div class="col-md-3 col-11 pe-2 mt-2">
+                    <label>Country</label>
+                    <input type="text" name="current_country" id="current_country" class="form-control" value="Philippines">
+                </div>
+                <div class="col-md-3 col-11 pe-2 mt-2">
+                    <label>Zip Code</label>
+                    <input type="text" name="current_zip" id="current_zip" class="form-control">
+                </div>
             </div>
-            <div class="col-md-3 col-11 pe-2">
-                <label>Sitio/Street</label>
-                <input type="text" name="current_street" id="current_street" class="form-control">
-            </div>
-            <div class="col-md-3 col-11 pe-2">
-                <label>Barangay</label>
-                <input type="text" name="current_barangay" id="current_barangay" class="form-control">
-            </div>
-            <div class="col-md-3 col-11 pe-2">
-                <label>Municipality/City</label>
-                <input type="text" name="current_city" id="current_city" class="form-control">
-            </div>
-            <div class="col-md-3 col-11 pe-2 mt-2">
-                <label>Province</label>
-                <input type="text" name="current_province" id="current_province" class="form-control">
-            </div>
-            <div class="col-md-3 col-11 pe-2 mt-2">
-                <label>Country</label>
-                <input type="text" name="current_country" id="current_country" class="form-control" value="Philippines">
-            </div>
-            <div class="col-md-3 col-11 pe-2 mt-2">
-                <label>Zip Code</label>
-                <input type="text" name="current_zip" id="current_zip" class="form-control">
-            </div>
-        </div>
 
 
-</form>
+    </form>
+</div>
 
 <form id="addition-info" method="POST">
     <input type="hidden" value="<?php echo $learner_id; ?>" data-id="<?php echo $learner_id; ?>" name="learnerIdInput" id="learnerIdInput">
@@ -230,7 +241,7 @@ if (isset($_POST['id'])) {
         <input type="radio" name="has_pwd_id" value="no" id="pwd_no" class="ms-3">
         <label for="pwd_no">No</label>
         <input type="text" name="has_pwd_id_specific" placeholder="If Yes, please specify"
-                class="form-control w-90 ms-3">
+            class="form-control w-90 ms-3">
     </div>
 
 
@@ -294,7 +305,9 @@ if (isset($_POST['id'])) {
                 class="form-control w-90 ms-3">
         </div>
     </div>
+
 </form>
+
 
 
 
@@ -317,6 +330,11 @@ if (isset($_POST['id'])) {
                     res.data.forEach((learner) => {
                         if (learner.learner_id == dataId) {
                             $('#enrollmentStatus').text(learner.reg_status);
+                            if(learner.reg_status === 'Approved') {
+                                $('#enrollforms').find('input, textarea, select, button').prop('disabled', true);
+                            } else {
+                                $('#enrollforms').find('input, textarea, select, button').prop('disabled', false);
+                            }
                             $('#lrn').val(learner.lrn);
                             $('#psa').val(learner.psa);
                             $('#lname').val(learner.family_name);
@@ -588,3 +606,7 @@ if (isset($_POST['id'])) {
         }
     });
 </script>
+
+<div id="printArea" hidden> <!-- Function of this printbtn on teacher js -->
+    <h2>This section will be printed only.</h2>
+</div>
