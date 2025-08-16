@@ -111,5 +111,10 @@ if ($action === 'get_parent_student') {
 		echo $learner;
 	}
 }
-
+if ($action === 'fetch_enrollment_applications') {
+    $applications = $crud->fetch_enrollment_applications();
+    if ($applications) {
+        echo $applications;
+    }
+}
 ?>

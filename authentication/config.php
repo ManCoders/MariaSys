@@ -130,6 +130,7 @@ function db_connect()
                 learner_picture VARCHAR(255),
                 learner_status ENUM('Active', 'Inactive', 'Transferred', 'Graduated') DEFAULT 'Active',
                 reg_status ENUM('Pending', 'Approved', 'Rejected', 'Invalidation') DEFAULT 'Pending',
+                grade_level VARCHAR(20),
 
                 -- Address
                 current_house_no VARCHAR(100),

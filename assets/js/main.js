@@ -256,52 +256,73 @@ $(document).ready(function () {
     });
   });
 
-  $("body").on("submit", "#linkNewChild", function (e) {
+  $("body").on("submit", "#linkNewChild", function(e) {
     e.preventDefault();
-    const $this = $(this);
-    const data = new FormData(this);
-
-    if (!$this.hasClass("processing")) {
-      $this.addClass("processing");
-
-      $.ajax({
+    const $form = $(this);
+    
+    if ($form.hasClass("processing")) return;
+    
+    $form.addClass("processing");
+    const $submitBtn = $form.find("button[type='submit']");
+    const originalBtnText = $submitBtn.html();
+    
+    // Show processing state
+    $submitBtn.prop("disabled", true).html(
+        `<span class="spinner-border spinner-border-sm"></span> Processing...`
+    );
+    
+    // Create FormData
+    const formData = new FormData(this);
+    
+    $.ajax({
         url: base_url + "/authentication/action.php?action=LinkNewChild",
         method: "POST",
-        data: data,
+        data: formData,
         processData: false,
         contentType: false,
         dataType: "json",
-        beforeSend: function () {
-          $this.find("button[type='submit']").text("Processing..");
+        success: function(response) {
+            console.log("Server response:", response);
+            
+            if (response && response.status == 1) {
+                Swal.fire({
+                    title: "Success!",
+                    text: response.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 3000
+                }).then(() => {
+                    if (response.redirect_url) {
+                        window.location.href = base_url + '/' + response.redirect_url;
+                    } else {
+                        $(".modal").modal('hide');
+                    }
+                });
+            } else {
+                const errorMsg = response?.message || 'Registration failed. Please try again.';
+                Swal.fire({
+                    title: "Error!",
+                    text: errorMsg,
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+                $submitBtn.html(originalBtnText);
+            }
         },
-        success: function (response) {
-          if (response.status == 1) {
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", status, error);
             Swal.fire({
-              title: "Success!",
-              text: response.message,
-              icon: "success",
-              toast: true,
-              position: "top-end",
-              timer: 3000,
-              showConfirmButton: false,
-            }).then(() => {
-              $(".modal").hide("modal");
-              window.location.href = "index.php?page=contents/enrollProccess"; 
+                title: "Request Failed",
+                text: "Server communication error. Please try again.",
+                icon: "error",
+                confirmButtonText: "OK"
             });
-          } else {
-            $this.find("button[type='submit']").text("Please try again!");
-            $this.removeClass("processing");
-          }
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.error("AJAX error:", textStatus, errorThrown);
-          $this.removeClass("processing");
-        },
-        complete: function () {
-          $this.removeClass("processing");
-        },
-      });
-    }
+        complete: function() {
+            $form.removeClass("processing");
+            $submitBtn.prop("disabled", false).html(originalBtnText);
+        }
+    });
   });
 
   

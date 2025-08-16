@@ -397,83 +397,105 @@ class Action
     function LinkNewChild()
     {
         try {
-            $lrn        = $_POST['lrn'] ?? '';
-            $status     = $_POST['status'] ?? '';
-            $nickname   = htmlspecialchars(trim($_POST['nickname'] ?? ''));
-            $gender     = $_POST['gender'] ?? '';
-            $last_name  = htmlspecialchars(trim($_POST['family_name'] ?? ''));
+            $this->db->beginTransaction();
+
+            $lrn = $_POST['lrn'] ?? '';
+            $gradeLevel = $_POST['gradeLevel'] ?? '';
+            $status = 'Pending'; 
+            $nickname = htmlspecialchars(trim($_POST['nickname'] ?? ''));
+            $gender = $_POST['gender'] ?? '';
+            $last_name = htmlspecialchars(trim($_POST['family_name'] ?? ''));
             $middle_name = htmlspecialchars(trim($_POST['middle_name'] ?? ''));
             $given_name = htmlspecialchars(trim($_POST['given_name'] ?? ''));
-            $suffix     = $_POST['suffix'] ?? null;
-            $religious  = htmlspecialchars(trim($_POST['religious'] ?? ''));
-            $birthdate  = $_POST['birthdate'] ?? '';
+            $suffix = $_POST['suffix'] ?? null;
+            $religious = htmlspecialchars(trim($_POST['religious'] ?? ''));
+            $birthdate = $_POST['birthdate'] ?? '';
             $birth_place = htmlspecialchars(trim($_POST['birth_place'] ?? ''));
-            $notes      = htmlspecialchars(trim($_POST['notes'] ?? ''));
-            $parent_id  = $_POST['parent_id'] ?? '';
+            $notes = htmlspecialchars(trim($_POST['notes'] ?? ''));
+            $parent_id = $_POST['parent_id'] ?? '';
 
-            // Validate LRN
-            if (!preg_match('/^\d{12}$/', $lrn)) {
-                return json_encode(['status' => 2, 'message' => 'Invalid LRN format. It should be 12 digits.']);
+            $requiredFields = [
+                'lrn' => 'LRN',
+                'gradeLevel' => 'Grade Level',
+                'family_name' => 'Family Name',
+                'given_name' => 'Given Name',
+                'middle_name' => 'Middle Name',
+                'religious' => 'Religious Affiliation',
+                'birthdate' => 'Birthdate'
+            ];
+
+            foreach ($requiredFields as $field => $name) {
+                if (empty($_POST[$field])) {
+                    throw new Exception($name . ' is required.');
+                }
             }
 
-            // Check for existing LRN
+            if (!preg_match('/^\d{12}$/', $lrn)) {
+                throw new Exception('Invalid LRN format. It should be 12 digits.');
+            }
+
             $check = $this->db->prepare("SELECT COUNT(*) FROM learners WHERE lrn = ?");
             $check->execute([$lrn]);
             if ($check->fetchColumn() > 0) {
-                return json_encode(['status' => 2, 'message' => 'This LRN is already registered.']);
+                throw new Exception('This LRN is already registered.');
             }
 
-            // Handle profile picture upload
-            $profilePicPath = null;
-            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+            $profilePicPath = '../../assets/image/users.png'; 
+            if (isset($_FILES['profile_picture'])) {
                 $file = $_FILES['profile_picture'];
-                $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-                $allowed = ['jpg', 'jpeg', 'png'];
+                
+                if ($file['error'] === UPLOAD_ERR_OK) {
+                    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                    $allowed = ['jpg', 'jpeg', 'png'];
 
-                if (!in_array($ext, $allowed)) {
-                    return json_encode(['status' => 2, 'message' => 'Only JPG and PNG files are allowed.']);
-                }
+                    if (!in_array($ext, $allowed)) {
+                        throw new Exception('Only JPG and PNG files are allowed.');
+                    }
 
-                $uploadDir = __DIR__ . '/uploads/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0755, true);
-                }
+                    $uploadDir = __DIR__ . '/../../assets/uploads/learners/';
+                    if (!is_dir($uploadDir)) {
+                        mkdir($uploadDir, 0755, true);
+                    }
 
-                $newName = uniqid('profile_', false) . '.' . $ext;
-                $uploadPath = $uploadDir . $newName;
+                    $newName = 'learner_' . $lrn . '_' . time() . '.' . $ext;
+                    $uploadPath = $uploadDir . $newName;
 
-                if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
-                    $profilePicPath = 'authentication/uploads/' . $newName;
-                } else {
-                    return json_encode(['status' => 2, 'message' => 'Failed to save uploaded profile picture.']);
+                    if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                        $profilePicPath = 'assets/uploads/learners/' . $newName;
+                    } else {
+                        throw new Exception('Failed to save uploaded profile picture.');
+                    }
                 }
             }
 
             // Insert new learner
-            $stmt1 = $this->db->prepare("
-            INSERT INTO learners (
-                parent_id,
-                lrn,
-                learner_status,
-                nickname,
-                gender,
-                family_name,
-                middle_name,
-                given_name,
-                suffix,
-                religious,
-                birthdate,
-                birth_place,
-                notes,
-                learner_picture,
-                mother_lname,
-                father_lname
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+            $stmt = $this->db->prepare("
+                INSERT INTO learners (
+                    parent_id,
+                    lrn,
+                    grade_level,
+                    reg_status,
+                    nickname,
+                    gender,
+                    family_name,
+                    middle_name,
+                    given_name,
+                    suffix,
+                    religious,
+                    birthdate,
+                    birth_place,
+                    notes,
+                    learner_picture,
+                    mother_lname,
+                    father_lname,
+                    learner_status
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ");
 
-            $stmt1->execute([
+            $stmt->execute([
                 $parent_id,
                 $lrn,
+                $gradeLevel,
                 $status,
                 $nickname,
                 $gender,
@@ -486,13 +508,22 @@ class Action
                 $birth_place,
                 $notes,
                 $profilePicPath,
-                $middle_name,
-                $last_name
+                $middle_name, // Assuming mother's last name is same as student's middle name
+                $last_name,   // Assuming father's last name is same as student's family name
+                'Active'      // Default learner status
             ]);
 
+            // Commit transaction
+            $this->db->commit();
+
             return json_encode(['status' => 1, 'message' => 'Successfully registered. Please wait for approval!']);
-        } catch (PDOException $e) {
-            return json_encode(['status' => 0, 'message' => 'Database Error: ' . $e->getMessage()]);
+
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            return json_encode([
+                'status' => 0,
+                'message' => $e->getMessage()
+            ]);
         }
     }
 
@@ -864,6 +895,97 @@ class Action
                 'status' => 0,
                 'message' => 'Database error: ' . $e->getMessage()
             ]);
+        }
+    }
+    // FETCHING DATA FOR ENROLMENT ==========================================
+    function fetch_enrollment_applications() {
+    try {
+        $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+        $gradeLevel = isset($_GET['grade_level']) ? $_GET['grade_level'] : '';
+        
+        $query = "SELECT 
+                    l.learner_id,
+                    l.lrn,
+                    l.family_name,
+                    l.given_name,
+                    l.middle_name,
+                    l.reg_status,
+                    l.created_at,
+                    l.grade_level,
+                    CONCAT(mother_fname, ' ', mother_lname) AS mother_name,
+                    mother_contact
+                FROM learners l
+                WHERE l.reg_status IN ('Pending', 'Approved', 'Rejected', 'Invalidation')";
+        
+        $params = [];
+        
+        // Status filter
+        if ($status !== 'all') {
+            $query .= " AND l.reg_status = :status";
+            $params[':status'] = $status;
+        }
+        
+        // Grade level filter (only if specified)
+        if (!empty($gradeLevel)) {
+            $query .= " AND l.grade_level = :grade_level";
+            $params[':grade_level'] = $gradeLevel;
+        }
+        
+        $query .= " ORDER BY l.created_at DESC";
+        
+        $stmt = $this->db->prepare($query);
+        
+        // Only bind parameters if they exist
+        if ($status !== 'all') {
+            $stmt->bindParam(':status', $status);
+        }
+        if (!empty($gradeLevel)) {
+            $stmt->bindParam(':grade_level', $gradeLevel);
+        }
+        
+        $stmt->execute();
+        $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return json_encode([
+            'status' => 1,
+            'data' => $learners,
+            'count' => count($learners),
+            'message' => 'Data fetched successfully'
+        ]);
+        
+    } catch (PDOException $e) {
+        error_log("Database Error: " . $e->getMessage());
+        return json_encode([
+            'status' => 0,
+            'message' => 'Database error: ' . $e->getMessage()
+        ]);
+    }
+}
+    function update_enrollment_status() {
+        try {
+            $input = json_decode(file_get_contents('php://input'), true);
+            
+            if (empty($input['learner_id']) || empty($input['status'])) {
+                return json_encode(['status' => 0, 'message' => 'Missing required parameters']);
+            }
+            
+            $allowedStatuses = ['Approved', 'Rejected', 'Pending', 'Invalidation'];
+            if (!in_array($input['status'], $allowedStatuses)) {
+                return json_encode(['status' => 0, 'message' => 'Invalid status']);
+            }
+            
+            $stmt = $this->db->prepare("UPDATE learners SET reg_status = ? WHERE learner_id = ?");
+            $stmt->execute([$input['status'], $input['learner_id']]);
+            
+            if ($stmt->rowCount() > 0) {
+                return json_encode(['status' => 1, 'message' => 'Status updated successfully']);
+            } else {
+                return json_encode(['status' => 0, 'message' => 'No changes made or learner not found']);
+            }
+            
+        } catch (PDOException $e) {
+            error_log("Database Error: " . $e->getMessage());
+            return json_encode(['status' => 0, 'message' => 'Database error occurred']);
         }
     }
 }
