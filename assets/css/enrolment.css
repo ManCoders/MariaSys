@@ -1,0 +1,405 @@
+:root {
+    --primary-color: #2c3e50;
+    --primary-dark: #1a252f;
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --gray-border: #e9ecef;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+}
+
+.BG-white {
+    background-color: #fff !important;
+}
+
+.stats-card {
+    background: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.stats-card h4 {
+    margin: 5px 0;
+    color: #333;
+    font-size: 20px;
+}
+
+.stats-card small {
+    color: #777;
+    font-size: 12px;
+}
+
+.enrollment-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-border);
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.enrollment-header {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 12px 20px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.enrollment-content {
+    padding: 20px;
+}
+
+.student-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--gray-border);
+    transition: background-color 0.2s ease;
+}
+
+.student-item:last-child {
+    border-bottom: none;
+}
+
+.student-item:hover {
+    background-color: var(--light-gray);
+}
+
+.student-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--primary-color);
+    border: 2px solid var(--gray-border);
+}
+
+.student-info {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.student-name {
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 2px;
+}
+
+.student-details {
+    color: #666;
+    font-size: 14px;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 80px;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #664d03;
+    border: 1px solid #ffda6a;
+}
+
+.status-approved {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-rejected {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.status-incomplete {
+    background: #e2e3e5;
+    color: #383d41;
+    border: 1px solid #ced4da;
+}
+
+.enrollment-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 15px;
+}
+
+.btn-enrollment {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-view {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.btn-view:hover {
+    background: #bbdefb;
+    transform: translateY(-1px);
+}
+
+.btn-approve {
+    background: #d4edda;
+    color: #155724;
+}
+
+.btn-approve:hover {
+    background: #c3e6cb;
+    transform: translateY(-1px);
+}
+
+.btn-reject {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.btn-reject:hover {
+    background: #f5c6cb;
+    transform: translateY(-1px);
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    background: var(--light-gray);
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    color: var(--primary-dark);
+}
+
+.filter-tab.active {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
+.filter-tab:hover:not(.active) {
+    background: #e8f5e9;
+}
+
+.quick-actions {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-border);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    background: var(--light-gray);
+    border: 1px solid var(--gray-border);
+    color: var(--primary-dark);
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-btn:hover {
+    background: #e8f5e9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    color: var(--primary-dark);
+    text-decoration: none;
+}
+
+.search-bar {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-border);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    width: 100%;
+    transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+}
+
+.enrollment-progress {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-border);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.progress-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-border);
+}
+
+.progress-item:last-child {
+    border-bottom: none;
+}
+
+.progress-bar-custom {
+    width: 100px;
+    height: 8px;
+    background: var(--gray-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-pending {
+    background: var(--warning-color);
+}
+
+.progress-approved {
+    background: var(--success-color);
+}
+
+.progress-rejected {
+    background: var(--danger-color);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.empty-state i {
+    font-size: 48px;
+    color: #ddd;
+    margin-bottom: 15px;
+}
+/* Modal Styling */
+#approvalModal .modal-header {
+    padding: 1rem 1.5rem;
+}
+
+#approvalModal .modal-body {
+    padding: 1.5rem;
+}
+
+#approvalModal .alert-light {
+    background-color: #f8f9fa;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+}
+
+.status-approved {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+/* Toast Notifications */
+.toast {
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+.bg-success {
+    background-color: #198754 !important;
+}
+
+.bg-danger {
+    background-color: #dc3545 !important;
+}
+@media (max-width: 768px) {
+    .filter-tabs {
+        flex-wrap: wrap;
+    }
+
+    .filter-tab {
+        flex: 1 1 calc(50% - 5px);
+        margin-bottom: 5px;
+    }
+
+    .enrollment-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .student-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .student-info {
+        margin-left: 0;
+    }
+
+    .enrollment-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-start;
+    }
+}

@@ -620,6 +620,35 @@ class Action
             ]);
         }
     }
+    function getSingleLearner($learner_id) {
+        try {
+            $stmt = $this->db->prepare("
+                SELECT * FROM learners 
+                WHERE learner_id = :learner_id
+                LIMIT 1
+            ");
+            $stmt->bindParam(':learner_id', $learner_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $learner = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$learner) {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Student not found'
+                ]);
+            }
+
+            return json_encode([
+                'status' => 1,
+                'data' => $learner
+            ]);
+        } catch (PDOException $e) {
+            return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
+    }
     //WORKING DONT TOUCH IT DISPLAY TO TABLE THIS
     function getTeacher()
     {
@@ -899,68 +928,68 @@ class Action
     }
     // FETCHING DATA FOR ENROLMENT ==========================================
     function fetch_enrollment_applications() {
-    try {
-        $status = isset($_GET['status']) ? $_GET['status'] : 'all';
-        $gradeLevel = isset($_GET['grade_level']) ? $_GET['grade_level'] : '';
-        
-        $query = "SELECT 
-                    l.learner_id,
-                    l.lrn,
-                    l.family_name,
-                    l.given_name,
-                    l.middle_name,
-                    l.reg_status,
-                    l.created_at,
-                    l.grade_level,
-                    CONCAT(mother_fname, ' ', mother_lname) AS mother_name,
-                    mother_contact
-                FROM learners l
-                WHERE l.reg_status IN ('Pending', 'Approved', 'Rejected', 'Invalidation')";
-        
-        $params = [];
-        
-        // Status filter
-        if ($status !== 'all') {
-            $query .= " AND l.reg_status = :status";
-            $params[':status'] = $status;
+        try {
+            $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+            $gradeLevel = isset($_GET['grade_level']) ? $_GET['grade_level'] : '';
+            
+            $query = "SELECT 
+                        l.learner_id,
+                        l.lrn,
+                        l.family_name,
+                        l.given_name,
+                        l.middle_name,
+                        l.reg_status,
+                        l.created_at,
+                        l.grade_level,
+                        CONCAT(mother_fname, ' ', mother_lname) AS mother_name,
+                        mother_contact
+                    FROM learners l
+                    WHERE l.reg_status IN ('Pending', 'Approved', 'Rejected', 'Invalidation')";
+            
+            $params = [];
+            
+            // Status filter
+            if ($status !== 'all') {
+                $query .= " AND l.reg_status = :status";
+                $params[':status'] = $status;
+            }
+            
+            // Grade level filter (only if specified)
+            if (!empty($gradeLevel)) {
+                $query .= " AND l.grade_level = :grade_level";
+                $params[':grade_level'] = $gradeLevel;
+            }
+            
+            $query .= " ORDER BY l.created_at DESC";
+            
+            $stmt = $this->db->prepare($query);
+            
+            // Only bind parameters if they exist
+            if ($status !== 'all') {
+                $stmt->bindParam(':status', $status);
+            }
+            if (!empty($gradeLevel)) {
+                $stmt->bindParam(':grade_level', $gradeLevel);
+            }
+            
+            $stmt->execute();
+            $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            return json_encode([
+                'status' => 1,
+                'data' => $learners,
+                'count' => count($learners),
+                'message' => 'Data fetched successfully'
+            ]);
+            
+        } catch (PDOException $e) {
+            error_log("Database Error: " . $e->getMessage());
+            return json_encode([
+                'status' => 0,
+                'message' => 'Database error: ' . $e->getMessage()
+            ]);
         }
-        
-        // Grade level filter (only if specified)
-        if (!empty($gradeLevel)) {
-            $query .= " AND l.grade_level = :grade_level";
-            $params[':grade_level'] = $gradeLevel;
-        }
-        
-        $query .= " ORDER BY l.created_at DESC";
-        
-        $stmt = $this->db->prepare($query);
-        
-        // Only bind parameters if they exist
-        if ($status !== 'all') {
-            $stmt->bindParam(':status', $status);
-        }
-        if (!empty($gradeLevel)) {
-            $stmt->bindParam(':grade_level', $gradeLevel);
-        }
-        
-        $stmt->execute();
-        $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        return json_encode([
-            'status' => 1,
-            'data' => $learners,
-            'count' => count($learners),
-            'message' => 'Data fetched successfully'
-        ]);
-        
-    } catch (PDOException $e) {
-        error_log("Database Error: " . $e->getMessage());
-        return json_encode([
-            'status' => 0,
-            'message' => 'Database error: ' . $e->getMessage()
-        ]);
     }
-}
     function update_enrollment_status() {
         try {
             $input = json_decode(file_get_contents('php://input'), true);
@@ -988,4 +1017,96 @@ class Action
             return json_encode(['status' => 0, 'message' => 'Database error occurred']);
         }
     }
+   function approveEnrollment($learner_id) {
+    try {
+        if (!$learner_id) {
+            return [
+                'status' => 0,
+                'message' => 'Learner ID is required'
+            ];
+        }
+
+        // Start transaction
+        $this->db->beginTransaction();
+
+        // 1. Get the current active school year
+        $schoolYearStmt = $this->db->prepare("
+            SELECT school_year_id 
+            FROM school_year 
+            WHERE school_year_status = 'Active'
+            LIMIT 1
+        ");
+        $schoolYearStmt->execute();
+        $schoolYear = $schoolYearStmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$schoolYear) {
+            throw new Exception("No active school year found");
+        }
+
+        $school_year_id = $schoolYear['school_year_id'];
+
+        // 2. Update learner status to Approved
+        $stmt = $this->db->prepare("
+            UPDATE learners 
+            SET reg_status = 'Approved', 
+                learner_status = 'Active',
+                updated_at = NOW()
+            WHERE learner_id = ?
+        ");
+        $stmt->execute([$learner_id]);
+
+        // 3. Get learner data to create enrollment record
+        $learnerStmt = $this->db->prepare("
+            SELECT grade_level, parent_id 
+            FROM learners 
+            WHERE learner_id = ?
+        ");
+        $learnerStmt->execute([$learner_id]);
+        $learner = $learnerStmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$learner) {
+            throw new Exception("Learner not found");
+        }
+
+        // 4. Create enrollment record
+        $enrollmentStmt = $this->db->prepare("
+            INSERT INTO enrollments (
+                learner_id,
+                parent_id,
+                grade_level,
+                school_year_id,
+                enrollment_date,
+                status
+            ) VALUES (?, ?, ?, ?, NOW(), 'Enrolled')
+        ");
+        $enrollmentStmt->execute([
+            $learner_id,
+            $learner['parent_id'],
+            $learner['grade_level'],
+            $school_year_id
+        ]);
+
+        // Commit transaction
+        $this->db->commit();
+
+        return [
+            'status' => 1,
+            'message' => 'Enrollment approved successfully'
+        ];
+
+    } catch (PDOException $e) {
+        $this->db->rollBack();
+        return [
+            'status' => 0,
+            'message' => 'Database error: ' . $e->getMessage()
+        ];
+    } catch (Exception $e) {
+        $this->db->rollBack();
+        return [
+            'status' => 0,
+            'message' => $e->getMessage()
+        ];
+    }
+}
+    
 }

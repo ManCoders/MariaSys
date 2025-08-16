@@ -186,7 +186,39 @@
                     </div>
                 </div>
             </div>
+            <!-- Enrollment Progress Overview -->
+            <div class="enrollment-progress">
+                <h6 class="mb-3"><i class="fas fa-chart-line text-info me-2"></i>Enrollment Progress</h6>
+                <div class="progress-item">
+                    <span>Applications Submitted</span>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-muted">142/150</span>
+                        <div class="progress-bar-custom">
+                            <div class="progress-fill progress-pending" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <span>Documents Verified</span>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-muted">104/142</span>
+                        <div class="progress-bar-custom">
+                            <div class="progress-fill progress-approved" style="width: 73%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <span>Final Approval</span>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-muted">89/142</span>
+                        <div class="progress-bar-custom">
+                            <div class="progress-fill progress-approved" style="width: 63%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </section>
 
 

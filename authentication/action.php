@@ -52,17 +52,25 @@ if ($action === 'LinkNewChild') {
 		echo $registration;
 	}
 }
-
-
-
-
+if ($action === 'update_enrollment_status') {
+    $approval = $crud->approveEnrollment();
+    if ($approval) {
+        echo $approval;
+    }
+}
 if ($action === 'getLearner') {
 	$getLearner = $crud->getLearner();
 	if ($getLearner) {
 		echo $getLearner;
 	}
 }
-
+if ($action === 'getSingleLearner') {
+    $learner_id = $_GET['learner_id'] ?? '';
+    $learner = $crud->getSingleLearner($learner_id);
+    if ($learner) {
+        echo $learner;
+    }
+}
 if ($action === 'other_info') {
 	$getLearner = $crud->other_info();
 	if ($getLearner) {

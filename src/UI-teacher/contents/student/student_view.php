@@ -1,96 +1,3 @@
-<style>
-    .stats-card {
-        background: white;
-        padding: 15px;
-        text-align: center;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        border: 1px solid #ddd;
-        margin-bottom: 10px;
-    }
-    .noScrollBar {
-        overflow: auto; /* or scroll */
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    }
-    .noScrollBar::-webkit-scrollbar{
-        display: none !important;
-    }
-    .stats-card h4 {
-        margin: 5px 0;
-        color: #333;
-        font-size: 20px;
-    }
-
-    .stats-card small {
-        color: #777;
-        font-size: 12px;
-    }
-
-    .info-table td {
-        padding: 5px 8px;
-        border: none;
-        color: #555;
-    }
-
-    .info-table td:first-child {
-        font-weight: 500;
-        color: #333;
-    }
-
-    .status-badge {
-        padding: 3px 8px;
-        border-radius: 4px;
-        font-size: 11px;
-        font-weight: 500;
-    }
-
-    .status-present {
-        background-color: #e8f5e8;
-        color: #2d5a2d;
-        border: 1px solid #c3e6c3;
-    }
-
-    .status-absent {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-
-    .status-late {
-        background-color: #fff3cd;
-        color: #664d03;
-        border: 1px solid #ffda6a;
-    }
-
-    .grade-cell {
-        text-align: center;
-        font-weight: 500;
-        color: #555;
-    }
-
-    .student-photo {
-        border: 3px solid #f8f9fa;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-tabs .nav-link {
-        color: #666;
-        border: 1px solid transparent;
-    }
-
-    .nav-tabs .nav-link.active {
-        color: #333;
-        background-color: #f8f9fa;
-        border-color: #ddd #ddd #f8f9fa;
-    }
-
-    .nav-tabs .nav-link:hover {
-        border-color: #e9ecef #e9ecef #f8f9fa;
-        background-color: #f8f9fa;
-    }
-</style>
-
 <section class="p-2 noScrollBar">
     <div class="noScrollBar">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -107,35 +14,33 @@
         <!-- Student Profile Card -->
         <div id="studentProfileSection" style="display: none;">
             <div class="row mb-4">
-                <div class="col-md-4">
-                    <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                         <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                            <h6 class="mb-0" style="color: #555;"><i class="fa fa-user me-2"></i>Students Profile</h6>
+                            <h6 class="mb-0" style="color: #555;"><i class="fa fa-user me-2"></i>Learner Profile</h6>
                         </div>
                         <div class="card-body text-center">
                             <div class="mb-3">
-                                <img src="../../assets/image/users.png" alt="Student Photo"
+                                <img src="../../assets/image/users.png" id="learner_picture" alt="Student Photo"
                                     class="rounded-circle student-photo" width="120" height="120">
                             </div>
-                            <h5 id="studentName" style="color: #333;">Student Name</h5>
-                            <p class="text-muted mb-1" id="studentLRN">LRN: 000000000000</p>
-                            <p class="text-muted mb-1" id="studentGrade">Grade & Section</p>
                             <span class="status-badge"
                                 style="background-color: #e8f5e8; color: #2d5a2d; border: 1px solid #c3e6c3;"
                                 id="studentStatus">Active</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                <!-- Basic Information Card -->
+                <div class="col-md-8 mb-3">
+                    <div class="card h-100" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                         <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
                             <h6 class="mb-0" style="color: #555;"><i class="fa fa-info-circle me-2"></i>Basic
                                 Information</h6>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6 overflow-scroll mb-3 noScrollBar">
-                                    <table class="table table-borderless info-table text-sm text-truncate text-nowrap overflow-hidden ">
+                                <div class="col-md-6 overflow-auto mb-3">
+                                    <table class="table table-borderless info-table text-sm text-truncate text-nowrap">
                                         <tr>
                                             <td><strong>Full Name:</strong></td>
                                             <td id="infoName">-</td>
@@ -152,27 +57,36 @@
                                             <td><strong>Gender:</strong></td>
                                             <td id="infoGender">-</td>
                                         </tr>
-                                        
+                                        <tr>
+                                            <td><strong>Birth Place:</strong></td>
+                                            <td id="infoPlace">-</td>
+                                        </tr>
                                     </table>
                                 </div>
-                                <div class="col-md-6  overflow-scroll mb-3 noScrollBar">
-                                    <table class="table table-borderless info-table text-sm ">
+                                <div class="col-md-6 overflow-auto mb-3">
+                                    <table class="table table-borderless info-table text-sm">
                                         <tr>
-                                            <td><strong>Place of Birth:</strong></td>
-                                            <td id="infoAddress">-</td>
+                                            <td><strong>LRN:</strong></td>
+                                            <td id="infoLrn">-</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Contact Number:</strong></td>
-                                            <td id="infoResponse">-</td>
+                                            <td><strong>Grade:</strong></td>
+                                            <td id="infoGrade">-</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>School Year:</strong></td>
-                                            <td id="infoSchoolYear">2024-2025</td>
+                                            <td><strong>Current Section:</strong></td>
+                                            <td id="infoSection">-</td>
                                         </tr>
-                                        
+                                        <tr>
+                                            <td><strong>Teacher Adviser:</strong></td>
+                                            <td id="infoAdviser">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Teacher Contact No:</strong></td>
+                                            <td id="infoContact">-</td>
+                                        </tr>
                                     </table>
                                 </div>
-                               
                             </div>
                         </div>
                     </div>
@@ -441,156 +355,120 @@
 </section>
 
 <script>
-    const attendanceData = [
-        { date: "2024-11-25", status: "Present", timeIn: "7:30 AM", timeOut: "4:00 PM", remarks: "" },
-        { date: "2024-11-24", status: "Present", timeIn: "7:35 AM", timeOut: "4:00 PM", remarks: "Late arrival" },
-        { date: "2024-11-23", status: "Absent", timeIn: "-", timeOut: "-", remarks: "Sick" },
-        { date: "2024-11-22", status: "Present", timeIn: "7:30 AM", timeOut: "4:00 PM", remarks: "" },
-        { date: "2024-11-21", status: "Present", timeIn: "7:25 AM", timeOut: "4:00 PM", remarks: "" }
-    ];
-
-    const gradesData = [
-        { subject: "Mathematics", q1: 88, q2: 90, q3: 85, q4: 92, final: 89, remarks: "Passed" },
-        { subject: "English", q1: 90, q2: 88, q3: 92, q4: 89, final: 90, remarks: "Passed" },
-        { subject: "Science", q1: 85, q2: 87, q3: 88, q4: 90, final: 88, remarks: "Passed" },
-        { subject: "Filipino", q1: 89, q2: 91, q3: 87, q4: 88, final: 89, remarks: "Passed" },
-        { subject: "Social Studies", q1: 92, q2: 89, q3: 90, q4: 91, final: 91, remarks: "Passed" }
-    ];
-
-    const immunizationData = [
-        { vaccine: "BCG", dateGiven: "2014-04-01", nextDue: "Complete", status: "Complete" },
-        { vaccine: "DPT", dateGiven: "2024-08-15", nextDue: "2025-08-15", status: "Up to date" },
-        { vaccine: "Measles", dateGiven: "2024-07-10", nextDue: "Complete", status: "Complete" },
-        { vaccine: "Polio", dateGiven: "2024-06-05", nextDue: "Complete", status: "Complete" }
-    ];
-
-    const healthRecordsData = [
-        {
-            date: "2024-09-15",
-            type: "Annual Physical",
-            findings: "Normal growth and development",
-            recommendations: "Continue healthy diet and exercise",
-            officer: "Dr. Jane Smith"
-        },
-        {
-            date: "2024-06-10",
-            type: "Dental Check-up",
-            findings: "Good oral health",
-            recommendations: "Regular brushing and flossing",
-            officer: "Dr. Mark Johnson"
-        }
-    ];
-
-    const behaviorRecordsData = [
-        {
-            date: "2024-11-20",
-            type: "Commendation",
-            description: "Helped classmate with homework",
-            action: "Recognized in class",
-            reportedBy: "Ms. Garcia"
-        },
-        {
-            date: "2024-11-15",
-            type: "Warning",
-            description: "Talking during class",
-            action: "Verbal warning given",
-            reportedBy: "Ms. Garcia"
-        }
-    ];
-
-
+$(document).ready(function() {
+    // Get the learner ID from POST data
+    const learnerId = '<?php echo $_POST["learner_id"] ?? ""; ?>';
     
-
-     const data = sessionStorage.getItem('teacher_id');
-    function displayStudentInfo() {
-       
- 
-
-        $.ajax({
-            url: base_url + "/authentication/action.php?action=getTeacher",
-            method: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 1) {
-                    const datas = response.data;
-
-                    datas.forEach(emp => {
-                        if (emp.teacher_id == data) {
-                            if (emp.teacher_picture) {
-                                $('img[alt="Student Photo"]').attr('src', '../../authentication/'+ emp.teacher_picture);
-                            } else {
-                                $('img[alt="Student Photo"]').attr('src', '../../assets/image/users.jpg');
-                            }
-
-                            $('#studentName').text(emp.teacher_name);
-                            $('#studentLRN').text(`Employee ID: ${emp.employeeid}`);
-                            $('#infoName').text(emp.teacher_name);
-                            $('#infoBirthdate').text(formatDate(emp.birth));
-                            $('#infoAge').text(calculateAge(emp.birth) + ' years old');
-                            $('#infoGender').text(emp.gender ?? 'N/A');
-                            $('#infoAddress').text(emp.birth_place ?? 'Not Provided');
-                            $('#infoResponse').text(emp.cpno ?? 'Not Provided' );
-                            $('#infoEmergency').text(emp.parent_contact ?? 'Not Available');
-                            $('#studentStatus').text(emp.teacher_status) ?? 'Not Available';
-                            
-                        }
-                    });
-
-
-                } else {
-                    Swal.fire("Error", response.message, "error");
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("AJAX error:", status, error);
-                Swal.fire("Error", "Unable to fetch data from server.", "error");
-            }
-        });
-
-
-        populateAttendanceTab();
-        populateGradesTab();
-        populateHealthTab();
-        populateBehaviorTab();
-
-        $('#studentProfileSection').show();
-        $('#noChildMessage').hide();
+    if (!learnerId) {
+        showError("No student ID provided");
+        return;
     }
+
+    // Store the ID in a hidden field for future use
+    $('#learnerIdInput').val(learnerId);
     
-    
-    
-    $('#backPreviewPage').click(function () {
-        sessionStorage.clear();
-        sessionStorage.removeItem('teacher_id');
-        location.href = 'index.php?page=contents/attendance';
+    // Show the profile section and hide the "no child" message
+    $('#studentProfileSection').show();
+    $('#noChildMessage').hide();
+
+    // Fetch student data
+    $.ajax({
+        url: base_url + "authentication/action.php?action=getSingleLearner&learner_id=" + learnerId,
+        type: "GET",
+        dataType: "json",
+        success: function(res) {
+            if (res.status === 1) {
+                const learner = res.data;
+                
+                if (learner) {
+                    // Update personal information
+                    updatePersonalInfo(learner);
+                    
+                    // Update academic information
+                    updateAcademicInfo(learner);
+                    
+                    // Update status and image
+                    $('#studentStatus').text(learner.reg_status);
+                    if (learner.learner_picture) {
+                        $('#learner_picture').attr('src', base_url + learner.learner_picture);
+                    }
+                    
+                    // Populate all tabs
+                    populateAttendanceTab();
+                    populateGradesTab();
+                    populateHealthTab();
+                    populateBehaviorTab();
+                } else {
+                    console.error("Learner not found with ID:", learnerId);
+                    showError("Student data not found");
+                }
+            } else {
+                console.error("API response error:", res.message || "Unknown error");
+                showError(res.message || "Failed to load student data");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            showError("Failed to connect to server");
+        }
+    });
+    $('#backPreviewPage').click(function() {
+        window.location.href = 'index.php?page=contents/enrolled';
     });
 
-
-    function calculateAge(birthdate) {
-        const today = new Date();
-        const birth = new Date(birthdate);
-        let age = today.getFullYear() - birth.getFullYear();
-        const monthDiff = today.getMonth() - birth.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-            age--;
+    // Helper functions
+    function updatePersonalInfo(learner) {
+        // Format full name safely (handle missing properties)
+        const suffix = learner.suffix ? learner.suffix + '. ' : '';
+        const middleInitial = learner.middle_name && learner.middle_name.length > 0 ? 
+                            ' ' + learner.middle_name[0] + '.' : '';
+        const fullName = `${learner.family_name} ${suffix}${learner.given_name}${middleInitial}`;
+        
+        $('#infoName').text(fullName);
+        $('#infoBirthdate').text(learner.birthdate || '-');
+        
+        // Calculate age safely
+        if (learner.birthdate) {
+            try {
+                const birthDate = new Date(learner.birthdate);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                $('#infoAge').text(age);
+            } catch (e) {
+                console.error("Invalid birthdate format:", learner.birthdate);
+                $('#infoAge').text('-');
+            }
+        } else {
+            $('#infoAge').text('-');
         }
-
-        return age;
+        
+        $('#infoGender').text(learner.gender || '-');
+        $('#infoPlace').text(learner.birth_place || '-');
     }
 
-    function formatDate(dateStr) {
-        const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+    function updateAcademicInfo(learner) {
+        $('#infoLrn').text(learner.lrn || '-');
+        $('#infoGrade').text(learner.grade_level || '-');
+        $('#infoSection').text(learner.section || '-');
+        $('#infoAdviser').text(learner.adviser_name || '-');
+        $('#infoContact').text(learner.adviser_contact || '-');
     }
 
     function populateAttendanceTab() {
         const tbody = $('#attendanceRecords');
         tbody.html('');
+
+        // Sample data - replace with actual API call
+        const attendanceData = [
+            { date: "2024-11-25", status: "Present", timeIn: "7:30 AM", timeOut: "4:00 PM", remarks: "" },
+            { date: "2024-11-24", status: "Present", timeIn: "7:35 AM", timeOut: "4:00 PM", remarks: "Late arrival" },
+            { date: "2024-11-23", status: "Absent", timeIn: "-", timeOut: "-", remarks: "Sick" }
+        ];
 
         attendanceData.forEach(record => {
             const statusBadge = record.status === 'Present' ?
@@ -607,11 +485,23 @@
                 </tr>
             `);
         });
+
+        // Update stats cards
+        $('#attendancePresent').text(attendanceData.filter(a => a.status === 'Present').length);
+        $('#attendanceAbsent').text(attendanceData.filter(a => a.status === 'Absent').length);
+        $('#attendanceLate').text(attendanceData.filter(a => a.remarks.includes('Late')).length);
+        $('#attendanceRate').text('94%');
     }
 
     function populateGradesTab() {
         const tbody = $('#gradesRecords');
         tbody.html('');
+
+        // Sample data - replace with actual API call
+        const gradesData = [
+            { subject: "Mathematics", q1: 88, q2: 90, q3: 85, q4: 92, final: 89, remarks: "Passed" },
+            { subject: "English", q1: 90, q2: 88, q3: 92, q4: 89, final: 90, remarks: "Passed" }
+        ];
 
         gradesData.forEach(grade => {
             const remarksBadge = grade.final >= 75 ?
@@ -630,12 +520,24 @@
                 </tr>
             `);
         });
+
+        // Update stats cards
+        $('#overallGrade').text('88.5');
+        $('#classRank').text('5');
+        $('#totalSubjects').text(gradesData.length);
+        $('#failingSubjects').text(gradesData.filter(g => g.final < 75).length);
     }
 
     function populateHealthTab() {
         // Immunization records
         const immunizationTbody = $('#immunizationRecords');
         immunizationTbody.html('');
+
+        // Sample data - replace with actual API call
+        const immunizationData = [
+            { vaccine: "BCG", dateGiven: "2014-04-01", nextDue: "Complete", status: "Complete" },
+            { vaccine: "DPT", dateGiven: "2024-08-15", nextDue: "2025-08-15", status: "Up to date" }
+        ];
 
         immunizationData.forEach(record => {
             const statusBadge = record.status === 'Complete' ?
@@ -656,6 +558,11 @@
         const healthTbody = $('#healthRecords');
         healthTbody.html('');
 
+        // Sample data - replace with actual API call
+        const healthRecordsData = [
+            { date: "2024-09-15", type: "Annual Physical", findings: "Normal growth", recommendations: "Continue healthy diet", officer: "Dr. Smith" }
+        ];
+
         healthRecordsData.forEach(record => {
             healthTbody.append(`
                 <tr>
@@ -673,6 +580,12 @@
         const tbody = $('#behaviorRecords');
         tbody.html('');
 
+        // Sample data - replace with actual API call
+        const behaviorRecordsData = [
+            { date: "2024-11-20", type: "Commendation", description: "Helped classmate", action: "Recognized", reportedBy: "Ms. Garcia" },
+            { date: "2024-11-15", type: "Warning", description: "Talking during class", action: "Verbal warning", reportedBy: "Ms. Garcia" }
+        ];
+
         behaviorRecordsData.forEach(record => {
             const typeBadge = record.type === 'Commendation' ?
                 '<span class="status-badge status-present">Commendation</span>' :
@@ -688,10 +601,28 @@
                 </tr>
             `);
         });
+
+        // Update stats cards
+        $('#behaviorGood').text(behaviorRecordsData.filter(b => b.type === 'Commendation').length);
+        $('#behaviorWarning').text(behaviorRecordsData.filter(b => b.type === 'Warning').length);
+        $('#behaviorIncidents').text('0');
+        $('#behaviorScore').text('95%');
     }
-    
-    
-    $(document).ready(function () {
-        displayStudentInfo();
-    });
+
+    function formatDate(dateStr) {
+        if (!dateStr) return '-';
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    }
+
+    function showError(message) {
+        console.error(message);
+        $('#studentStatus').text('Error');
+        $('.info-table td:nth-child(2)').text('-').css('color', '#dc3545');
+    }
+});
 </script>

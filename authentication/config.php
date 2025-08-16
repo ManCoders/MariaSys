@@ -182,7 +182,6 @@ function db_connect()
                 school_year_name VARCHAR(50) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
-
             "CREATE TABLE IF NOT EXISTS grade_level (
                 grade_level_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 grade_level_name VARCHAR(50) NOT NULL,

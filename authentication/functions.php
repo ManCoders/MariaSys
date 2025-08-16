@@ -109,6 +109,8 @@ function render_styles()
         base_url() . 'assets/css/custom-bs.min.css',
         base_url() . 'assets/css/icons.min.css',
         base_url() . 'assets/css/morris.css',
+        base_url() . 'assets/css/student.css',
+        base_url() . 'assets/css/enrolment.css',
         base_url() . 'assets/css/dataTables.dataTables.min.css'
     ];
 
@@ -141,6 +143,7 @@ function render_scripts()
         base_url() . 'assets/js/bootstrap.min.js',
         base_url() . 'assets/js/custom-bs.js',
         base_url() . 'assets/js/main.js',
+        base_url() . 'assets/js/enrolment.js',
         base_url() . 'assets/js/nav.js',
         base_url() . 'assets/js/raphael.min.js',
         base_url() . 'assets/js/morris.min.js',

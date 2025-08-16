@@ -73,12 +73,6 @@
 
   <!-- Charts Row -->
   <div class="row g-3">
-    <div class="col-md-6">
-      <div class="card p-3">
-        <h6>Earnings</h6>
-        <canvas id="earningsChart" height="150"></canvas>
-      </div>
-    </div>
     <div class="col-md-3">
       <div class="card p-3">
         <h6>Expenses</h6>
@@ -100,30 +94,6 @@
 
 <!-- Scripts -->
 <script>
-  // Earnings Chart
-  const earningsCtx = document.getElementById('earningsChart').getContext('2d');
-  new Chart(earningsCtx, {
-    type: 'line',
-    data: {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      datasets: [
-        {
-          label: 'Total Collections',
-          data: [0, 20, 60, 30, 0, 90, 75],
-          borderColor: 'blue',
-          fill: true,
-          backgroundColor: 'rgba(0, 123, 255, 0.2)',
-        },
-        {
-          label: 'Fees Collection',
-          data: [0, 50, 10, 50, 70, 60, 50],
-          borderColor: 'red',
-          fill: true,
-          backgroundColor: 'rgba(255, 0, 0, 0.4)',
-        }
-      ]
-    }
-  });
 
   // Expenses Chart
   const expensesCtx = document.getElementById('expensesChart').getContext('2d');
