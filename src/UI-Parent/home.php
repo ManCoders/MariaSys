@@ -108,18 +108,16 @@
                 <div class="mb-3">
                   <label for="religious" class="form-label">Religious Affiliation <span class="text-danger">*</span></label>
                   <select class="form-select" name="religious" id="religious">
-                    <option value="" disabled selected>Select religion</option>
+                    <option value="">Select Religion</option>
                     <option value="Roman Catholic">Roman Catholic</option>
                     <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
                     <option value="Evangelical">Evangelical</option>
-                    <option value="Seventh-day Adventist">Seventh-day Adventist</option>
                     <option value="Islam">Islam</option>
+                    <option value="Seventh-day Adventist">Seventh-day Adventist</option>
+                    <option value="Aglipayan (IFI)">Aglipayan (IFI)</option>
                     <option value="Baptist">Baptist</option>
-                    <option value="Protestant">Protestant</option>
-                    <option value="Born Again">Born Again</option>
+                    <option value="Born Again Christian">Born Again Christian</option>
                     <option value="Jehovah's Witness">Jehovah's Witness</option>
-                    <option value="None">None</option>
-                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>

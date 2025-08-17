@@ -673,6 +673,22 @@ class Action
         }
     }
 
+    function updateLearnerReg(){
+        // return json_encode(['status' => 1, 'message' => 'Learner registration updated successfully.']);
+        try {
+            $learner_id = $_POST['learner_id'];
+            $reg_status = $_POST['reg_status'];
+
+            $stmt = $this->db->prepare("UPDATE learners SET reg_status = ? WHERE learner_id = ?");
+            $stmt->execute([$reg_status, $learner_id]);
+
+            return json_encode(['status' => 1, 'message' => 'Learner registration updated successfully.']);
+        } catch (PDOException $e) {
+            return json_encode(['status' => 0, 'message' => 'Database error: ' . $e->getMessage()]);
+        }
+    }
+
+
     /* function get_student_by_section(){
         try {
             $stmt = $this->db->prepare("

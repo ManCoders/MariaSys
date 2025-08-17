@@ -92,6 +92,13 @@ if ($action === 'updateLearner') {
 	}
 }
 
+if($action ==="updateLearnerReg") {
+	$learner = $crud->updateLearnerReg();
+	if ($learner) {
+		echo $learner;
+	}
+}
+
 if ($action === 'getTeacher') {
 	$learner = $crud->getTeacher();
 	if ($learner) {

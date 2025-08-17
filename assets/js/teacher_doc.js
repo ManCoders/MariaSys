@@ -8,10 +8,6 @@ $(document).ready(function () {
     $("body").html(original);
   });
 
-
-
-
-
   let dataTable;
 
   function renderTable() {
@@ -27,21 +23,21 @@ $(document).ready(function () {
         if (response.status === 1) {
           const data = response.data;
 
-            data.forEach((emp) => {
+          data.forEach((emp) => {
             let tr = $(
               `<tr class="text-sm p-0 table-row hand-cursor select-option" data-id="${emp.parent_id}"></tr>`
             );
             tr.append(`<td class="text-center">${i++}</td>`);
             tr.append(
               `<td class="name-cell select-cell">${
-              emp.lastname +
-              " " +
-              emp.suffix +
-              " " +
-              emp.firstname +
-              " " +
-              emp.middlename[0] +
-              "."
+                emp.lastname +
+                " " +
+                emp.suffix +
+                " " +
+                emp.firstname +
+                " " +
+                emp.middlename[0] +
+                "."
               }</td>`
             );
             tr.append(`<td class="grade-cell select-cell">${emp.email}</td>`);
@@ -49,27 +45,36 @@ $(document).ready(function () {
             tr.append(`<td>${emp.created_date}</td>`);
             tr.append(`
               <td class="text-center">
-              <select class="form-select-sm mx-auto reg-status-select" data-id="${emp.parent_id}">
-              <option value="Active" ${emp.reg_status === "Active" ? "selected" : ""}>Active</option>
-              <option value="Inactive" ${emp.reg_status === "Inactive" ? "selected" : ""}>Inactive</option>
+              <select class="form-select-sm mx-auto reg-status-select" data-id="${
+                emp.parent_id
+              }">
+              <option value="Active" ${
+                emp.reg_status === "Active" ? "selected" : ""
+              }>Active</option>
+              <option value="Inactive" ${
+                emp.reg_status === "Inactive" ? "selected" : ""
+              }>Inactive</option>
               </select>
               </td>
             `);
 
             tbody.append(tr);
-            });
+          });
 
-            // Only select name, grade, and contact cells
-            $("#student-tbl-2 tbody")
+          // Only select name, grade, and contact cells
+          $("#student-tbl-2 tbody")
             .off("click")
             .on("click", "tr.table-row td.select-cell", function () {
               const teacherId = $(this).closest("tr").data("id");
-              $('#postteacherid').val(teacherId);
-              $('#teacherpostform').attr('action', 'index.php?page=contents/teacher/teacher_view');
-              $('#teacherpostform').submit();
+              $("#postteacherid").val(teacherId);
+              $("#teacherpostform").attr(
+                "action",
+                "index.php?page=contents/teacher/teacher_view"
+              );
+              $("#teacherpostform").submit();
             });
 
-            if ($.fn.DataTable.isDataTable("#student-tbl-2")) {
+          if ($.fn.DataTable.isDataTable("#student-tbl-2")) {
             $("#student-tbl-2").DataTable().destroy();
           }
 

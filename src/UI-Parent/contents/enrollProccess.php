@@ -8,13 +8,13 @@ if (isset($_POST['id'])) {
 
 <div class="modal-header bg-danger " style="border-bottom: 1px solid #ddd;">
     <!-- <h5 class="modal-title text-white">BASIC EDUCATION ENROLLMENT FORM</h5> -->
-    <div class="m-0"><button type="button" class="btn m-0 btn-sm btn-danger" id="printSectionBtn">Print</button></div>
-    <div class="d-flex gap-5">
+    <div class="m-0"><!-- <button type="button" class="btn m-0 btn-sm btn-danger" id="printSectionBtn">Print</button> --></div>
+    <div class="d-flex  float-end gap-5">
         <h6 class="modal-title text-white">
             Status : <span id="enrollmentStatus" class="status_pending">Pending</span>
         </h6>
         <div class="">
-            <button class="btn  btn-sm m-0 btn-close " id="enrollBtn" type="button"> </button>
+            <button class="btn text-white btn-sm m-0 btn-close " id="enrollBtn" type="button"> </button>
         </div>
     </div>
 
@@ -84,7 +84,6 @@ if (isset($_POST['id'])) {
                     <option value="Baptist">Baptist</option>
                     <option value="Born Again Christian">Born Again Christian</option>
                     <option value="Jehovah's Witness">Jehovah's Witness</option>
-                    <option value="Others">Others</option>
                 </select>
             </div>
 

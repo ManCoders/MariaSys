@@ -191,13 +191,12 @@ $(document).ready(function () {
               position: "top-end",
               timer: 3000,
               showConfirmButton: false,
-            }).then(()=>{
+            }).then(() => {
               $(".modal").hide("modal");
-              
+
               window.location.reload();
               $this.removeClass("processing");
-            })
-            
+            });
           } else {
             Swal.fire({
               title: "Failed!",
@@ -236,16 +235,17 @@ $(document).ready(function () {
       success: function (response) {
         if (response.status == 1) {
           Swal.fire({
-              title: "Success!",
-              text: response.message,
-              icon: "success",
-              toast: true,
-              position: "top-end",
-              timer: 3000,
-              showConfirmButton: false,
-            }).then(() => {
-              window.location.href = response.redirect_url || base_url + "index.php";
-            })
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            window.location.href =
+              response.redirect_url || base_url + "index.php";
+          });
         } else {
           showError(response.message, "error", "Error!");
         }
@@ -312,10 +312,23 @@ $(document).ready(function () {
         error: function(xhr, status, error) {
             console.error("AJAX Error:", status, error);
             Swal.fire({
+<<<<<<< Updated upstream
                 title: "Request Failed",
                 text: "Server communication error. Please try again.",
                 icon: "error",
                 confirmButtonText: "OK"
+=======
+              title: "Success!",
+              text: response.message,
+              icon: "success",
+              toast: true,
+              position: "top-end",
+              timer: 3000,
+              showConfirmButton: false,
+            }).then(() => {
+              $(".modal").hide("modal");
+              window.location.href = "index.php?page=contents/enrollProccess";
+>>>>>>> Stashed changes
             });
         },
         complete: function() {
@@ -325,7 +338,7 @@ $(document).ready(function () {
     });
   });
 
-  
+ 
 
   function showError(message, icon, title, url) {
     Swal.fire({
@@ -336,6 +349,6 @@ $(document).ready(function () {
       position: "top-end",
       timer: 3000,
       showConfirmButton: false,
-    })
+    });
   }
 });
