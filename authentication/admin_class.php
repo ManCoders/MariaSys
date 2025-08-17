@@ -1017,96 +1017,96 @@ class Action
             return json_encode(['status' => 0, 'message' => 'Database error occurred']);
         }
     }
-   function approveEnrollment($learner_id) {
-    try {
-        if (!$learner_id) {
+    function approveEnrollment($learner_id) {
+        try {
+            if (!$learner_id) {
+                return [
+                    'status' => 0,
+                    'message' => 'Learner ID is required'
+                ];
+            }
+
+            // Start transaction
+            $this->db->beginTransaction();
+
+            // 1. Get the current active school year
+            $schoolYearStmt = $this->db->prepare("
+                SELECT school_year_id 
+                FROM school_year 
+                WHERE school_year_status = 'Active'
+                LIMIT 1
+            ");
+            $schoolYearStmt->execute();
+            $schoolYear = $schoolYearStmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$schoolYear) {
+                throw new Exception("No active school year found");
+            }
+
+            $school_year_id = $schoolYear['school_year_id'];
+
+            // 2. Update learner status to Approved
+            $stmt = $this->db->prepare("
+                UPDATE learners 
+                SET reg_status = 'Approved', 
+                    learner_status = 'Active',
+                    updated_at = NOW()
+                WHERE learner_id = ?
+            ");
+            $stmt->execute([$learner_id]);
+
+            // 3. Get learner data to create enrollment record
+            $learnerStmt = $this->db->prepare("
+                SELECT grade_level, parent_id 
+                FROM learners 
+                WHERE learner_id = ?
+            ");
+            $learnerStmt->execute([$learner_id]);
+            $learner = $learnerStmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$learner) {
+                throw new Exception("Learner not found");
+            }
+
+            // 4. Create enrollment record
+            $enrollmentStmt = $this->db->prepare("
+                INSERT INTO enrollments (
+                    learner_id,
+                    parent_id,
+                    grade_level,
+                    school_year_id,
+                    enrollment_date,
+                    status
+                ) VALUES (?, ?, ?, ?, NOW(), 'Enrolled')
+            ");
+            $enrollmentStmt->execute([
+                $learner_id,
+                $learner['parent_id'],
+                $learner['grade_level'],
+                $school_year_id
+            ]);
+
+            // Commit transaction
+            $this->db->commit();
+
+            return [
+                'status' => 1,
+                'message' => 'Enrollment approved successfully'
+            ];
+
+        } catch (PDOException $e) {
+            $this->db->rollBack();
             return [
                 'status' => 0,
-                'message' => 'Learner ID is required'
+                'message' => 'Database error: ' . $e->getMessage()
+            ];
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            return [
+                'status' => 0,
+                'message' => $e->getMessage()
             ];
         }
-
-        // Start transaction
-        $this->db->beginTransaction();
-
-        // 1. Get the current active school year
-        $schoolYearStmt = $this->db->prepare("
-            SELECT school_year_id 
-            FROM school_year 
-            WHERE school_year_status = 'Active'
-            LIMIT 1
-        ");
-        $schoolYearStmt->execute();
-        $schoolYear = $schoolYearStmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$schoolYear) {
-            throw new Exception("No active school year found");
-        }
-
-        $school_year_id = $schoolYear['school_year_id'];
-
-        // 2. Update learner status to Approved
-        $stmt = $this->db->prepare("
-            UPDATE learners 
-            SET reg_status = 'Approved', 
-                learner_status = 'Active',
-                updated_at = NOW()
-            WHERE learner_id = ?
-        ");
-        $stmt->execute([$learner_id]);
-
-        // 3. Get learner data to create enrollment record
-        $learnerStmt = $this->db->prepare("
-            SELECT grade_level, parent_id 
-            FROM learners 
-            WHERE learner_id = ?
-        ");
-        $learnerStmt->execute([$learner_id]);
-        $learner = $learnerStmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$learner) {
-            throw new Exception("Learner not found");
-        }
-
-        // 4. Create enrollment record
-        $enrollmentStmt = $this->db->prepare("
-            INSERT INTO enrollments (
-                learner_id,
-                parent_id,
-                grade_level,
-                school_year_id,
-                enrollment_date,
-                status
-            ) VALUES (?, ?, ?, ?, NOW(), 'Enrolled')
-        ");
-        $enrollmentStmt->execute([
-            $learner_id,
-            $learner['parent_id'],
-            $learner['grade_level'],
-            $school_year_id
-        ]);
-
-        // Commit transaction
-        $this->db->commit();
-
-        return [
-            'status' => 1,
-            'message' => 'Enrollment approved successfully'
-        ];
-
-    } catch (PDOException $e) {
-        $this->db->rollBack();
-        return [
-            'status' => 0,
-            'message' => 'Database error: ' . $e->getMessage()
-        ];
-    } catch (Exception $e) {
-        $this->db->rollBack();
-        return [
-            'status' => 0,
-            'message' => $e->getMessage()
-        ];
     }
-}
     
 }

@@ -92,257 +92,344 @@
                     </div>
                 </div>
             </div>
+            <?php
+                if (isset($_GET['id'])) {
+                    $learner_id = $_GET['id'];
+                }
+            ?>
 
-            <!-- Tabs for detailed information -->
-            <div class="card" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                    <ul class="nav nav-tabs card-header-tabs" id="studentInfoTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="attendance-tab" data-bs-toggle="tab"
-                                data-bs-target="#attendance" type="button" role="tab">
-                                <i class="fa fa-calendar-check me-1"></i>Attendance
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="grades-tab" data-bs-toggle="tab" data-bs-target="#grades"
-                                type="button" role="tab">
-                                <i class="fa fa-chart-line me-1"></i>Grades
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="health-tab" data-bs-toggle="tab" data-bs-target="#health"
-                                type="button" role="tab">
-                                <i class="fa fa-heartbeat me-1"></i>Health Records
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="behavior-tab" data-bs-toggle="tab" data-bs-target="#behavior"
-                                type="button" role="tab">
-                                <i class="fa fa-star me-1"></i>Behavior
-                            </button>
-                        </li>
-                    </ul>
+
+
+            <div class="modal-header bg-danger " style="border-bottom: 1px solid #ddd;">
+                <!-- <h5 class="modal-title text-white">BASIC EDUCATION ENROLLMENT FORM</h5> -->
+                <div class="m-0"><button type="button" class="btn m-0 btn-sm btn-danger"
+                        id="printSectionBtn">Print</button></div>
+                <div class="d-flex gap-5">
+                    <h6 class="modal-title text-white">
+                        Status : <span id="enrollmentStatus" class="status_pending">Pending</span>
+                    </h6>
+                    <div class="">
+                        <button class="btn  btn-sm m-0 btn-close " id="enrollBtn" type="button"> </button>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="tab-content" id="studentInfoTabContent">
-                        <!-- Attendance Tab -->
-                        <div class="tab-pane fade show active" id="attendance" role="tabpanel">
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f5e8; border-color: #c3e6c3;">
-                                        <h4 id="attendancePresent">85</h4>
-                                        <small>Present Days</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #fff3cd; border-color: #ffda6a;">
-                                        <h4 id="attendanceAbsent">5</h4>
-                                        <small>Absent Days</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f4fd; border-color: #b3d7ff;">
-                                        <h4 id="attendanceLate">3</h4>
-                                        <small>Late Arrivals</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #f8f9fa; border-color: #ddd;">
-                                        <h4 id="attendanceRate">94%</h4>
-                                        <small>Attendance Rate</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <h6 style="color: #555;">Recent Attendance (Last 10 Days)</h6>
-                            <table class="table table-bordered table-sm">
-                                <thead class="table-light">
-                                    <tr style="color: #555;">
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Time In</th>
-                                        <th>Time Out</th>
-                                        <th>Remarks</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="attendanceRecords" style="color: #666;">
-                                    <!-- Will be populated by JavaScript -->
-                                </tbody>
-                            </table>
+
+            </div>
+
+
+            <div id="enrollforms">
+                <form id="childForm" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" value="<?php echo $learner_id; ?>" data-id="<?php echo $learner_id; ?>"
+                        name="learnerIdInput" id="learnerIdInput">
+                    <div
+                        class="modal-body d-flex col-md-12 col-12 flex-wrap align-items-satrt justify-content-between gap-2">
+
+                        <div class="d-flex flex-column col-md-3 col-11 ">
+                            <label>LRN:</label>
+                            <input type="text" name="lrn" id="lrn" placeholder="LRN (12 digits only)" maxlength="12"
+                                class="form-control" pattern="\d{12}" required>
+                        </div>
+                        <div class="d-flex flex-column col-md-2 col-11 ">
+                            <label>PSA birth Certificate</label>
+                            <input type="text" name="psa" id="psa" placeholder="PSA birth . (if available)"
+                                class="form-control">
+                        </div>
+                        <div class="d-flex flex-column col-md-3 col-11 ">
+                            <label class="m-0 mt-1">Last name</label>
+                            <input type="text" id="lname" name="lname" placeholder="Last name" class="form-control">
+                        </div>
+                        <div class="d-flex flex-column col-md-3 col-11 ">
+                            <label class="m-0 mt-1">First name</label>
+                            <input type="text" id="fname" name="fname" placeholder="Last name" class="form-control">
+                        </div>
+                        <div class="d-flex flex-column col-md-3 col-11 ">
+                            <label class="m-0 mt-1">Middle name</label>
+                            <input type="text" id="mname" name="mname" placeholder="Last name" class="form-control">
+                        </div>
+                        <div class="d-flex flex-column col-md-2 col-11">
+                            <label class="m-0 mt-1">name extention</label>
+                            <input type="text" id="suffix" name="suffix" placeholder="Last name" class="form-control">
+                        </div>
+                        <div class="d-flex flex-column col-md-3 col-11">
+                            <label class="m-0 mt-1">Birth date</label>
+                            <input type="date" name="birthdate" id="birthdate" placeholder="Birth date"
+                                class="form-control">
+                        </div>
+                        <div class="d-flex flex-column col-md-3 col-11">
+                            <label class="m-0 mt-1">Age</label>
+                            <input type="text" name="age" id="age" placeholder="Age" readonly class="form-control">
+                        </div>
+                        <div class="d-flex flex-column col-md-3 col-11">
+                            <label class="m-0 mt-1">Sex</label>
+                            <select name="gender" id="gender" class="form-select">
+                                <option value="">Select Gender</option>
+                                <option value="Male">MALE</option>
+                                <option value="Female">FEMALE</option>
+                            </select>
+                        </div>
+                        <div class="d-flex flex-column col-md-2 col-11">
+                            <label class="m-0 mt-1">Birth Place</label>
+                            <input type="text" name="birth_place" id="birth_place"
+                                placeholder="Birth Place (city/Muntinlupa)" class="form-control">
+                        </div>
+                        <div class="d-flex flex-column col-md-3 col-11">
+                            <label class="m-0 mt-1">Religion</label>
+                            <select name="religion" id="religion" class="form-select">
+                                <option value="">Select Religion</option>
+                                <option value="Roman Catholic">Roman Catholic</option>
+                                <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+                                <option value="Evangelical">Evangelical</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Seventh-day Adventist">Seventh-day Adventist</option>
+                                <option value="Aglipayan (IFI)">Aglipayan (IFI)</option>
+                                <option value="Baptist">Baptist</option>
+                                <option value="Born Again Christian">Born Again Christian</option>
+                                <option value="Jehovah's Witness">Jehovah's Witness</option>
+                                <option value="Others">Others</option>
+                            </select>
                         </div>
 
-                        <!-- Grades Tab -->
-                        <div class="tab-pane fade" id="grades" role="tabpanel">
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f5e8; border-color: #c3e6c3;">
-                                        <h4 id="overallGrade">88.5</h4>
-                                        <small>Overall Average</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #f8f9fa; border-color: #ddd;">
-                                        <h4 id="classRank">5</h4>
-                                        <small>Class Rank</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f4fd; border-color: #b3d7ff;">
-                                        <h4 id="totalSubjects">8</h4>
-                                        <small>Total Subjects</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #fff3cd; border-color: #ffda6a;">
-                                        <h4 id="failingSubjects">0</h4>
-                                        <small>Failing Subjects</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <h6 style="color: #555;">Subject Grades</h6>
-                            <table class="table table-bordered">
-                                <thead class="table-light">
-                                    <tr style="color: #555;">
-                                        <th>Subject</th>
-                                        <th>1st Quarter</th>
-                                        <th>2nd Quarter</th>
-                                        <th>3rd Quarter</th>
-                                        <th>4th Quarter</th>
-                                        <th>Final Grade</th>
-                                        <th>Remarks</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="gradesRecords" style="color: #666;">
-                                    <!-- Will be populated by JavaScript -->
-                                </tbody>
-                            </table>
+                        <div class="d-flex flex-column col-md-3 col-11 ms-2">
+                            <label class="m-0 mt-1">Mother Tongue</label>
+                            <select name="tongue" id="tongue" class="form-select">
+                                <option value="">Select Mother Tongue</option>
+                                <option value="Tagalog">Tagalog</option>
+                                <option value="Cebuano">Cebuano</option>
+                                <option value="Ilocano">Ilocano</option>
+                                <option value="Hiligaynon">Hiligaynon</option>
+                                <option value="Bicolano">Bicolano</option>
+                                <option value="Kapampangan">Kapampangan</option>
+                                <option value="Pangasinan">Pangasinan</option>
+                                <option value="Waray">Waray</option>
+                                <option value="Maranao">Maranao</option>
+                                <option value="Tausug">Tausug</option>
+                                <option value="Others">Others</option>
+                            </select>
                         </div>
 
-                        <!-- Health Records Tab -->
-                        <div class="tab-pane fade" id="health" role="tabpanel">
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <div class="card" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                        <div class="card-header"
-                                            style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                                            <h6 class="mb-0" style="color: #555;">Physical Information</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <table class="table table-borderless info-table">
-                                                <tr>
-                                                    <td><strong>Height:</strong></td>
-                                                    <td id="healthHeight">125 cm</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Weight:</strong></td>
-                                                    <td id="healthWeight">28 kg</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>BMI:</strong></td>
-                                                    <td id="healthBMI">17.9 (Normal)</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Blood Type:</strong></td>
-                                                    <td id="healthBloodType">O+</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                        <div class="card-header"
-                                            style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                                            <h6 class="mb-0" style="color: #555;">Medical History</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <h6 style="color: #555;">Immunization Records</h6>
-                                            <table class="table table-sm table-bordered">
-                                                <thead class="table-light">
-                                                    <tr style="color: #555;">
-                                                        <th>Vaccine</th>
-                                                        <th>Date Given</th>
-                                                        <th>Next Due</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="immunizationRecords" style="color: #666;">
-                                                    <!-- Will be populated by JavaScript -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+                        <h5 class="mt-4">Current Address</h5>
+                        <div class="d-flex flex-wrap col-md-12 mb-3">
+                            <div class="col-md-3 col-11 pe-2">
+                                <label>House No.</label>
+                                <input type="text" name="current_house_no" id="current_house_no" class="form-control">
                             </div>
-                            <div class="card" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                <div class="card-header"
-                                    style="background-color: #f8f9fa; border-bottom: 1px solid #ddd;">
-                                    <h6 class="mb-0" style="color: #555;">Health Check-ups & Medical Notes</h6>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-bordered">
-                                        <thead class="table-light">
-                                            <tr style="color: #555;">
-                                                <th>Date</th>
-                                                <th>Type</th>
-                                                <th>Findings</th>
-                                                <th>Recommendations</th>
-                                                <th>Medical Officer</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="healthRecords" style="color: #666;">
-                                            <!-- Will be populated by JavaScript -->
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="col-md-3 col-11 pe-2">
+                                <label>Sitio/Street</label>
+                                <input type="text" name="current_street" id="current_street" class="form-control">
+                            </div>
+                            <div class="col-md-3 col-11 pe-2">
+                                <label>Barangay</label>
+                                <input type="text" name="current_barangay" id="current_barangay" class="form-control">
+                            </div>
+                            <div class="col-md-3 col-11 pe-2">
+                                <label>Municipality/City</label>
+                                <input type="text" name="current_city" id="current_city" class="form-control">
+                            </div>
+                            <div class="col-md-3 col-11 pe-2 mt-2">
+                                <label>Province</label>
+                                <input type="text" name="current_province" id="current_province" class="form-control">
+                            </div>
+                            <div class="col-md-3 col-11 pe-2 mt-2">
+                                <label>Country</label>
+                                <input type="text" name="current_country" id="current_country" class="form-control"
+                                    value="Philippines">
+                            </div>
+                            <div class="col-md-3 col-11 pe-2 mt-2">
+                                <label>Zip Code</label>
+                                <input type="text" name="current_zip" id="current_zip" class="form-control">
                             </div>
                         </div>
 
-                        <!-- Behavior Tab -->
-                        <div class="tab-pane fade" id="behavior" role="tabpanel">
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #e8f5e8; border-color: #c3e6c3;">
-                                        <h4 id="behaviorGood">25</h4>
-                                        <small>Good Behavior</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #fff3cd; border-color: #ffda6a;">
-                                        <h4 id="behaviorWarning">2</h4>
-                                        <small>Warnings</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #f8d7da; border-color: #f5c6cb;">
-                                        <h4 id="behaviorIncidents">0</h4>
-                                        <small>Incidents</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stats-card" style="background-color: #f8f9fa; border-color: #ddd;">
-                                        <h4 id="behaviorScore">95%</h4>
-                                        <small>Behavior Score</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <table class="table table-bordered">
-                                <thead class="table-light">
-                                    <tr style="color: #555;">
-                                        <th>Date</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                        <th>Action Taken</th>
-                                        <th>Reported By</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="behaviorRecords" style="color: #666;">
-                                    <!-- Will be populated by JavaScript -->
-                                </tbody>
-                            </table>
+
+                </form>
+            </div>
+
+            <form id="addition-info" method="POST">
+                <input type="hidden" value="<?php echo $learner_id; ?>" data-id="<?php echo $learner_id; ?>"
+                    name="learnerIdInput" id="learnerIdInput">
+                <div class="row mb-4">
+                    <label class="fs-5 mb-2">With diagnosis from Licensed Medical Specialist</label>
+
+                    <!-- First Column -->
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="ADHD"
+                                id="diagnosisADHD">
+                            <label class="form-check-label" for="diagnosisADHD">ADHD</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="Autism"
+                                id="diagnosisAutism">
+                            <label class="form-check-label" for="diagnosisAutism">Autism Spectrum Disorder</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="Behavior"
+                                id="diagnosisBehavior">
+                            <label class="form-check-label" for="diagnosisBehavior">Emotional/Behavioral
+                                Disorder</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="Hearing"
+                                id="diagnosisHearing">
+                            <label class="form-check-label" for="diagnosisHearing">Hearing Impairment</label>
+                        </div>
+                    </div>
+
+                    <!-- Second Column -->
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="Learning"
+                                id="diagnosisLearning">
+                            <label class="form-check-label" for="diagnosisLearning">Learning Disability</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="Orthopedic"
+                                id="diagnosisOrthopedic">
+                            <label class="form-check-label" for="diagnosisOrthopedic">Orthopedic/Physical
+                                Handicap</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="Speech"
+                                id="diagnosisSpeech">
+                            <label class="form-check-label" for="diagnosisSpeech">Speech/Language Disorder</label>
+                        </div>
+                    </div>
+
+                    <!-- Third Column -->
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="Intellectual"
+                                id="diagnosisIntellectual">
+                            <label class="form-check-label" for="diagnosisIntellectual">Intellectual Disability</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="Cancer"
+                                id="diagnosisCancer">
+                            <label class="form-check-label" for="diagnosisCancer">Non-Cancer</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="diagnosis[]" value="Health"
+                                id="diagnosisHealth">
+                            <label class="form-check-label" for="diagnosisHealth">Chronic Health Problem</label>
                         </div>
                     </div>
                 </div>
-            </div>
+
+
+                <!-- With Manifestations -->
+                <div class="mt-3 col-md-12">
+                    <label class="w-100 fs-5">a.2 With Manifestations</label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-check form-check-label"><input class="form-check-input " type="checkbox"
+                                    name="manifestations[]" value="Difficulty in Applying Knowledge"> Difficulty in
+                                Applying Knowledge</div>
+                            <div class="form-check form-check-label"><input class="form-check-input " type="checkbox"
+                                    name="manifestations[]" value="Difficulty in Communicating"> Difficulty in
+                                Communicating</div>
+                            <div class="form-check form-check-label"><input class="form-check-input " type="checkbox"
+                                    name="manifestations[]" value="Difficulty in Interpersonal Behavior"> Difficulty in
+                                Interpersonal Behavior</div>
+                            <div class="form-check form-check-label"><input class="form-check-input " type="checkbox"
+                                    name="manifestations[]" value="Difficulty in Behavior"> Difficulty in Behavior</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-check-label"><input class="form-check-input " type="checkbox"
+                                    name="manifestations[]" value="Difficulty in Mobility (Walking, Climbing)">
+                                Difficulty in Mobility (Walking, Climbing)</div>
+                            <div class="form-check form-check-label"><input class="form-check-input " type="checkbox"
+                                    name="manifestations[]" value="Difficulty in Performing Adaptive Self-Care">
+                                Difficulty in Performing Adaptive Self-Care</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-check-label"><input class="form-check-input " type="checkbox"
+                                    name="manifestations[]"
+                                    value="Difficulty in Remembering, Concentrating, Playing Attention"> Difficulty in
+                                Remembering, Concentrating, Playing Attention</div>
+                            <div class="form-check form-check-label"><input class="form-check-input " type="checkbox"
+                                    name="manifestations[]" value="Difficulty in Seeing"> Difficulty in Seeing</div>
+                            <div class="form-check form-check-label"><input class="form-check-input " type="checkbox"
+                                    name="manifestations[]" value="Difficulty in Hearing"> Difficulty in Hearing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PWD ID -->
+                <div class="mt-3 col-md-12">
+                    <label class="w-100 fs-5">b. Does the learner have a PWD ID?</label><br>
+                    <input type="radio" name="has_pwd_id" value="yes" id="pwd_yes">
+                    <label for="pwd_yes">Yes</label>
+
+                    <input type="radio" name="has_pwd_id" value="no" id="pwd_no" class="ms-3">
+                    <label for="pwd_no">No</label>
+                    <input type="text" name="has_pwd_id_specific" placeholder="If Yes, please specify"
+                        class="form-control w-90 ms-3">
+                </div>
+
+
+
+                <!-- BALIK-ARAL -->
+                <h5 class="mt-3 col-md-12">6. For Returning Learner (Balik-Aral)</h5>
+                <div class="row col-md-12 col-12">
+                    <div class="col-md-3">
+                        <label>Last Grade Level Completed</label>
+                        <input type="text" name="last_grade_level" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Last School Year Completed</label>
+                        <input type="text" name="last_sy" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Last School Attended</label>
+                        <input type="text" name="last_school" class="form-control">
+                    </div>
+                </div>
+
+
+                <!-- Distance Learning -->
+                <h5 class="mt-3 col-md-12">7. Distance Learning Preference</h5>
+                <label class="w-100 fs-5">Preferred Learning Mode</label>
+                <div class="row col-md-12">
+                    <div class="col-md-3">
+                        <div class="form-check form-check-label"><input class="form-check-input" type="checkbox"
+                                name="learning_mode[]" value="Blended"> Blended (Combination)</div>
+                        <div class="form-check form-check-label"><input class="form-check-input" type="checkbox"
+                                name="learning_mode[]" value="Homeschooling"> Homeschooling</div>
+                        <div class="form-check form-check-label"><input class="form-check-input" type="checkbox"
+                                name="learning_mode[]" value="ModularPrint"> Modular (Print)</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check form-check-label"><input class="form-check-input" type="checkbox"
+                                name="learning_mode[]" value="Radio"> Radio-Based Instruction</div>
+                        <div class="form-check form-check-label"><input class="form-check-input" type="checkbox"
+                                name="learning_mode[]" value="TV"> Educational Television</div>
+                        <div class="form-check form-check-label"><input class="form-check-input" type="checkbox"
+                                name="learning_mode[]" value="ModularDigital"> Modular (Digital)</div>
+                    </div>
+                </div>
+                <div class="d-flex flex-column col-md-12 mt-3">
+                    <label class="fs-6">Belonging to any Indigenous Peoples (IP) Community / Indigenous Cultural
+                        Community?</label>
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="radio" name="is_ip" value="Yes" id="ip_yes"> <label for="ip_yes"
+                            class="me-2">Yes</label>
+                        <input type="radio" name="is_ip" value="No" id="ip_no"> <label for="ip_no">No</label>
+                        <input type="text" name="ip_specify" placeholder="If Yes, please specify"
+                            class="form-control w-90 ms-3">
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column col-md-12 mt-2">
+                    <label class="fs-6">Is your family a beneficiary of 4Ps?</label>
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="radio" name="is_4ps" value="Yes" id="4ps_yes"> <label for="4ps_yes"
+                            class="me-2">Yes</label>
+                        <input type="radio" name="is_4ps" value="No" id="4ps_no"> <label for="4ps_no">No</label>
+                        <input type="text" name="household_id" placeholder="If Yes, write the 4Ps Household ID Number"
+                            class="form-control w-90 ms-3">
+                    </div>
+                </div>
+
+            </form>
         </div>
 
         <!-- No Child Selected Message -->
@@ -358,7 +445,7 @@
 $(document).ready(function() {
     // Get the learner ID from POST data
     const learnerId = '<?php echo $_POST["learner_id"] ?? ""; ?>';
-    
+
     if (!learnerId) {
         showError("No student ID provided");
         return;
@@ -366,7 +453,7 @@ $(document).ready(function() {
 
     // Store the ID in a hidden field for future use
     $('#learnerIdInput').val(learnerId);
-    
+
     // Show the profile section and hide the "no child" message
     $('#studentProfileSection').show();
     $('#noChildMessage').hide();
@@ -379,20 +466,20 @@ $(document).ready(function() {
         success: function(res) {
             if (res.status === 1) {
                 const learner = res.data;
-                
+
                 if (learner) {
                     // Update personal information
                     updatePersonalInfo(learner);
-                    
+
                     // Update academic information
                     updateAcademicInfo(learner);
-                    
+
                     // Update status and image
                     $('#studentStatus').text(learner.reg_status);
                     if (learner.learner_picture) {
                         $('#learner_picture').attr('src', base_url + learner.learner_picture);
                     }
-                    
+
                     // Populate all tabs
                     populateAttendanceTab();
                     populateGradesTab();
@@ -420,13 +507,13 @@ $(document).ready(function() {
     function updatePersonalInfo(learner) {
         // Format full name safely (handle missing properties)
         const suffix = learner.suffix ? learner.suffix + '. ' : '';
-        const middleInitial = learner.middle_name && learner.middle_name.length > 0 ? 
-                            ' ' + learner.middle_name[0] + '.' : '';
+        const middleInitial = learner.middle_name && learner.middle_name.length > 0 ?
+            ' ' + learner.middle_name[0] + '.' : '';
         const fullName = `${learner.family_name} ${suffix}${learner.given_name}${middleInitial}`;
-        
+
         $('#infoName').text(fullName);
         $('#infoBirthdate').text(learner.birthdate || '-');
-        
+
         // Calculate age safely
         if (learner.birthdate) {
             try {
@@ -434,7 +521,7 @@ $(document).ready(function() {
                 const today = new Date();
                 let age = today.getFullYear() - birthDate.getFullYear();
                 const monthDiff = today.getMonth() - birthDate.getMonth();
-                
+
                 if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
                     age--;
                 }
@@ -446,7 +533,7 @@ $(document).ready(function() {
         } else {
             $('#infoAge').text('-');
         }
-        
+
         $('#infoGender').text(learner.gender || '-');
         $('#infoPlace').text(learner.birth_place || '-');
     }
@@ -459,170 +546,85 @@ $(document).ready(function() {
         $('#infoContact').text(learner.adviser_contact || '-');
     }
 
-    function populateAttendanceTab() {
-        const tbody = $('#attendanceRecords');
-        tbody.html('');
-
-        // Sample data - replace with actual API call
-        const attendanceData = [
-            { date: "2024-11-25", status: "Present", timeIn: "7:30 AM", timeOut: "4:00 PM", remarks: "" },
-            { date: "2024-11-24", status: "Present", timeIn: "7:35 AM", timeOut: "4:00 PM", remarks: "Late arrival" },
-            { date: "2024-11-23", status: "Absent", timeIn: "-", timeOut: "-", remarks: "Sick" }
-        ];
-
-        attendanceData.forEach(record => {
-            const statusBadge = record.status === 'Present' ?
-                '<span class="status-badge status-present">Present</span>' :
-                '<span class="status-badge status-absent">Absent</span>';
-
-            tbody.append(`
-                <tr>
-                    <td>${formatDate(record.date)}</td>
-                    <td>${statusBadge}</td>
-                    <td>${record.timeIn}</td>
-                    <td>${record.timeOut}</td>
-                    <td>${record.remarks}</td>
-                </tr>
-            `);
-        });
-
-        // Update stats cards
-        $('#attendancePresent').text(attendanceData.filter(a => a.status === 'Present').length);
-        $('#attendanceAbsent').text(attendanceData.filter(a => a.status === 'Absent').length);
-        $('#attendanceLate').text(attendanceData.filter(a => a.remarks.includes('Late')).length);
-        $('#attendanceRate').text('94%');
-    }
-
-    function populateGradesTab() {
-        const tbody = $('#gradesRecords');
-        tbody.html('');
-
-        // Sample data - replace with actual API call
-        const gradesData = [
-            { subject: "Mathematics", q1: 88, q2: 90, q3: 85, q4: 92, final: 89, remarks: "Passed" },
-            { subject: "English", q1: 90, q2: 88, q3: 92, q4: 89, final: 90, remarks: "Passed" }
-        ];
-
-        gradesData.forEach(grade => {
-            const remarksBadge = grade.final >= 75 ?
-                '<span class="status-badge status-present">Passed</span>' :
-                '<span class="status-badge status-absent">Failed</span>';
-
-            tbody.append(`
-                <tr>
-                    <td>${grade.subject}</td>
-                    <td class="grade-cell">${grade.q1}</td>
-                    <td class="grade-cell">${grade.q2}</td>
-                    <td class="grade-cell">${grade.q3}</td>
-                    <td class="grade-cell">${grade.q4}</td>
-                    <td class="grade-cell"><strong>${grade.final}</strong></td>
-                    <td class="text-center">${remarksBadge}</td>
-                </tr>
-            `);
-        });
-
-        // Update stats cards
-        $('#overallGrade').text('88.5');
-        $('#classRank').text('5');
-        $('#totalSubjects').text(gradesData.length);
-        $('#failingSubjects').text(gradesData.filter(g => g.final < 75).length);
-    }
-
-    function populateHealthTab() {
-        // Immunization records
-        const immunizationTbody = $('#immunizationRecords');
-        immunizationTbody.html('');
-
-        // Sample data - replace with actual API call
-        const immunizationData = [
-            { vaccine: "BCG", dateGiven: "2014-04-01", nextDue: "Complete", status: "Complete" },
-            { vaccine: "DPT", dateGiven: "2024-08-15", nextDue: "2025-08-15", status: "Up to date" }
-        ];
-
-        immunizationData.forEach(record => {
-            const statusBadge = record.status === 'Complete' ?
-                '<span class="status-badge status-present">Complete</span>' :
-                '<span class="status-badge" style="background-color: #e8f4fd; color: #0c5460; border: 1px solid #b3d7ff;">Up to date</span>';
-
-            immunizationTbody.append(`
-                <tr>
-                    <td>${record.vaccine}</td>
-                    <td>${formatDate(record.dateGiven)}</td>
-                    <td>${record.nextDue}</td>
-                    <td>${statusBadge}</td>
-                </tr>
-            `);
-        });
-
-        // Health records
-        const healthTbody = $('#healthRecords');
-        healthTbody.html('');
-
-        // Sample data - replace with actual API call
-        const healthRecordsData = [
-            { date: "2024-09-15", type: "Annual Physical", findings: "Normal growth", recommendations: "Continue healthy diet", officer: "Dr. Smith" }
-        ];
-
-        healthRecordsData.forEach(record => {
-            healthTbody.append(`
-                <tr>
-                    <td>${formatDate(record.date)}</td>
-                    <td>${record.type}</td>
-                    <td>${record.findings}</td>
-                    <td>${record.recommendations}</td>
-                    <td>${record.officer}</td>
-                </tr>
-            `);
-        });
-    }
-
-    function populateBehaviorTab() {
-        const tbody = $('#behaviorRecords');
-        tbody.html('');
-
-        // Sample data - replace with actual API call
-        const behaviorRecordsData = [
-            { date: "2024-11-20", type: "Commendation", description: "Helped classmate", action: "Recognized", reportedBy: "Ms. Garcia" },
-            { date: "2024-11-15", type: "Warning", description: "Talking during class", action: "Verbal warning", reportedBy: "Ms. Garcia" }
-        ];
-
-        behaviorRecordsData.forEach(record => {
-            const typeBadge = record.type === 'Commendation' ?
-                '<span class="status-badge status-present">Commendation</span>' :
-                '<span class="status-badge status-late">Warning</span>';
-
-            tbody.append(`
-                <tr>
-                    <td>${formatDate(record.date)}</td>
-                    <td>${typeBadge}</td>
-                    <td>${record.description}</td>
-                    <td>${record.action}</td>
-                    <td>${record.reportedBy}</td>
-                </tr>
-            `);
-        });
-
-        // Update stats cards
-        $('#behaviorGood').text(behaviorRecordsData.filter(b => b.type === 'Commendation').length);
-        $('#behaviorWarning').text(behaviorRecordsData.filter(b => b.type === 'Warning').length);
-        $('#behaviorIncidents').text('0');
-        $('#behaviorScore').text('95%');
-    }
-
-    function formatDate(dateStr) {
-        if (!dateStr) return '-';
-        const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    }
-
     function showError(message) {
         console.error(message);
         $('#studentStatus').text('Error');
         $('.info-table td:nth-child(2)').text('-').css('color', '#dc3545');
     }
 });
+</script>
+
+<script>
+    $('#enrollBtn').off('click').on('click', function() {
+        location.href = 'index.php?page=contents/enrollment';
+    });
+    setTimeout(() => {
+
+        $.ajax({
+            url: base_url + "authentication/action.php?action=getLearner",
+            type: "GET",
+            dataType: "json",
+            success: function(res) {
+                const dataId = $('#learnerIdInput').data('id');
+                if (res.status === 1) {
+                    // alert(dataId)
+                    res.data.forEach((learner) => {
+                        if (learner.learner_id == dataId) {
+                            $('#enrollmentStatus').text(learner.reg_status);
+                            if(learner.reg_status === 'Approved') {
+                                $('#enrollforms').find('input, textarea, select, button').prop('disabled', true);
+                            } else {
+                                $('#enrollforms').find('input, textarea, select, button').prop('disabled', false);
+                            }
+                            $('#lrn').val(learner.lrn);
+                            $('#psa').val(learner.psa);
+                            $('#lname').val(learner.family_name);
+                            $('#mname').val(learner.middle_name);
+                            $('#fname').val(learner.given_name);
+                            $('#suffix').val(learner.suffix);
+                            $('#birthdate').val(learner.birthdate);
+                            const b = new Date(learner.birthdate);
+                            const t = new Date();
+                            const age = t.getFullYear() - b.getFullYear() - (t < new Date(t.getFullYear(), b.getMonth(), b.getDate()) ? 1 : 0);
+                            $('#age').val(age);
+                            $('#gender').val(learner.gender);
+                            $('#birth_place').val(learner.birth_place);
+                            $('#religion').val(learner.religious);
+                            $('#tongue').val(learner.tongue);
+
+                            // Fill current address fields
+                            $('#current_house_no').val(learner.current_house_no);
+                            $('#current_street').val(learner.current_street);
+                            $('#current_barangay').val(learner.current_barangay);
+                            $('#current_city').val(learner.current_city);
+                            $('#current_province').val(learner.current_province);
+                            $('#current_country').val(learner.current_country);
+                            $('#current_zip').val(learner.current_zip);
+
+
+
+                            $('#father_lname').val(learner.father_lname);
+                            $('#father_fname').val(learner.father_fname);
+                            $('#father_mname').val(learner.father_mname);
+                            $('#father_contact').val(learner.father_contact);
+
+                            $('input[name="mother_lname"]').val(learner.mother_lname);
+                            $('input[name="mother_fname"]').val(learner.mother_fname);
+                            $('input[name="mother_mname"]').val(learner.mother_mname);
+                            $('input[name="mother_contact"]').val(learner.mother_contact);
+
+                            $('input[name="guardian_lname"]').val(learner.guardian_lname);
+                            $('input[name="guardian_fname"]').val(learner.guardian_fname);
+                            $('input[name="guardian_mname"]').val(learner.guardian_mname);
+                            $('input[name="guardian_contact"]').val(learner.guardian_contact);
+
+                        }
+                    });
+                }
+            },
+            error: function() {
+                console.error("Failed to load learners");
+            },
+        });
+    }, 500);
 </script>
