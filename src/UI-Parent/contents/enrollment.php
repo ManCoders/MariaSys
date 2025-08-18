@@ -1,18 +1,19 @@
 <section class=" w-100 mediaMarginRight pe-0 ps-0 p-0 m-0">
     <div class="w-100">
         <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
-            <div class="col-md-8 col-11">
+            <div class="col-md-8 col-11 ">
                 <h4 class="mb-0 mediaSize"><i class="fa fa-user-plus text-primary me-2"></i>Child Enrollment </h4>
                 <small class="text-muted mediaSizeP">Register and link your child to your parent account</small>
+                <!-- <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#childModal" id="addChildBtn"> <i class="fa fa-user-plus me-3"></i>Enrolled Your Child </button> -->
             </div>
             <div class="col-md-4 col-11 d-flex justify-content-end">
-<!--                 <button
+                <button
                     class="btn btn-success btn-sm p-2 m-0"
                     data-bs-toggle="modal"
                     data-bs-target="#childModal"
                     id="addChildBtn">
-                    <i class="fa fa-plus"></i> Link New Child
-                </button> -->
+                    <i class="fa fa-user-plus me-2"></i> Add Learners
+                </button>
 
             </div>
 
@@ -410,12 +411,12 @@
         </div>
     </div>
 
- <!--    
+
     <div class="modal fade" id="childModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="linkNewChild" enctype="multipart/form-data">
-                    <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
+                    <div class="modal-header bg-danger " style="border-bottom: 1px solid #ddd;">
                         <h5 class="modal-title text-white">Link Child Account</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
@@ -429,8 +430,8 @@
                             <div class="col-md-5 p-0">
                                 <div class="mb-2">
                                     <label class="m-0" class="form-label">Student LRN <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="lrn" id="studentLRN" maxlength="12"
-                                        placeholder="Enter 12-digit LRN">
+                                    <input type="text" name="lrn" id="lrn" placeholder="LRN (12 digits only)"
+                                        maxlength="12" class="form-control" pattern="\d{12}" required>
                                 </div>
                             </div>
                             <div class="col-md-3 p-0">
@@ -559,7 +560,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success text-white" type="submit">
+                        <button class="btn btn-danger text-white" id="submitRequest" type="submit">
                             <i class="fa fa-save me-1"></i>Submit Request
                         </button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -567,7 +568,7 @@
                 </form>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <div class="modal fade" id="viewStudentModal" tabindex="-1" aria-labelledby="viewStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-landscape">

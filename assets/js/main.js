@@ -286,7 +286,7 @@ $(document).ready(function () {
               showConfirmButton: false,
             }).then(() => {
               $(".modal").hide("modal");
-              window.location.href = "index.php?page=contents/enrollProccess";
+              window.location.reload();
             });
           } else {
             $this.find("button[type='submit']").text("Please try again!");

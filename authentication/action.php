@@ -64,13 +64,13 @@ if ($action === 'getLearner') {
 		echo $getLearner;
 	}
 }
-if ($action === 'getSingleLearner') {
+/* if ($action === 'getSingleLearner') {
     $learner_id = $_GET['learner_id'] ?? '';
     $learner = $crud->getSingleLearner($learner_id);
     if ($learner) {
         echo $learner;
     }
-}
+} */
 if ($action === 'other_info') {
 	$getLearner = $crud->other_info();
 	if ($getLearner) {
@@ -126,10 +126,10 @@ if ($action === 'get_parent_student') {
 		echo $learner;
 	}
 }
-if ($action === 'fetch_enrollment_applications') {
+/* if ($action === 'fetch_enrollment_applications') {
     $applications = $crud->fetch_enrollment_applications();
     if ($applications) {
         echo $applications;
     }
-}
+} */
 ?>

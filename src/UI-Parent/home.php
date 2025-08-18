@@ -3,10 +3,10 @@
   <div class="text-center mb-2">
     <h3 class="fw-bold text-danger mb-0 ">Welcome to Parent Dashboard</h3>
     <p class="text-muted mb-2">Here are your children's profiles and their current statuses.</p>
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#childModal" id="addChildBtn"> <i class="fa fa-user-plus me-3"></i>Enrolled Your Child </button>
+    
 
   </div>
-  <div class="modal fade" id="childModal" tabindex="-1">
+  <!-- <div class="modal fade" id="childModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <form id="linkNewChild" enctype="multipart/form-data">
@@ -162,7 +162,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </div>
 
