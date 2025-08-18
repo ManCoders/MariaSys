@@ -21,7 +21,7 @@
               value="<?php echo isset($_SESSION['parentData']) ? $_SESSION['parentData']['parent_id'] : ''; ?>">
 
             <div class="row gap-1 col-md-12 d-flex justify-content-between">
-              <div class="col-md-4 p-0">
+              <div class="col-md-5 p-0">
                 <div class="mb-2">
                   <label class="m-0" class="form-label">Student LRN <span class="text-danger">*</span></label>
                   <input type="text" name="lrn" id="lrn" placeholder="LRN (12 digits only)"
@@ -30,27 +30,12 @@
               </div>
               <div class="col-md-3 p-0">
                 <div class="mb-2">
-                  <label class="m-0" class="form-label">Grade Level <span class="text-danger">*</span></label>
-                  <select class="form-select" required id="gradeLevel" name="gradeLevel">
-                        <option value="">Student Incoming Grade Level</option>
-                        <option value="kindergarten">Kindergarten</option>
-                        <option value="grade1">Grade 1</option>
-                        <option value="grade2">Grade 2</option>
-                        <option value="grade3">Grade 3</option>
-                        <option value="grade4">Grade 4</option>
-                        <option value="grade5">Grade 5</option>
-                        <option value="grade6">Grade 6</option>
-                    </select>
-                </div>
-              </div>
-              <div class="col-md-2 p-0">
-                <div class="mb-2">
                   <label class="form-label m-0">Nickname</label>
                   <input type="text" class="form-control" name="nickname" id="nickname"
                     placeholder="Enter nickname (optional)">
                 </div>
               </div>
-              <div class="col-md-2 p-0">
+              <div class="col-md-3 p-0">
                 <div class="mb-2">
                   <label class="form-label">Gender</label>
                   <select class="form-select" name="gender" id="gender">
@@ -108,16 +93,18 @@
                 <div class="mb-3">
                   <label for="religious" class="form-label">Religious Affiliation <span class="text-danger">*</span></label>
                   <select class="form-select" name="religious" id="religious">
-                    <option value="">Select Religion</option>
+                    <option value="" disabled selected>Select religion</option>
                     <option value="Roman Catholic">Roman Catholic</option>
                     <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
                     <option value="Evangelical">Evangelical</option>
-                    <option value="Islam">Islam</option>
                     <option value="Seventh-day Adventist">Seventh-day Adventist</option>
-                    <option value="Aglipayan (IFI)">Aglipayan (IFI)</option>
+                    <option value="Islam">Islam</option>
                     <option value="Baptist">Baptist</option>
-                    <option value="Born Again Christian">Born Again Christian</option>
+                    <option value="Protestant">Protestant</option>
+                    <option value="Born Again">Born Again</option>
                     <option value="Jehovah's Witness">Jehovah's Witness</option>
+                    <option value="None">None</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
