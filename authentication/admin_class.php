@@ -473,7 +473,6 @@ class Action
                 INSERT INTO learners (
                     parent_id,
                     lrn,
-                    grade_level,
                     reg_status,
                     nickname,
                     gender,
@@ -489,13 +488,12 @@ class Action
                     mother_lname,
                     father_lname,
                     learner_status
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
 
             $stmt->execute([
                 $parent_id,
                 $lrn,
-                $gradeLevel,
                 $status,
                 $nickname,
                 $gender,

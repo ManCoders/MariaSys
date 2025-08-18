@@ -52,12 +52,12 @@ if ($action === 'LinkNewChild') {
 		echo $registration;
 	}
 }
-if ($action === 'update_enrollment_status') {
+/* if ($action === 'update_enrollment_status') {
     $approval = $crud->approveEnrollment();
     if ($approval) {
         echo $approval;
     }
-}
+} */
 if ($action === 'getLearner') {
 	$getLearner = $crud->getLearner();
 	if ($getLearner) {
