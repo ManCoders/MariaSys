@@ -89,7 +89,7 @@ if (isset($_POST['postid'])) {
 }
 ?>
 <section class="p-2">
-    <input type="text" value="<?php echo $learner_id; ?>" data-id="<?php echo $learner_id; ?>" name="learnerIdInput" id="learnerIdInput">
+    <input type="hidden" value="<?php echo $learner_id; ?>" data-id="<?php echo $learner_id; ?>" name="learnerIdInput" id="learnerIdInput">
     <div>
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>

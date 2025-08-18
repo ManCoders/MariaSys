@@ -48,7 +48,7 @@ class Action
             'redirect_url' => '../../src/index.php'
         ]);
     }
-    function login()
+    /* function login()
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -123,7 +123,96 @@ class Action
                 'redirect_url' => 'src/index.php'
             ]);
         }
+    } */
+    function login()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $username = strtolower(trim($_POST['username'] ?? ''));
+        $password = $_POST['password'] ?? '';
+
+        if (empty($username) || empty($password)) {
+            return json_encode([
+                'status' => 2,
+                'message' => 'Username and password are required.',
+                'redirect_url' => 'src/index.php'
+            ]);
+        }
+
+        try {
+            $roles = [
+                'admin' => [
+                    'table' => 'admin',
+                    'redirect' => 'src/UI-Admin/index.php',
+                    'session_key' => 'adminData',
+                    'fields' => ['firstname', 'middlename', 'lastname', 'email', 'user_role', 'username', 'admin_id', 'created_date']
+                ],
+                'teacher' => [
+                    'table' => 'teacher',
+                    'redirect' => 'src/UI-Teacher/index.php',
+                    'session_key' => 'teacherData',
+                    'fields' => ['firstname', 'middlename', 'lastname', 'suffix', 'employeeid', 'email', 'cpno', 'position', 'department', 'rating', 'province', 'city', 'barangay', 'birth', 'gender', 'teacher_status as status', 'user_role', 'username', 'teacher_id', 'teacher_picture', 'created_date']
+                ],
+                'parent' => [
+                    'table' => 'parent',
+                    'redirect' => 'src/UI-Parent/index.php',
+                    'session_key' => 'parentData',
+                    'fields' => ['firstname', 'middlename', 'lastname', 'suffix', 'email', 'cpno', 'reference_id', 'position', 'department', 'rating', 'province', 'city', 'barangay', 'dateofbirth', 'gender', 'parent_status as status', 'user_role', 'username', 'parent_id', 'parent_picture as profile_picture', 'created_date']
+                ]
+            ];
+
+            foreach ($roles as $role => $info) {
+                $stmt = $this->db->prepare("SELECT * FROM {$info['table']} WHERE username = ? OR email = ?");
+                $stmt->execute([$username, $username]);
+                $user = $stmt->fetch();
+
+                if ($user && password_verify($password, $user['password'])) {
+                    // Check if user_role matches the expected role
+                    if (strtolower($user['user_role']) !== $role) {
+                        session_destroy(); // Auto logout
+                        return json_encode([
+                            'status' => 4,
+                            'message' => 'Unauthorized access. User role mismatch.',
+                            'redirect_url' => 'src/index.php'
+                        ]);
+                    }
+
+                    $sessionData = [];
+                    foreach ($info['fields'] as $field) {
+                        if (strpos($field, ' as ') !== false) {
+                            [$source, $alias] = explode(' as ', $field);
+                            $sessionData[$alias] = $user[trim($source)];
+                        } else {
+                            $sessionData[$field] = $user[$field];
+                        }
+                    }
+
+                    $_SESSION[$info['session_key']] = $sessionData;
+
+                    return json_encode([
+                        'status' => 1,
+                        'message' => 'Login successful.',
+                        'redirect_url' => $info['redirect']
+                    ]);
+                }
+            }
+
+            return json_encode([
+                'status' => 3,
+                'message' => 'User not found or incorrect credentials.',
+                'redirect_url' => 'src/index.php'
+            ]);
+        } catch (Exception $e) {
+            return json_encode([
+                'status' => 2,
+                'message' => 'System error occurred. Contact administrator.',
+                'redirect_url' => 'src/index.php'
+            ]);
+        }
     }
+
     function save_installation_data()
     {
         $firstname = htmlspecialchars($_POST['firstname'] ?? '');
@@ -567,6 +656,22 @@ class Action
             return json_encode(['status' => 0, 'message' => 'Database Error: ' . $e->getMessage()]);
         }
     }
+
+    function reg_status_parent()
+    {
+        try {
+            $parent_id = $_POST['parent_id'];
+            $reg_status = $_POST['reg_status_parent'];
+
+            $stmt = $this->db->prepare("UPDATE parent SET reg_status = ? WHERE parent_id = ?");
+            $stmt->execute([$reg_status, $parent_id]);
+
+            return json_encode(['status' => 1, 'message' => 'Account registration status updated successfully.']);
+        } catch (PDOException $e) {
+            return json_encode(['status' => 0, 'message' => 'Database error: ' . $e->getMessage()]);
+        }
+    }
+
     //WORKING DONT TOUCH IT DISPLAY TO TABLE THIS
     function getLearner()
     {
@@ -613,7 +718,8 @@ class Action
         }
     }
 
-    function updateLearnerReg(){
+    function updateLearnerReg()
+    {
         // return json_encode(['status' => 1, 'message' => 'Learner registration updated successfully.']);
         try {
             $learner_id = $_POST['learner_id'];
@@ -819,7 +925,7 @@ class Action
             $value = $_POST['value'] ?? null;
 
             if (!$learner_id || !$field) {
-                
+
                 return json_encode(['status' => 2, 'message' => 'Missing required fields']);
             }
 
@@ -846,7 +952,7 @@ class Action
                 'current_province',
                 'current_country',
                 'current_zip'
-                
+
             ];
 
             if (!in_array($field, $allowed_fields)) {

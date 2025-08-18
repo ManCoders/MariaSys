@@ -79,7 +79,7 @@ $(document).ready(function () {
           .off("click")
           .on("click", "tr.table-row td.select-cell", function () {
             const dataId = $(this).closest("tr").data("id");
-            alert(dataId)
+            // alert(dataId)
             $("#postid").val(dataId);
             $("#postidform").attr(
               "action",

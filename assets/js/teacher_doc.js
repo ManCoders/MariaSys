@@ -45,17 +45,25 @@ $(document).ready(function () {
             tr.append(`<td>${emp.created_date}</td>`);
             tr.append(`
               <td class="text-center">
-              <select class="form-select-sm mx-auto reg-status-select" data-id="${
-                emp.parent_id
-              }">
-              <option value="Active" ${
-                emp.reg_status === "Active" ? "selected" : ""
-              }>Active</option>
-              <option value="Inactive" ${
-                emp.reg_status === "Inactive" ? "selected" : ""
-              }>Inactive</option>
-              </select>
-              </td>
+              <form class="update-status-form">
+                        <input type="hidden" name="parent_id" value="${
+                          emp.parent_id
+                        }">
+                        <select class="form-select-sm reg-status-select" name="reg_status_parent">
+                          <option value="Approved" ${
+                            emp.reg_status === "Approved" ? "selected" : ""
+                          }>Approved</option>
+                          <option value="Rejected" ${
+                            emp.reg_status === "Rejected" ? "selected" : ""
+                          }>Rejected</option>
+                          <option value="Pending" ${
+                            emp.reg_status === "Pending" ? "selected" : ""
+                          }>Pending</option>
+                          <option value="Invalidation" ${
+                            emp.reg_status === "Invalidation" ? "selected" : ""
+                          }>Invalidation</option>
+                        </select>
+                      </form>
             `);
 
             tbody.append(tr);
@@ -73,6 +81,54 @@ $(document).ready(function () {
               );
               $("#teacherpostform").submit();
             });
+          $(document).on("change", "select[name='reg_status_parent']", function () {
+            $(this).closest("form").submit();
+            $.ajax({
+              url:
+                base_url + "/authentication/action.php?action=reg_status_parent",
+              method: "POST",
+              dataType: "json",
+              data: $(this).closest("form").serialize(),
+              success: function (response) {
+                if (response.status === 1) {
+                  swal
+                    .fire({
+                      title: "Success",
+                      text: response.message,
+                      icon: "success",
+                      position: "top-end",
+                      toast: true,
+                      timer: 3000,
+                      showConfirmButton: false,
+                    })
+                    .then(() => {
+                      window.location.reload();
+                    });
+                } else {
+                  swal.fire({
+                    title: "Error",
+                    text: response.message,
+                    icon: "error",
+                    position: "top-end",
+                    toast: true,
+                    timer: 3000,
+                    showConfirmButton: false,
+                  });
+                }
+              },
+              error: function () {
+                swal.fire({
+                  title: "Error",
+                  text: "Unable to update status.",
+                  icon: "error",
+                  position: "top-end",
+                  toast: true,
+                  timer: 3000,
+                  showConfirmButton: false,
+                });
+              },
+            });
+          });
 
           if ($.fn.DataTable.isDataTable("#student-tbl-2")) {
             $("#student-tbl-2").DataTable().destroy();

@@ -64,11 +64,19 @@ if ($action === 'getLearner') {
 		echo $getLearner;
 	}
 }
+
+if ($action === 'reg_status_parent') {
+	$getLearner = $crud->reg_status_parent();
+	if ($getLearner) {
+		echo $getLearner;
+	}
+}
+
 /* if ($action === 'getSingleLearner') {
     $learner_id = $_GET['learner_id'] ?? '';
     $learner = $crud->getSingleLearner($learner_id);
     if ($learner) {
-        echo $learner;
+        echo $learner;nb
     }
 } */
 if ($action === 'other_info') {

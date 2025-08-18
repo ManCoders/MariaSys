@@ -5,6 +5,8 @@ if (!isset($_SESSION['parentData'])) {
   exit;
 }
 
+
+
 $parentData = $_SESSION['parentData']['lastname'];
 $parentID = $_SESSION['parentData']['parent_id'];
 ?>
