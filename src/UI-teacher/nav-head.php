@@ -4,198 +4,67 @@ if (!isset($_SESSION['teacherData'])) {
     include 'eror.php';
     exit;
 }
-$teacherData = $_SESSION['teacherData']['lastname'];
+$teacherData = $_SESSION['teacherData']['firstname'] . ', ' . $_SESSION['teacherData']['lastname'];
 $teacherID = $_SESSION['teacherData']['teacher_id'];
 
 ?>
 
 <style>
-  :root {
-    --primary-color: #2c3e50;
-    --primary-dark: #1a252f;
-    --white: #ffffff;
-    --light-gray: #f8f9fa;
-    --gray-border: #e9ecef;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-  }
-
-  .navbar {
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-border);
-    padding: 12px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
-  }
-
-  .nav-brand {
-    font-size: 1.2rem;
-    color: var(--primary-color);
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .nav-brand i {
-    color: var(--success-color);
-  }
-
-  .nav-menu {
-    list-style: none;
-    display: flex;
-    gap: 12px;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-  }
-
-  .admin-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--primary-dark);
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: var(--light-gray);
-  }
-
-  .admin-info:hover {
-    background: #e8f4f8;
-    transform: translateY(-1px);
-  }
-
-  .nav-menu li a {
-    text-decoration: none;
-    color: var(--primary-dark);
-    background: var(--light-gray);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .nav-menu li a:hover {
-    background: #e8f5e9;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .nav-menu li a.profile {
-    background: #e3f2fd;
-    color: #1976d2;
-  }
-
-  .nav-menu li a.profile:hover {
-    background: #bbdefb;
-  }
-
-  .nav-menu li a.logout {
-    background: #ffebee;
-    color: #c62828;
-  }
-
-  .nav-menu li a.logout:hover {
-    background: #ffcdd2;
-    transform: translateY(-2px);
-  }
-
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-
-  .dropdown-content {
+  .buttonHide{
     display: none;
-    position: absolute;
-    right: 0;
-    background-color: var(--white);
-    min-width: 200px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    z-index: 1001;
-    border: 1px solid var(--gray-border);
+    border: none !important;
+    background: none !important;
+    width: fit-content !important;
   }
-
-  
-
-  .dropdown-content a {
-    color: var(--primary-dark);
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-
-  .dropdown-content a:hover {
-    background-color: var(--light-gray);
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-  /* Responsive design */
-  @media (max-width: 768px) {
-    .navbar {
-      padding: 8px 16px;
-    }
-
-    .nav-brand {
-      font-size: 1rem;
-    }
-
-    .nav-menu {
-      flex-direction: row;
-      gap: 8px;
-    }
-
-    .admin-info {
-      display: none;
-    }
-
-    .nav-menu li a {
-      padding: 6px 10px;
-      font-size: 0.85rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .nav-menu {
-      flex-direction: column;
-      gap: 4px;
-      align-items: flex-end;
-    }
+    @media(max-width:576px) {
+      .mediaNone{
+        display: none !important;
+      }
+      .logoMedia{
+        width: 45px !important; height: 45px !important;
+      }
+      .buttonHide{
+        display: flex !important;
+      }
+      #logout{
+        padding: 10px !important;
+      }
+      .navbar {
+        padding: 10px !important;
+      }
+      /* #sidebar{
+        transform: translateY(1rem) !important;
+      } */
   }
 </style>
 
-<nav class="navbar m-0 mb-1">
-  <div class="nav-brand">
-    <i class="fas fa-graduation-cap"></i>
-    <strong>Sta. Maria Elementary School - Teacher Panel</strong>
-  </div>
+<nav class="navbar mb-1 navbar-light bg-white m-0 w-100">
+  <div class="container-fluid d-flex justify-content-between align-items-center p-0 m-0">
 
-  <div class="d-flex align-items-center gap-3">
-    <!-- Admin Info Display -->
-    <div class="admin-info">
-      <i class="fas fa-user-shield"></i>
-      <span><?php echo htmlspecialchars($teacherData); ?></span>
+    <div class="d-flex align-items-center gap-1">
+      <button class="buttonHide" id="burgerButton"><i class="burger fa-solid fa-bars fs-5"></i></button>
+      <div class="avatar">
+        <img src="../../assets/image/system_logo/<?php echo get_option('system_logo'); ?>" class="logoMedia" alt="logo">
+      </div>
+      <strong class="d-none text-danger d-lg-inline">Sta. Maria Elementary School - Parent Panel</strong>
+      <strong class="d-lg-none" style="font-size: 13px;">Sta. Maria Elementary School</strong>
     </div>
+
+    <ul class="navbar-nav d-flex flex-row align-items-center gap-3 mb-0">
+      <li class="nav-item d-flex align-items-center gap-1 mediaNone">
+        <i class="fas fa-user-shield"></i>
+        <span><?php echo htmlspecialchars($teacherData); ?></span>
+      </li>
+      <li class="nav-item">
+        
+      </li>
+    </ul>
+
   </div>
 </nav>
 
 <script>
+  var parent_id = '<?php echo $_SESSION['teacherData']['teacher_id']; ?>';
   $(document).ready(function () {
     $('html').css('scroll-behavior', 'smooth');
   });

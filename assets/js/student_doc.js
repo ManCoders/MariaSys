@@ -22,7 +22,7 @@ $(document).ready(function () {
           );
           tr.append(`<td class="text-center">${i++}</td>`);
           tr.append(
-            `<td class="name-cell">${
+            `<td class="name-cell select-cell">${
               emp.family_name +
               " " +
               emp.suffix +

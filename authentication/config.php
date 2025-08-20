@@ -53,29 +53,25 @@ function db_connect()
                 middlename VARCHAR(50) NOT NULL,
                 lastname VARCHAR(50) NOT NULL,
                 suffix VARCHAR(5) NOT NULL,
-                employeeid VARCHAR(20) NOT NULL,
                 cpno VARCHAR(15) NOT NULL,
+                reference_id VARCHAR(50) NOT NULL,
                 position VARCHAR(10) NOT NULL,
                 department VARCHAR(10) NOT NULL,
+                relationship VARCHAR(30) NOT NULL,
                 rating VARCHAR(10) NOT NULL,
                 province VARCHAR(50) NOT NULL,
-                notes VARCHAR(100) NOT NULL,
-                tongue VARCHAR(50) NOT NULL,
                 city VARCHAR(50) NOT NULL,
                 barangay VARCHAR(50) NOT NULL,
-                birth VARCHAR(10) NOT NULL,
-                gender VARCHAR(10) NOT NULL,
-                teacher_status VARCHAR(10) NOT NULL,
+                occupation VARCHAR(100) NOT NULL,
+                dateofbirth DATE NOT NULL,
+                gender ENUM ('Male', 'Female', 'Other') DEFAULT NULL,
+                parent_status VARCHAR(10) NOT NULL,
                 reg_status ENUM('Pending', 'Approved', 'Rejected', 'Invalidation') DEFAULT 'Pending',
-
-
                 email VARCHAR(100) NOT NULL,
                 username VARCHAR(50) NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 user_role VARCHAR(20) NOT NULL,
-                teacher_picture VARCHAR(255) NOT NULL,
-                birth_place VARCHAR(50) NOT NULL,
-                religious VARCHAR(50) NOT NULL,
+                profile_picture VARCHAR(255) NOT NULL,
                 grade_level_id INT(11),
                 school_year_id INT(11),
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -101,13 +97,12 @@ function db_connect()
                 dateofbirth DATE NOT NULL,
                 gender ENUM ('Male', 'Female', 'Other') DEFAULT NULL,
                 parent_status VARCHAR(10) NOT NULL,
-                
                 reg_status ENUM('Pending', 'Approved', 'Rejected', 'Invalidation') DEFAULT 'Pending',
                 email VARCHAR(100) NOT NULL,
                 username VARCHAR(50) NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 user_role VARCHAR(20) NOT NULL,
-                parent_picture VARCHAR(255) NOT NULL,
+                profile_picture VARCHAR(255) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
             "CREATE TABLE IF NOT EXISTS learners (
@@ -338,17 +333,16 @@ function db_connect()
         $count = $pdo->query("SELECT COUNT(*) FROM teacher")->fetchColumn();
         if ($count == 0) {
             $stmt = $pdo->prepare("INSERT INTO teacher (
-                firstname, middlename, lastname, suffix, employeeid, cpno, position, department, rating,
-                province, city, barangay, birth, gender, teacher_status,
-                email, username, password, user_role, teacher_picture
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                firstname, middlename, lastname, suffix, cpno, position, department, rating,
+                province, city, barangay, gender, 
+                email, username, password, user_role, profile_picture
+            ) VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([
                 'Maria',
                 'Luz',
                 'Reyes',
                 '',
-                'TCH2023001',
                 '09181234567',
                 'Teacher',
                 'Math',
@@ -356,12 +350,10 @@ function db_connect()
                 'Laguna',
                 'Calamba',
                 'Barangay Uno',
-                '1985-05-12',
                 'Female',
-                'Active',
                 'teacher@school.edu.ph',
                 'teacher',
-                password_hash('teacher123', PASSWORD_BCRYPT),
+                password_hash('123', PASSWORD_BCRYPT),
                 'teacher',
                 'default.png'
             ]);
@@ -388,7 +380,7 @@ function db_connect()
             $stmt = $pdo->prepare("INSERT INTO parent (
                 firstname, middlename, lastname, suffix, cpno, position, department, rating,
                 province, city, barangay, dateofbirth, gender, parent_status,
-                email, username, password, user_role, parent_picture
+                email, username, password, user_role, profile_picture
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->execute([
@@ -408,7 +400,7 @@ function db_connect()
                 'Active',
                 'parent@school.edu.ph',
                 'parent',
-                password_hash('parent123', PASSWORD_BCRYPT),
+                password_hash('123', PASSWORD_BCRYPT),
                 'parent',
                 'default.png'
             ]);

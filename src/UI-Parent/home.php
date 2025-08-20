@@ -6,7 +6,7 @@
     
 
   </div>
-  <!-- <div class="modal fade" id="childModal" tabindex="-1">
+  <div class="modal fade" id="childModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <form id="linkNewChild" enctype="multipart/form-data">
@@ -18,7 +18,7 @@
 
 
             <input type="hidden" name="parent_id" id="parentId"
-              value="<?php echo isset($_SESSION['parentData']) ? $_SESSION['parentData']['parent_id'] : ''; ?>">
+              value="<?php echo $parent_id; ?>">
 
             <div class="row gap-1 col-md-12 d-flex justify-content-between">
               <div class="col-md-5 p-0">
@@ -162,7 +162,7 @@
         </form>
       </div>
     </div>
-  </div> -->
+  </div>
 
 </div>
 

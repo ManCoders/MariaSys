@@ -1,14 +1,35 @@
 <section class="p-2">
+                <form id="teacherpostform" method="POST" action="" style="display: none;">
+                <input type="hidden" name="postteacherid" id="postteacherid">
+                <input type="hidden" name="postuserrole" id="postuserrole">
+            </form>
     <div class="sub-section">
-        <div class="d-flex justify-content-between align-items-center mb-0">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
             <div>
-                <h4 class="fs-5 "><i class="fa fa-folder-open text-primary me-2"></i>Teacher Registration</h4>
-                <span>Manage and process teacher registration application</span>
+                <h4 class="fs-5 "><i class="fa fa-folder-open text-primary me-2"></i>Users Registration</h4>
+                <span>Manage and process user registration application</span>
+<!--                 <div class="row col-md-6">
+
+                    <button class="btn m-2 btn-success btn-sm" id="addNewBtn"
+                        data-bs-toggle="modal" data-bs-target="#childModal">
+                        <i class="fa fa-user-plus me-2"></i> Add New User
+                    </button>
+                </div> -->
             </div>
-            <button class="btn btn-success btn-sm" id="addNewBtn"
-                data-bs-toggle="modal" data-bs-target="#childModal">
-                <i class="fa fa-user-plus me-2"></i> Add New Teacher
-            </button>
+
+
+            <div class="row mb-0 col-md-2">
+
+                <div class="">
+                    <label class="form-label  fw-bold">Filter by User Role:</label>
+                    <select id="user-role-filter" class="form-select form-select-sm">
+                        <option value="all">Select Account</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="parent">Parent</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
         <table class="table table-bordered table-hover mb-0" id="student-tbl-2">
             <thead class="table-light text-sm p-0 text-dark">
@@ -16,6 +37,7 @@
                     <th class="text-center" style="width:4%">#</th>
                     <th>Complete Name</th>
                     <th>Grade/Section</th>
+                    <th>User Role</th>
                     <th>Contact Number</th>
                     <th>Date Submitted</th>
                     <th class="text-center">Status</th>
@@ -32,7 +54,7 @@
     </style>
 
     <!-- Modal -->
-    <div class="modal fade" id="childModal" tabindex="-1">
+<!--     <div class="modal fade" id="childModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content ">
 
@@ -45,7 +67,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label class="form-label">Account Type</label>
-                                <select class="form-select" name="user_role" required>
+                                <select class="form-select" name="user-role-filter" required>
                                     <option value="" disabled selected>Select Account Type</option>
                                     <option value="Teacher">Teachers</option>
                                     <option selected value="Parent">Parents</option>
@@ -67,7 +89,6 @@
                         </div>
 
 
-                        <!-- Birth & Gender -->
                         <div class="row">
                             <div class="col-md-6 ">
                                 <label class="form-label">Date of Birth</label>
@@ -82,8 +103,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        <!-- Contact Info -->
                         <div class="row">
                             <div class="col-md-6 ">
                                 <label class="form-label">Email Address</label>
@@ -95,7 +114,6 @@
                             </div>
                         </div>
 
-                        <!-- Account Info -->
                         <div class="row">
                             <div class="col-md-4 ">
                                 <label class="form-label">Username</label>
@@ -120,8 +138,6 @@
                         </div>
                     </div>
 
-
-                    <!-- Submit Button -->
                     <div class="modal-footer m-0 text-danger">
                         <button type="submit" id="register" class="btn btn-danger ">
                             <i class="fas fa-user-plus me-1"></i> Register
@@ -132,9 +148,7 @@
                     </div>
                 </form>
             </div>
-            <form id="teacherpostform" method="POST" action="" style="display: none;">
-                <input type="hidden" name="postteacherid" id="postteacherid">
-            </form>
+
         </div>
-    </div>
+    </div> -->
 </section>

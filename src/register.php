@@ -14,7 +14,8 @@
                             <p class="text-muted small"><?php echo get_option('system_description'); ?></p>
                         </div>
 
-                        <form id="register-form" method="post">
+                        <form id="register-form" method="post" enctype="multipart/form-data">
+
                             <div class="row">
                                 <div class="col-md-3">
                                 <label class="form-label">Account Type</label>
@@ -42,11 +43,11 @@
 
                             <!-- Birth & Gender -->
                             <div class="row">
-                                <div class="col-md-6 ">
+                                <div class="col-md-3 ">
                                     <label class="form-label">Date of Birth</label>
                                     <input type="date" class="form-control" name="dateofbirth" required>
                                 </div>
-                                <div class="col-md-6 ">
+                                <div class="col-md-3 ">
                                     <label class="form-label">Gender</label>
                                     <select class="form-select" name="gender" required>
                                         <option value="">Select Gender</option>
@@ -54,26 +55,28 @@
                                         <option value="Female">Female</option>
                                     </select>
                                 </div>
-                            </div>
-
-                            <!-- Contact Info -->
-                            <div class="row">
                                 <div class="col-md-6 ">
                                     <label class="form-label">Email Address</label>
                                     <input type="email" class="form-control" name="email" required>
                                 </div>
+                            </div>
+
+                            <!-- Contact Info -->
+                            <div class="row">
+                                
                                 <div class="col-md-6 ">
                                     <label class="form-label">Contact Number</label>
                                     <input type="text" class="form-control" name="cpnumber" required>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" class="form-control" name="username" required>
                                 </div>
                             </div>
 
                             <!-- Account Info -->
                             <div class="row">
-                                <div class="col-md-4 ">
-                                    <label class="form-label">Username</label>
-                                    <input type="text" class="form-control" name="username" required>
-                                </div>
+                                
                                 <div class="col-md-4 ">
                                     <label class="form-label">Password</label>
                                     <input type="password" class="form-control" name="password" required>
@@ -81,6 +84,10 @@
                                 <div class="col-md-4 ">
                                     <label class="form-label">Confirm Password</label>
                                     <input type="password" class="form-control" name="cpassword" required>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <label class="form-label">Profile Picture</label>
+                                    <input type="file" class="form-control" name="register_photo" accept="image/*">
                                 </div>
                             </div>
                             <div class="form-check form-check mx-auto mt-3">

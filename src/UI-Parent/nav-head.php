@@ -7,8 +7,8 @@ if (!isset($_SESSION['parentData'])) {
 
 
 
-$parentData = $_SESSION['parentData']['lastname'];
-$parentID = $_SESSION['parentData']['parent_id'];
+$parentData = $_SESSION['parentData']['firstname'] . ', ' . $_SESSION['parentData']['lastname'];
+$parent_id = $_SESSION['parentData']['parent_id'];
 ?>
 <style>
   .buttonHide{

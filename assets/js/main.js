@@ -166,7 +166,8 @@ $(document).ready(function () {
   $("body").on("submit", "#register-form", function (e) {
     e.preventDefault();
     const $this = $(this);
-    const data = new FormData(this);
+    const data = new FormData($this[0]);
+
 
     if (!$this.hasClass("processing")) {
       $this.addClass("processing");
@@ -179,7 +180,8 @@ $(document).ready(function () {
         contentType: false,
         dataType: "json",
         beforeSend: function () {
-          $("#register button").text("Processing...");
+          $this.find("button[type='submit']").html('<i class="fas fa-spinner fa-spin me-1"></i> Processing...');
+
         },
         success: function (response) {
           if (response.status == 1) {

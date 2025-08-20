@@ -66,7 +66,7 @@ if ($action === 'getLearner') {
 }
 
 if ($action === 'reg_status_parent') {
-	$getLearner = $crud->reg_status_parent();
+	$getLearner = $crud->reg_status_user();
 	if ($getLearner) {
 		echo $getLearner;
 	}

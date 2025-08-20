@@ -84,24 +84,41 @@
     }
 </style>
 <?php
-if (isset($_POST['postteacherid'])) {
-    $teacher_id = $_POST['postteacherid'];
-}
+$teacher_id = $_POST['postteacherid'] ?? 'na';
+$user_role = $_POST['postuserrole'] ?? 'na';
 ?>
 <section class="p-2">
     <div>
-        <input type="text" value="<?php echo $teacher_id; ?>" data-id="<?php echo $teacher_id; ?>" name="teacherIdInput" id="teacherIdInput">
+        <!-- Hidden input fields to store values for JS -->
+        <input type="text"
+            value="<?= htmlspecialchars($teacher_id) ?>"
+            data-id="<?= htmlspecialchars($teacher_id) ?>"
+            name="teacherIdInput"
+            id="teacherIdInput"
+            readonly>
+
+        <input type="text"
+            value="<?php echo htmlspecialchars($user_role) ?>"
+            data-type="<?php echo htmlspecialchars($user_role) ?>"
+            name="postuserrole"
+            id="postuserrole"
+            readonly>
+
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h4 class="mb-0"><i class="fa fa-users text-primary me-2"></i>Account Overview</h4>
+                <h4 class="mb-0">
+                    <i class="fa fa-users text-primary me-2"></i>Account Overview
+                </h4>
                 <small class="text-muted">View Account Data Records</small>
             </div>
             <div>
-                <button class="btn btn-success btn-sm " id="backPreviewPage" type="button"><i
-                        class="fa fa-arrow-left"></i>Back</button>
+                <button class="btn btn-success btn-sm" id="backPreviewPage" type="button">
+                    <i class="fa fa-arrow-left"></i> Back
+                </button>
             </div>
         </div>
     </div>
+
 
     <div id="studentProfileSection">
         <div class="row mb-4 d-flex align-items-stretch">
@@ -113,7 +130,7 @@ if (isset($_POST['postteacherid'])) {
                     </div>
                     <div class="card-body text-center">
                         <div class="mb-3">
-                            <img src="../../assets/image/users.png" id="account_picture" alt="account_picture"
+                            <img src="../assets/image/users.png" id="account_picture" alt="account_picture"
                                 class="rounded-circle student-photo" width="120" height="120">
                         </div>
 
@@ -440,31 +457,48 @@ if (isset($_POST['postteacherid'])) {
 
 
 <script>
-    
     setTimeout(() => {
+        const teacherId = $('#teacherIdInput').data('id');
+        const userRole = $('#postuserrole').data('type');
         $.ajax({
-            url: base_url + "authentication/action.php?action=getTeacher",
+            url: base_url + "authentication/action.php?action=getTeacher&role=" + userRole,
             type: "GET",
             dataType: "json",
             success: function(res) {
-                const teacherId = $('#teacherIdInput').data('id');
+
                 if (res.status === 1) {
                     res.data.forEach((learner) => {
-                        if (learner.parent_id == teacherId) {
+                        if (
+                            (learner.user_role === "teacher" && learner.teacher_id == teacherId) ||
+                            (learner.user_role === "parent" && learner.parent_id == teacherId)
+                        ) {
                             $('#account_status').text(learner.reg_status);
-                            $('#account_picture').attr('src', base_url + learner.parent_picture);
+                            if (learner.profile_picture) {
+                                $('img[alt="account_picture"]').attr('src', '../../authentication/'+ learner.profile_picture);
+                            } else {
+                                $('img[alt="account_picture"]').attr('src', '../../assets/image/users.jpg');
+                            }
                             $('#ref_Id').text(learner.reference_id);
-                            $('#account_complete').text(learner.lastname + ' ' + learner.suffix + '. ' + learner.firstname + ' ' + learner.middlename[0]);
+
+                            const middleInitial = learner.middlename ? learner.middlename[0] + '.' : '';
+                            const fullName = `${learner.lastname} ${learner.suffix ?? ''} ${learner.firstname} ${middleInitial}`;
+                            $('#account_complete').text(fullName);
 
                             $('#infoBirthdate').text(learner.dateofbirth);
+
                             const b = new Date(learner.dateofbirth);
                             const t = new Date();
-                            const age = t.getFullYear() - b.getFullYear() - (t < new Date(t.getFullYear(), b.getMonth(), b.getDate()) ? 1 : 0);
+                            const age =
+                                t.getFullYear() -
+                                b.getFullYear() -
+                                (t < new Date(t.getFullYear(), b.getMonth(), b.getDate()) ? 1 : 0);
+
                             $('#infoAge').text(age);
                             $('#infoGender').text(learner.gender);
                             $('#infoPlace').text(learner.birth_place);
                         }
                     });
+
                 }
             },
             error: function() {
