@@ -46,6 +46,17 @@ $(document).ready(function () {
       }
     }
   });
+  $("#profilePicInput").on("change", function () {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      $("#profilePreview").attr("src", e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
 
   $("body").on("submit", "#install-form", function (e) {
     e.preventDefault();
@@ -163,65 +174,121 @@ $(document).ready(function () {
     }
   });
 
+  /*  $("body").on("submit", "#register-form", function (e) {
+  e.preventDefault();
+  const $this = $(this);
+  const data = new FormData(this);
+
+  if (!$this.hasClass("processing")) {
+    $this.addClass("processing");
+    $this.find("button[type='submit']").prop("disabled", true);
+
+    $.ajax({
+      url: base_url + "/authentication/action.php?action=register-form",
+      method: "POST",
+      data: data,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      beforeSend: function () {
+        $this.find("button[type='submit']").html(
+          '<i class="fas fa-spinner fa-spin me-1"></i> Processing...'
+        );
+      },
+      success: function (response) {
+        if (response.status == 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            $(".modal").modal("hide"); // ✅ Correct usage
+            window.location.reload();
+          });
+        } else {
+          Swal.fire({
+            title: "Failed!",
+            text: response.message,
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          $this.find("button[type='submit']").text("Please try again!");
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.error("AJAX error:", textStatus, errorThrown);
+      },
+      complete: function () {
+        $this.removeClass("processing");
+        $this.find("button[type='submit']").prop("disabled", false).text("Register");
+      },
+    });
+  }
+}); */
   $("body").on("submit", "#register-form", function (e) {
     e.preventDefault();
-    const $this = $(this);
-    const data = new FormData($this[0]);
+    const $form = $(this);
 
+    if ($form.data("isSubmitted")) return; // prevent multiple submissions
+    $form.data("isSubmitted", true);
 
-    if (!$this.hasClass("processing")) {
-      $this.addClass("processing");
+    const formData = new FormData(this);
+    const $btn = $form.find("button[type='submit']");
 
-      $.ajax({
-        url: base_url + "/authentication/action.php?action=register-form",
-        method: "POST",
-        data: data,
-        processData: false,
-        contentType: false,
-        dataType: "json",
-        beforeSend: function () {
-          $this.find("button[type='submit']").html('<i class="fas fa-spinner fa-spin me-1"></i> Processing...');
+    $btn.prop("disabled", true);
+    $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Processing...');
 
-        },
-        success: function (response) {
-          if (response.status == 1) {
-            Swal.fire({
-              title: "Success!",
-              text: response.message,
-              icon: "success",
-              toast: true,
-              position: "top-end",
-              timer: 3000,
-              showConfirmButton: false,
-            }).then(() => {
-              $(".modal").hide("modal");
-
-              window.location.reload();
-              $this.removeClass("processing");
-            });
-          } else {
-            Swal.fire({
-              title: "Failed!",
-              text: response.message,
-              icon: "error",
-              toast: true,
-              position: "top-end",
-              timer: 3000,
-              showConfirmButton: false,
-            });
-            $this.find("button[type='submit']").text("Please try again!");
-            $this.removeClass("processing");
-          }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.error("AJAX error:", textStatus, errorThrown);
-          $this.removeClass("processing");
-        },
-        complete: function () {
-          $this.removeClass("processing");
-        },
-      });
-    }
+    $.ajax({
+      url: base_url + "/authentication/action.php?action=register-form",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (response) {
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            $(".modal").modal("hide");
+            window.location = response.redirect_url || window.location.href;
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          $btn.text("Please try again!");
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+      },
+      complete: function () {
+        $form.data("isSubmitted", false);
+        $btn
+          .prop("disabled", false)
+          .html('<i class="fas fa-user-plus me-1"></i> Register');
+      },
+    });
   });
 
   $("body").on("click", "#logout", function (e) {
@@ -258,7 +325,7 @@ $(document).ready(function () {
     });
   });
 
-  $("body").on("submit", "#linkNewChild", function (e) {
+  /* $("body").on("submit", "#linkNewChild", function (e) {
     e.preventDefault();
     const $this = $(this);
     const data = new FormData(this);
@@ -304,9 +371,73 @@ $(document).ready(function () {
         },
       });
     }
-  });
+  }); */
+  $("body").on("submit", "#linkNewChild", function (e) {
+  e.preventDefault();
+  const $form = $(this);
+  const formData = new FormData(this);
+  const $btn = $form.find("button[type='submit']");
 
- 
+  if ($form.hasClass("processing")) return;
+  $form.addClass("processing");
+  $btn.prop("disabled", true).html('<i class="fas fa-spinner fa-spin me-1"></i> Submitting...');
+
+  $.ajax({
+    url: base_url + "/authentication/action.php?action=LinkNewChild",
+    method: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    dataType: "json",
+
+    success: function (response) {
+      if (response.status == 1) {
+        Swal.fire({
+          title: "Success!",
+          text: response.message,
+          icon: "success",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        }).then(() => {
+          $("#linkNewChild").closest(".modal").modal("hide"); // Correct modal close
+          window.location.reload();
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: response.message || "Submission failed.",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+        $btn.html('<i class="fa fa-save me-1"></i> Try Again');
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("AJAX error:", textStatus, errorThrown);
+      Swal.fire({
+        title: "Error",
+        text: "An unexpected error occurred.",
+        icon: "error",
+        toast: true,
+        position: "top-end",
+        timer: 3000,
+        showConfirmButton: false,
+      });
+    },
+
+    complete: function () {
+      $form.removeClass("processing");
+      $btn.prop("disabled", false).html('<i class="fa fa-save me-1"></i> Submit Request');
+    },
+  });
+});
+
 
   function showError(message, icon, title, url) {
     Swal.fire({

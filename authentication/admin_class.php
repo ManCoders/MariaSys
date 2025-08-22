@@ -211,89 +211,89 @@ class Action
             ]);
         }
     } */
-   function login()
-{
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    $username = strtolower(trim($_POST['username'] ?? ''));
-    $password = $_POST['password'] ?? '';
-
-    if (empty($username) || empty($password)) {
-        return json_encode([
-            'status' => 2,
-            'message' => 'Username and password are required.',
-            'redirect_url' => 'src/index.php'
-        ]);
-    }
-
-    try {
-        $roles = [
-            'admin' => [
-                'table' => 'admin',
-                'redirect' => 'src/UI-Admin/index.php',
-                'session_key' => 'adminData',
-                'fields' => ['firstname', 'middlename', 'lastname', 'email', 'user_role', 'username', 'admin_id', 'created_date']
-            ],
-            'teacher' => [
-                'table' => 'teacher',
-                'redirect' => 'src/UI-Teacher/index.php',
-                'session_key' => 'teacherData',
-                'fields' => ['firstname', 'middlename', 'lastname', 'suffix', 'email', 'teacher_id', 'profile_picture', 'created_date', 'user_role', 'username']
-            ],
-            'parent' => [
-                'table' => 'parent',
-                'redirect' => 'src/UI-Parent/index.php',
-                'session_key' => 'parentData',
-                'fields' => ['firstname', 'middlename', 'lastname', 'suffix', 'email', 'parent_id', 'profile_picture', 'created_date', 'user_role', 'username']
-            ]
-        ];
-
-        foreach ($roles as $role => $info) {
-            $stmt = $this->db->prepare("SELECT * FROM {$info['table']} WHERE username = ? OR email = ?");
-            $stmt->execute([$username, $username]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($user && password_verify($password, $user['password'])) {
-                if (strtolower($user['user_role']) !== $role) {
-                    session_destroy();
-                    return json_encode([
-                        'status' => 2,
-                        'message' => 'Unauthorized access. User role mismatch.',
-                        'redirect_url' => 'src/index.php'
-                    ]);
-                }
-
-                // Set session data
-                $sessionData = [];
-                foreach ($info['fields'] as $field) {
-                    $sessionData[$field] = $user[trim($field)] ?? null;
-                }
-
-                $_SESSION[$info['session_key']] = $sessionData;
-
-                return json_encode([
-                    'status' => 1,
-                    'message' => 'Login successful.',
-                    'redirect_url' => $info['redirect']
-                ]);
-            }
+    function login()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
         }
 
-        return json_encode([
-            'status' => 2,
-            'message' => 'User not found or incorrect credentials.',
-            'redirect_url' => 'src/index.php'
-        ]);
-    } catch (Exception $e) {
-        return json_encode([
-            'status' => 2,
-            'message' => 'System error occurred. Contact administrator.',
-            'redirect_url' => 'src/index.php'
-        ]);
+        $username = strtolower(trim($_POST['username'] ?? ''));
+        $password = $_POST['password'] ?? '';
+
+        if (empty($username) || empty($password)) {
+            return json_encode([
+                'status' => 2,
+                'message' => 'Username and password are required.',
+                'redirect_url' => 'src/index.php'
+            ]);
+        }
+
+        try {
+            $roles = [
+                'admin' => [
+                    'table' => 'admin',
+                    'redirect' => 'src/UI-Admin/index.php',
+                    'session_key' => 'adminData',
+                    'fields' => ['firstname', 'middlename', 'lastname', 'email', 'user_role', 'username', 'admin_id', 'created_date']
+                ],
+                'teacher' => [
+                    'table' => 'teacher',
+                    'redirect' => 'src/UI-Teacher/index.php',
+                    'session_key' => 'teacherData',
+                    'fields' => ['firstname', 'middlename', 'lastname', 'suffix', 'email', 'teacher_id', 'profile_picture', 'created_date', 'user_role', 'username']
+                ],
+                'parent' => [
+                    'table' => 'parent',
+                    'redirect' => 'src/UI-Parent/index.php',
+                    'session_key' => 'parentData',
+                    'fields' => ['firstname', 'middlename', 'lastname', 'suffix', 'email', 'parent_id', 'profile_picture', 'created_date', 'user_role', 'username']
+                ]
+            ];
+
+            foreach ($roles as $role => $info) {
+                $stmt = $this->db->prepare("SELECT * FROM {$info['table']} WHERE username = ? OR email = ?");
+                $stmt->execute([$username, $username]);
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($user && password_verify($password, $user['password'])) {
+                    if (strtolower($user['user_role']) !== $role) {
+                        session_destroy();
+                        return json_encode([
+                            'status' => 2,
+                            'message' => 'Unauthorized access. User role mismatch.',
+                            'redirect_url' => 'src/index.php'
+                        ]);
+                    }
+
+                    // Set session data
+                    $sessionData = [];
+                    foreach ($info['fields'] as $field) {
+                        $sessionData[$field] = $user[trim($field)] ?? null;
+                    }
+
+                    $_SESSION[$info['session_key']] = $sessionData;
+
+                    return json_encode([
+                        'status' => 1,
+                        'message' => 'Login successful.',
+                        'redirect_url' => $info['redirect']
+                    ]);
+                }
+            }
+
+            return json_encode([
+                'status' => 2,
+                'message' => 'User not found or incorrect credentials.',
+                'redirect_url' => 'src/index.php'
+            ]);
+        } catch (Exception $e) {
+            return json_encode([
+                'status' => 2,
+                'message' => 'System error occurred. Contact administrator.',
+                'redirect_url' => 'src/index.php'
+            ]);
+        }
     }
-}
 
 
     function save_installation_data()
@@ -356,8 +356,7 @@ class Action
     }
 
 
-    function registration_form()
-    {
+    /* function registration_form(){
         if (empty($_POST)) {
             return json_encode(['status' => 0, 'message' => 'No form data submitted.']);
         }
@@ -468,11 +467,141 @@ class Action
                 'redirect_url' => 'src/register.php'
             ]);
         }
+    } */
+
+    function registration_form()
+    {
+        if (empty($_POST)) {
+            return json_encode(['status' => 0, 'message' => 'No form data submitted.']);
+        }
+
+        // Extract user input
+        $user_role   = strtolower(trim($_POST['user_role'] ?? ''));
+        $firstname   = trim($_POST['firstName'] ?? '');
+        $middlename  = trim($_POST['middleName'] ?? '');
+        $lastname    = trim($_POST['lastName'] ?? '');
+        $email       = trim($_POST['email'] ?? '');
+        $username    = trim($_POST['username'] ?? '');
+        $password    = $_POST['password'] ?? '';
+        $cpno        = trim($_POST['cpnumber'] ?? '');
+        $gender      = $_POST['gender'] ?? '';
+        $dateofbirth = $_POST['dateofbirth'] ?? '';
+        $profilePicPath = null;
+
+        if (isset($_FILES['register_photo']) && $_FILES['register_photo']['error'] === UPLOAD_ERR_OK) {
+            $file = $_FILES['register_photo'];
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $allowed = ['jpg', 'jpeg', 'png'];
+
+            if (!in_array($ext, $allowed)) {
+                return json_encode(['status' => 2, 'message' => 'Only JPG and PNG files are allowed.']);
+            }
+
+            $uploadDir = './uploads/';
+            $relativePath = '/uploads/';
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
+            if (!is_writable($uploadDir)) {
+                return json_encode(['status' => 2, 'message' => 'Upload folder is not writable.']);
+            }
+
+            $newName = uniqid('profile_', false) . '.' . $ext;
+            $uploadPath = $uploadDir . $newName;
+
+            if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                $profilePicPath = $relativePath . $newName;
+            } else {
+                error_log('Failed to move uploaded file: ' . print_r($file, true));
+                return json_encode(['status' => 2, 'message' => 'Failed to move uploaded file.']);
+            }
+        }
+
+
+
+        // Validate required fields
+        if (empty($user_role) || empty($firstname) || empty($lastname) || empty($email) || empty($username) || empty($password)) {
+            return json_encode(['status' => 2, 'message' => 'Required fields are missing.']);
+        }
+
+        try {
+            // Define user role mappings
+            $roleMap = [
+                'parent' => [
+                    'table' => 'parent',
+                    'fields' => '(user_role, firstname, middlename, lastname, email, username, password, cpno, gender, reg_status, dateofbirth, profile_picture)',
+                    'placeholders' => 12,
+                ],
+                'teacher' => [
+                    'table' => 'teacher',
+                    'fields' => '(user_role, firstname, middlename, lastname, email, username, password, cpno, gender, reg_status, dateofbirth, profile_picture)',
+                    'placeholders' => 12,
+                ]
+            ];
+
+            if (!array_key_exists($user_role, $roleMap)) {
+                return json_encode(['status' => 2, 'message' => 'Invalid user role.']);
+            }
+
+            $table       = $roleMap[$user_role]['table'];
+            $fields      = $roleMap[$user_role]['fields'];
+            $placeholders = rtrim(str_repeat('?, ', $roleMap[$user_role]['placeholders']), ', ');
+            $reg_status  = 'Pending';
+
+            // Check for duplicates
+            foreach (['email' => $email, 'username' => $username, 'cpno' => $cpno] as $field => $val) {
+                $stmt = $this->db->prepare("SELECT COUNT(*) FROM {$table} WHERE {$field} = ?");
+                $stmt->execute([$val]);
+                if ($stmt->fetchColumn() > 0) {
+                    return json_encode([
+                        'status' => 2,
+                        'message' => ucfirst($field) . ' already exists.',
+                        'redirect_url' => 'src/register.php'
+                    ]);
+                }
+            }
+
+            // Hash password
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            // Prepare values in correct order
+            $values = [
+                $user_role,
+                $firstname,
+                $middlename,
+                $lastname,
+                $email,
+                $username,
+                $hashedPassword,
+                $cpno,
+                $gender,
+                $reg_status,
+                $dateofbirth,
+                $profilePicPath
+            ];
+
+            // Insert into DB
+            $stmt = $this->db->prepare("INSERT INTO {$table} {$fields} VALUES ({$placeholders})");
+            $stmt->execute($values);
+
+            return json_encode([
+                'status' => 1,
+                'message' => ucfirst($user_role) . ' registration successful.',
+                'redirect_url' => 'index.php'
+            ]);
+        } catch (Exception $e) {
+            return json_encode([
+                'status' => 2,
+                'message' => 'An error occurred: ' . $e->getMessage(),
+                'redirect_url' => 'src/register.php'
+            ]);
+        }
     }
 
 
 
-    //WORKING
     function Enrollment()
     {
         extract($_POST); // ⚠️ Still recommended to use $_POST['key'] individually for clarity & safety
@@ -504,7 +633,7 @@ class Action
                     return json_encode(['status' => 2, 'message' => 'Only JPG, PNG, and GIF files are allowed.']);
                 }
 
-                $uploadDir = __DIR__ . '/uploads/';
+                $uploadDir = './uploads/';
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
                 }
@@ -513,7 +642,7 @@ class Action
                 $uploadPath = $uploadDir . $newName;
 
                 if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
-                    $profilePicPath = 'uploads/' . $newName;
+                    $profilePicPath = '/uploads/' . $newName;
                 } else {
                     return json_encode(['status' => 2, 'message' => 'Failed to save uploaded profile picture.']);
                 }
@@ -617,62 +746,61 @@ class Action
 
     // Parent Link account for learner
     function LinkNewChild()
-    {
-        try {
-            $lrn        = $_POST['lrn'] ?? '';
-            $status     = $_POST['status'] ?? '';
-            $nickname   = htmlspecialchars(trim($_POST['nickname'] ?? ''));
-            $gender     = $_POST['gender'] ?? '';
-            $last_name  = htmlspecialchars(trim($_POST['family_name'] ?? ''));
-            $middle_name = htmlspecialchars(trim($_POST['middle_name'] ?? ''));
-            $given_name = htmlspecialchars(trim($_POST['given_name'] ?? ''));
-            $suffix     = $_POST['suffix'] ?? null;
-            $religious  = htmlspecialchars(trim($_POST['religious'] ?? ''));
-            $birthdate  = $_POST['birthdate'] ?? '';
-            $birth_place = htmlspecialchars(trim($_POST['birth_place'] ?? ''));
-            $notes      = htmlspecialchars(trim($_POST['notes'] ?? ''));
-            $parent_id  = $_POST['parent_id'] ?? '';
+{
+    try {
+        $lrn         = $_POST['lrn'] ?? '';
+        $status      = $_POST['status'] ?? 'New'; // Default to 'New' if missing
+        $nickname    = htmlspecialchars(trim($_POST['nickname'] ?? ''));
+        $gender      = $_POST['gender'] ?? '';
+        $last_name   = htmlspecialchars(trim($_POST['family_name'] ?? ''));
+        $middle_name = htmlspecialchars(trim($_POST['middle_name'] ?? ''));
+        $given_name  = htmlspecialchars(trim($_POST['given_name'] ?? ''));
+        $suffix      = $_POST['suffix'] ?? null;
+        $religious   = htmlspecialchars(trim($_POST['religious'] ?? ''));
+        $birthdate   = $_POST['birthdate'] ?? '';
+        $birth_place = htmlspecialchars(trim($_POST['birth_place'] ?? ''));
+        $notes       = htmlspecialchars(trim($_POST['notes'] ?? ''));
+        $parent_id   = $_POST['parent_id'] ?? '';
 
-            // Validate LRN
-            if (!preg_match('/^\d{12}$/', $lrn)) {
-                return json_encode(['status' => 2, 'message' => 'Invalid LRN format. It should be 12 digits.']);
+        if (!preg_match('/^\d{12}$/', $lrn)) {
+            return json_encode(['status' => 2, 'message' => 'LRN must be exactly 12 digits.']);
+        }
+
+        // Check if LRN exists
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM learners WHERE lrn = ?");
+        $stmt->execute([$lrn]);
+        if ($stmt->fetchColumn() > 0) {
+            return json_encode(['status' => 2, 'message' => 'This LRN is already registered.']);
+        }
+
+        // Handle profile picture
+        $profilePicPath = null;
+        if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+            $file = $_FILES['profile_picture'];
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $allowed = ['jpg', 'jpeg', 'png'];
+
+            if (!in_array($ext, $allowed)) {
+                return json_encode(['status' => 2, 'message' => 'Only JPG and PNG images are allowed.']);
             }
 
-            // Check for existing LRN
-            $check = $this->db->prepare("SELECT COUNT(*) FROM learners WHERE lrn = ?");
-            $check->execute([$lrn]);
-            if ($check->fetchColumn() > 0) {
-                return json_encode(['status' => 2, 'message' => 'This LRN is already registered.']);
+            $uploadDir = __DIR__ . '/uploads/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
             }
 
-            // Handle profile picture upload
-            $profilePicPath = null;
-            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-                $file = $_FILES['profile_picture'];
-                $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-                $allowed = ['jpg', 'jpeg', 'png'];
+            $newName = uniqid('profile_', false) . '.' . $ext;
+            $uploadPath = $uploadDir . $newName;
 
-                if (!in_array($ext, $allowed)) {
-                    return json_encode(['status' => 2, 'message' => 'Only JPG and PNG files are allowed.']);
-                }
-
-                $uploadDir = __DIR__ . '/uploads/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0755, true);
-                }
-
-                $newName = uniqid('profile_', false) . '.' . $ext;
-                $uploadPath = $uploadDir . $newName;
-
-                if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
-                    $profilePicPath = 'authentication/uploads/' . $newName;
-                } else {
-                    return json_encode(['status' => 2, 'message' => 'Failed to save uploaded profile picture.']);
-                }
+            if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                $profilePicPath = 'authentication/uploads/' . $newName;
+            } else {
+                return json_encode(['status' => 2, 'message' => 'Failed to save uploaded profile picture.']);
             }
+        }
 
-            // Insert new learner
-            $stmt1 = $this->db->prepare("
+        // Insert learner
+        $stmt = $this->db->prepare("
             INSERT INTO learners (
                 parent_id,
                 lrn,
@@ -693,30 +821,31 @@ class Action
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
 
-            $stmt1->execute([
-                $parent_id,
-                $lrn,
-                $status,
-                $nickname,
-                $gender,
-                $last_name,
-                $middle_name,
-                $given_name,
-                $suffix,
-                $religious,
-                $birthdate,
-                $birth_place,
-                $notes,
-                $profilePicPath,
-                $middle_name,
-                $last_name
-            ]);
+        $stmt->execute([
+            $parent_id,
+            $lrn,
+            $status,
+            $nickname,
+            $gender,
+            $last_name,
+            $middle_name,
+            $given_name,
+            $suffix ?: null,
+            $religious,
+            $birthdate,
+            $birth_place,
+            $notes,
+            $profilePicPath,
+            $middle_name,
+            $last_name
+        ]);
 
-            return json_encode(['status' => 1, 'message' => 'Successfully registered. Please wait for approval!']);
-        } catch (PDOException $e) {
-            return json_encode(['status' => 0, 'message' => 'Database Error: ' . $e->getMessage()]);
-        }
+        return json_encode(['status' => 1, 'message' => 'Successfully registered. Please wait for approval.']);
+    } catch (PDOException $e) {
+        return json_encode(['status' => 0, 'message' => 'Database error: ' . $e->getMessage()]);
     }
+}
+
 
     function NewTeacher()
     {
@@ -898,12 +1027,12 @@ class Action
             $stmt->execute([$role]);
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            echo json_encode([
+            return json_encode([
                 'status' => 1,
                 'data' => $data
             ]);
         } catch (PDOException $e) {
-            echo json_encode([
+            return json_encode([
                 'status' => 0,
                 'message' => 'Database error: ' . $e->getMessage()
             ]);

@@ -29,7 +29,7 @@
             <i class="fas fa-chalkboard-teacher me-2"></i> Learners
         </a>
         
-        <a href="index.php?page=contents/teacher" class="nav-link nav-teacher nav-teacher_view d-flex align-items-center">
+        <a href="index.php?page=contents/teacher" class="nav-link nav-teacher nav-profile_view d-flex align-items-center">
             <i class="fas fa-users me-2"></i> Accounts
         </a>
         

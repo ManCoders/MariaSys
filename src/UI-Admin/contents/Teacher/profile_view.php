@@ -176,8 +176,8 @@ $user_role = $_POST['postuserrole'] ?? 'na';
                             <div class="col-md-6 overflow-auto mb-3">
                                 <table class="table table-borderless info-table text-sm">
                                     <tr>
-                                        <td><strong>Account no:</strong></td>
-                                        <td id="ref_Id">-</td>
+                                        <td><strong>Email Address:</strong></td>
+                                        <td id="emailInfo">-</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Grade:</strong></td>
@@ -478,7 +478,7 @@ $user_role = $_POST['postuserrole'] ?? 'na';
                             } else {
                                 $('img[alt="account_picture"]').attr('src', '../../assets/image/users.jpg');
                             }
-                            $('#ref_Id').text(learner.reference_id);
+                            $('#emailInfo').text(learner.email);
 
                             const middleInitial = learner.middlename ? learner.middlename[0] + '.' : '';
                             const fullName = `${learner.lastname} ${learner.suffix ?? ''} ${learner.firstname} ${middleInitial}`;
@@ -495,7 +495,7 @@ $user_role = $_POST['postuserrole'] ?? 'na';
 
                             $('#infoAge').text(age);
                             $('#infoGender').text(learner.gender);
-                            $('#infoPlace').text(learner.birth_place);
+                            $('#infoPlace').text(learner.province + ', ' + learner.city + ', ' + learner.barangay);
                         }
                     });
 

@@ -18,14 +18,14 @@
 
                             <div class="row">
                                 <div class="col-md-3">
-                                <label class="form-label">Account Type</label>
-                                <select class="form-select" name="user_role" required>
-                                    <option value="" disabled selected>Select Account Type</option>
-                                    <option  value="Teacher">Teachers</option>
-                                    <option selected value="Parent">Parents</option> 
-                                </select>
-                            </div>
-                                
+                                    <label class="form-label">Account Type</label>
+                                    <select class="form-select" name="user_role" required>
+                                        <option value="" disabled selected>Select Account Type</option>
+                                        <option value="teacher">Teacher</option>
+                                        <option value="parent">Parent</option>
+                                    </select>
+                                </div>
+
                                 <div class="col-md-3 ">
                                     <label class="form-label">First Name</label>
                                     <input type="text" class="form-control" name="firstName" required>
@@ -63,7 +63,7 @@
 
                             <!-- Contact Info -->
                             <div class="row">
-                                
+
                                 <div class="col-md-6 ">
                                     <label class="form-label">Contact Number</label>
                                     <input type="text" class="form-control" name="cpnumber" required>
@@ -76,7 +76,7 @@
 
                             <!-- Account Info -->
                             <div class="row">
-                                
+
                                 <div class="col-md-4 ">
                                     <label class="form-label">Password</label>
                                     <input type="password" class="form-control" name="password" required>
@@ -85,7 +85,7 @@
                                     <label class="form-label">Confirm Password</label>
                                     <input type="password" class="form-control" name="cpassword" required>
                                 </div>
-                                <div class="col-md-4 ">
+                                <div class="col-md-4">
                                     <label class="form-label">Profile Picture</label>
                                     <input type="file" class="form-control" name="register_photo" accept="image/*">
                                 </div>
@@ -102,7 +102,7 @@
 
                             <!-- Submit Button -->
                             <div class="d-grid col-md-5 mx-auto mt-3 text-danger">
-                                <button type="submit" class="btn btn-danger ">
+                                <button type="submit" class="btn btn-danger">
                                     <i class="fas fa-user-plus me-1"></i> Register
                                 </button>
                             </div>
