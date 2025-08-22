@@ -52,17 +52,24 @@ if ($action === 'LinkNewChild') {
 		echo $registration;
 	}
 }
-/* if ($action === 'update_enrollment_status') {
-    $approval = $crud->approveEnrollment();
+if ($action === 'schoolYear') {
+    $approval = $crud->schoolYear();
     if ($approval) {
         echo $approval;
     }
-} */
+}
 if ($action === 'getLearner') {
 	$getLearner = $crud->getLearner();
 	if ($getLearner) {
 		echo $getLearner;
 	}
+}
+
+if ($action === 'sections') {
+    $sections = $crud->sections();
+    if ($sections) {
+        echo $sections;
+    }
 }
 
 if ($action === 'reg_status_parent') {
@@ -72,13 +79,12 @@ if ($action === 'reg_status_parent') {
 	}
 }
 
-/* if ($action === 'getSingleLearner') {
-    $learner_id = $_GET['learner_id'] ?? '';
-    $learner = $crud->getSingleLearner($learner_id);
+if ($action === 'getDatas') {
+    $learner = $crud->getDatas();
     if ($learner) {
-        echo $learner;nb
+        echo $learner;
     }
-} */
+}
 if ($action === 'other_info') {
 	$getLearner = $crud->other_info();
 	if ($getLearner) {

@@ -34,7 +34,7 @@
         </a>
         
         <a href="index.php?page=contents/classroom" class="nav-link nav-classroom d-flex align-items-center">
-            <i class="fas fa-school me-2"></i> Classrooms
+            <i class="fas fa-school me-2"></i> Management
         </a>
         <!-- note: hindi naman talaga to kailangan meron nang teacher ata student management -->
         <!-- <a href="index.php?page=contents/users" class="nav-link nav-users d-flex align-items-center">

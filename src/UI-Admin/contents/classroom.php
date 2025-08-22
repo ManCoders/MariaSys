@@ -1,126 +1,466 @@
-<section class="p-2">
-    <div class="">
-        <div class="d-flex justify-content-between align-items-center mb-0">
-            <div>
-                <h4 class=""><i class="fa fa-folder-open text-primary me-2"></i>Classroom Management</h4>
-                <span>Manage and process Classroom with departments</span>
-            </div>
-            <select name="" id="" class="form-select w-25">
-                <option value="">Select Category</option>
-                <option value="">Manage Classroom</option>
-                <option value="">Manage Sections</option>
-                <option value="">Manage Academic Year</option>
-            </select>
-            <button class="btn btn-success btn-sm" id="addClassroom">
-                <i class="fa fa-plus"></i> Add New Classroom
-            </button>
+<section class="p-3">
+    <div class="row mb-3 align-items-center">
+        <div class="col-md-6 mb-2 mb-md-0">
+            <h4><i class="fa fa-folder-open text-primary me-2"></i>Classroom Management</h4>
+            <span>Manage classrooms, sections, and rooms</span>
         </div>
-        <table class="table table-bordered table-hover   mb-0" id="student-tbl-1">
-            <thead class="table-light text-dark">
-                <tr>
-                    <th class="text-center" style="width:4%">#</th>
-                    <th>Academic Year</th>
-                    <th>Grade Level</th>
-                    <th>Section</th>
-                    <th>Status</th>
-                    <th>Date Calenndar</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody id="tb_data_body_Classroom"></tbody>
-        </table>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-5 d-flex align-items-center">
+                    <p for="managementSelect" class=" w-100  mb-0">Select Manage</p>
+                    <select id="managementSelect" class="form-select">
+                        <option value="">Select Category</option>
+                        <option value="sy">School Year</option>
+                        <option value="section">Sections</option>
+                        <option value="grade_level">Grade Levels</option>
+                        <option value="classroom">Classrooms</option>
+
+                    </select>
+                </div>
+                <div class="col-5 d-flex align-items-center">
+                    <p for="managementSelect2" class="w-100 mb-0">Add Category</p>
+                    <select id="managementSelect2" class="form-select">
+                        <option value="">Select Category</option>
+                        <option value="syModal">Add School Year</option>
+                        <option value="classroom">Add Classroom</option>
+                        <option value="section">Add Section</option>
+                        <option value="grade_level">Add Grade Level</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <style>
-        .modal-lg {
-            max-width: 1200px;
-            width: 90%;
-        }
 
-        .name-cell {
-            max-width: 150px;
-            /* adjust width as needed */
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
-    <?php 
-        date_default_timezone_set('Asia/Manila');
-        $currentDate = date('Y-m-d'); 
-    ?>
-    <!-- Modal -->
-    <div class="modal fade " id="classroomModal" tabindex="-1">
-        <div class="modal-dialog  modal-md">
-            <div class="modal-content ">
-            
-                <form id="classroomForm" enctype="multipart/form-data">
-                    <div class="modal-header bg-success " style="border-bottom: 1px solid #ddd;">
-                        <h5 class="modal-title text-white">Create Classroom</h5>
+    <!-- CLASSROOM LIST -->
+    <div id="classroomCards" class="row g-3">
+        <h5 class="mb-3 text-success"><i class="fa fa-school me-2"></i>All Classrooms</h5>
+        <div class="col-md-4">
+            <div class="card shadow-sm border">
+                <div class="card-body">
+                    <h5 class="card-title">Grade 3 - Saturn</h5>
+                    <p class="card-text">
+                        <strong>Academic Year:</strong> 2025-2026<br />
+                        <strong>Status:</strong> Active<br />
+                        <strong>Start:</strong> August 20, 2025
+                    </p>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></button>
+                        <button class="btn btn-sm btn-outline-success"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add more dynamically -->
+    </div>
+
+    <div id="gradeLevelCards" class="row g-3 d-none text-center">
+        <h5 class="mb-3 text-primary"><i class="fa fa-layer-group me-2 mx-auto"></i>Grade Levels</h5>
+        <div class="col-md-4">
+            <div class="card shadow-sm border">
+                <div class="card-body ">
+                    <h5 class="card-title">Grade 1</h5>
+                    <p class="card-text">
+                        Example   descriptionasdasdsad asdasdasdasdasd<br />
+                    </p>
+                    <select class="form-select w-50 mx-auto text-center" name="levelstatus" id="levelstatus">
+                        <option value="Active">Active</option>
+                        <option value="InActive">In Active</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- SECTION LIST -->
+    <div id="sectionCards" class="row g-3 d-none">
+        <h5 class="mb-3 text-primary"><i class="fa fa-layer-group me-2"></i>All Sections</h5>
+        <div class="col-md-4">
+            <div class="card shadow-sm border">
+                <div class="card-body">
+                    <h5 class="card-title">Section: Jupiter</h5>
+                    <p class="card-text">
+                        <strong>Description:</strong> Advanced learners<br />
+                        <strong>Level:</strong> Grade 4
+                    </p>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="btn btn-sm btn-outline-success"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+
+    <!-- ROOM LIST -->
+    <div id="roomCards" class="row g-3 d-none">
+        <h5 class="mb-3 text-warning"><i class="fa fa-door-closed me-2"></i>All Rooms</h5>
+        <div class="col-md-4">
+            <div class="card shadow-sm border">
+                <div class="card-body">
+                    <h5 class="card-title">Room 101</h5>
+                    <p class="card-text">
+                        <strong>Type:</strong> Lecture<br />
+                        <strong>Status:</strong> Available
+                    </p>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="btn btn-sm btn-outline-success"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="syCards" class="d-none row g-3">
+        <h5 class="mb-3 text-warning"><i class="fa fa-door-closed me-2"></i>All School Years</h5>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border position-relative">
+                <!-- Close Button -->
+                <button type="button" class="btn btn-close position-absolute top-0 end-0 m-2"><i class="fa fa-times text-dark" id="btnClose"></i></button>
+
+                <div class="card-body text-center">
+                    <h5 class="card-title">School Year</h5>
+                    <h5>2023-2024</h5>
+                    <p class="card-text text-center">
+                        <strong>Default:</strong>
+                        <select class="form-select mt-1 w-50 mx-auto text-center" name="sy_default">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- Add Section Modal -->
+    <div class="modal fade" id="sectionModal" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form id="sectionForm">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Create Section</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="m-2">
-                            <label for="">Academic Year</label>
-                            <select name="academic_year" id="" class="form-select">
-                                <option value="">Select academic year</option>
-                                <option value="">2024 - 2025</option>
-                                <option value="">2025 - 2026</option>
-                                <option value="">2026 - 2027</option>
-                            </select>
+                        <div class="mb-2">
+                            <label>Section Name</label>
+                            <input type="text" name="section_name" class="form-control" placeholder="e.g. Jupiter">
                         </div>
-                        <div class="m-2">
-                            <label for="">Grade Level</label>
-                            <select name="academic_year" id="" class="form-select">
+                      <!--   <div class="mb-2">
+                            <label>Grade Level :</label>
+                            <select name="section_grade_level" class="form-select">
                                 <option value="">Select Grade Level</option>
-                                <option value="">Kinder 1</option>
-                                <option value="">kinder 2</option>
-                                <option value="">grade 1</option>
-                                <option value="">grade 2</option>
-                                <option value="">grade 3</option>
-                                <option value="">grade 4</option>
-                                <option value="">grade 5</option>
-                                <option value="">grade 6</option>
+                                <option value="Grade 1">Grade 1</option>
+                                <option value="Grade 2">Grade 2</option>
+                                <option value="Grade 3">Grade 3</option>
+                                <option value="Grade 4">Grade 4</option>
+                                <option value="Grade 5">Grade 5</option>
+                                <option value="Grade 6">Grade 6</option>
                             </select>
-                        </div>
-                        <div class="m-2">
-                            <label for="">Section</label>
-                            <select name="academic_year" id="" class="form-select">
-                                <option value="">Select Section</option>
-                                <option value="">JUPITER</option>
-                                <option value="">SATURN</option>
-                                <option value="">EARTH</option>
-                                <option value="">MARS</option>
-                                <option value="">VENUS</option>
-                                <option value="">URANUS</option>
-                            </select>
-                        </div>
-                        <div class="m-2">
-                            <label for="">Status</label>
-                            <input type="text" class="form-control" value="Active" name="status" placeholder="Status">
-                        </div>
-                        <div class="m-2">
-                            <label for="">School Calendar</label>
-                            <input type="date" class="form-control" name="gradeLevel" value="<?= $currentDate ?>" placeholder="Grade Level">
+                        </div> -->
+                        <div class="mb-2">
+                            <label>Description</label>
+                            <textarea name="section_desc" class="form-control" placeholder="Optional description..."></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success text-white" type="submit">
-                            <i class="fa fa-save me-1"></i>Submit Request
-                        </button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-save me-1"></i> Save</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="gradeLevelModal" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form id="gradeLevelForm">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Create Grade Level</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label>Grade Level Name</label>
+                            <input type="text" name="grade_level_name" class="form-control" placeholder="e.g. Jupiter">
+                        </div>
+                        <div class="mb-2">
+                            <label>Description</label>
+                            <textarea name="grade_level_desc" class="form-control" placeholder="Optional description..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-save me-1"></i> Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Room Modal -->
+    <div class="modal fade" id="roomModal" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form id="roomForm">
+                    <div class="modal-header bg-warning text-dark">
+                        <h5 class="modal-title">Create Room</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label>Room Number</label>
+                            <input type="text" name="room_number" class="form-control" placeholder="e.g. Room 101">
+                        </div>
+                        <div class="mb-2">
+                            <label>Room Type</label>
+                            <select name="room_type" class="form-select">
+                                <option value="">Select</option>
+                                <option value="Lecture">Lecture</option>
+                                <option value="Computer Lab">Computer Lab</option>
+                                <option value="Science Lab">Science Lab</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" type="submit"><i class="fa fa-save me-1"></i> Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Add School Year Modal -->
+    <div class="modal fade" id="syModal" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form id="syForm">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title">Create School Year</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label>School Year</label>
+                            <select name="sy_name" class="form-select">
+                                <?php
+                                $currentYear = date('Y');
+                                for ($i = 0; $i < 5; $i++) {
+                                    $start = $currentYear + $i;
+                                    $end = $start + 1;
+                                    echo "<option value=\"{$start}-{$end}\">{$start} - {$end}</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Status</label>
+                            <select name="sy_status" class="form-select">
+                                <option value="Active">Default</option>
+                                <option value="inactive">In Active</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-info" type="submit"><i class="fa fa-save me-1"></i> Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </section>
+
 <script>
-    $(document).ready(function () {
-        $('#addClassroom').click(function () {
-            $('#classroomForm')[0].reset();
-            $('#classroomModal').modal('show');
+    $(document).ready(function() {
+
+        // SHOW LIST ONLY
+        $('#managementSelect').on('change', function() {
+            const selected = $(this).val();
+
+            // Hide all list containers initially
+            $('#classroomCards, #sectionCards, #roomCards, #gradeLevelCards, #syCards').addClass('d-none');
+
+            switch (selected) {
+                case 'classroom':
+                    $('#classroomCards').removeClass('d-none');
+                    break;
+
+                case 'section':
+                    $('#sectionCards').removeClass('d-none').empty(); 
+                    $.ajax({
+                        type: "GET",
+                        url: base_url + "/authentication/action.php?action=getDatas",
+                        data: {
+                            type: 'sections'
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                $('#sectionCards').append(response.data);
+                            } else {
+                                alert(response.message || 'Something went wrong.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", error);
+                            alert("Request failed. Please try again.");
+                        }
+                    });
+                    break;
+                case 'grade_level':
+                    $('#gradeLevelCards').removeClass('d-none');
+                    
+                    break;
+                case 'sy':
+                    $('#syCards').removeClass('d-none').empty(); 
+
+                    $.ajax({
+                        type: "GET",
+                        url: base_url + "/authentication/action.php?action=getDatas",
+                        data: {
+                            type: 'school_year'
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                $('#syCards').append(response.data);
+                            } else {
+                                alert(response.message || 'Something went wrong.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", error);
+                            alert("Request failed. Please try again.");
+                        }
+                    });
+                    break;
+
+                default:
+                    // Optional: Hide all cards again in default
+                    $('#classroomCards, #sectionCards, #roomCards, #syCards').addClass('d-none');
+                    break;
+            }
+
+            // Reset dropdown to default after handling
+            $(this).val('');
+        });
+
+        // OPEN MODALS ONLY
+        $('#managementSelect2').on('change', function() {
+            const selected = $(this).val();
+
+            if (selected === 'classroom') {
+                $('#classroomForm')[0].reset();
+                $('#classroomModal').modal('show');
+            } else if (selected === 'grade_level') {
+                $('#gradeLevelForm')[0].reset();
+                $('#gradeLevelModal').modal('show');
+            } else if (selected === 'section') {
+                $('#sectionForm')[0].reset();
+                $('#sectionModal').modal('show');
+                $('#sectionForm').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: base_url + "/authentication/action.php?action=sections",
+                        data: $(this).serialize(),
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                swal
+                                    .fire({
+                                        title: "Success",
+                                        text: response.message,
+                                        icon: "success",
+                                        position: "top-end",
+                                        toast: true,
+                                        timer: 3000,
+                                        showConfirmButton: false,
+                                    })
+                                    .then(() => {
+                                        $(this).val('');
+                                        window.location.reload();
+                                    });
+                            } else {
+                                swal.fire({
+                                    title: "Error",
+                                    text: response.message,
+                                    icon: "error",
+                                    position: "top-end",
+                                    toast: true,
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                            }
+                        }
+                    });
+                });
+            } else if (selected === 'syModal') {
+                $('#syForm')[0].reset();
+                $('#syModal').modal('show');
+                $('#syForm').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: base_url + "/authentication/action.php?action=schoolYear",
+                        data: $(this).serialize(),
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                swal
+                                    .fire({
+                                        title: "Success",
+                                        text: response.message,
+                                        icon: "success",
+                                        position: "top-end",
+                                        toast: true,
+                                        timer: 3000,
+                                        showConfirmButton: false,
+                                    })
+                                    .then(() => {
+                                        $(this).val('');
+                                        window.location.reload();
+                                    });
+                            } else {
+                                swal.fire({
+                                    title: "Error",
+                                    text: response.message,
+                                    icon: "error",
+                                    position: "top-end",
+                                    toast: true,
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                            }
+                        }
+                    });
+                });
+
+
+            }
+
+            $(this).val(''); // Reset dropdown
         });
     });
 </script>

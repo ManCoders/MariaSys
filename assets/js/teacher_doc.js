@@ -18,12 +18,11 @@ $("#student-tbl-2 tbody")
     $("#postteacherid").val(userId);
     $("#postuserrole").val(userType);
     $("#teacherpostform").attr(
-        "action",
-        "index.php?page=contents/teacher/profile_view"
-      );
+      "action",
+      "index.php?page=contents/teacher/profile_view"
+    );
     $("#teacherpostform").submit();
   });
-
 
 $(document).on("change", "select[name='reg_status_parent']", function () {
   $(this).closest("form").submit();
@@ -73,22 +72,25 @@ $(document).on("change", "select[name='reg_status_parent']", function () {
   });
 });
 
-function renderTable(userRole = "all" ) {
+function renderTable(userRole = "all") {
   const tbody = $("#tb_data_body-2");
   tbody.html(`<tr><td colspan="7" class="text-center">Loading...</td></tr>`); // show loading
   let i = 1;
 
   $.ajax({
-    url: base_url + "/authentication/action.php?action=getTeacher&role=" + userRole,
+    url:
+      base_url +
+      "/authentication/action.php?action=getTeacher&role=" +
+      userRole,
     method: "GET",
     dataType: "json",
 
     success: function (response) {
       tbody.empty(); // clear loading message
       if ($.fn.DataTable.isDataTable("#student-tbl-2")) {
-          $("#student-tbl-2").DataTable().destroy();
-          $("#tb_data_body-2").empty();
-        }
+        $("#student-tbl-2").DataTable().destroy();
+        $("#tb_data_body-2").empty();
+      }
 
       if (response.status === 1) {
         const data = response.data;
@@ -96,7 +98,9 @@ function renderTable(userRole = "all" ) {
         data.forEach((emp) => {
           const id = emp.teacher_id ?? emp.parent_id ?? "";
           const userRoleText = emp.user_role ?? "";
-          const fullName = `${emp.lastname ?? ""} ${emp.suffix ?? ""} ${emp.firstname ?? ""} ${emp.middlename?.[0] ?? ""}.`;
+          const fullName = `${emp.lastname ?? ""} ${emp.suffix ?? ""} ${
+            emp.firstname ?? ""
+          } ${emp.middlename?.[0] ?? ""}.`;
 
           const tr = $(`
             <tr class="text-sm p-0 table-row hand-cursor select-option" 
@@ -106,9 +110,13 @@ function renderTable(userRole = "all" ) {
 
           tr.append(`<td class="text-center">${i++}</td>`);
           tr.append(`<td class="name-cell select-cell">${fullName}</td>`);
-          tr.append(`<td class="grade-cell select-cell">${emp.email ?? ""}</td>`);
+          tr.append(
+            `<td class="grade-cell select-cell">${emp.email ?? ""}</td>`
+          );
           tr.append(`<td class="grade-cell select-cell">${userRoleText}</td>`);
-          tr.append(`<td class="contact-cell select-cell">${emp.cpno ?? ""}</td>`);
+          tr.append(
+            `<td class="contact-cell select-cell">${emp.cpno ?? ""}</td>`
+          );
           tr.append(`<td>${emp.created_date ?? ""}</td>`);
           tr.append(`
             <td class="text-center">
@@ -116,10 +124,18 @@ function renderTable(userRole = "all" ) {
                 <input type="hidden" name="id" value="${id}">
                 <input type="hidden" name="user_role" value="${userRoleText}">
                 <select class="form-select-sm reg-status-select" name="reg_status_parent">
-                  <option value="Approved" ${emp.reg_status === "Approved" ? "selected" : ""}>Approved</option>
-                  <option value="Rejected" ${emp.reg_status === "Rejected" ? "selected" : ""}>Rejected</option>
-                  <option value="Pending" ${emp.reg_status === "Pending" ? "selected" : ""}>Pending</option>
-                  <option value="Invalidation" ${emp.reg_status === "Invalidation" ? "selected" : ""}>Invalidation</option>
+                  <option value="Approved" ${
+                    emp.reg_status === "Approved" ? "selected" : ""
+                  }>Approved</option>
+                  <option value="Rejected" ${
+                    emp.reg_status === "Rejected" ? "selected" : ""
+                  }>Rejected</option>
+                  <option value="Pending" ${
+                    emp.reg_status === "Pending" ? "selected" : ""
+                  }>Pending</option>
+                  <option value="Invalidation" ${
+                    emp.reg_status === "Invalidation" ? "selected" : ""
+                  }>Invalidation</option>
                 </select>
               </form>
             </td>
@@ -128,20 +144,22 @@ function renderTable(userRole = "all" ) {
           tbody.append(tr);
         });
 
-        
-
         $("#student-tbl-2").DataTable({
           pageLength: 5,
           lengthMenu: [5, 10, 25],
           columnDefs: [{ orderable: false, targets: 6 }],
         });
       } else {
-        tbody.html(`<tr><td colspan="7" class="text-center">No data found.</td></tr>`);
+        tbody.html(
+          `<tr><td colspan="7" class="text-center">No data found.</td></tr>`
+        );
         Swal.fire("Error", response.message, "error");
       }
     },
     error: function (xhr, status, error) {
-      tbody.html(`<tr><td colspan="7" class="text-center">Failed to load data.</td></tr>`);
+      tbody.html(
+        `<tr><td colspan="7" class="text-center">Failed to load data.</td></tr>`
+      );
       console.error("AJAX error:", status, error);
       Swal.fire("Error", "Unable to fetch data from server.", "error");
     },
@@ -153,6 +171,5 @@ $(document).ready(function () {
     const selectedRole = $(this).val();
     renderTable(selectedRole);
   });
-  renderTable('all');
+  renderTable("all");
 });
-

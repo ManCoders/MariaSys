@@ -182,6 +182,13 @@ function db_connect()
                 grade_level_name VARCHAR(50) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
+            "CREATE TABLE IF NOT EXISTS sections (
+                section_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                section_name VARCHAR(50) NOT NULL,
+                section_grade_level VARCHAR(50) NOT NULL,
+                section_description TEXT,
+                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )",
             "CREATE TABLE IF NOT EXISTS enrollment_additional_info (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     

@@ -90,14 +90,14 @@ $user_role = $_POST['postuserrole'] ?? 'na';
 <section class="p-2">
     <div>
         <!-- Hidden input fields to store values for JS -->
-        <input type="text"
+        <input type="hidden"
             value="<?= htmlspecialchars($teacher_id) ?>"
             data-id="<?= htmlspecialchars($teacher_id) ?>"
             name="teacherIdInput"
             id="teacherIdInput"
             readonly>
 
-        <input type="text"
+        <input type="hidden"
             value="<?php echo htmlspecialchars($user_role) ?>"
             data-type="<?php echo htmlspecialchars($user_role) ?>"
             name="postuserrole"
