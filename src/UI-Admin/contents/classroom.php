@@ -55,7 +55,7 @@
         <!-- Add more dynamically -->
     </div>
 
-    <div id="gradeLevelCards" class="row g-3 d-none text-center">
+    <div id="gradeLevelCards" class="row g-3 d-none">
         <h5 class="mb-3 text-primary"><i class="fa fa-layer-group me-2 mx-auto"></i>Grade Levels</h5>
         <div class="col-md-4">
             <div class="card shadow-sm border">
