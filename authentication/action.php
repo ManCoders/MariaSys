@@ -64,7 +64,12 @@ if ($action === 'getLearner') {
 		echo $getLearner;
 	}
 }
-
+if ($action === 'setDefaultSchoolYear') {
+	$gradeLevel = $crud->setDefaultSchoolYear();
+	if ($gradeLevel) {
+		echo $gradeLevel;
+	}
+}
 if ($action === 'sections') {
     $sections = $crud->sections();
     if ($sections) {
@@ -127,12 +132,12 @@ if ($action === 'NewTeacher') {
 	}
 }
 
-/* if($action === 'get_student_by_id'){
-	$learner = $crud->get_student_by_section();
+if($action === 'setRoom'){
+	$learner = $crud->setRoomStatus();
 	if($learner){
 		echo $learner;
 	}
-} */
+}
 
 if ($action === 'get_parent_student') {
 	$learner = $crud->getLearnerByParentId();

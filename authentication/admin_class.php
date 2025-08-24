@@ -741,6 +741,24 @@ class Action
         }
     }
 
+    function setRoomStatus(){
+        try {
+            $room_id = $_POST['room_id'] ?? null;
+            $data = $_POST['data'] ?? null;
+
+            if (!$room_id || !$data) {
+                return json_encode(['status' => 0, 'message' => 'Missing room ID or data.']);
+            }
+
+            $stmt = $this->db->prepare("UPDATE classrooms SET room_status = ? WHERE room_id = ?");
+            $stmt->execute([$data, $room_id]);
+
+            return json_encode(['status' => 1, 'message' => 'Room status updated successfully.']);
+        } catch (PDOException $e) {
+            return json_encode(['status' => 0, 'message' => 'Database error: ' . $e->getMessage()]);
+        }
+    }
+
     function getDatas()
 {
     try {
@@ -784,10 +802,12 @@ class Action
                             <h5>' . $yearName . '</h5>
                             <p class="card-text text-center">
                                 <strong>Set to Default:</strong>
-                                <select class="form-select mt-1 w-50 mx-auto text-center" name="sy_default">
-                                    <option value="Active" ' . ($status === 'Active' ? 'selected' : '') . '>Default</option>
-                                    <option value="Inactive" ' . ($status === 'Inactive' ? 'selected' : '') . '>Inactive</option>
-                                </select>
+                                <form id="setDefaultFormSy" data-id="' . $row['school_year_id'] . '">
+                                    <select class="form-select mt-1 w-50 mx-auto text-center" name="sy_default">
+                                        <option value="Active" ' . ($status === 'Active' ? 'selected' : '') . '>Default</option>
+                                        <option value="Inactive" ' . ($status === 'Inactive' ? 'selected' : '') . '>Inactive</option>
+                                    </select>
+                                </form>
                             </p>
                         </div>
                     </div>
@@ -859,10 +879,12 @@ class Action
                                 <button class="btn m-0 btn-outline-danger" type="button" id="deleteClassroom" data-id="'. $classroom_id .'">
                                     <i class="fa fa-trash"></i>
                                 </button>
-                                <select class="form-select mx-auto text-center" name="roomstatus" id="roomstatus">
-                                    <option value="Active">Active</option>
-                                    <option value="InActive">In Active</option>
-                                </select>
+                                <form id="setRoomFormStatus" data-id="' . $classroom_id . '">
+                                    <select class="form-select mx-auto text-center" name="roomstatus" id="roomstatus">
+                                        <option value="Occupied">Occupied</option>
+                                        <option value="Available">Available</option>
+                                    </select>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -881,6 +903,21 @@ class Action
 }
 
 
+    function setDefaultSchoolYear(){
+
+        try {
+            $stmt = $this->db->prepare("UPDATE school_year SET school_year_status = 'Inactive'");
+            $stmt->execute();
+
+
+            $stmt = $this->db->prepare("UPDATE school_year SET school_year_status = ? WHERE school_year_id = ?");
+            $stmt->execute([$_POST['data'], $_POST['school_year_id']]);
+
+            return json_encode(['status' => 1, 'message' => 'Default school year set successfully.']);
+        } catch (PDOException $e) {
+            return json_encode(['status' => 0, 'message' => 'Database error: ' . $e->getMessage()]);
+        }
+    }
 
 
 
@@ -890,7 +927,7 @@ class Action
         try {
             $stmt = $this->db->prepare("
             SELECT  * FROM learners ORDER BY created_at
-        ");
+            ");
 
             $stmt->execute();
             $learners = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -906,28 +943,7 @@ class Action
             ]);
         }
     }
-    //WORKING DONT TOUCH IT DISPLAY TO TABLE THIS
-    /* function getTeacher()
-    {
-        try {
-            $stmt = $this->db->prepare("
-            SELECT * FROM parent ORDER BY created_date ASC
-        ");
 
-            $stmt->execute();
-            $teacher = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return json_encode([
-                'status' => 1,
-                'data' => $teacher
-            ]);
-        } catch (PDOException $e) {
-            return json_encode([
-                'status' => 0,
-                'message' => 'Database error: ' . $e->getMessage()
-            ]);
-        }
-    } */
     function getTeacher()
     {
         try {
@@ -954,8 +970,7 @@ class Action
 
     function updateLearnerReg()
     {
-        // return json_encode(['status' => 1, 'message' => 'Learner registration updated successfully.']);
-        try {
+       try {
             $learner_id = $_POST['learner_id'];
             $reg_status = $_POST['reg_status'];
 
@@ -969,31 +984,6 @@ class Action
     }
 
 
-    /* function get_student_by_section(){
-        try {
-            $stmt = $this->db->prepare("
-            SELECT 
-                *,
-                CONCAT(lastname, ', ', firstname, ' ', LEFT(middlename, 1), '.') AS learner_name
-            FROM leaners
-            ORDER BY learner.created_date ASC
-        ");
-
-            $stmt->execute();
-            $teacher = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return json_encode([
-                'status' => 1,
-                'data' => $teacher
-            ]);
-        } catch (PDOException $e) {
-            http_response_code(500);
-            return json_encode([
-                'status' => 0,
-                'message' => 'Database error: ' . $e->getMessage()
-            ]);
-        }
-    } */
     function getLearnerByParentId()
     {
         try {
@@ -1016,81 +1006,6 @@ class Action
         }
     }
 
-    /* function other_info()
-    {
-        try {
-            $learner_id = $_POST['learner_id'];
-            $diagnosis = isset($_POST['diagnosis']) ? implode(', ', $_POST['diagnosis']) : 'NA';
-            $manifestations = isset($_POST['manifestations']) ? implode(', ', $_POST['manifestations']) : 'NA';
-            $has_pwd_id = $_POST['pwd_id'] ?? 'no';
-            $last_grade_level = $_POST['last_grade_level'] ?? null;
-            $last_sy = $_POST['last_sy'] ?? null;
-            $last_school = $_POST['last_school'] ?? null;
-            $learning_mode = isset($_POST['learning_mode']) ? implode(', ', $_POST['learning_mode']) : null;
-            $is_ip = $_POST['is_ip'] ?? 'No';
-            $ip_specify = $_POST['ip_specify'] ?? null;
-            $is_4ps = $_POST['is_4ps'] ?? 'No';
-            $household_id = $_POST['household_id'] ?? null;
-
-            // Check if data already exists for this learner
-            $check = $this->db->prepare("SELECT COUNT(*) FROM enrollment_additional_info WHERE learner_id = ?");
-            $check->execute([$learner_id]);
-
-            if ($check->fetchColumn() > 0) {
-                $stmt = $this->db->prepare("UPDATE enrollment_additional_info SET 
-                diagnosis = ?, manifestations = ?, has_pwd_id = ?, 
-                last_grade_level = ?, last_sy = ?, last_school = ?, 
-                learning_mode = ?, is_ip = ?, ip_specify = ?, 
-                is_4ps = ?, household_id = ?
-                WHERE learner_id = ?");
-                $stmt->execute([
-                    $diagnosis,
-                    $manifestations,
-                    $has_pwd_id,
-                    $last_grade_level,
-                    $last_sy,
-                    $last_school,
-                    $learning_mode,
-                    $is_ip,
-                    $ip_specify,
-                    $is_4ps,
-                    $household_id,
-                    $learner_id
-                ]);
-            } else {
-                // Insert if new
-                $stmt = $this->db->prepare("INSERT INTO enrollment_additional_info (
-                learner_id, diagnosis, manifestations, has_pwd_id,
-                last_grade_level, last_sy, last_school,
-                learning_mode, is_ip, ip_specify, is_4ps, household_id
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute([
-                    $learner_id,
-                    $diagnosis,
-                    $manifestations,
-                    $has_pwd_id,
-                    $last_grade_level,
-                    $last_sy,
-                    $last_school,
-                    $learning_mode,
-                    $is_ip,
-                    $ip_specify,
-                    $is_4ps,
-                    $household_id
-                ]);
-            }
-
-            return json_encode([
-                'status' => 1,
-                'message' => 'Saved'
-            ]); 
-        } catch (PDOException $e) {
-            return json_encode([
-                'status' => 0,
-                'message' => 'Database error: ' . $e->getMessage()
-            ]);
-        }
-    } */
     function other_info()
     {
         try {
@@ -1189,7 +1104,7 @@ class Action
             ];
 
             if (!in_array($field, $allowed_fields)) {
-                echo json_encode([
+                return json_encode([
                     'status' => 0,
                     'message' => 'Invalid field.'
                 ]);
@@ -1210,12 +1125,12 @@ class Action
                 $stmt->execute([$learner_id, $value]);
             }
 
-            echo json_encode([
+            return json_encode([
                 'status' => 1,
                 'message' => 'Saved successfully.'
             ]);
         } catch (PDOException $e) {
-            echo json_encode([
+            return json_encode([
                 'status' => 0,
                 'message' => 'Database error: ' . $e->getMessage()
             ]);
@@ -1509,44 +1424,28 @@ class Action
             $stmt->bindParam(':room_name', $room_name);
             $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
-                echo json_encode([
-                    'status' => 0,
-                    'message' => 'Room name already exists'
-                ]);
-                exit;
-            }
-
             if (empty($room_name) || empty($room_type)) {
-                echo json_encode([
-                    'status' => 0,
+                return json_encode([
+                    'status' => 2,
                     'message' => 'Room name and type are required'
                 ]);
-                exit;
             }
             $stmt = $this->db->prepare("INSERT INTO classrooms (room_name, room_type) VALUES (:room_name, :room_type)");
             $stmt->bindParam(':room_name', $room_name);
             $stmt->bindParam(':room_type', $room_type);
-            
-            if ($stmt->execute()) {
-                echo json_encode([
-                    'status' => 1,
-                    'message' => 'Room created successfully',
-                    'redirect_url' => 'index.php?page=contents/classroom'
-                ]);
-            } else {
-                echo json_encode([
-                    'status' => 0,
-                    'message' => 'Failed to create room'
-                ]);
-            }
+            $stmt->execute();
+
+            return json_encode([
+                'status' => 1,
+                'message' => 'Room created successfully',
+                'redirect_url' => 'index.php?page=contents/classroom'
+            ]);
         } catch (PDOException $e) {
-            echo json_encode([
+            return json_encode([
                 'status' => 0,
                 'message' => 'An error occurred: ' . $e->getMessage()
             ]);
         }
-        exit; // Ensure no additional output
     }
     function fetch_classroom(){
         try {
@@ -1572,7 +1471,7 @@ class Action
                 return json_encode(['status' => 0, 'message' => 'Grade level not found']);
             }
         } catch (PDOException $e) {
-            return jsonn_encode([
+            return json_encode([
                 'status' => 0,
                 'message' => 'An error occurred: ' . $e->getMessage()
             ]);

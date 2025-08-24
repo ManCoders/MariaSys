@@ -47,16 +47,15 @@ $(document).ready(function () {
     }
   });
   $("#profilePicInput").on("change", function () {
-  const file = this.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      $("#profilePreview").attr("src", e.target.result);
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        $("#profilePreview").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
 
   $("body").on("submit", "#install-form", function (e) {
     e.preventDefault();
@@ -275,7 +274,9 @@ $(document).ready(function () {
 
     if ($form.hasClass("processing")) return;
     $form.addClass("processing");
-    $btn.prop("disabled", true).html('<i class="fas fa-spinner fa-spin me-1"></i> Submitting...');
+    $btn
+      .prop("disabled", true)
+      .html('<i class="fas fa-spinner fa-spin me-1"></i> Submitting...');
 
     $.ajax({
       url: base_url + "/authentication/action.php?action=LinkNewChild",
@@ -328,349 +329,356 @@ $(document).ready(function () {
 
       complete: function () {
         $form.removeClass("processing");
-        $btn.prop("disabled", false).html('<i class="fa fa-save me-1"></i> Submit Request');
+        $btn
+          .prop("disabled", false)
+          .html('<i class="fa fa-save me-1"></i> Submit Request');
       },
     });
   });
 
-
   // kalokohan ni marco jean hahahahaha
   $(document).on("click", "#editGradeLevel", function () {
-      const gradeLevelID = $(this).data('id');
-      document.getElementById('editGradeLevelId').value = gradeLevelID;
-      $("#editGradeLevelModal").show('modal');
+    const gradeLevelID = $(this).data("id");
+    document.getElementById("editGradeLevelId").value = gradeLevelID;
+    $("#editGradeLevelModal").show("modal");
+  });
+
+  $(document).on('click', '.btn-close', function () {
+    $('.modal').modal('hide');
+    window.location.reload();
   });
   $(document).on("click", "#editGradeLevel", function () {
-      const gradeLevelID = $(this).data('id');
-      document.getElementById('editGradeLevelId').value = gradeLevelID;
-      
-      // Fetch the existing grade level data first
-      $.ajax({
-          url: base_url + "authentication/action.php?action=getGradeLevel",
-          method: "POST",
-          data: { id: gradeLevelID },
-          dataType: "json",
-          success: function (response) {
-              console.log('Get Grade Level Response:', response); // Debug log
-              if (response.status === 1) {
-                  // Populate the form with existing data
-                  $('#gradeLevelValueID').val(response.data.grade_level_name);
-                  
-                  // Show the modal
-                  const editModal = new bootstrap.Modal(document.getElementById('editGradeLevelModal'));
-                  editModal.show();
-              } else {
-                  Swal.fire({
-                      title: "Error",
-                      text: response.message || "Failed to load grade level data",
-                      icon: "error",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  });
-              }
-          },
-          error: function (jqXHR, textStatus, err) {
-              console.error("AJAX error:", textStatus, err);
-              Swal.fire({
-                  title: "Error",
-                  text: "Failed to load grade level data",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-              });
-          }
-      });
+    const gradeLevelID = $(this).data("id");
+    document.getElementById("editGradeLevelId").value = gradeLevelID;
+
+    // Fetch the existing grade level data first
+    $.ajax({
+      url: base_url + "authentication/action.php?action=getGradeLevel",
+      method: "POST",
+      data: { id: gradeLevelID },
+      dataType: "json",
+      success: function (response) {
+        console.log("Get Grade Level Response:", response); // Debug log
+        if (response.status === 1) {
+          // Populate the form with existing data
+          $("#gradeLevelValueID").val(response.data.grade_level_name);
+
+          // Show the modal
+          const editModal = new bootstrap.Modal(
+            document.getElementById("editGradeLevelModal")
+          );
+          editModal.show();
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message || "Failed to load grade level data",
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        Swal.fire({
+          title: "Error",
+          text: "Failed to load grade level data",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+      },
+    });
   });
-  $("body").on("submit", "#editGradeLevelForm", function (e) {
-      e.preventDefault();
-      const $form = $(this);
+  $(document).on("submit", "#editGradeLevelForm", function (e) {
+    e.preventDefault();
+    const $form = $(this);
 
-      if ($form.data("isSubmitted")) return; 
-      $form.data("isSubmitted", true);
+    if ($form.data("isSubmitted")) return;
+    $form.data("isSubmitted", true);
 
-      const formData = new FormData(this);
-      const $btn = $form.find("button[type='submit']");
+    const formData = new FormData(this);
+    const $btn = $form.find("button[type='submit']");
 
-      $btn.prop("disabled", true);
-      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Saving...');
+    $btn.prop("disabled", true);
+    $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Saving...');
 
-      $.ajax({
-          url: base_url + "authentication/action.php?action=updateGradeLevel",
-          type: "POST",
-          data: formData,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function (response) {
-              console.log('Update Grade Level Response:', response); 
-              if (response.status === 1) {
-                  Swal.fire({
-                      title: "Success!",
-                      text: response.message,
-                      icon: "success",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  }).then(() => {
-                      $('#editGradeLevelModal').modal('hide');
-                      window.location = response.redirect_url || window.location.href;
-                  });
-              } else {
-                  Swal.fire({
-                      title: "Error",
-                      text: response.message,
-                      icon: "error",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  });
-                  $btn.text("Please try again!");
-              }
-          },
-          error: function (jqXHR, textStatus, err) {
-              console.error("AJAX error:", textStatus, err);
-              Swal.fire({
-                  title: "Error",
-                  text: "An error occurred while updating. Please try again.",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-              });
-          },
-          complete: function () {
-              $form.data("isSubmitted", false);
-              $btn
-                  .prop("disabled", false)
-                  .html('Save Changes');
-          },
-      });
+    $.ajax({
+      url: base_url + "authentication/action.php?action=updateGradeLevel",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (response) {
+        console.log("Update Grade Level Response:", response);
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            $("#editGradeLevelModal").modal("hide");
+            window.location = response.redirect_url || window.location.href;
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          $btn.text("Please try again!");
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        Swal.fire({
+          title: "Error",
+          text: "An error occurred while updating. Please try again.",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+      },
+      complete: function () {
+        $form.data("isSubmitted", false);
+        $btn.prop("disabled", false).html("Save Changes");
+      },
+    });
   });
 
   $(document).on("click", "#deleteGradeLevel", function () {
-      const deleteGradeLevelId = $(this).data('id');
-      console.log('Setting deleteGradeLevelId:', deleteGradeLevelId);
-      document.getElementById('deleteGradeLevelId').value = deleteGradeLevelId;
-      const deleteModal = new bootstrap.Modal(document.getElementById('deleteGradeLevelModal'));
-      deleteModal.show();
+    const deleteGradeLevelId = $(this).data("id");
+    console.log("Setting deleteGradeLevelId:", deleteGradeLevelId);
+    document.getElementById("deleteGradeLevelId").value = deleteGradeLevelId;
+    const deleteModal = new bootstrap.Modal(
+      document.getElementById("deleteGradeLevelModal")
+    );
+    deleteModal.show();
   });
-  $("body").on("submit", "#deleteGradeLevelForm", function (e) { 
-      e.preventDefault();
-      const $form = $(this);
+  $(document).on("submit", "#deleteGradeLevelForm", function (e) {
+    e.preventDefault();
+    const $form = $(this);
 
-      // Debug form data
-      const formData = new FormData(this);
-      console.log('Form data being sent:');
-      for (let [key, value] of formData.entries()) {
-          console.log(key + ': ' + value);
-      }
+    // Debug form data
+    const formData = new FormData(this);
+    console.log("Form data being sent:");
+    for (let [key, value] of formData.entries()) {
+      console.log(key + ": " + value);
+    }
 
-      if ($form.data("isSubmitted")) return; 
-      $form.data("isSubmitted", true);
+    if ($form.data("isSubmitted")) return;
+    $form.data("isSubmitted", true);
 
-      const $btn = $form.find("button[type='submit']");
-      $btn.prop("disabled", true);
-      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Deleting...');
+    const $btn = $form.find("button[type='submit']");
+    $btn.prop("disabled", true);
+    $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Deleting...');
 
-      $.ajax({
-          url: base_url + "authentication/action.php?action=deleteGradeLevel",
-          type: "POST",
-          data: formData,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function (response) {
-              console.log('Delete Grade Level Response:', response); 
-              if (response.status === 1) {
-                  Swal.fire({
-                      title: "Success!",
-                      text: response.message,
-                      icon: "success",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  }).then(() => {
-                      $('#deleteGradeLevelModal').modal('hide');
-                      window.location = response.redirect_url || window.location.href;
-                  });
-              } else {
-                  Swal.fire({
-                      title: "Error",
-                      text: response.message,
-                      icon: "error",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  });
-                  $btn.text("Please try again!");
-              }
-          },
-          error: function (jqXHR, textStatus, err) {
-              console.error("AJAX error:", textStatus, err);
-              Swal.fire({
-                  title: "Error",
-                  text: "An error occurred while deleting. Please try again.",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-              });
-          },
-          complete: function () {
-              $form.data("isSubmitted", false);
-              $btn
-                  .prop("disabled", false)
-                  .html('Yes, delete'); 
-          },
-      });
-  });
-
-  $(document).on("click", "#editSection", function () {
-      const sectionID = $(this).data('id');
-      // document.getElementById('editSectionId').value = sectionID;
-      $("#editSectionId").val(sectionID);
-      // const editModal = new bootstrap.Modal(document.getElementById('editSectionModal'));
-      $("#editSectionModal").show('modal');
-      // editModal.show();
-      $(document).on("submit", "#editSectionForm", function () {
-          $.ajax({
-          type: "post",
-          url: base_url + "authentication/action.php?action=updateSection",
-          data: $(this).closest("form").serialize(),
-          dataType: "dataType",
-          success: function (response) {
-            if(response.status == 1){
-              alert('successfully updated');
-            }
-          }
+    $.ajax({
+      url: base_url + "authentication/action.php?action=deleteGradeLevel",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (response) {
+        console.log("Delete Grade Level Response:", response);
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            $("#deleteGradeLevelModal").modal("hide");
+            window.location = response.redirect_url || window.location.href;
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          $btn.text("Please try again!");
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        Swal.fire({
+          title: "Error",
+          text: "An error occurred while deleting. Please try again.",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
         });
+      },
+      complete: function () {
+        $form.data("isSubmitted", false);
+        $btn.prop("disabled", false).html("Yes, delete");
+      },
+    });
+  });
+
+  $(document).on("click", "#editSection", function () {
+    const sectionID = $(this).data("id");
+    // document.getElementById('editSectionId').value = sectionID;
+    $("#editSectionId").val(sectionID);
+    // const editModal = new bootstrap.Modal(document.getElementById('editSectionModal'));
+    $("#editSectionModal").show("modal");
+    // editModal.show();
+    $(document).on("submit", "#editSectionForm", function () {
+      $.ajax({
+        type: "post",
+        url: base_url + "authentication/action.php?action=updateSection",
+        data: $(this).closest("form").serialize(),
+        dataType: "dataType",
+        success: function (response) {
+          if (response.status == 1) {
+            alert("successfully updated");
+          }
+        },
       });
-      
+    });
   });
   $(document).on("click", "#editSection", function () {
-      const sectionID = $(this).data('id');
-      document.getElementById('editSectionId').value = sectionID;
-      $.ajax({
-          url: base_url + "authentication/action.php?action=getSection",
-          method: "POST",
-          data: { id: sectionID },
-          dataType: "json",
-          success: function (response) {
-              console.log('Get Grade Level Response:', response); 
-              if (response.status === 1) {
-                  $('#sectionNameValueID').val(response.data.section_name);
-                  $('#sectionDescriptionValueID').val(response.data.section_description);
-                  
-                  const editModal = new bootstrap.Modal(document.getElementById('editSectionModal'));
-                  editModal.show();
-              } else {
-                  Swal.fire({
-                      title: "Error",
-                      text: response.message || "Failed to load grade level data",
-                      icon: "error",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  });
-              }
-          },
-          error: function (jqXHR, textStatus, err) {
-              console.error("AJAX error:", textStatus, err);
-              Swal.fire({
-                  title: "Error",
-                  text: "Failed to load grade level data",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-              });
-          }
-      });
+    const sectionID = $(this).data("id");
+    document.getElementById("editSectionId").value = sectionID;
+    $.ajax({
+      url: base_url + "authentication/action.php?action=getSection",
+      method: "POST",
+      data: { id: sectionID },
+      dataType: "json",
+      success: function (response) {
+        console.log("Get Grade Level Response:", response);
+        if (response.status === 1) {
+          $("#sectionNameValueID").val(response.data.section_name);
+          $("#sectionDescriptionValueID").val(
+            response.data.section_description
+          );
+
+          const editModal = new bootstrap.Modal(
+            document.getElementById("editSectionModal")
+          );
+          editModal.show();
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message || "Failed to load grade level data",
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        Swal.fire({
+          title: "Error",
+          text: "Failed to load grade level data",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+      },
+    });
   });
-  $("body").on("submit", "#editSectionForm", function (e) {
-      e.preventDefault();
-      const $form = $(this);
+  $(document).on("submit", "#editSectionForm", function (e) {
+    e.preventDefault();
+    const $form = $(this);
 
-      if ($form.data("isSubmitted")) return; 
-      $form.data("isSubmitted", true);
+    if ($form.data("isSubmitted")) return;
+    $form.data("isSubmitted", true);
 
-      const formData = new FormData(this);
-      const $btn = $form.find("button[type='submit']");
+    const formData = new FormData(this);
+    const $btn = $form.find("button[type='submit']");
 
-      $btn.prop("disabled", true);
-      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Saving...');
+    $btn.prop("disabled", true);
+    $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Saving...');
 
-      $.ajax({
-          url: base_url + "authentication/action.php?action=updateSection",
-          type: "POST",
-          data: formData,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function (response) {
-              console.log('Update Grade Level Response:', response); 
-              if (response.status === 1) {
-                  Swal.fire({
-                      title: "Success!",
-                      text: response.message,
-                      icon: "success",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  }).then(() => {
-                      $('#editSectionModal').modal('hide');
-                      window.location = response.redirect_url || window.location.href;
-                  });
-              } else {
-                  Swal.fire({
-                      title: "Error",
-                      text: response.message,
-                      icon: "error",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  });
-                  $btn.text("Please try again!");
-              }
-          },
-          error: function (jqXHR, textStatus, err) {
-              console.error("AJAX error:", textStatus, err);
-              Swal.fire({
-                  title: "Error",
-                  text: "An error occurred while updating. Please try again.",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-              });
-          },
-          complete: function () {
-              $form.data("isSubmitted", false);
-              $btn
-                  .prop("disabled", false)
-                  .html('Save Changes');
-          },
-      });
+    $.ajax({
+      url: base_url + "authentication/action.php?action=updateSection",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (response) {
+        console.log("Update Grade Level Response:", response);
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            $("#editSectionModal").modal("hide");
+            window.location = response.redirect_url || window.location.href;
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          $btn.text("Please try again!");
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        Swal.fire({
+          title: "Error",
+          text: "An error occurred while updating. Please try again.",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+      },
+      complete: function () {
+        $form.data("isSubmitted", false);
+        $btn.prop("disabled", false).html("Save Changes");
+      },
+    });
   });
 
   $(document).on("click", "#editClassroom", function () {
-    const classroomID = $(this).data('id');
-    $('#editClassroomsID').val(classroomID);
+    const classroomID = $(this).data("id");
+    $("#editClassroomsID").val(classroomID);
     // $("#editClassroomsModal").show('modal');
     $.ajax({
       type: "POST",
@@ -678,309 +686,384 @@ $(document).ready(function () {
       data: { id: classroomID },
       dataType: "json",
       success: function (response) {
-        $('#classroomNameValueID').val(response.data.room_name);
-        $('#classroomTypeValueID').val(response.data.room_type);
-        const editModal = new bootstrap.Modal(document.getElementById('editClassroomsModal'));
+        $("#classroomNameValueID").val(response.data.room_name);
+        $("#classroomTypeValueID").val(response.data.room_type);
+        const editModal = new bootstrap.Modal(
+          document.getElementById("editClassroomsModal")
+        );
         editModal.show();
       },
       error: function (jqXHR, textStatus, err) {
-              console.error("AJAX error:", textStatus, err);
-              Swal.fire({
-                  title: "Error",
-                  text: "Failed to load classroom data",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-              });
-          }
+        console.error("AJAX error:", textStatus, err);
+        Swal.fire({
+          title: "Error",
+          text: "Failed to load classroom data",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+      },
     });
   });
-  $(document).on("submit" , "#editClassroomsForm", function () {
+  $(document).on("submit", "#editClassroomsForm", function () {
     // alert('Button clicked!');
-      // e.preventDefault();
-      const $form = $(this);
+    // e.preventDefault();
+    const $form = $(this);
 
-      if ($form.data("isSubmitted")) return; 
-      $form.data("isSubmitted", true);
+    if ($form.data("isSubmitted")) return;
+    $form.data("isSubmitted", true);
 
-      const formData = new FormData(this);
-      const $btn = $form.find("button[type='submit']");
+    const formData = new FormData(this);
+    const $btn = $form.find("button[type='submit']");
 
-      $btn.prop("disabled", true);
-      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Saving...');
+    $btn.prop("disabled", true);
+    $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Saving...');
 
-      $.ajax({
-          url: base_url + "authentication/action.php?action=edit_classroom",
-          type: "POST",
-          data: formData,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function (response) {
-              console.log('Update Classroom Response:', response); 
-              if (response.status === 1) {
-                  Swal.fire({
-                      title: "Success!",
-                      text: response.message,
-                      icon: "success",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  }).then(() => {
-                      $('#editClassroomsModal').modal('hide');
-                      window.location = response.redirect_url || window.location.href;
-                  });
-              } else {
-                  Swal.fire({
-                      title: "Error",
-                      text: response.message,
-                      icon: "error",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  });
-                  $btn.text("Please try again!");
-              }
-          },
-          error: function (jqXHR, textStatus, err) {
-              console.error("AJAX error:", textStatus, err);
-              Swal.fire({
-                  title: "Error",
-                  text: "An error occurred while updating. Please try again.",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-              });
-          },
-          complete: function () {
-              $form.data("isSubmitted", false);
-              $btn
-                  .prop("disabled", false)
-                  .html('Save Changes');
-          },
-      });
+    $.ajax({
+      url: base_url + "authentication/action.php?action=edit_classroom",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (response) {
+        console.log("Update Classroom Response:", response);
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            $("#editClassroomsModal").modal("hide");
+            window.location = response.redirect_url || window.location.href;
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          $btn.text("Please try again!");
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        Swal.fire({
+          title: "Error",
+          text: "An error occurred while updating. Please try again.",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+      },
+      complete: function () {
+        $form.data("isSubmitted", false);
+        $btn.prop("disabled", false).html("Save Changes");
+      },
+    });
   });
   $(document).on("click", "#deleteClassroom", function () {
-    const classroom_id = $(this).data('id');
+    const classroom_id = $(this).data("id");
     $("#deleteClassroomId").val(classroom_id);
-    $("#deleteClassroomsModal").show('modal');
+    $("#deleteClassroomsModal").show("modal");
     // alert('delete button delete');
   });
-  $("body").on("submit", "#deleteClassroomForm", function (e) { 
-      e.preventDefault();
-      const $form = $(this);
+  $(document).on("submit", "#deleteClassroomForm", function (e) {
+    e.preventDefault();
+    const $form = $(this);
 
-      // Debug form data
-      const formData = new FormData(this);
-      console.log('Form data being sent:');
-      for (let [key, value] of formData.entries()) {
-          console.log(key + ': ' + value);
-      }
+    // Debug form data
+    const formData = new FormData(this);
+    console.log("Form data being sent:");
+    for (let [key, value] of formData.entries()) {
+      console.log(key + ": " + value);
+    }
 
-      if ($form.data("isSubmitted")) return; 
-      $form.data("isSubmitted", true);
+    if ($form.data("isSubmitted")) return;
+    $form.data("isSubmitted", true);
 
-      const $btn = $form.find("button[type='submit']");
-      $btn.prop("disabled", true);
-      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Deleting...');
+    const $btn = $form.find("button[type='submit']");
+    $btn.prop("disabled", true);
+    $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Deleting...');
 
-      $.ajax({
-          url: base_url + "authentication/action.php?action=delete_classroom",
-          type: "POST",
-          data: formData,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function (response) {
-              console.log('Delete Class Room Response:', response); 
-              if (response.status === 1) {
-                  Swal.fire({
-                      title: "Success!",
-                      text: response.message,
-                      icon: "success",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  }).then(() => {
-                      $('#deleteClassroomForm').modal('hide');
-                      window.location = response.redirect_url || window.location.href;
-                  });
-              } else {
-                  Swal.fire({
-                      title: "Error",
-                      text: response.message,
-                      icon: "error",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  });
-                  $btn.text("Please try again!");
-              }
-          },
-          error: function (jqXHR, textStatus, err) {
-              console.error("AJAX error:", textStatus, err);
-              Swal.fire({
-                  title: "Error",
-                  text: "An error occurred while deleting. Please try again.",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-              });
-          },
-          complete: function () {
-              $form.data("isSubmitted", false);
-              $btn
-                  .prop("disabled", false)
-                  .html('Yes, delete'); 
-          },
-      });
+    $.ajax({
+      url: base_url + "authentication/action.php?action=delete_classroom",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (response) {
+        console.log("Delete Class Room Response:", response);
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            $("#deleteClassroomForm").modal("hide");
+            window.location = response.redirect_url || window.location.href;
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          $btn.text("Please try again!");
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        Swal.fire({
+          title: "Error",
+          text: "An error occurred while deleting. Please try again.",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+      },
+      complete: function () {
+        $form.data("isSubmitted", false);
+        $btn.prop("disabled", false).html("Yes, delete");
+      },
+    });
   });
 
   $(document).on("click", "#deleteSection", function () {
-      const deleteSectionId = $(this).data('id');
-      console.log('Setting deleteSectionId:', deleteSectionId);
-      document.getElementById('deleteSectionId').value = deleteSectionId;
-      const deleteModal = new bootstrap.Modal(document.getElementById('deleteSectionModal'));
-      deleteModal.show();
+    const deleteSectionId = $(this).data("id");
+    console.log("Setting deleteSectionId:", deleteSectionId);
+    document.getElementById("deleteSectionId").value = deleteSectionId;
+    const deleteModal = new bootstrap.Modal(
+      document.getElementById("deleteSectionModal")
+    );
+    deleteModal.show();
   });
-  $("body").on("submit", "#deleteSectionForm", function (e) { 
-      e.preventDefault();
-      const $form = $(this);
+  $(document).on("submit", "#deleteSectionForm", function (e) {
+    e.preventDefault();
+    const $form = $(this);
 
-      // Debug form data
-      const formData = new FormData(this);
-      console.log('Form data being sent:');
-      for (let [key, value] of formData.entries()) {
-          console.log(key + ': ' + value);
-      }
+    // Debug form data
+    const formData = new FormData(this);
+    console.log("Form data being sent:");
+    for (let [key, value] of formData.entries()) {
+      console.log(key + ": " + value);
+    }
 
-      if ($form.data("isSubmitted")) return; 
-      $form.data("isSubmitted", true);
+    if ($form.data("isSubmitted")) return;
+    $form.data("isSubmitted", true);
 
-      const $btn = $form.find("button[type='submit']");
-      $btn.prop("disabled", true);
-      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Deleting...');
+    const $btn = $form.find("button[type='submit']");
+    $btn.prop("disabled", true);
+    $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Deleting...');
 
-      $.ajax({
-          url: base_url + "authentication/action.php?action=deleteSection",
-          type: "POST",
-          data: formData,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function (response) {
-              console.log('Delete Section Response:', response); 
-              if (response.status === 1) {
-                  Swal.fire({
-                      title: "Success!",
-                      text: response.message,
-                      icon: "success",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  }).then(() => {
-                      $('#deleteSectionModal').modal('hide');
-                      window.location = response.redirect_url || window.location.href;
-                  });
-              } else {
-                  Swal.fire({
-                      title: "Error",
-                      text: response.message,
-                      icon: "error",
-                      toast: true,
-                      position: "top-end",
-                      timer: 3000,
-                      showConfirmButton: false,
-                  });
-                  $btn.text("Please try again!");
-              }
-          },
-          error: function (jqXHR, textStatus, err) {
-              console.error("AJAX error:", textStatus, err);
-              Swal.fire({
-                  title: "Error",
-                  text: "An error occurred while deleting. Please try again.",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-              });
-          },
-          complete: function () {
-              $form.data("isSubmitted", false);
-              $btn
-                  .prop("disabled", false)
-                  .html('Yes, delete'); 
-          },
-      });
+    $.ajax({
+      url: base_url + "authentication/action.php?action=deleteSection",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (response) {
+        console.log("Delete Section Response:", response);
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            $("#deleteSectionModal").modal("hide");
+            window.location = response.redirect_url || window.location.href;
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          $btn.text("Please try again!");
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        Swal.fire({
+          title: "Error",
+          text: "An error occurred while deleting. Please try again.",
+          icon: "error",
+          toast: true,
+          position: "top-end",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+      },
+      complete: function () {
+        $form.data("isSubmitted", false);
+        $btn.prop("disabled", false).html("Yes, delete");
+      },
+    });
   });
-  $(document).on("submit", "#roomForm", function(e) { 
-      e.preventDefault();
-      
-      const submitBtn = $(this).find('button[type="submit"]');
-      const originalText = submitBtn.html();
-      submitBtn.html('<i class="fa fa-spinner fa-spin me-1"></i> Saving...');
-      submitBtn.prop('disabled', true);
-      $.ajax({
-          type: "POST",
-          url: base_url + "authentication/action.php?action=create_classroom",
-          data: $(this).serialize(),
-          dataType: "json", 
-          success: function(response) {
-              submitBtn.html(originalText);
-              submitBtn.prop('disabled', false);
-              
-              if (response.status === 1) {
-                  Swal.fire({
-                    title: "Success!",
-                    text: response.message,
-                    icon: "success",
-                    toast: true,
-                    position: "top-end",
-                    timer: 3000,
-                    showConfirmButton: false,
-                  }).then(() => {
-                    $("#classRoomModal").closest(".modal").modal("hide"); // Correct modal close
-                    // window.location.reload();
-                  });
-              } else {
-                Swal.fire({
-                  title: "Error",
-                  text: response.message || "Submission failed.",
-                  icon: "error",
-                  toast: true,
-                  position: "top-end",
-                  timer: 3000,
-                  showConfirmButton: false,
-                });
-                $btn.html('<i class="fa fa-save me-1"></i> Try Again');
-              }
-          },
-          error: function(xhr, status, error) {
-              submitBtn.html(originalText);
-              submitBtn.prop('disabled', false);
-              
-              // Check if it's a JSON parse error
-              if (xhr.responseText && xhr.responseText.trim().startsWith('<')) {
-                  console.error('Server returned HTML instead of JSON:', xhr.responseText);
-                  alert('Server error: Invalid response format. Please check console for details.');
-              } else {
-                  alert('Request failed: ' + error);
-              }
-          }
-      });
+  $(document).on("submit", "#roomForm", function (e) {
+    e.preventDefault();
+
+    const submitBtn = $(this).find('button[type="submit"]');
+    const originalText = submitBtn.html();
+    submitBtn.html('<i class="fa fa-spinner fa-spin me-1"></i> Saving...');
+    submitBtn.prop("disabled", true);
+    $.ajax({
+      type: "POST",
+      url: base_url + "authentication/action.php?action=create_classroom",
+      data: $(this).serialize(),
+      dataType: "json",
+      success: function (response) {
+        submitBtn.html(originalText);
+        submitBtn.prop("disabled", false);
+
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            $("#classRoomModal").closest(".modal").modal("hide"); // Correct modal close
+            window.location.reload();
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: response.message || "Submission failed.",
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          $btn.html('<i class="fa fa-save me-1"></i> Try Again');
+        }
+      },
+      error: function (xhr, status, error) {
+        submitBtn.html(originalText);
+        submitBtn.prop("disabled", false);
+
+        // Check if it's a JSON parse error
+        if (xhr.responseText && xhr.responseText.trim().startsWith("<")) {
+          console.error(
+            "Server returned HTML instead of JSON:",
+            xhr.responseText
+          );
+          alert(
+            "Server error: Invalid response format. Please check console for details."
+          );
+        } else {
+          alert("Request failed: " + error);
+        }
+      },
+    });
+  });
+
+  $(document).on("change", "#setDefaultFormSy", function () {
+    const school_year_id = $(this).data("id");
+    const data = $(this).val();
+    // alert(school_year_id);
+    $.ajax({
+      url: base_url + "authentication/action.php?action=setDefaultSchoolYear",
+      method: "POST",
+      data: {
+        school_year_id: school_year_id,
+        data: data
+      },
+      dataType: "json",
+      success: function (response) {
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            window.location.reload();
+          });
+        } else {
+          showError(response.message, "error", "Error!");
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        showError("An unexpected error occurred.", "error", "Error!");
+      },
+    });
+  });
+
+    $(document).on("change", "#setRoomForm", function () {
+    const room_id = $(this).data("id");
+    const data = $(this).val();
+    // alert(school_year_id);
+    $.ajax({
+      url: base_url + "authentication/action.php?action=setRoom",
+      method: "POST",
+      data: {
+        room_id: room_id,
+        data: data
+      },
+      dataType: "json",
+      success: function (response) {
+        if (response.status === 1) {
+          Swal.fire({
+            title: "Success!",
+            text: response.message,
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            timer: 3000,
+            showConfirmButton: false,
+          }).then(() => {
+            window.location.reload();
+          });
+        } else {
+          showError(response.message, "error", "Error!");
+        }
+      },
+      error: function (jqXHR, textStatus, err) {
+        console.error("AJAX error:", textStatus, err);
+        showError("An unexpected error occurred.", "error", "Error!");
+      },
+    });
   });
 
   function showError(message, icon, title, url) {

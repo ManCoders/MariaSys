@@ -35,7 +35,7 @@
     <!-- CLASSROOM LIST -->
     <div id="classroomCards" class="row g-3">
         <h5 class="mb-3 text-success"><i class="fa fa-school me-2"></i>All Classrooms</h5>
-        <!-- <div class="col-md-4">
+        <div class="col-md-4">
             <div class="card shadow-sm border">
                 <div class="card-body">
                     <h5 class="card-title">Grade 3 - Saturn</h5>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- Add more dynamically -->
     </div>
 
@@ -143,7 +143,7 @@
                     <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="sectionID"  id="editSectionId">
+                    <input type="hidden" name="sectionID" id="editSectionId">
                     <div class="mb-3">
                         <label for="sectionNameValueID" class="form-label">Section name</label>
                         <input type="text" class="form-control" id="sectionNameValueID" name="sectionName" required>
@@ -208,7 +208,7 @@
                     <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="classroomsID"  id="editClassroomsID">
+                    <input type="hidden" name="classroomsID" id="editClassroomsID">
                     <div class="mb-3">
                         <label for="classroomNameValueID" class="form-label">Section name</label>
                         <input type="text" class="form-control" id="classroomNameValueID" name="classroomName" required>
@@ -287,7 +287,7 @@
                             <label>Section Name</label>
                             <input type="text" name="section_name" class="form-control" placeholder="e.g. Jupiter">
                         </div>
-                        <!--   <div class="mb-2">
+                        <div class="mb-2">
                             <label>Grade Level :</label>
                             <select name="section_grade_level" class="form-select">
                                 <option value="">Select Grade Level</option>
@@ -298,7 +298,7 @@
                                 <option value="Grade 5">Grade 5</option>
                                 <option value="Grade 6">Grade 6</option>
                             </select>
-                        </div> -->
+                        </div>
                         <div class="mb-2">
                             <label>Description</label>
                             <textarea name="section_desc" class="form-control"
@@ -420,251 +420,246 @@
 </section>
 
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    // SHOW LIST ONLY
-    $('#managementSelect').off('change').on('change', function() {
-        const selected = $(this).val();
+        // SHOW LIST ONLY
+        $('#managementSelect').off('change').on('change', function() {
+            const selected = $(this).val();
 
-        // Hide all list containers initially
-        $('#classroomCards, #sectionCards, #roomCards, #gradeLevelCards, #syCards').addClass('d-none');
+            // Hide all list containers initially
+            $('#classroomCards, #sectionCards, #roomCards, #gradeLevelCards, #syCards').addClass('d-none');
 
-        switch (selected) {
-            case 'classrooms':
-                $('#classroomCards').removeClass('d-none');
-                $.ajax({
-                    type: "GET",
-                    url: base_url + "/authentication/action.php?action=getDatas",
-                    data: {
-                        type: 'classrooms'
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status === 1) {
-                            $('#classroomCards').append(response.data);
-                        } else {
-                            alert(response.message || 'Something went wrong.');
+            switch (selected) {
+                case 'classrooms':
+                    $('#classroomCards').removeClass('d-none').empty();
+                    $.ajax({
+                        type: "GET",
+                        url: base_url + "/authentication/action.php?action=getDatas",
+                        data: {
+                            type: 'classrooms'
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                $('#classroomCards').append(response.data);
+                            } else {
+                                alert(response.message || 'Something went wrong.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", error);
+                            alert("Request failed. Please try again.");
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error:", error);
-                        alert("Request failed. Please try again.");
-                    }
-                });
-                break;
-
-            case 'section':
-                $('#sectionCards').removeClass('d-none').empty();
-                $.ajax({
-                    type: "GET",
-                    url: base_url + "/authentication/action.php?action=getDatas",
-                    data: {
-                        type: 'sections'
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status === 1) {
-                            $('#sectionCards').append(response.data);
-                        } else {
-                            alert(response.message || 'Something went wrong.');
+                    });
+                    break;
+                case 'section':
+                    $('#sectionCards').removeClass('d-none').empty();
+                    $.ajax({
+                        type: "GET",
+                        url: base_url + "/authentication/action.php?action=getDatas",
+                        data: {
+                            type: 'sections'
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                $('#sectionCards').append(response.data);
+                            } else {
+                                alert(response.message || 'Something went wrong.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", error);
+                            alert("Request failed. Please try again.");
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error:", error);
-                        alert("Request failed. Please try again.");
-                    }
-                });
-                break;
-            case 'grade_level':
-                $('#gradeLevelCards').removeClass('d-none').empty();
-                $.ajax({
-                    type: "GET",
-                    url: base_url + "/authentication/action.php?action=getDatas",
-                    data: {
-                        type: 'grade_level'
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status === 1) {
-                            $('#gradeLevelCards').append(response.data);
-                        } else {
-                            alert(response.message || 'Something went wrong.');
+                    });
+                    break;
+                case 'grade_level':
+                    $('#gradeLevelCards').removeClass('d-none').empty();
+                    $.ajax({
+                        type: "GET",
+                        url: base_url + "/authentication/action.php?action=getDatas",
+                        data: {
+                            type: 'grade_level'
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                $('#gradeLevelCards').append(response.data);
+                            } else {
+                                alert(response.message || 'Something went wrong.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", error);
+                            alert("Request failed. Please try again.");
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error:", error);
-                        alert("Request failed. Please try again.");
-                    }
-                });
-                break;
-            case 'sy':
-                $('#syCards').removeClass('d-none').empty();
+                    });
+                    break;
+                case 'sy':
+                    $('#syCards').removeClass('d-none').empty();
 
-                $.ajax({
-                    type: "GET",
-                    url: base_url + "/authentication/action.php?action=getDatas",
-                    data: {
-                        type: 'school_year'
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status === 1) {
-                            $('#syCards').append(response.data);
-                        } else {
-                            alert(response.message || 'Something went wrong.');
+                    $.ajax({
+                        type: "GET",
+                        url: base_url + "/authentication/action.php?action=getDatas",
+                        data: {
+                            type: 'school_year'
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                $('#syCards').append(response.data);
+                            } else {
+                                alert(response.message || 'Something went wrong.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", error);
+                            alert("Request failed. Please try again.");
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error:", error);
-                        alert("Request failed. Please try again.");
-                    }
-                });
-                break;
+                    });
+                    break;
 
-            default:
-                // Optional: Hide all cards again in default
-                $('#classroomCards, #sectionCards, #roomCards, #syCards').addClass('d-none');
-                break;
-        }
+                default:
+                    // Optional: Hide all cards again in default
+                    $('#classroomCards, #sectionCards, #roomCards, #syCards').addClass('d-none');
+                    break;
+            }
 
-        // Reset dropdown to default after handling
-        $(this).val('');
-    });
-
-    // OPEN MODALS ONLY
-    $('#managementSelect2').on('change', function() {
-    const selected = $(this).val();
-
-    if (selected === 'classroom') {
-        $('#roomForm')[0].reset(); // Changed from '#classroomForm' to '#roomForm'
-        $('#classRoomModal').modal('show');
-        
-        // You should also add the submit handler here like you did for other forms
-        $('#roomForm').off('submit').on('submit', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: base_url + "/authentication/action.php?action=classroom", // Make sure this endpoint exists
-                data: $(this).serialize(),
-                dataType: "json",
-                success: function(response) {
-                    if (response.status === 1) {
-                        swal
-                            .fire({
-                                title: "Success",
-                                text: response.message,
-                                icon: "success",
-                                position: "top-end",
-                                toast: true,
-                                timer: 3000,
-                                showConfirmButton: false,
-                            })
-                            .then(() => {
-                                $(this).val('');
-                                window.location.reload();
-                            });
-                    } else {
-                        swal.fire({
-                            title: "Error",
-                            text: response.message,
-                            icon: "error",
-                            position: "top-end",
-                            toast: true,
-                            timer: 3000,
-                            showConfirmButton: false,
-                        });
-                    }
-                }
-            });
+            // Reset dropdown to default after handling
+            $(this).val('');
         });
-        } else if (selected === 'grade_level') {
-            $('#gradeLevelForm')[0].reset();
-            $('#gradeLevelModal').modal('show');
-        } else if (selected === 'section') {
-            $('#sectionForm')[0].reset();
-            $('#sectionModal').modal('show');
-            $('#sectionForm').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: base_url + "/authentication/action.php?action=sections",
-                    data: $(this).serialize(),
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status === 1) {
-                            swal
-                                .fire({
-                                    title: "Success",
+
+        // OPEN MODALS ONLY
+        $('#managementSelect2').on('change', function() {
+            const selected = $(this).val();
+
+            if (selected === 'classroom') {
+                $('#roomForm')[0].reset(); // Changed from '#classroomForm' to '#roomForm'
+                $('#classRoomModal').modal('show');
+                $('#roomForm').off('submit').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: base_url + "/authentication/action.php?action=classroom", // Make sure this endpoint exists
+                        data: $(this).serialize(),
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                swal
+                                    .fire({
+                                        title: "Success",
+                                        text: response.message,
+                                        icon: "success",
+                                        position: "top-end",
+                                        toast: true,
+                                        timer: 3000,
+                                        showConfirmButton: false,
+                                    })
+                                    .then(() => {
+                                        $(this).val('');
+                                        window.location.reload();
+                                    });
+                            } else {
+                                swal.fire({
+                                    title: "Error",
                                     text: response.message,
-                                    icon: "success",
+                                    icon: "error",
                                     position: "top-end",
                                     toast: true,
                                     timer: 3000,
                                     showConfirmButton: false,
-                                })
-                                .then(() => {
-                                    $(this).val('');
-                                    window.location.reload();
                                 });
-                        } else {
-                            swal.fire({
-                                title: "Error",
-                                text: response.message,
-                                icon: "error",
-                                position: "top-end",
-                                toast: true,
-                                timer: 3000,
-                                showConfirmButton: false,
-                            });
+                            }
                         }
-                    }
+                    });
                 });
-            });
-        } else if (selected === 'syModal') {
-            $('#syForm')[0].reset();
-            $('#syModal').modal('show');
-            $('#syForm').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: base_url + "/authentication/action.php?action=schoolYear",
-                    data: $(this).serialize(),
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.status === 1) {
-                            swal
-                                .fire({
-                                    title: "Success",
+            } else if (selected === 'grade_level') {
+                $('#gradeLevelForm')[0].reset();
+                $('#gradeLevelModal').modal('show');
+            } else if (selected === 'section') {
+                $('#sectionForm')[0].reset();
+                $('#sectionModal').modal('show');
+                $('#sectionForm').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: base_url + "/authentication/action.php?action=sections",
+                        data: $(this).serialize(),
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                swal
+                                    .fire({
+                                        title: "Success",
+                                        text: response.message,
+                                        icon: "success",
+                                        position: "top-end",
+                                        toast: true,
+                                        timer: 3000,
+                                        showConfirmButton: false,
+                                    })
+                                    .then(() => {
+                                        $(this).val('');
+                                        window.location.reload();
+                                    });
+                            } else {
+                                swal.fire({
+                                    title: "Error",
                                     text: response.message,
-                                    icon: "success",
+                                    icon: "error",
                                     position: "top-end",
                                     toast: true,
                                     timer: 3000,
                                     showConfirmButton: false,
-                                })
-                                .then(() => {
-                                    $(this).val('');
-                                    window.location.reload();
                                 });
-                        } else {
-                            swal.fire({
-                                title: "Error",
-                                text: response.message,
-                                icon: "error",
-                                position: "top-end",
-                                toast: true,
-                                timer: 3000,
-                                showConfirmButton: false,
-                            });
+                            }
                         }
-                    }
+                    });
                 });
-            });
+            } else if (selected === 'syModal') {
+                $('#syForm')[0].reset();
+                $('#syModal').modal('show');
+                $('#syForm').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: base_url + "/authentication/action.php?action=schoolYear",
+                        data: $(this).serialize(),
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status === 1) {
+                                swal
+                                    .fire({
+                                        title: "Success",
+                                        text: response.message,
+                                        icon: "success",
+                                        position: "top-end",
+                                        toast: true,
+                                        timer: 3000,
+                                        showConfirmButton: false,
+                                    })
+                                    .then(() => {
+                                        $(this).val('');
+                                        window.location.reload();
+                                    });
+                            } else {
+                                swal.fire({
+                                    title: "Error",
+                                    text: response.message,
+                                    icon: "error",
+                                    position: "top-end",
+                                    toast: true,
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                            }
+                        }
+                    });
+                });
+            }
 
-
-        }
-
-        $(this).val(''); // Reset dropdown
+            $(this).val(''); // Reset dropdown
+        });
     });
-});
 </script>

@@ -191,6 +191,7 @@ function db_connect()
             )",
             "CREATE TABLE IF NOT EXISTS classrooms (
                 room_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                room_status ENUM('Occupied', 'Available') DEFAULT 'Available',
                 room_name VARCHAR(50) NOT NULL,
                 room_type VARCHAR(50) NOT NULL,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
