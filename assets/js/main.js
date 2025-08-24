@@ -174,64 +174,6 @@ $(document).ready(function () {
     }
   });
 
-  /*  $("body").on("submit", "#register-form", function (e) {
-  e.preventDefault();
-  const $this = $(this);
-  const data = new FormData(this);
-
-  if (!$this.hasClass("processing")) {
-    $this.addClass("processing");
-    $this.find("button[type='submit']").prop("disabled", true);
-
-    $.ajax({
-      url: base_url + "/authentication/action.php?action=register-form",
-      method: "POST",
-      data: data,
-      processData: false,
-      contentType: false,
-      dataType: "json",
-      beforeSend: function () {
-        $this.find("button[type='submit']").html(
-          '<i class="fas fa-spinner fa-spin me-1"></i> Processing...'
-        );
-      },
-      success: function (response) {
-        if (response.status == 1) {
-          Swal.fire({
-            title: "Success!",
-            text: response.message,
-            icon: "success",
-            toast: true,
-            position: "top-end",
-            timer: 3000,
-            showConfirmButton: false,
-          }).then(() => {
-            $(".modal").modal("hide"); // ✅ Correct usage
-            window.location.reload();
-          });
-        } else {
-          Swal.fire({
-            title: "Failed!",
-            text: response.message,
-            icon: "error",
-            toast: true,
-            position: "top-end",
-            timer: 3000,
-            showConfirmButton: false,
-          });
-          $this.find("button[type='submit']").text("Please try again!");
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.error("AJAX error:", textStatus, errorThrown);
-      },
-      complete: function () {
-        $this.removeClass("processing");
-        $this.find("button[type='submit']").prop("disabled", false).text("Register");
-      },
-    });
-  }
-}); */
   $("body").on("submit", "#register-form", function (e) {
     e.preventDefault();
     const $form = $(this);
@@ -325,53 +267,6 @@ $(document).ready(function () {
     });
   });
 
-  /* $("body").on("submit", "#linkNewChild", function (e) {
-    e.preventDefault();
-    const $this = $(this);
-    const data = new FormData(this);
-
-    if (!$this.hasClass("processing")) {
-      $this.addClass("processing");
-
-      $.ajax({
-        url: base_url + "/authentication/action.php?action=LinkNewChild",
-        method: "POST",
-        data: data,
-        processData: false,
-        contentType: false,
-        dataType: "json",
-        beforeSend: function () {
-          $this.find("button[type='submit']").text("Processing..");
-        },
-        success: function (response) {
-          if (response.status == 1) {
-            Swal.fire({
-              title: "Success!",
-              text: response.message,
-              icon: "success",
-              toast: true,
-              position: "top-end",
-              timer: 3000,
-              showConfirmButton: false,
-            }).then(() => {
-              $(".modal").hide("modal");
-              window.location.reload();
-            });
-          } else {
-            $this.find("button[type='submit']").text("Please try again!");
-            $this.removeClass("processing");
-          }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.error("AJAX error:", textStatus, errorThrown);
-          $this.removeClass("processing");
-        },
-        complete: function () {
-          $this.removeClass("processing");
-        },
-      });
-    }
-  }); */
   $("body").on("submit", "#linkNewChild", function (e) {
     e.preventDefault();
     const $form = $(this);
@@ -443,8 +338,6 @@ $(document).ready(function () {
   $(document).on("click", "#editGradeLevel", function () {
       const gradeLevelID = $(this).data('id');
       document.getElementById('editGradeLevelId').value = gradeLevelID;
-      // const editModal = new bootstrap.Modal(document.getElementById('editGradeLevelModal'));
-      // editModal.show();
       $("#editGradeLevelModal").show('modal');
   });
   $(document).on("click", "#editGradeLevel", function () {
