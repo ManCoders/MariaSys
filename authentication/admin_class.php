@@ -749,7 +749,8 @@ class Action
         // ✅ Whitelisted table names to prevent SQL injection
         $validTypes = [
             'school_year' => 'school_year',
-            'sections'    => 'sections'
+            'sections'    => 'sections',
+            'grade_level'    => 'grade_level'
         ];
 
         // ✅ Check if valid
@@ -793,6 +794,7 @@ class Action
             } elseif ($type === 'sections') {
                 $selectName = htmlspecialchars($row['section_name'] ?? 'N/A', ENT_QUOTES, 'UTF-8');
                 $selectOptions = htmlspecialchars($row['section_description'] ?? 'N/A', ENT_QUOTES, 'UTF-8');
+                $section_id = htmlspecialchars($row['section_id'] ?? 'N/A', ENT_QUOTES, 'UTF-8');
 
                 $cards .= '
                 <div class="col-md-4">
@@ -802,11 +804,34 @@ class Action
                             <h5 class="card-title">Section: ' . $selectName . '</h5>
                             <p class="card-text">
                                 <strong>Description:</strong> ' . $selectOptions . '<br />
-                                <strong>Level:</strong> ' . htmlspecialchars($row['section_grade_level'] ?? 'N/A', ENT_QUOTES, 'UTF-8') . '
                             </p>
                             <div class="d-flex justify-content-end gap-2">
-                                <button class="btn btn-sm btn-outline-success"><i class="fa fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-success" id="editSection" data-id="'. $section_id .'"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" id="deleteSection" data-id="'. $section_id .'"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            } elseif ($type === 'grade_level') {
+                $gradeLevel = htmlspecialchars($row['grade_level_name'] ?? 'N/A', ENT_QUOTES, 'UTF-8');
+                $created_at = htmlspecialchars($row['created_date'] ?? 'N/A', ENT_QUOTES, 'UTF-8');
+                $gredeLevel_id = htmlspecialchars($row['grade_level_id'] ?? 'N/A', ENT_QUOTES, 'UTF-8');
+
+                $cards .= '
+                <div class="col-md-4">
+                    <div class="card shadow-sm border">
+                        <div class="card-body ">
+                            <h5 class="card-title">' . $gradeLevel . '</h5>
+                            <p class="card-text">
+                                created at: <strong>' . $created_at . '</strong><br />
+                            </p>
+                            <div class="d-flex col-md-12 gap-1">
+                                <button class="btn m-0 btn-outline-success" type="button" id="editGradeLevel" data-id="'. $gredeLevel_id .'"><i class="fa fa-edit"></i></button>
+                                <button class="btn m-0 btn-outline-danger" type="button" id="deleteGradeLevel" data-id="'. $gredeLevel_id .'"><i class="fa fa-trash"></i></button>
+                                <select class="form-select  mx-auto text-center" name="levelstatus" id="levelstatus">
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">In Active</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -1162,6 +1187,283 @@ class Action
             echo json_encode([
                 'status' => 0,
                 'message' => 'Database error: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function getGradeLevel()
+    {
+        if (empty($_POST['id'])) {
+            return json_encode(['status' => 0, 'message' => 'Grade level ID is required']);
+        }
+
+        $id = (int)$_POST['id'];
+
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM grade_level WHERE grade_level_id = ?");
+            $stmt->execute([$id]);
+            
+            $gradeLevel = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($gradeLevel) {
+                return json_encode([
+                    'status' => 1,
+                    'message' => 'Grade level retrieved successfully',
+                    'data' => $gradeLevel
+                ]);
+            } else {
+                return json_encode(['status' => 0, 'message' => 'Grade level not found']);
+            }
+        } catch (Exception $e) {
+            error_log("getGradeLevel Error: " . $e->getMessage());
+            return json_encode(['status' => 0, 'message' => 'Database error: ' . $e->getMessage()]);
+        }
+    }
+    public function updateGradeLevel()
+    {
+        if (empty($_POST)) {
+            return json_encode(['status' => 0, 'message' => 'No form data submitted.']);
+        }
+
+        $grade_level_id = trim($_POST['grade_LevelID'] ?? '');
+        $grade_level_name = trim($_POST['gradeLevel'] ?? '');
+
+        if (empty($grade_level_id) || empty($grade_level_name)) {
+            return json_encode(['status' => 0, 'message' => 'Grade level ID and name are required.']);
+        }
+
+        if (!is_numeric($grade_level_id)) {
+            return json_encode(['status' => 0, 'message' => 'Invalid grade level ID.']);
+        }
+
+        try {
+            $stmt = $this->db->prepare("SELECT COUNT(*) FROM grade_level WHERE grade_level_name = ? AND grade_level_id != ?");
+            $stmt->execute([$grade_level_name, $grade_level_id]);
+            
+            if ($stmt->fetchColumn() > 0) {
+                return json_encode([
+                    'status' => 0, 
+                    'message' => 'Grade level name already exists.'
+                ]);
+            }
+
+            $stmt = $this->db->prepare("UPDATE grade_level SET grade_level_name = ? WHERE grade_level_id = ?");
+            $result = $stmt->execute([$grade_level_name, $grade_level_id]);
+
+            if ($result) {
+                return json_encode([
+                    'status' => 1,
+                    'message' => 'Grade level updated successfully.',
+                    'redirect_url' => 'index.php?page=contents/classroom'
+                ]);
+            } else {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Failed to update grade level. No changes made.'
+                ]);
+            }
+        } catch (Exception $e) {
+            error_log("updateGradeLevel Error: " . $e->getMessage());
+            return json_encode([
+                'status' => 0,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ]);
+        }
+    }
+    public function deleteGradeLevel()
+    {
+        if (empty($_POST)) {
+            return json_encode(['status' => 0, 'message' => 'No form data submitted.']);
+        }
+
+        // FIX: Changed from 'gradeLevelID' to 'grade_LevelID' to match the form field name
+        $grade_level_id = $_POST['gradeLevelID'] ?? '';
+
+        if (empty($grade_level_id)) {
+            return json_encode(['status' => 0, 'message' => 'Grade level ID is required.']);
+        }
+
+        if (!is_numeric($grade_level_id)) {
+            return json_encode(['status' => 0, 'message' => 'Invalid grade level ID.' . $grade_level_id]);
+        }
+
+        try {
+            $checkStmt = $this->db->prepare("SELECT * FROM grade_level WHERE grade_level_id = ?");
+            $checkStmt->execute([$grade_level_id]);
+            
+            if ($checkStmt->rowCount() === 0) {
+                return json_encode([
+                    'status' => 0, 
+                    'message' => 'Grade level not found.'
+                ]);
+            }
+            $stmt = $this->db->prepare("DELETE FROM grade_level WHERE grade_level_id = ?");
+            $result = $stmt->execute([$grade_level_id]);
+
+            if ($result) {
+                return json_encode([
+                    'status' => 1,
+                    'message' => 'Grade level deleted successfully.',
+                    'redirect_url' => 'index.php?page=contents/classroom'
+                ]);
+            } else {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Failed to delete grade level.'
+                ]);
+            }
+        } catch (Exception $e) {
+            error_log("deleteGradeLevel Error: " . $e->getMessage());
+            
+            if (strpos($e->getMessage(), 'foreign key constraint') !== false) {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Cannot delete grade level. It is being used by other records in the system.'
+                ]);
+            }
+            
+            return json_encode([
+                'status' => 0,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function getSection()
+    {
+        if (empty($_POST['id'])) {
+            return json_encode(['status' => 0, 'message' => 'Grade level ID is required']);
+        }
+
+        $id = (int)$_POST['id'];
+
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM sections WHERE section_id = ?");
+            $stmt->execute([$id]);
+            
+            $sections = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($sections) {
+                return json_encode([
+                    'status' => 1,
+                    'message' => 'Sectiions retrieved successfully',
+                    'data' => $sections
+                ]);
+            } else {
+                return json_encode(['status' => 0, 'message' => 'Grade level not found']);
+            }
+        } catch (Exception $e) {
+            error_log("getGradeLevel Error: " . $e->getMessage());
+            return json_encode(['status' => 0, 'message' => 'Database error: ' . $e->getMessage()]);
+        }
+    }
+    public function updateSection()
+    {
+        if (empty($_POST)) {
+            return json_encode(['status' => 0, 'message' => 'No form data submitted.']);
+        }
+
+        $section_id = $_POST['sectionID'] ?? '';
+        $sectionName = $_POST['sectionName'];
+        $sectionDescription = $_POST['sectionDescription'];
+
+        if (empty($section_id) || empty($sectionName)) {
+            return json_encode(['status' => 0, 'message' => 'Grade level ID and name are required.']);
+        }
+
+        if (!is_numeric($section_id)) {
+            return json_encode(['status' => 0, 'message' => 'Invalid grade level ID.']);
+        }
+
+        try {
+            $stmt = $this->db->prepare("SELECT COUNT(*) FROM sections WHERE section_name = ? AND section_description = ? AND section_id != ?");
+            $stmt->execute([$sectionName, $sectionDescription, $section_id]);
+            
+            if ($stmt->fetchColumn() > 0) {
+                return json_encode([
+                    'status' => 0, 
+                    'message' => 'Grade level name already exists.'
+                ]);
+            }
+
+            $stmt = $this->db->prepare("UPDATE sections SET section_name = ?, section_description = ? WHERE section_id = ?");
+            $result = $stmt->execute([$sectionName, $sectionDescription, $section_id]);
+
+            if ($result) {
+                return json_encode([
+                    'status' => 1,
+                    'message' => 'Grade level updated successfully.',
+                    'redirect_url' => 'index.php?page=contents/classroom'
+                ]);
+            } else {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Failed to update grade level. No changes made.'
+                ]);
+            }
+        } catch (Exception $e) {
+            error_log("updateGradeLevel Error: " . $e->getMessage());
+            return json_encode([
+                'status' => 0,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ]);
+        }
+    }
+    public function deleteSection()
+    {
+        if (empty($_POST)) {
+            return json_encode(['status' => 0, 'message' => 'No form data submitted.']);
+        }
+
+        // FIX: Changed from 'gradeLevelID' to 'grade_LevelID' to match the form field name
+        $section_id = $_POST['sectionID'] ?? '';
+
+        if (empty($section_id)) {
+            return json_encode(['status' => 0, 'message' => 'Grade level ID is required.']);
+        }
+
+        if (!is_numeric($section_id)) {
+            return json_encode(['status' => 0, 'message' => 'Invalid grade level ID.' . $section_id]);
+        }
+
+        try {
+            $checkStmt = $this->db->prepare("SELECT * FROM sections WHERE section_id = ?");
+            $checkStmt->execute([$section_id]);
+            
+            if ($checkStmt->rowCount() === 0) {
+                return json_encode([
+                    'status' => 0, 
+                    'message' => 'Section not found.'
+                ]);
+            }
+            $stmt = $this->db->prepare("DELETE FROM sections WHERE section_id = ?");
+            $result = $stmt->execute([$section_id]);
+
+            if ($result) {
+                return json_encode([
+                    'status' => 1,
+                    'message' => 'Section deleted successfully.',
+                    'redirect_url' => 'index.php?page=contents/classroom'
+                ]);
+            } else {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Failed to delete Section.'
+                ]);
+            }
+        } catch (Exception $e) {
+            error_log("deleteSection Error: " . $e->getMessage());
+            
+            if (strpos($e->getMessage(), 'foreign key constraint') !== false) {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Cannot delete Section. It is being used by other records in the system.'
+                ]);
+            }
+            
+            return json_encode([
+                'status' => 0,
+                'message' => 'An error occurred: ' . $e->getMessage()
             ]);
         }
     }

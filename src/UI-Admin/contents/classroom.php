@@ -55,6 +55,7 @@
         <!-- Add more dynamically -->
     </div>
 
+    <!-- grade level list -->
     <div id="gradeLevelCards" class="row g-3 d-none">
         <h5 class="mb-3 text-primary"><i class="fa fa-layer-group me-2 mx-auto"></i>Grade Levels</h5>
         <div class="col-md-4">
@@ -62,7 +63,7 @@
                 <div class="card-body ">
                     <h5 class="card-title">Grade 1</h5>
                     <p class="card-text">
-                        Example   descriptionasdasdsad asdasdasdasdasd<br />
+                        Example descriptionasdasdsad asdasdasdasdasd<br />
                     </p>
                     <select class="form-select w-50 mx-auto text-center" name="levelstatus" id="levelstatus">
                         <option value="Active">Active</option>
@@ -72,8 +73,47 @@
             </div>
         </div>
     </div>
-
-
+    <!-- Edit grade level Modal -->
+    <div class="modal fade" id="editGradeLevelModal" tabindex="-1" aria-labelledby="editGradeLevelModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="POST" class="modal-content" id="editGradeLevelForm">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="editGradeLevelModalLabel">Edit Grade Level</h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="grade_LevelID" id="editGradeLevelId">
+                    <div class="mb-3">
+                        <label for="gradeLevelValueID" class="form-label">Grade Level</label>
+                        <input type="text" class="form-control" id="gradeLevelValueID" name="gradeLevel" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="updateGradeLevel" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteGradeLevelModal" tabindex="-1" aria-labelledby="deleteGradeLevelModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-none">
+            <form method="POST" class="modal-content" id="deleteGradeLevelForm">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="deleteGradeLevelModalLabel">Delete Grade Level</h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- CHANGE: from grade_LevelID to gradeLevelID -->
+                    <input type="hidden" name="gradeLevelID" id="deleteGradeLevelId">
+                    <div class="mb-3">
+                        <h5 class="form-label">Are you sure you want to delete this grade level?</h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="deleteGradeLevel" class="btn btn-danger">Yes, delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
     <!-- SECTION LIST -->
@@ -94,9 +134,52 @@
                 </div>
             </div>
         </div>
-        
     </div>
-    
+    <div class="modal fade" id="editSectionModal" tabindex="-1" aria-labelledby="editSectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="POST" class="modal-content" id="editSectionForm">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="editSectionModalLabel">Edit Section</h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="sectionID"  id="editSectionId">
+                    <div class="mb-3">
+                        <label for="sectionNameValueID" class="form-label">Section name</label>
+                        <input type="text" class="form-control" id="sectionNameValueID" name="sectionName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sectionDescriptionValueID" class="form-label">Section Description</label>
+                        <input type="text" class="form-control" id="sectionDescriptionValueID" name="sectionDescription" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="updatesection" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteSectionModal" tabindex="-1" aria-labelledby="deleteSectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-none">
+            <form method="POST" class="modal-content" id="deleteSectionForm">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="deleteSectionModalLabel">Delete Section</h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- CHANGE: from grade_LevelID to SectionID -->
+                    <input type="hidden" name="sectionID" id="deleteSectionId">
+                    <div class="mb-3">
+                        <h5 class="form-label">Are you sure you want to delete this grade level?</h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="deleteSection" class="btn btn-danger">Yes, delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <!-- ROOM LIST -->
     <div id="roomCards" class="row g-3 d-none">
@@ -120,11 +203,11 @@
 
     <div id="syCards" class="d-none row g-3">
         <h5 class="mb-3 text-warning"><i class="fa fa-door-closed me-2"></i>All School Years</h5>
-
         <div class="col-md-4">
             <div class="card shadow-sm border position-relative">
-                <!-- Close Button -->
-                <button type="button" class="btn btn-close position-absolute top-0 end-0 m-2"><i class="fa fa-times text-dark" id="btnClose"></i></button>
+                <h3>sample data</h3>
+                <button type="button" class="btn btn-close position-absolute top-0 end-0 m-2"><i
+                        class="fa fa-times text-dark" id="btnClose"></i></button>
 
                 <div class="card-body text-center">
                     <h5 class="card-title">School Year</h5>
@@ -141,8 +224,6 @@
 
 
         </div>
-
-
     </div>
 
 
@@ -161,7 +242,7 @@
                             <label>Section Name</label>
                             <input type="text" name="section_name" class="form-control" placeholder="e.g. Jupiter">
                         </div>
-                      <!--   <div class="mb-2">
+                        <!--   <div class="mb-2">
                             <label>Grade Level :</label>
                             <select name="section_grade_level" class="form-select">
                                 <option value="">Select Grade Level</option>
@@ -175,7 +256,8 @@
                         </div> -->
                         <div class="mb-2">
                             <label>Description</label>
-                            <textarea name="section_desc" class="form-control" placeholder="Optional description..."></textarea>
+                            <textarea name="section_desc" class="form-control"
+                                placeholder="Optional description..."></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -202,7 +284,8 @@
                         </div>
                         <div class="mb-2">
                             <label>Description</label>
-                            <textarea name="grade_level_desc" class="form-control" placeholder="Optional description..."></textarea>
+                            <textarea name="grade_level_desc" class="form-control"
+                                placeholder="Optional description..."></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -215,12 +298,12 @@
     </div>
 
     <!-- Add Room Modal -->
-    <div class="modal fade" id="roomModal" tabindex="-1">
+    <div class="modal fade" id="classRoomModal" tabindex="-1" aria-labelledby="classRoomModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <form id="roomForm">
                     <div class="modal-header bg-warning text-dark">
-                        <h5 class="modal-title">Create Room</h5>
+                        <h5 class="modal-title text-white" id="editGradeLevelModalLabel">Create Room</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
@@ -292,175 +375,193 @@
 </section>
 
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
 
-        // SHOW LIST ONLY
-        $('#managementSelect').on('change', function() {
-            const selected = $(this).val();
+    // SHOW LIST ONLY
+    $('#managementSelect').on('change', function() {
+        const selected = $(this).val();
 
-            // Hide all list containers initially
-            $('#classroomCards, #sectionCards, #roomCards, #gradeLevelCards, #syCards').addClass('d-none');
+        // Hide all list containers initially
+        $('#classroomCards, #sectionCards, #roomCards, #gradeLevelCards, #syCards').addClass('d-none');
 
-            switch (selected) {
-                case 'classroom':
-                    $('#classroomCards').removeClass('d-none');
-                    break;
+        switch (selected) {
+            case 'classroom':
+                $('#classroomCards').removeClass('d-none');
+                break;
 
-                case 'section':
-                    $('#sectionCards').removeClass('d-none').empty(); 
-                    $.ajax({
-                        type: "GET",
-                        url: base_url + "/authentication/action.php?action=getDatas",
-                        data: {
-                            type: 'sections'
-                        },
-                        dataType: "json",
-                        success: function(response) {
-                            if (response.status === 1) {
-                                $('#sectionCards').append(response.data);
-                            } else {
-                                alert(response.message || 'Something went wrong.');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("AJAX Error:", error);
-                            alert("Request failed. Please try again.");
+            case 'section':
+                $('#sectionCards').removeClass('d-none').empty();
+                $.ajax({
+                    type: "GET",
+                    url: base_url + "/authentication/action.php?action=getDatas",
+                    data: {
+                        type: 'sections'
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status === 1) {
+                            $('#sectionCards').append(response.data);
+                        } else {
+                            alert(response.message || 'Something went wrong.');
                         }
-                    });
-                    break;
-                case 'grade_level':
-                    $('#gradeLevelCards').removeClass('d-none');
-                    
-                    break;
-                case 'sy':
-                    $('#syCards').removeClass('d-none').empty(); 
-
-                    $.ajax({
-                        type: "GET",
-                        url: base_url + "/authentication/action.php?action=getDatas",
-                        data: {
-                            type: 'school_year'
-                        },
-                        dataType: "json",
-                        success: function(response) {
-                            if (response.status === 1) {
-                                $('#syCards').append(response.data);
-                            } else {
-                                alert(response.message || 'Something went wrong.');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("AJAX Error:", error);
-                            alert("Request failed. Please try again.");
-                        }
-                    });
-                    break;
-
-                default:
-                    // Optional: Hide all cards again in default
-                    $('#classroomCards, #sectionCards, #roomCards, #syCards').addClass('d-none');
-                    break;
-            }
-
-            // Reset dropdown to default after handling
-            $(this).val('');
-        });
-
-        // OPEN MODALS ONLY
-        $('#managementSelect2').on('change', function() {
-            const selected = $(this).val();
-
-            if (selected === 'classroom') {
-                $('#classroomForm')[0].reset();
-                $('#classroomModal').modal('show');
-            } else if (selected === 'grade_level') {
-                $('#gradeLevelForm')[0].reset();
-                $('#gradeLevelModal').modal('show');
-            } else if (selected === 'section') {
-                $('#sectionForm')[0].reset();
-                $('#sectionModal').modal('show');
-                $('#sectionForm').on('submit', function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        type: "POST",
-                        url: base_url + "/authentication/action.php?action=sections",
-                        data: $(this).serialize(),
-                        dataType: "json",
-                        success: function(response) {
-                            if (response.status === 1) {
-                                swal
-                                    .fire({
-                                        title: "Success",
-                                        text: response.message,
-                                        icon: "success",
-                                        position: "top-end",
-                                        toast: true,
-                                        timer: 3000,
-                                        showConfirmButton: false,
-                                    })
-                                    .then(() => {
-                                        $(this).val('');
-                                        window.location.reload();
-                                    });
-                            } else {
-                                swal.fire({
-                                    title: "Error",
-                                    text: response.message,
-                                    icon: "error",
-                                    position: "top-end",
-                                    toast: true,
-                                    timer: 3000,
-                                    showConfirmButton: false,
-                                });
-                            }
-                        }
-                    });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                        alert("Request failed. Please try again.");
+                    }
                 });
-            } else if (selected === 'syModal') {
-                $('#syForm')[0].reset();
-                $('#syModal').modal('show');
-                $('#syForm').on('submit', function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        type: "POST",
-                        url: base_url + "/authentication/action.php?action=schoolYear",
-                        data: $(this).serialize(),
-                        dataType: "json",
-                        success: function(response) {
-                            if (response.status === 1) {
-                                swal
-                                    .fire({
-                                        title: "Success",
-                                        text: response.message,
-                                        icon: "success",
-                                        position: "top-end",
-                                        toast: true,
-                                        timer: 3000,
-                                        showConfirmButton: false,
-                                    })
-                                    .then(() => {
-                                        $(this).val('');
-                                        window.location.reload();
-                                    });
-                            } else {
-                                swal.fire({
-                                    title: "Error",
-                                    text: response.message,
-                                    icon: "error",
-                                    position: "top-end",
-                                    toast: true,
-                                    timer: 3000,
-                                    showConfirmButton: false,
-                                });
-                            }
+                break;
+            case 'grade_level':
+                $('#gradeLevelCards').removeClass('d-none').empty();
+                $.ajax({
+                    type: "GET",
+                    url: base_url + "/authentication/action.php?action=getDatas",
+                    data: {
+                        type: 'grade_level'
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status === 1) {
+                            $('#gradeLevelCards').append(response.data);
+                        } else {
+                            alert(response.message || 'Something went wrong.');
                         }
-                    });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                        alert("Request failed. Please try again.");
+                    }
                 });
+                break;
+            case 'sy':
+                $('#syCards').removeClass('d-none').empty();
 
+                $.ajax({
+                    type: "GET",
+                    url: base_url + "/authentication/action.php?action=getDatas",
+                    data: {
+                        type: 'school_year'
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status === 1) {
+                            $('#syCards').append(response.data);
+                        } else {
+                            alert(response.message || 'Something went wrong.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                        alert("Request failed. Please try again.");
+                    }
+                });
+                break;
 
-            }
+            default:
+                // Optional: Hide all cards again in default
+                $('#classroomCards, #sectionCards, #roomCards, #syCards').addClass('d-none');
+                break;
+        }
 
-            $(this).val(''); // Reset dropdown
-        });
+        // Reset dropdown to default after handling
+        $(this).val('');
     });
+
+    // OPEN MODALS ONLY
+    $('#managementSelect2').on('change', function() {
+        const selected = $(this).val();
+
+        if (selected === 'classroom') {
+            $('#classroomForm')[0].reset();
+            $('#classRoomModal').modal('show');
+        } else if (selected === 'grade_level') {
+            $('#gradeLevelForm')[0].reset();
+            $('#gradeLevelModal').modal('show');
+        } else if (selected === 'section') {
+            $('#sectionForm')[0].reset();
+            $('#sectionModal').modal('show');
+            $('#sectionForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: base_url + "/authentication/action.php?action=sections",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status === 1) {
+                            swal
+                                .fire({
+                                    title: "Success",
+                                    text: response.message,
+                                    icon: "success",
+                                    position: "top-end",
+                                    toast: true,
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                })
+                                .then(() => {
+                                    $(this).val('');
+                                    window.location.reload();
+                                });
+                        } else {
+                            swal.fire({
+                                title: "Error",
+                                text: response.message,
+                                icon: "error",
+                                position: "top-end",
+                                toast: true,
+                                timer: 3000,
+                                showConfirmButton: false,
+                            });
+                        }
+                    }
+                });
+            });
+        } else if (selected === 'syModal') {
+            $('#syForm')[0].reset();
+            $('#syModal').modal('show');
+            $('#syForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: base_url + "/authentication/action.php?action=schoolYear",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status === 1) {
+                            swal
+                                .fire({
+                                    title: "Success",
+                                    text: response.message,
+                                    icon: "success",
+                                    position: "top-end",
+                                    toast: true,
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                })
+                                .then(() => {
+                                    $(this).val('');
+                                    window.location.reload();
+                                });
+                        } else {
+                            swal.fire({
+                                title: "Error",
+                                text: response.message,
+                                icon: "error",
+                                position: "top-end",
+                                toast: true,
+                                timer: 3000,
+                                showConfirmButton: false,
+                            });
+                        }
+                    }
+                });
+            });
+
+
+        }
+
+        $(this).val(''); // Reset dropdown
+    });
+});
 </script>

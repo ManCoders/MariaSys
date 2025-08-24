@@ -33,7 +33,7 @@
 
   <!-- Stats Cards -->
   <div class="row g-3 mb-4">
-    <div class="col-md-3">
+    <div class="col-md-4">
       <div class="card p-3 text-center">
         <div class="icon-circle bg-success text-white mx-auto mb-2">
           👩‍🎓
@@ -42,7 +42,7 @@
         <h5>150000</h5>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <div class="card p-3 text-center">
         <div class="icon-circle bg-primary text-white mx-auto mb-2">
           👨‍🏫
@@ -51,7 +51,7 @@
         <h5>2250</h5>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <div class="card p-3 text-center">
         <div class="icon-circle bg-warning text-white mx-auto mb-2">
           👨‍👩‍👧‍👦
@@ -60,25 +60,10 @@
         <h5>5690</h5>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card p-3 text-center">
-        <div class="icon-circle bg-danger text-white mx-auto mb-2">
-          💰
-        </div>
-        <div>Earnings</div>
-        <h5>$193000</h5>
-      </div>
-    </div>
   </div>
 
   <!-- Charts Row -->
   <div class="row g-3">
-    <div class="col-md-3">
-      <div class="card p-3">
-        <h6>Expenses</h6>
-        <canvas id="expensesChart" height="200"></canvas>
-      </div>
-    </div>
     <div class="col-md-3">
       <div class="card p-3">
         <h6>Students</h6>

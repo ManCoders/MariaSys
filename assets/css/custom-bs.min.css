@@ -674,7 +674,6 @@ progress {
     color: #6c757d;
     font-size: .875em
 }
-
 .container2,
 .container-fluid,
 .container-lg,
@@ -6715,7 +6714,8 @@ fieldset:disabled .btn {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1050
+    z-index: 1050;
+    background-color: #0000001a !important;
 }
 
 .modal-dialog {

@@ -146,4 +146,47 @@ if ($action === 'get_parent_student') {
         echo $applications;
     }
 } */
+if ($action === 'getGradeLevel') {
+    $gradeLevel = $crud->getGradeLevel();
+    if ($gradeLevel) {
+        echo $gradeLevel;
+    }
+    exit;
+}
+if ($action === 'updateGradeLevel') {
+    $gradeLevel = $crud->updateGradeLevel();
+    if ($gradeLevel) {
+        echo $gradeLevel;
+    }
+    exit;
+}
+if ($action === 'deleteGradeLevel') {
+    $gradeLevel = $crud->deleteGradeLevel();
+    if ($gradeLevel) {
+        echo $gradeLevel;
+    }
+    exit;
+}
+
+if ($action === 'getSection') {
+    $gradeLevel = $crud->getSection();
+    if ($gradeLevel) {
+        echo $gradeLevel;
+    }
+    exit;
+}
+if ($action === 'updateSection') {
+    $gradeLevel = $crud->updateSection();
+    if ($gradeLevel) {
+        echo $gradeLevel;
+    }
+    exit;
+}
+if ($action === 'deleteSection') {
+    $gradeLevel = $crud->deleteSection();
+    if ($gradeLevel) {
+        echo $gradeLevel;
+    }
+    exit;
+}
 ?>

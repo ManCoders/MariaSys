@@ -437,7 +437,422 @@ $(document).ready(function () {
     },
   });
 });
+ 
+  $(document).on("click", "#editGradeLevel", function () {
+      const gradeLevelID = $(this).data('id');
+      document.getElementById('editGradeLevelId').value = gradeLevelID;
+      // const editModal = new bootstrap.Modal(document.getElementById('editGradeLevelModal'));
+      // editModal.show();
+      $("#editGradeLevelModal").show('modal');
+  });
+  $(document).on("click", "#editGradeLevel", function () {
+      const gradeLevelID = $(this).data('id');
+      document.getElementById('editGradeLevelId').value = gradeLevelID;
+      
+      // Fetch the existing grade level data first
+      $.ajax({
+          url: base_url + "authentication/action.php?action=getGradeLevel",
+          method: "POST",
+          data: { id: gradeLevelID },
+          dataType: "json",
+          success: function (response) {
+              console.log('Get Grade Level Response:', response); // Debug log
+              if (response.status === 1) {
+                  // Populate the form with existing data
+                  $('#gradeLevelValueID').val(response.data.grade_level_name);
+                  
+                  // Show the modal
+                  const editModal = new bootstrap.Modal(document.getElementById('editGradeLevelModal'));
+                  editModal.show();
+              } else {
+                  Swal.fire({
+                      title: "Error",
+                      text: response.message || "Failed to load grade level data",
+                      icon: "error",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  });
+              }
+          },
+          error: function (jqXHR, textStatus, err) {
+              console.error("AJAX error:", textStatus, err);
+              Swal.fire({
+                  title: "Error",
+                  text: "Failed to load grade level data",
+                  icon: "error",
+                  toast: true,
+                  position: "top-end",
+                  timer: 3000,
+                  showConfirmButton: false,
+              });
+          }
+      });
+  });
+  $("body").on("submit", "#editGradeLevelForm", function (e) {
+      e.preventDefault();
+      const $form = $(this);
 
+      if ($form.data("isSubmitted")) return; 
+      $form.data("isSubmitted", true);
+
+      const formData = new FormData(this);
+      const $btn = $form.find("button[type='submit']");
+
+      $btn.prop("disabled", true);
+      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Saving...');
+
+      $.ajax({
+          url: base_url + "authentication/action.php?action=updateGradeLevel",
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (response) {
+              console.log('Update Grade Level Response:', response); 
+              if (response.status === 1) {
+                  Swal.fire({
+                      title: "Success!",
+                      text: response.message,
+                      icon: "success",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  }).then(() => {
+                      $('#editGradeLevelModal').modal('hide');
+                      window.location = response.redirect_url || window.location.href;
+                  });
+              } else {
+                  Swal.fire({
+                      title: "Error",
+                      text: response.message,
+                      icon: "error",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  });
+                  $btn.text("Please try again!");
+              }
+          },
+          error: function (jqXHR, textStatus, err) {
+              console.error("AJAX error:", textStatus, err);
+              Swal.fire({
+                  title: "Error",
+                  text: "An error occurred while updating. Please try again.",
+                  icon: "error",
+                  toast: true,
+                  position: "top-end",
+                  timer: 3000,
+                  showConfirmButton: false,
+              });
+          },
+          complete: function () {
+              $form.data("isSubmitted", false);
+              $btn
+                  .prop("disabled", false)
+                  .html('Save Changes');
+          },
+      });
+  });
+
+  $(document).on("click", "#deleteGradeLevel", function () {
+      const deleteGradeLevelId = $(this).data('id');
+      console.log('Setting deleteGradeLevelId:', deleteGradeLevelId);
+      document.getElementById('deleteGradeLevelId').value = deleteGradeLevelId;
+      const deleteModal = new bootstrap.Modal(document.getElementById('deleteGradeLevelModal'));
+      deleteModal.show();
+  });
+  $("body").on("submit", "#deleteGradeLevelForm", function (e) { 
+      e.preventDefault();
+      const $form = $(this);
+
+      // Debug form data
+      const formData = new FormData(this);
+      console.log('Form data being sent:');
+      for (let [key, value] of formData.entries()) {
+          console.log(key + ': ' + value);
+      }
+
+      if ($form.data("isSubmitted")) return; 
+      $form.data("isSubmitted", true);
+
+      const $btn = $form.find("button[type='submit']");
+      $btn.prop("disabled", true);
+      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Deleting...');
+
+      $.ajax({
+          url: base_url + "authentication/action.php?action=deleteGradeLevel",
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (response) {
+              console.log('Delete Grade Level Response:', response); 
+              if (response.status === 1) {
+                  Swal.fire({
+                      title: "Success!",
+                      text: response.message,
+                      icon: "success",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  }).then(() => {
+                      $('#deleteGradeLevelModal').modal('hide');
+                      window.location = response.redirect_url || window.location.href;
+                  });
+              } else {
+                  Swal.fire({
+                      title: "Error",
+                      text: response.message,
+                      icon: "error",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  });
+                  $btn.text("Please try again!");
+              }
+          },
+          error: function (jqXHR, textStatus, err) {
+              console.error("AJAX error:", textStatus, err);
+              Swal.fire({
+                  title: "Error",
+                  text: "An error occurred while deleting. Please try again.",
+                  icon: "error",
+                  toast: true,
+                  position: "top-end",
+                  timer: 3000,
+                  showConfirmButton: false,
+              });
+          },
+          complete: function () {
+              $form.data("isSubmitted", false);
+              $btn
+                  .prop("disabled", false)
+                  .html('Yes, delete'); 
+          },
+      });
+  });
+
+  $(document).on("click", "#editSection", function () {
+      const sectionID = $(this).data('id');
+      // document.getElementById('editSectionId').value = sectionID;
+      $("#editSectionId").val(sectionID);
+      // const editModal = new bootstrap.Modal(document.getElementById('editSectionModal'));
+      $("#editSectionModal").show('modal');
+      // editModal.show();
+      $(document).on("submit", "#editSectionForm", function () {
+          $.ajax({
+          type: "post",
+          url: base_url + "authentication/action.php?action=updateSection",
+          data: $(this).closest("form").serialize(),
+          dataType: "dataType",
+          success: function (response) {
+            if(response.status == 1){
+              alert('successfully updated');
+            }
+          }
+        });
+      });
+      
+  });
+  $(document).on("click", "#editSection", function () {
+      const sectionID = $(this).data('id');
+      document.getElementById('editSectionId').value = sectionID;
+      $.ajax({
+          url: base_url + "authentication/action.php?action=getSection",
+          method: "POST",
+          data: { id: sectionID },
+          dataType: "json",
+          success: function (response) {
+              console.log('Get Grade Level Response:', response); 
+              if (response.status === 1) {
+                  $('#sectionNameValueID').val(response.data.section_name);
+                  $('#sectionDescriptionValueID').val(response.data.section_description);
+                  
+                  const editModal = new bootstrap.Modal(document.getElementById('editSectionModal'));
+                  editModal.show();
+              } else {
+                  Swal.fire({
+                      title: "Error",
+                      text: response.message || "Failed to load grade level data",
+                      icon: "error",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  });
+              }
+          },
+          error: function (jqXHR, textStatus, err) {
+              console.error("AJAX error:", textStatus, err);
+              Swal.fire({
+                  title: "Error",
+                  text: "Failed to load grade level data",
+                  icon: "error",
+                  toast: true,
+                  position: "top-end",
+                  timer: 3000,
+                  showConfirmButton: false,
+              });
+          }
+      });
+  });
+  $("body").on("submit", "#editSectionForm", function (e) {
+      e.preventDefault();
+      const $form = $(this);
+
+      if ($form.data("isSubmitted")) return; 
+      $form.data("isSubmitted", true);
+
+      const formData = new FormData(this);
+      const $btn = $form.find("button[type='submit']");
+
+      $btn.prop("disabled", true);
+      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Saving...');
+
+      $.ajax({
+          url: base_url + "authentication/action.php?action=updateSection",
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (response) {
+              console.log('Update Grade Level Response:', response); 
+              if (response.status === 1) {
+                  Swal.fire({
+                      title: "Success!",
+                      text: response.message,
+                      icon: "success",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  }).then(() => {
+                      $('#editSectionModal').modal('hide');
+                      window.location = response.redirect_url || window.location.href;
+                  });
+              } else {
+                  Swal.fire({
+                      title: "Error",
+                      text: response.message,
+                      icon: "error",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  });
+                  $btn.text("Please try again!");
+              }
+          },
+          error: function (jqXHR, textStatus, err) {
+              console.error("AJAX error:", textStatus, err);
+              Swal.fire({
+                  title: "Error",
+                  text: "An error occurred while updating. Please try again.",
+                  icon: "error",
+                  toast: true,
+                  position: "top-end",
+                  timer: 3000,
+                  showConfirmButton: false,
+              });
+          },
+          complete: function () {
+              $form.data("isSubmitted", false);
+              $btn
+                  .prop("disabled", false)
+                  .html('Save Changes');
+          },
+      });
+  });
+
+  $(document).on("click", "#deleteSection", function () {
+      const deleteSectionId = $(this).data('id');
+      console.log('Setting deleteSectionId:', deleteSectionId);
+      document.getElementById('deleteSectionId').value = deleteSectionId;
+      const deleteModal = new bootstrap.Modal(document.getElementById('deleteSectionModal'));
+      deleteModal.show();
+  });
+  $("body").on("submit", "#deleteSectionForm", function (e) { 
+      e.preventDefault();
+      const $form = $(this);
+
+      // Debug form data
+      const formData = new FormData(this);
+      console.log('Form data being sent:');
+      for (let [key, value] of formData.entries()) {
+          console.log(key + ': ' + value);
+      }
+
+      if ($form.data("isSubmitted")) return; 
+      $form.data("isSubmitted", true);
+
+      const $btn = $form.find("button[type='submit']");
+      $btn.prop("disabled", true);
+      $btn.html('<i class="fas fa-spinner fa-spin me-1"></i> Deleting...');
+
+      $.ajax({
+          url: base_url + "authentication/action.php?action=deleteSection",
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (response) {
+              console.log('Delete Section Response:', response); 
+              if (response.status === 1) {
+                  Swal.fire({
+                      title: "Success!",
+                      text: response.message,
+                      icon: "success",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  }).then(() => {
+                      $('#deleteSectionModal').modal('hide');
+                      window.location = response.redirect_url || window.location.href;
+                  });
+              } else {
+                  Swal.fire({
+                      title: "Error",
+                      text: response.message,
+                      icon: "error",
+                      toast: true,
+                      position: "top-end",
+                      timer: 3000,
+                      showConfirmButton: false,
+                  });
+                  $btn.text("Please try again!");
+              }
+          },
+          error: function (jqXHR, textStatus, err) {
+              console.error("AJAX error:", textStatus, err);
+              Swal.fire({
+                  title: "Error",
+                  text: "An error occurred while deleting. Please try again.",
+                  icon: "error",
+                  toast: true,
+                  position: "top-end",
+                  timer: 3000,
+                  showConfirmButton: false,
+              });
+          },
+          complete: function () {
+              $form.data("isSubmitted", false);
+              $btn
+                  .prop("disabled", false)
+                  .html('Yes, delete'); 
+          },
+      });
+  });
 
   function showError(message, icon, title, url) {
     Swal.fire({
