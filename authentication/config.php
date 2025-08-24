@@ -189,6 +189,12 @@ function db_connect()
                 section_description TEXT,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
+            "CREATE TABLE IF NOT EXISTS classrooms (
+                room_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                room_name VARCHAR(50) NOT NULL,
+                room_type VARCHAR(50) NOT NULL,
+                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )",
             "CREATE TABLE IF NOT EXISTS enrollment_additional_info (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     
@@ -291,6 +297,7 @@ function db_connect()
                 FOREIGN KEY (learner_id) REFERENCES learners(learner_id) ON DELETE CASCADE ON UPDATE CASCADE,
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )",
+            
             "CREATE TABLE IF NOT EXISTS system (
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 system_title VARCHAR(50) NOT NULL,

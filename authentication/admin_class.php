@@ -747,10 +747,11 @@ class Action
         $type = $_REQUEST['type'] ?? '';
 
         // ✅ Whitelisted table names to prevent SQL injection
-        $validTypes = [
+         $validTypes = [
             'school_year' => 'school_year',
             'sections'    => 'sections',
-            'grade_level'    => 'grade_level'
+            'grade_level' => 'grade_level',
+            'classrooms'  => 'classrooms'
         ];
 
         // ✅ Check if valid
@@ -836,8 +837,38 @@ class Action
                         </div>
                     </div>
                 </div>';
+            }elseif ($type === 'classrooms') {
+                $room_name = htmlspecialchars($row['room_name'] ?? 'N/A', ENT_QUOTES, 'UTF-8');
+                $room_type = htmlspecialchars($row['room_type'] ?? 'N/A', ENT_QUOTES, 'UTF-8');
+                $created_date = htmlspecialchars($row['created_date'] ?? 'N/A', ENT_QUOTES, 'UTF-8');
+                $classroom_id = htmlspecialchars($row['room_id'] ?? 'N/A', ENT_QUOTES, 'UTF-8'); 
+
+                $cards .= '
+                <div class="col-md-4">
+                    <div class="card shadow-sm border">
+                        <div class="card-body ">
+                            <h5 class="card-title">Room name: ' . $room_name . '</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Room Type: ' . $room_type . '</h6>
+                            <p class="card-text">
+                                created at: <strong>' . $created_date . '</strong><br />
+                            </p>
+                            <div class="d-flex col-md-12 gap-1">
+                                <button class="btn m-0 btn-outline-success" type="button" id="editClassroom" data-id="'. $classroom_id .'">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button class="btn m-0 btn-outline-danger" type="button" id="deleteClassroom" data-id="'. $classroom_id .'">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <select class="form-select mx-auto text-center" name="roomstatus" id="roomstatus">
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">In Active</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
             }
-        }
+        } 
 
         return json_encode(['status' => 1, 'data' => $cards]);
 
@@ -1466,5 +1497,55 @@ class Action
                 'message' => 'An error occurred: ' . $e->getMessage()
             ]);
         }
+    }
+
+    function create_classroom() {
+        
+        try {
+            $room_name = $_POST["room_number"];
+            $room_type = $_POST["room_type"];
+            
+            $stmt = $this->db->prepare("SELECT room_name FROM classrooms WHERE room_name = :room_name");
+            $stmt->bindParam(':room_name', $room_name);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                echo json_encode([
+                    'status' => 0,
+                    'message' => 'Room name already exists'
+                ]);
+                exit;
+            }
+
+            if (empty($room_name) || empty($room_type)) {
+                echo json_encode([
+                    'status' => 0,
+                    'message' => 'Room name and type are required'
+                ]);
+                exit;
+            }
+            $stmt = $this->db->prepare("INSERT INTO classrooms (room_name, room_type) VALUES (:room_name, :room_type)");
+            $stmt->bindParam(':room_name', $room_name);
+            $stmt->bindParam(':room_type', $room_type);
+            
+            if ($stmt->execute()) {
+                echo json_encode([
+                    'status' => 1,
+                    'message' => 'Room created successfully',
+                    'redirect_url' => 'index.php?page=contents/classroom'
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 0,
+                    'message' => 'Failed to create room'
+                ]);
+            }
+        } catch (PDOException $e) {
+            echo json_encode([
+                'status' => 0,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ]);
+        }
+        exit; // Ensure no additional output
     }
 }

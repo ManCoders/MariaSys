@@ -437,7 +437,9 @@ $(document).ready(function () {
     },
   });
 });
- 
+
+
+  // kalokohan ni marco jean hahahahaha
   $(document).on("click", "#editGradeLevel", function () {
       const gradeLevelID = $(this).data('id');
       document.getElementById('editGradeLevelId').value = gradeLevelID;
@@ -851,6 +853,62 @@ $(document).ready(function () {
                   .prop("disabled", false)
                   .html('Yes, delete'); 
           },
+      });
+  });
+  $(document).on("submit", "#roomForm", function(e) { 
+      e.preventDefault();
+      
+      const submitBtn = $(this).find('button[type="submit"]');
+      const originalText = submitBtn.html();
+      submitBtn.html('<i class="fa fa-spinner fa-spin me-1"></i> Saving...');
+      submitBtn.prop('disabled', true);
+      $.ajax({
+          type: "POST",
+          url: base_url + "authentication/action.php?action=create_classroom",
+          data: $(this).serialize(),
+          dataType: "json", 
+          success: function(response) {
+              submitBtn.html(originalText);
+              submitBtn.prop('disabled', false);
+              
+              if (response.status === 1) {
+                  Swal.fire({
+                    title: "Success!",
+                    text: response.message,
+                    icon: "success",
+                    toast: true,
+                    position: "top-end",
+                    timer: 3000,
+                    showConfirmButton: false,
+                  }).then(() => {
+                    $("#classRoomModal").closest(".modal").modal("hide"); // Correct modal close
+                    // window.location.reload();
+                  });
+              } else {
+                Swal.fire({
+                  title: "Error",
+                  text: response.message || "Submission failed.",
+                  icon: "error",
+                  toast: true,
+                  position: "top-end",
+                  timer: 3000,
+                  showConfirmButton: false,
+                });
+                $btn.html('<i class="fa fa-save me-1"></i> Try Again');
+              }
+          },
+          error: function(xhr, status, error) {
+              submitBtn.html(originalText);
+              submitBtn.prop('disabled', false);
+              
+              // Check if it's a JSON parse error
+              if (xhr.responseText && xhr.responseText.trim().startsWith('<')) {
+                  console.error('Server returned HTML instead of JSON:', xhr.responseText);
+                  alert('Server error: Invalid response format. Please check console for details.');
+              } else {
+                  alert('Request failed: ' + error);
+              }
+          }
       });
   });
 

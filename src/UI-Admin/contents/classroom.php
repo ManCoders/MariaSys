@@ -13,7 +13,7 @@
                         <option value="sy">School Year</option>
                         <option value="section">Sections</option>
                         <option value="grade_level">Grade Levels</option>
-                        <option value="classroom">Classrooms</option>
+                        <option value="classrooms">Classrooms</option>
 
                     </select>
                 </div>
@@ -35,7 +35,7 @@
     <!-- CLASSROOM LIST -->
     <div id="classroomCards" class="row g-3">
         <h5 class="mb-3 text-success"><i class="fa fa-school me-2"></i>All Classrooms</h5>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <div class="card shadow-sm border">
                 <div class="card-body">
                     <h5 class="card-title">Grade 3 - Saturn</h5>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Add more dynamically -->
     </div>
 
@@ -309,11 +309,11 @@
                     <div class="modal-body">
                         <div class="mb-2">
                             <label>Room Number</label>
-                            <input type="text" name="room_number" class="form-control" placeholder="e.g. Room 101">
+                            <input required type="text" name="room_number" class="form-control" placeholder="e.g. Room 101">
                         </div>
                         <div class="mb-2">
                             <label>Room Type</label>
-                            <select name="room_type" class="form-select">
+                            <select required name="room_type" class="form-select">
                                 <option value="">Select</option>
                                 <option value="Lecture">Lecture</option>
                                 <option value="Computer Lab">Computer Lab</option>
@@ -378,15 +378,34 @@
 $(document).ready(function() {
 
     // SHOW LIST ONLY
-    $('#managementSelect').on('change', function() {
+    $('#managementSelect').off('change').on('change', function() {
         const selected = $(this).val();
 
         // Hide all list containers initially
         $('#classroomCards, #sectionCards, #roomCards, #gradeLevelCards, #syCards').addClass('d-none');
 
         switch (selected) {
-            case 'classroom':
+            case 'classrooms':
                 $('#classroomCards').removeClass('d-none');
+                $.ajax({
+                    type: "GET",
+                    url: base_url + "/authentication/action.php?action=getDatas",
+                    data: {
+                        type: 'classrooms'
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status === 1) {
+                            $('#classroomCards').append(response.data);
+                        } else {
+                            alert(response.message || 'Something went wrong.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                        alert("Request failed. Please try again.");
+                    }
+                });
                 break;
 
             case 'section':
@@ -469,11 +488,50 @@ $(document).ready(function() {
 
     // OPEN MODALS ONLY
     $('#managementSelect2').on('change', function() {
-        const selected = $(this).val();
+    const selected = $(this).val();
 
-        if (selected === 'classroom') {
-            $('#classroomForm')[0].reset();
-            $('#classRoomModal').modal('show');
+    if (selected === 'classroom') {
+        $('#roomForm')[0].reset(); // Changed from '#classroomForm' to '#roomForm'
+        $('#classRoomModal').modal('show');
+        
+        // You should also add the submit handler here like you did for other forms
+        $('#roomForm').off('submit').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: base_url + "/authentication/action.php?action=classroom", // Make sure this endpoint exists
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(response) {
+                    if (response.status === 1) {
+                        swal
+                            .fire({
+                                title: "Success",
+                                text: response.message,
+                                icon: "success",
+                                position: "top-end",
+                                toast: true,
+                                timer: 3000,
+                                showConfirmButton: false,
+                            })
+                            .then(() => {
+                                $(this).val('');
+                                window.location.reload();
+                            });
+                    } else {
+                        swal.fire({
+                            title: "Error",
+                            text: response.message,
+                            icon: "error",
+                            position: "top-end",
+                            toast: true,
+                            timer: 3000,
+                            showConfirmButton: false,
+                        });
+                    }
+                }
+            });
+        });
         } else if (selected === 'grade_level') {
             $('#gradeLevelForm')[0].reset();
             $('#gradeLevelModal').modal('show');

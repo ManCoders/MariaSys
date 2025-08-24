@@ -189,4 +189,11 @@ if ($action === 'deleteSection') {
     }
     exit;
 }
+if($action === 'create_classroom'){
+	$classroom = $crud->create_classroom();
+	if($classroom){
+		echo $classroom;
+	}
+	exit;
+}
 ?>
