@@ -196,4 +196,25 @@ if($action === 'create_classroom'){
 	}
 	exit;
 }
+if($action === 'fetch_classroom'){
+	$classroom = $crud->fetch_classroom();
+	if($classroom){
+		echo $classroom;
+	}
+	exit;
+}
+if($action === 'edit_classroom'){
+	$classroom = $crud->edit_classroom();
+	if($classroom){
+		echo $classroom;
+	}
+	exit;
+}
+if($action === 'delete_classroom'){
+	$classroom = $crud->delete_classroom();
+	if($classroom){
+		echo $classroom;
+	}
+	exit;
+}
 ?>

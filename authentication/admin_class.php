@@ -1548,4 +1548,142 @@ class Action
         }
         exit; // Ensure no additional output
     }
+    function fetch_classroom(){
+        try {
+            $room_id = $_POST["id"] ?? '';
+            if($room_id == ''){
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Room Id not found'
+                ]);
+            }
+            $stmt = $this->db->prepare("SELECT * FROM classrooms WHERE room_id = ?");
+            $stmt->execute([$room_id]);
+            
+            $classrooms = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($classrooms) {
+                return json_encode([
+                    'status' => 1,
+                    'message' => 'Grade level retrieved successfully',
+                    'data' => $classrooms
+                ]);
+            } else {
+                return json_encode(['status' => 0, 'message' => 'Grade level not found']);
+            }
+        } catch (PDOException $e) {
+            return jsonn_encode([
+                'status' => 0,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ]);
+        }
+    }
+    function edit_classroom(){
+        if (empty($_POST)) {
+            return json_encode(['status' => 0, 'message' => 'No form data submitted.']);
+        }
+
+        $classroomsID = trim($_POST['classroomsID'] ?? '');
+        $classroomName = trim($_POST['classroomName'] ?? '');
+        $classroomType = trim($_POST['classroomType'] ?? '');
+
+        if (empty($classroomName) || empty($classroomType)) {
+            return json_encode(['status' => 0, 'message' => 'Grade level ID and name are required.']);
+        }
+
+        if (!is_numeric($classroomsID)) {
+            return json_encode(['status' => 0, 'message' => 'Invalid grade level ID.']);
+        }
+
+        try {
+            $stmt = $this->db->prepare("SELECT COUNT(*) FROM classrooms WHERE room_name = ? AND room_type = ? AND room_id != ?");
+            $stmt->execute([$classroomName, $classroomType, $classroomsID]);
+            
+            if ($stmt->fetchColumn() > 0) {
+                return json_encode([
+                    'status' => 0, 
+                    'message' => 'Classrooms name already exists.'
+                ]);
+            }
+
+            $stmt = $this->db->prepare("UPDATE classrooms SET room_name = ?, room_type = ?  WHERE room_id = ?");
+            $result = $stmt->execute([$classroomName, $classroomType, $classroomsID]);
+
+            if ($result) {
+                return json_encode([
+                    'status' => 1,
+                    'message' => 'Class rooms updated successfully.',
+                    'redirect_url' => 'index.php?page=contents/classroom'
+                ]);
+            } else {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Failed to update grade level. No changes made.'
+                ]);
+            }
+        } catch (Exception $e) {
+            error_log("updateGradeLevel Error: " . $e->getMessage());
+            return json_encode([
+                'status' => 0,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ]);
+        }
+    }
+    function delete_classroom(){
+          if (empty($_POST)) {
+            return json_encode(['status' => 0, 'message' => 'No form data submitted.']);
+        }
+
+        // FIX: Changed from 'gradeLevelID' to 'grade_LevelID' to match the form field name
+        $room_id = $_POST['classroomID'] ?? '';
+
+        if (empty($room_id)) {
+            return json_encode(['status' => 0, 'message' => 'Grade level ID is required.']);
+        }
+
+        if (!is_numeric($room_id)) {
+            return json_encode(['status' => 0, 'message' => 'Invalid grade level ID.' . $room_id]);
+        }
+
+        try {
+            $checkStmt = $this->db->prepare("SELECT * FROM classrooms WHERE room_id = ?");
+            $checkStmt->execute([$room_id]);
+            
+            if ($checkStmt->rowCount() === 0) {
+                return json_encode([
+                    'status' => 0, 
+                    'message' => 'Section not found.'
+                ]);
+            }
+            $stmt = $this->db->prepare("DELETE FROM classrooms WHERE room_id = ?");
+            $result = $stmt->execute([$room_id]);
+
+            if ($result) {
+                return json_encode([
+                    'status' => 1,
+                    'message' => 'Classroom deleted successfully.',
+                    'redirect_url' => 'index.php?page=contents/classroom'
+                ]);
+            } else {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Failed to delete Section.'
+                ]);
+            }
+        } catch (Exception $e) {
+            error_log("deleteSection Error: " . $e->getMessage());
+            
+            if (strpos($e->getMessage(), 'foreign key constraint') !== false) {
+                return json_encode([
+                    'status' => 0,
+                    'message' => 'Cannot delete Section. It is being used by other records in the system.'
+                ]);
+            }
+            
+            return json_encode([
+                'status' => 0,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ]);
+        }
+    }
 }

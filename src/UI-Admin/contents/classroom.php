@@ -57,7 +57,7 @@
 
     <!-- grade level list -->
     <div id="gradeLevelCards" class="row g-3 d-none">
-        <h5 class="mb-3 text-primary"><i class="fa fa-layer-group me-2 mx-auto"></i>Grade Levels</h5>
+        <h5 class="mb-3 text-success"><i class="fa fa-school me-2"></i>Grade Levels</h5>
         <div class="col-md-4">
             <div class="card shadow-sm border">
                 <div class="card-body ">
@@ -200,6 +200,51 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="editClassroomsModal" tabindex="-1" aria-labelledby="editClassroomsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="POST" class="modal-content" id="editClassroomsForm">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="editClassroomsModalLabel">Edit Section</h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="classroomsID"  id="editClassroomsID">
+                    <div class="mb-3">
+                        <label for="classroomNameValueID" class="form-label">Section name</label>
+                        <input type="text" class="form-control" id="classroomNameValueID" name="classroomName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="classroomTypeValueID" class="form-label">Section Description</label>
+                        <input type="text" class="form-control" id="classroomTypeValueID" name="classroomType" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="edit_classroom" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteClassroomsModal" tabindex="-1" aria-labelledby="deleteClassroomsModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-none">
+            <form method="POST" class="modal-content" id="deleteClassroomForm">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="deleteClassroomsModalLabel">Delete Section</h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- CHANGE: from grade_LevelID to SectionID -->
+                    <input type="hidden" name="classroomID" id="deleteClassroomId">
+                    <div class="mb-3">
+                        <h5 class="form-label">Are you sure you want to delete this grade level?</h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="deleteSection" class="btn btn-danger">Yes, delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <div id="syCards" class="d-none row g-3">
         <h5 class="mb-3 text-warning"><i class="fa fa-door-closed me-2"></i>All School Years</h5>
